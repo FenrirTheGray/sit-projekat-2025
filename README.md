@@ -63,7 +63,7 @@ prodaje i slabe analitike.
 Ciljevi ServeLogic sistema su:
 
 -   omogućiti centralizovano upravljanje jelovnikom (kategorije, artikli,
-    modifikatori, kombi ponude),
+    modifikatori, kombo ponude),
 
 -   obezbediti aplikaciju za poručivanje koja koristi pouzdan i jasan API,
 
@@ -156,7 +156,7 @@ Ciljevi ServeLogic sistema su:
     -   Predlog: ArangoDB (graf model)
 
     -   Sadrži kolekcije za korisnike, artikle, kategorije, modifikatore,
-        kombi ponude, porudžbine i relacije među njima
+        kombo ponude, porudžbine i relacije među njima
 
 **4.2. Arhitektura (opis)**
 
@@ -197,14 +197,14 @@ Svi zahtevi su formulisani tako da budu proverljivi.
     artikala sa ukupnom cenom.
 
 -   **FZ-8**: Sistem mora omogućiti aktiviranje/deaktiviranje modifikatora
-    i kombi ponuda.
+    i kombo ponuda.
 
 **5.3. Poručivanje**
 
 -   **FZ-9**: Aplikacija za poručivanje mora prikazati listu aktivnih
-    kategorija, artikala, dozvoljenih modifikatora i kombi ponuda.
+    kategorija, artikala, dozvoljenih modifikatora i kombo ponuda.
 
--   **FZ-10**: Korisnik mora moći da doda više artikala i kombi ponuda u
+-   **FZ-10**: Korisnik mora moći da doda više artikala i kombo ponuda u
     jednu porudžbinu.
 
 -   **FZ-11**: Backend mora validirati da su izabrani modifikatori
