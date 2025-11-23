@@ -1,21 +1,21 @@
 **SPECIFIKACIJA PROJEKTA**
 
-**Naziv projekta:** ServeLogic -- Sistem za restoranski menadžment  
+**Naziv projekta:** ServeLogic - Sistem za restoranski menadžment  
 **Predmet:** Metodologija razvoja softvera  
 **Tim:**
 
 -   Aleksandar Čolović - 2023270030
 
--   Gojko Dikić -- 2023270048
+-   Gojko Dikić - 2023270048
 
--   Boris Radosavljević -- 2023270568
+-   Boris Radosavljević - 2023270568
 
--   Jovan Stoiljković -- 2024271443
+-   Jovan Stoiljković - 2024271443
 
--   Dušan Krstić -- 2023270886
+-   Dušan Krstić - 2023270886
 
-**Verzija dokumenta:** 1.0  
-**Datum:** 07.11.2025
+**Verzija dokumenta:** 1.1  
+**Datum:** 23.11.2025
 
 **1. Uvod**
 
@@ -30,14 +30,14 @@ projekta u okviru predmeta _Metodologije razvoja softvera_.
 
 ServeLogic je web zasnovani sistem koji se sastoji iz:
 
--   CMS App -- Frontend administratorske Web aplikacije za upravljanje  
+-   CMS App - Frontend administratorske Web aplikacije za upravljanje  
     restoranskim menijem i praćenje statistike porudžbina
 
--   Ordering App -- Frontend Web Aplikacije za pravljenje porudžbina
+-   Ordering App - Frontend Web Aplikacije za pravljenje porudžbina
 
--   ServeLogic API -- Centralne Backend API aplikacije
+-   ServeLogic API - Centralne Backend API aplikacije
 
--   ServeLogic DB -- Baze podataka
+-   ServeLogic DB - Baze podataka
 
 **2. Opis problema i ciljevi**
 
@@ -103,7 +103,7 @@ Ciljevi ServeLogic sistema su:
 
 -   Članovi projektnog tima
 
--   Potencijalni korisnici (menadžment restorana) -- hipotetički
+-   Potencijalni korisnici (menadžment restorana) - hipotetički
 
 **3.2. Korisničke uloge**
 
@@ -129,7 +129,7 @@ Ciljevi ServeLogic sistema su:
 
 **4.1. Komponente sistema**
 
-1.  **Administratorska web aplikacija -- CMS App**
+1.  **Administratorska web aplikacija - CMS App**
 
     -   Omogućava konfiguraciju jelovnika
 
@@ -137,7 +137,7 @@ Ciljevi ServeLogic sistema su:
 
     -   Komunicira sa centralnim API-jem
 
-2.  **Aplikacija za poručivanje -- Ordering App**
+2.  **Aplikacija za poručivanje - Ordering App**
 
     -   Prikazuje jelovnik kupcu
 
@@ -145,13 +145,13 @@ Ciljevi ServeLogic sistema su:
 
     -   Komunicira sa centralnim API-jem
 
-3.  **Backend API servis -- ServeLogic API**
+3.  **Backend API servis - ServeLogic API**
 
     -   Implementira pravila validacije, obračuna i bezbednosne mehanizme.
 
     -   Isporučuje REST endpoint-e
 
-4.  **Baza podataka -- ServeLogic DB**
+4.  **Baza podataka - ServeLogic DB**
 
     -   Predlog: ArangoDB (graf model)
 
@@ -275,7 +275,7 @@ Svi zahtevi su formulisani tako da budu proverljivi.
 U ovom poglavlju su opisani ključni slučajevi korišćenja. Na osnovu
 ovoga biće izrađen UML dijagram slučajeva korišćenja.
 
-**7.1. UC-01 -- Kreiranje porudžbine (Kupac)**
+**7.1. UC-01 - Kreiranje porudžbine (Kupac)**
 
 **Akter:** Kupac  
 **Preduslovi:** Postoji važeći jelovnik; sistem je dostupan.  
@@ -299,7 +299,7 @@ ovoga biće izrađen UML dijagram slučajeva korišćenja.
 **Krajnji Rezultat:** Porudžbina je trajno sačuvana; dostupna je za
 pregled osoblju i u statistici.
 
-**7.2. UC-02 -- Upravljanje artiklom (Administrator)**
+**7.2. UC-02 - Upravljanje artiklom (Administrator)**
 
 **Akter:** Administrator  
 **Preduslovi:** Postoji važeći jelovnik; sistem je dostupan.  
@@ -317,7 +317,7 @@ pregled osoblju i u statistici.
 **Krajnji Rezultat:** Ažurirani podaci vidljivi su u aplikaciji za
 poručivanje.
 
-**7.3. UC-03 -- Konfigurisanje modifikatora (Administrator)**
+**7.3. UC-03 - Konfigurisanje modifikatora (Administrator)**
 
 **Akter:** **Administrator**  
 **Preduslovi:** Postoji važeći jelovnik; sistem je dostupan.  
@@ -334,7 +334,7 @@ poručivanje.
 **Krajnji Rezultat:** Ažurirani podaci vidljivi su u aplikaciji za
 poručivanje.
 
-**7.4. UC-04 -- Pregled dnevne statistike (Administrator)**
+**7.4. UC-04 - Pregled dnevne statistike (Administrator)**
 
 **Akter:** Administrator  
 **Glavni tok:**
@@ -386,23 +386,23 @@ Order-OrderItem).
 
 Tim broji 5 članova. Predlaže se podela:
 
--   **R1 -- Vođa tima / Arhitekta**
+-   **R1 - Vođa tima / Arhitekta**
 
     -   Koordinacija, tehničke odluke, komunikacija sa asistentima.
 
--   **R2 -- Backend developer**
+-   **R2 - Backend developer**
 
     -   API, validacija, integracija sa bazom.
 
--   **R3 -- Frontend CMS developer**
+-   **R3 - Frontend CMS developer**
 
     -   Administratorski interfejs.
 
--   **R4 -- Frontend Ordering developer**
+-   **R4 - Frontend Ordering developer**
 
     -   Aplikacija za poručivanje.
 
--   **R5 -- QA & Dokumentacija**
+-   **R5 - QA & Dokumentacija**
 
     -   Testiranje, automatizovani testovi, održavanje dokumentacije.
 
@@ -428,13 +428,25 @@ Koristi se prilagođeni **agilni pristup**:
 
 -   Kontrola verzija: GitHub
 
--   Upravljanje zadacima: Jira
+-   Upravljanje zadacima: GitHub Issues
 
--   Dokumentacija: ovaj dokument + dodatna tehnička dokumentacija
+-   Dijagrami: Astah Professional
 
--   Testiranje: osnovni end-to-end scenariji
+-   Dizajn: Figma
 
-**9.4. Definition of Done**
+-   Komunikacija: Discord
+
+**9.4. Odabrane Tehnologije**
+
+-   CMS App: Vaadin (Java)
+
+-   Ordering App: Vaadin (Java)
+
+-   ServeLogic API: Spring (Java)
+
+-   ServeLogicDB: ArangoDB
+
+**9.5. Definition of Done**
 
 Funkcionalnost se smatra završenom ako:
 
@@ -461,20 +473,19 @@ Funkcionalnost se smatra završenom ako:
 -   Infrastruktura je ograničena na raspoložive studentske/server resurse.
 
 -   Tehnologije se biraju tako da su prikladne za program predmeta
-    (Python + ArangoDB itd.).
 
 **10.3. Rizici**
 
--   **R1 -- Prevelik obim funkcionalnosti**
+-   **R1 - Prevelik obim funkcionalnosti**
 
     -   Mitigacija: prioritet imaju osnovni use case-ovi (jelovnik,
         porudžbina, osnovna statistika).
 
--   **R2 -- Neiskustvo sa izabranim tehnologijama**
+-   **R2 - Neiskustvo sa izabranim tehnologijama**
 
     -   Mitigacija: jednostavnija arhitektura, podela znanja u timu.
 
--   **R3 -- Nedostatak vremena**
+-   **R3 - Nedostatak vremena**
 
     -   Mitigacija: jasna podela zadataka, minimalan skup obaveznih
         funkcionalnosti.
