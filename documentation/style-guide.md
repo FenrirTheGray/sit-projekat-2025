@@ -3,7 +3,7 @@
 ## Intro
 This document serves as a guide for agreed upon, naming conventions, text formatting and visual styles. 
 
-Preferred writting language is English unles stated otherwise.
+Preferred writting language is English unless stated otherwise.
 
 ---
 
@@ -129,20 +129,20 @@ For base sequnce:
 ```
 When referencing Task B use: 
 ```
- 1a. Condition A
+ 2a. Condition A
     1. Task G 
     2. Task H
 ```
 When referenced again: 
 ```
- 1b. Condition B
+ 2b. Condition B
     1. Task G 
     2. Task H
 ```
 
 When referencing Task D use:
 ```
-2.2a. Condition B
+2.2a. Condition C
     1. Task I
     2. Task J
 ```
