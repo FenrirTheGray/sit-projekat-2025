@@ -9,10 +9,10 @@ Preferred writting language is English unles stated otherwise.
 
 ## Contents:
 
-[1. Git](#1.Git)
-[2. Astah](#2.Astah)
-[3. Java](#3.Java)
-[4. Figma](#4.Figma)
+[1. Git](#1.%20Git)
+[2. Astah](#2.%20Astah)
+[3. Java](#3.%20Java)
+[4. Figma](#4.%20Figma)
 
 ---
 
