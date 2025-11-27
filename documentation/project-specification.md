@@ -174,74 +174,56 @@ Svi zahtevi su formulisani tako da budu proverljivi.
 
 **5.1. Upravljanje kategorijama i artiklima**
 
--   **FZ-1**: Sistem mora omogućiti admin korisniku kreiranje, izmenu i
-    brisanje kategorija.
+-   **FZ-1**: Administratoru se mora omogućiti kreiranje, izmena i brisanje Kategorija
 
--   **FZ-2**: Sistem mora omogućiti admin korisniku kreiranje, izmenu i
-    brisanje artikala.
+-   **FZ-2**: Administratoru se mora omogućiti kreiranje, izmena i brisanje Artikala
 
--   **FZ-3**: Svaki artikal mora biti povezan sa tačno jednom kategorijom.
+-   **FZ-3**: Administratoru se mora omogućiti povezivanje Artikala sa Kategorijama
 
--   **FZ-4**: Sistem mora omogućiti označavanje artikla kao
-    aktivnog/neaktivnog.
+-   **FZ-4**: Administratoru se mora omogućiti označavanje Artikla neaktivnim
 
 **5.2. Modifikatori i „Combo" ponude**
 
--   **FZ-5**: Sistem mora omogućiti definisanje modifikatora (npr.
+-   **FZ-5**: Administratoru se mora omogućiti definisanje modifikatora (npr.
     dodatak) sa efektom na cenu (pozitivan, negativan ili nula).
 
--   **FZ-6**: Sistem mora omogućiti vezu između artikla i skupa
+-   **FZ-6**: Administratoru se mora omogućiti povezivanje artikla i skupa
     dozvoljenih modifikatora.
 
--   **FZ-7**: Sistem mora omogućiti definisanje „combo" ponuda kao grupe
+-   **FZ-7**: Administratoru se mora omogućiti definisanje „combo" ponuda kao grupe
     artikala sa ukupnom cenom.
 
--   **FZ-8**: Sistem mora omogućiti aktiviranje/deaktiviranje modifikatora
+-   **FZ-8**: Administratoru se mora omogućiti aktiviranje/deaktiviranje modifikatora
     i kombo ponuda.
 
 **5.3. Poručivanje**
 
--   **FZ-9**: Aplikacija za poručivanje mora prikazati listu aktivnih
+-   **FZ-9**: Korisniku se mora omogućiti prikazivanje liste aktivnih
     kategorija, artikala, dozvoljenih modifikatora i kombo ponuda.
 
--   **FZ-10**: Korisnik mora moći da doda više artikala i kombo ponuda u
+-   **FZ-10**: Korisniku se mora omogućiti da doda više artikala i kombo ponuda u
     jednu porudžbinu.
 
--   **FZ-11**: Backend mora validirati da su izabrani modifikatori
-    dozvoljeni za dati artikal.
-
--   **FZ-12**: Backend mora izračunati međuzbir, porez i ukupan iznos na
+-   **FZ-12**: Sistemu se mora omogućiti da izračuna međuzbir, porez i ukupan iznos na
     osnovu trenutnih cena.
-
--   **FZ-13**: Sistem mora sačuvati porudžbinu sa vremenom kreiranja,
-    stavkama, modifikatorima, ukupnim iznosom i statusom (npr. "kreirana",
-    "u pripremi", "završena").
 
 **5.4. Statistika i izveštaji**
 
--   **FZ-14**: Sistem mora omogućiti pregled ukupnog broja porudžbina u
+-   **FZ-14**: Administratoru se mora omogućiti pregled ukupnog broja porudžbina u
     izabranom vremenskom periodu.
 
--   **FZ-15**: Sistem mora omogućiti pregled ukupnog prometa u izabranom
+-   **FZ-15**: Administratoru se mora omogućiti pregled ukupnog prometa u izabranom
     vremenskom periodu.
 
--   **FZ-16**: Sistem mora prikazati listu najprodavanijih artikala (Top
+-   **FZ-16**: Administratoru se mora omogućiti pregled liste najprodavanijih artikala (Top
     N).
 
--   **FZ-17**: Sistem mora omogućiti pregled učestalosti korišćenja
+-   **FZ-17**: Administratoru se mora omogućiti pregled učestalosti korišćenja
     pojedinačnih modifikatora i „combo" ponuda.
 
-**5.5. Korisnici i bezbednost**
+**5.5. Upravljanje korisničkim nalogom**
 
--   **FZ-18**: Sistem mora podržati najmanje dve uloge: Administrator,
-    Kupac.
-
--   **FZ-19**: Pristup CMS funkcijama mora biti ograničen na ulogu Admin.
-
--   **FZ-20**: Pristup statistici mora biti ograničen na Admin.
-
--   **FZ-21**: Registrovani korisnici moraju se prijaviti (login) da bi
-    koristili zaštićene funkcionalnosti.
+-   **FZ-18**: Korisnicima se mora omogućiti da izvrše promenu podataka svojeg korisničkog naloga
 
 **6. Nefunkcionalni zahtevi**
 
@@ -259,16 +241,33 @@ Svi zahtevi su formulisani tako da budu proverljivi.
     -   Administratorske funkcionalnosti moraju biti zaštićene
         autentifikacijom i autorizacijom.
 
--   **NFZ-4 (Održavanje)**: Kod mora biti podeljen po slojevima (frontend,
+-   **NFZ-4 (Bezbednost)**: Pristup CMS funkcijama mora biti ograničen na ulogu Administratora.
+
+-   **NFZ-5 (Bezbednost)**: Pristup statistici mora biti ograničen na ulogu Administratora.
+
+-   **NFZ-6 (Bezbednost)**: Registrovani korisnici moraju se prijaviti (login) da bi
+    koristili zaštićene funkcionalnosti.
+
+-   **NFZ-7 (Bezbednost)**: Backend mora validirati da su izabrani modifikatori
+    dozvoljeni za dati artikal.
+
+    **NFZ-8 (Bezbednost)**: Korisniku se mora omogućiti postavljanja nove šifre
+    u slučaju zaboravljanja stare
+
+-   **NFZ-9 (Održavanje)**: Kod mora biti podeljen po slojevima (frontend,
     API, pristup bazi) i dokumentovan, tako da novi član tima može da se
     uključi u roku od nekoliko dana.
 
--   **NFZ-5 (Prenosivost)**: Sistem treba da se pokrene na standardnim
+-   **NFZ-10 (Prenosivost)**: Sistem treba da se pokrene na standardnim
     studentskim računarima
 
--   **NFZ-6 (Testabilnost)**: Ključne funkcionalnosti (kreiranje artikla,
+-   **NFZ-11 (Testabilnost)**: Ključne funkcionalnosti (kreiranje artikla,
     kreiranje porudžbine, generisanje osnovne statistike) moraju imati
     automatske testove.
+
+-   **NFZ-12 (Perzistencija)**: Sistem mora sačuvati porudžbinu sa vremenom kreiranja,
+    stavkama, modifikatorima, ukupnim iznosom i statusom (npr. "kreirana",
+    "u pripremi", "završena").
 
 **7. Use case tokovi**
 
