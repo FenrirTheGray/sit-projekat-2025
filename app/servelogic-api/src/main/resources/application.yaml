@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: servelogic
+server:
+  port: 7999
