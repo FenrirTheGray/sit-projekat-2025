@@ -6,28 +6,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rs.ac.singidunum.servelogic.model.Article;
-import rs.ac.singidunum.servelogic.service.ArticleService;
+import rs.ac.singidunum.servelogic.model.Modification;
+import rs.ac.singidunum.servelogic.service.ModificationService;
 
 @RestController
-@RequestMapping(value={"/api/articles", "/api/articles/"})
-public class ArticleController {
+@RequestMapping(value={"/api/modifications", "/api/modifications/"})
+public class ModificationController {
+	private final ModificationService service;
 
-	private final ArticleService service;
-
-	public ArticleController(ArticleService service) {
+	public ModificationController(ModificationService service) {
 		super();
 		this.service = service;
 	}
 	
 	@GetMapping
-	public List<Article> getAllArticles() {
+	public List<Modification> getAllModifications() {
 		return service.findAll();
 	}
 	
 	@GetMapping("/{key}")
-	public Optional<Article> getArticle(@PathVariable("key") String key) {
+	public Optional<Modification> getArticle(@PathVariable("key") String key) {
 		return service.findByKey(key);
 	}
-	
 }
