@@ -3,8 +3,8 @@ package sitprojekat.view;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "KorisnikovProfil",layout = HeaderINavBar.class)
-public class KorisnikovProfil extends VerticalLayout{
+@Route(value = "UserProfile",layout = HeaderAndNavBar.class)
+public class UserProfile extends VerticalLayout{
 
 	/**
 	 * 
