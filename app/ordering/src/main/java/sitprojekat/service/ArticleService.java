@@ -14,24 +14,22 @@ import sitprojekat.model.Article;
 public class ArticleService {
 
 	
-	private final RestClient arangoDBPutanja = RestClient.create("http://localhost:7999/api/"); //putanja do arangoDB kad je pokrenut arangodb
-	private final RestClient vaadinPutanja; //ide putanja gde je nas localhost
+	private final RestClient springBootRout = RestClient.create("http://localhost:7999/api/"); //putanja do springBoota kad je pokrenut 
+	private final RestClient vaadinRout; //ide putanja gde je nas localhost
 
 	public ArticleService() {
-		vaadinPutanja = RestClient.create("http://localhost:" + "8080");
+		vaadinRout = RestClient.create("http://localhost:" + "8080");
 	}
 	/**
 	 * Vraca listu articles koji se nalaze u arangoDBu
 	 * <p>
-	 * Preuzimaju se sirovi json podaci sa arangoDB/articles pa se mapiraju u {@link Article} pomocu konstruktora
+	 * Preuzimaju se sirovi json podaci sa springBoot/articles pa se mapiraju u {@link Article} pomocu konstruktora
 	 * <p>
 	 * @return List {@link Article}
 	 */
 	public List<Article> getArticles() {
-		System.out.println("Fetching all Articles manually...");
-
 		try {
-	        List<Map<String, Object>> listaArticles = arangoDBPutanja.get() // dobijanje articlova iz aranodb articles
+	        List<Map<String, Object>> listaArticles = springBootRout.get() // dobijanje articlova iz springBootR articles
 	                .uri("/articles")
 	                .retrieve()
 	                .body(new ParameterizedTypeReference<List<Map<String, Object>>>() {});
@@ -40,12 +38,12 @@ public class ArticleService {
 	        	return List.of();
 	        }
 	        else { // podaci se stavljaju u article i vracaju kao objekat
-	        	return listaArticles.stream().map(podatak -> new Article(
-	                String.valueOf(podatak.get("id")),
-	                (String) podatak.get("name"),
-	                (String) podatak.get("description"),
-	                ((Double) podatak.get("basePrice")).doubleValue(),
-	                (Boolean) podatak.get("active")
+	        	return listaArticles.stream().map(data -> new Article(
+	                String.valueOf(data.get("id")),
+	                (String) data.get("name"),
+	                (String) data.get("description"),
+	                ((Double) data.get("basePrice")).doubleValue(),
+	                (Boolean) data.get("active")
 	        	)).toList();
 	        }
 
