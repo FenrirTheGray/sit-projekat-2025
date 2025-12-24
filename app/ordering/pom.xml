@@ -48,6 +48,11 @@
     	<artifactId>spring-boot-starter-web</artifactId>
     	<version>3.5.7</version>
 	</dependency>
+	<dependency>
+			<groupId>com.arangodb</groupId>
+			<artifactId>arangodb-spring-data</artifactId>
+			<version>4.5.0</version>
+		</dependency>
 	
   </dependencies>
 

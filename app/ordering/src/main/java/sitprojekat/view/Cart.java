@@ -4,8 +4,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
 
-@Route(value = "Korpa",layout = HeaderINavBar.class)
-public class Korpa extends VerticalLayout{
+@Route(value = "Cart",layout = HeaderAndNavBar.class)
+public class Cart extends VerticalLayout{
 
 	/**
 	 * 
