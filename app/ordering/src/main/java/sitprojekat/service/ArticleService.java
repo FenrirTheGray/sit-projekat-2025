@@ -14,12 +14,8 @@ import sitprojekat.model.Article;
 public class ArticleService {
 
 	
-	private final RestClient springBootRout = RestClient.create("http://localhost:7999/api/"); //putanja do springBoota kad je pokrenut 
-	private final RestClient vaadinRout; //ide putanja gde je nas localhost
+	private final RestClient springBootRoute = RestClient.create("http://localhost:7999/api/"); //putanja do springBoota kad je pokrenut 
 
-	public ArticleService() {
-		vaadinRout = RestClient.create("http://localhost:" + "8080");
-	}
 	/**
 	 * Vraca listu articles koji se nalaze u arangoDBu
 	 * <p>
@@ -29,7 +25,7 @@ public class ArticleService {
 	 */
 	public List<Article> getArticles() {
 		try {
-	        List<Map<String, Object>> listaArticles = springBootRout.get() // dobijanje articlova iz springBootR articles
+	        List<Map<String, Object>> listaArticles = springBootRoute.get() // dobijanje articlova iz springBoot articles
 	                .uri("/articles")
 	                .retrieve()
 	                .body(new ParameterizedTypeReference<List<Map<String, Object>>>() {});
