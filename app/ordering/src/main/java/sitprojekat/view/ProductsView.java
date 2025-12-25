@@ -2,8 +2,10 @@ package sitprojekat.view;
 
 import java.util.List;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -52,12 +54,19 @@ public class ProductsView extends VerticalLayout{
 
 		
 		
-		//List<Article> proizvodi=List.of(new Article("1", "naziv1", "opis1", 250.0, true));
+		//List<Article> articles=List.of(new Article("1", "naziv1", "opis1", 250.0, true));
 		
 		List<Article> articles=service.getArticles();
 		articleTable.setItems(articles);
 		
 		articleTable.getStyle().set("background", "transparent");
+		
+		articleTable.addItemDoubleClickListener(e->{
+			Article article=e.getItem();
+		   // Notification.show("artikal ima : " +article.getId()+" "+article.getBasePrice());
+			UI.getCurrent().navigate(ArticleView.class,article.getId());
+			
+		});
 		
 		add(filterContainer,articleTable);
 	}
