@@ -14,18 +14,19 @@ import sitprojekat.model.Article;
 public class ArticleService {
 
 	
-	private final RestClient springBootRoute = RestClient.create("http://localhost:7999/api/"); //putanja do springBoota kad je pokrenut 
-
+	 //putanja do springBoota kad je pokrenut 
+	private RestClient springBootRoute;
 	/**
 	 * Vraca listu articles koji se nalaze u arangoDBu
 	 * <p>
-	 * Preuzimaju se sirovi json podaci sa springBoot/articles pa se mapiraju u {@link Article} pomocu konstruktora
+	 * Preuzimaju se sirovi json podaci sa /articles pa se mapiraju u {@link Article} pomocu konstruktora
 	 * <p>
 	 * @return List {@link Article}
 	 */
 	public List<Article> getArticles() {
 		try {
-	        List<Map<String, Object>> listaArticles = springBootRoute.get() // dobijanje articlova iz springBoot articles
+			 springBootRoute = RestClient.create("http://localhost:7999/api/");
+	        List<Map<String, Object>> listaArticles = springBootRoute.get() // dobijanje artikala iz springBoot articles
 	                .uri("/articles")
 	                .retrieve()
 	                .body(new ParameterizedTypeReference<List<Map<String, Object>>>() {});
@@ -35,7 +36,7 @@ public class ArticleService {
 	        }
 	        else { // podaci se stavljaju u article i vracaju kao objekat
 	        	return listaArticles.stream().map(data -> new Article(
-	                String.valueOf(data.get("id")),
+	                String.valueOf(data.get("key")),
 	                (String) data.get("name"),
 	                (String) data.get("description"),
 	                ((Double) data.get("basePrice")).doubleValue(),
@@ -48,6 +49,31 @@ public class ArticleService {
 	        return List.of();
 	    }
 	}
+	public Article findByID(String id) {
+		try {
+			 springBootRoute = RestClient.create("http://localhost:7999/api/");
+	        Map<String, Object> article = springBootRoute.get() // dobijanje artikla iz springBoot articles po id
+	                .uri("/articles/"+id)
+	                .retrieve()
+	                .body(new ParameterizedTypeReference<Map<String, Object>>() {});
 
+	        if (article == null) {  // ako je prazno vraca prazno 
+	        	return null;
+	        }
+	        else { // returnuje se novi article sa podacima 
+	        	return  new Article(
+	                String.valueOf(article.get("key")),
+	                (String) article.get("name"),
+	                (String) article.get("description"),
+	                ((Double) article.get("basePrice")).doubleValue(),
+	                (Boolean) article.get("active"));
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+	
 }
 
