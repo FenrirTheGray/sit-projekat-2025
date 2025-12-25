@@ -10,7 +10,6 @@ public class Main {
 		SpringApplication.run(Main.class, args);
 		System.out.println("pokrenut na 8080!!!");
 
-
 	}
 
 }
