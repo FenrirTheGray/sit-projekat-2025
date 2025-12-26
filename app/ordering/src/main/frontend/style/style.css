@@ -2,3 +2,33 @@
     background-color: #3F220F;
     color: #ffffff;
 }
+
+/* okvir */
+.productCounter{
+    background-color: transparent !important;
+}
+
+/* pozadina i broj */
+.productCounter::part(input-field) {
+    background-color: #3F220F;
+	color: white !important;
+}
+
+/* zeleni krug */
+.productCounter::part(increase-button),
+.productCounter::part(decrease-button){
+    background-color: #74914c;
+    color: white;
+    border-radius: 50%;
+    
+    width: 17px;
+    height: 17px;
+	
+	margin-left:5px;
+	margin-right:5px;
+	
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	padding-bottom: 4px; 
+}
