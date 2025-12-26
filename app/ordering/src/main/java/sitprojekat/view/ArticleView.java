@@ -90,9 +90,7 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 		
 		productCounter.setValue(1);
 		productCounter.setStepButtonsVisible(true);
-		productCounter.getStyle().set("background-color", "#ffffff");//3F220F
-		productCounter.getStyle().set("color", "#ffffff");
-		
+		productCounter.addClassName("productCounter");	
 		addToCartButton.getStyle().set("color", "#ffffff");
 		addToCartButton.getStyle().set("background-color", "#3F220F");
 		addToCartButton.setWidth("100%");
