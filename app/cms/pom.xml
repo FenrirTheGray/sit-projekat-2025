@@ -14,17 +14,32 @@
         </configuration>
       </plugin>
 
-      
-      <plugin> 
-      	<groupId>com.vaadin</groupId> 
-      	<artifactId>vaadin-maven-plugin</artifactId> 
+
+      <plugin>
+      	<groupId>com.vaadin</groupId>
+      	<artifactId>vaadin-maven-plugin</artifactId>
       <version>24.9.3</version>
+      	<executions>
+      		<execution>
+      			<goals>
+      				<goal>prepare-frontend</goal>
+      				<goal>build-frontend</goal>
+      			</goals>
+      		</execution>
+      	</executions>
       </plugin>
 	  
-	  <plugin> 
-	  	<groupId>org.springframework.boot</groupId> 
-	  	<artifactId>spring-boot-maven-plugin</artifactId> 
+	  <plugin>
+	  	<groupId>org.springframework.boot</groupId>
+	  	<artifactId>spring-boot-maven-plugin</artifactId>
 	  	<version>3.5.7</version>
+	  	<executions>
+	  		<execution>
+	  			<goals>
+	  				<goal>repackage</goal>
+	  			</goals>
+	  		</execution>
+	  	</executions>
 	  </plugin>
 
 	 
