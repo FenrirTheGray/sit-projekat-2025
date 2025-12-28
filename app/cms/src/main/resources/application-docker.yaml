@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: cms
+server:
+  port: 7998
+vaadin:
+  productionMode: true

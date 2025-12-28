@@ -13,8 +13,9 @@ import sitprojekat.model.Article;
 @Service
 public class ArticleService {
 
-	
-	 //putanja do springBoota kad je pokrenut 
+	private static final String API_BASE_URL = System.getenv().getOrDefault("API_BASE_URL", "http://localhost:7999") + "/api/";
+
+	 //putanja do springBoota kad je pokrenut
 	private RestClient springBootRoute;
 	/**
 	 * Vraca listu articles koji se nalaze u arangoDBu
@@ -25,7 +26,7 @@ public class ArticleService {
 	 */
 	public List<Article> getArticles() {
 		try {
-			 springBootRoute = RestClient.create("http://localhost:7999/api/");
+			 springBootRoute = RestClient.create(API_BASE_URL);
 	        List<Map<String, Object>> listaArticles = springBootRoute.get() // dobijanje artikala iz springBoot articles
 	                .uri("/articles")
 	                .retrieve()
@@ -51,7 +52,7 @@ public class ArticleService {
 	}
 	public Article findByID(String id) {
 		try {
-			 springBootRoute = RestClient.create("http://localhost:7999/api/");
+			 springBootRoute = RestClient.create(API_BASE_URL);
 	        Map<String, Object> article = springBootRoute.get() // dobijanje artikla iz springBoot articles po id
 	                .uri("/articles/"+id)
 	                .retrieve()
