@@ -13,11 +13,15 @@ public class ArangoDBUtility implements ArangoConfiguration {
 
 	@Override
 	public ArangoDB.Builder arango() {
-//		TODO: move connection configuration to a configuration file
+		String host = System.getenv().getOrDefault("ARANGODB_HOST", "localhost");
+		int port = Integer.parseInt(System.getenv().getOrDefault("ARANGODB_PORT", "8529"));
+		String user = System.getenv().getOrDefault("ARANGODB_USER", "root");
+		String password = System.getenv().getOrDefault("ARANGODB_PASSWORD", "root");
+
 		return new ArangoDB.Builder()
-				.host("localhost", 8529)
-				.user("root")
-				.password("root");
+				.host(host, port)
+				.user(user)
+				.password(password);
 	}
 
 	@Override
