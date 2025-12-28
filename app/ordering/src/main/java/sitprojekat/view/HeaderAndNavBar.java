@@ -30,16 +30,17 @@ public class HeaderAndNavBar extends AppLayout{
 
 	private void createNavBar() {
 		SideNav leftNav=new SideNav();
-		
+
 		//SideNavItem pregledProizvoda=new SideNavItem("Pregled Proizvoda",PregledProizvoda.class); automatski bude plav ako je na toj stranici
 		SideNavItem productsView=new SideNavItem("Pregled Proizvoda");
 		productsView.getStyle().set("display", "flex");
-		productsView.getStyle().set("justify-content", "center"); 
+		productsView.getStyle().set("justify-content", "center");
 		productsView.getStyle().set("color", "white");
 		productsView.getStyle().set("background-color", "#3F220F");//nije aktivan             //aktivan #C9AB71 ima nacin za testiranje koji je aktiv treba namestiti lepo
 		productsView.getStyle().set("border-radius", "10px");
 		productsView.getStyle().set("margin", "10px");
-		productsView.getStyle().set("width", "230px");//radi za svaki item nisam siguran zasto? 
+		productsView.getStyle().set("width", "230px");//radi za svaki item nisam siguran zasto?
+		productsView.getStyle().set("cursor", "pointer");
 		//pregledProizvoda.setClassName("");
 		//pregledProizvoda.addClickListener(e->{UI.getCurrent().navigate("Korpa");}); mora sa get elemnt jer addclick nema
 		productsView.getElement().addEventListener("click", e->{UI.getCurrent().navigate("Products");}); //za rout
@@ -47,33 +48,36 @@ public class HeaderAndNavBar extends AppLayout{
 		//pregledProizvoda.getElement().addEventListener("click", e->{UI.getCurrent().getPage().open("https://www.google.com");}); otvara novu stranicu
 		//pregledProizvoda.getElement().addEventListener("click", e->{UI.getCurrent().navigate("https://www.google.com/");});
 		//pregledProizvoda.getStyle().set("cursor","pointer"); samo za spoljne strane oko teksta
-		
+
 		SideNavItem ordersView=new SideNavItem("Pregled Porudzbina");
 		ordersView.getStyle().set("display", "flex");
-		ordersView.getStyle().set("justify-content", "center"); 
+		ordersView.getStyle().set("justify-content", "center");
 		ordersView.getStyle().set("color", "white");
-		ordersView.getStyle().set("background-color", "#C9AB71");
+		ordersView.getStyle().set("background-color", "#3F220F");//nije aktivan
 		ordersView.getStyle().set("border-radius", "10px");
 		ordersView.getStyle().set("margin", "10px");
+		ordersView.getStyle().set("width", "230px");
+		ordersView.getStyle().set("cursor", "pointer");
+		ordersView.getElement().addEventListener("click", e->{UI.getCurrent().navigate("Orders");});
 
-		
+
 		leftNav.addItem(productsView,ordersView);
-		
+
 //		leviNav.getStyle().set("background-color", "#20281f");// za side bar #20281f
 		leftNav.getStyle().set("color", "white");
 //		leviNav.setHeightFull();
 //		leviNav.getStyle().set("align-items", "center");
 		//leviNav.getItems().forEach(e->e.getStyle().set("cursor", "pointer")); daje svakom ali opet sredina nema
-		
+
 		VerticalLayout containerForLeftNav=new VerticalLayout(leftNav);
 		containerForLeftNav.setSizeFull();
 		containerForLeftNav.setJustifyContentMode(JustifyContentMode.CENTER);
 		containerForLeftNav.setAlignItems(Alignment.CENTER);
 		containerForLeftNav.setPadding(false);
 		containerForLeftNav.setSpacing(true);
-		
+
 		containerForLeftNav.getStyle().set("background-color", "#20281f");
-		
+
 		addToDrawer(containerForLeftNav);
 	}
 

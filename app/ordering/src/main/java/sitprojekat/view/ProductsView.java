@@ -10,13 +10,15 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 
 import sitprojekat.model.Article;
 import sitprojekat.service.ArticleService;
 
 
 
-@Route(value = "Products",layout = HeaderAndNavBar.class)
+@Route(value = "",layout = HeaderAndNavBar.class)
+@RouteAlias(value = "Products",layout = HeaderAndNavBar.class)
 public class ProductsView extends VerticalLayout{
 
 	/**
