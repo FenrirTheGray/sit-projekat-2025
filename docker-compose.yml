@@ -1,0 +1,83 @@
+name: servelogic-app
+services:
+  # ArangoDB Database
+  arangodb:
+    image: arangodb:3.11
+    container_name: servelogic_arangodb
+    ports:
+      - "8529:8529"
+    environment:
+      ARANGO_ROOT_PASSWORD: root
+    volumes:
+      - servelogic_arangodb_data:/var/lib/arangodb3
+    networks:
+      - servelogic-network
+    healthcheck:
+      test: ["CMD", "sh", "-c", "wget --spider http://127.0.0.1:8529/_api/version 2>&1 | grep -q '401\\|200'"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # ServeLogic API Backend
+  servelogic-api:
+    build:
+      context: ./app/servelogic-api
+      dockerfile: Dockerfile
+    container_name: servelogic_api
+    ports:
+      - "7999:7999"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - ARANGODB_HOST=arangodb
+      - ARANGODB_PORT=8529
+      - ARANGODB_USER=root
+      - ARANGODB_PASSWORD=root
+    depends_on:
+      arangodb:
+        condition: service_healthy
+    networks:
+      - servelogic-network
+    restart: unless-stopped
+
+  # CMS Frontend Application
+  cms:
+    build:
+      context: ./app/cms
+      dockerfile: Dockerfile
+    container_name: servelogic_cms
+    ports:
+      - "7998:7998"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - API_BASE_URL=http://servelogic-api:7999
+    depends_on:
+      - servelogic-api
+    networks:
+      - servelogic-network
+    restart: unless-stopped
+
+  # Ordering Frontend Application
+  ordering:
+    build:
+      context: ./app/ordering
+      dockerfile: Dockerfile
+    container_name: servelogic_ordering
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - API_BASE_URL=http://servelogic-api:7999
+    depends_on:
+      - servelogic-api
+    networks:
+      - servelogic-network
+    restart: unless-stopped
+
+volumes:
+  servelogic_arangodb_data:
+    driver: local
+
+networks:
+  servelogic-network:
+    driver: bridge
