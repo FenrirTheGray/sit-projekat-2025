@@ -18,7 +18,7 @@
       <plugin>
       	<groupId>com.vaadin</groupId>
       	<artifactId>vaadin-maven-plugin</artifactId>
-      <version>24.9.3</version>
+      <version>25.0.2</version>
       	<executions>
       		<execution>
       			<goals>
