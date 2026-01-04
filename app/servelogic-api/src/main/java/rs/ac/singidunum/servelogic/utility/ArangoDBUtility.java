@@ -26,7 +26,8 @@ public class ArangoDBUtility implements ArangoConfiguration {
 
 	@Override
 	public String database() {
-		return "servelogic";
+		String database = System.getenv().getOrDefault("ARANGODB_DATABASE", "servelogic");
+		return database;
 	}
 
 	@PostConstruct

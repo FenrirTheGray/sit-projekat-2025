@@ -18,6 +18,31 @@ services:
       timeout: 3s
       retries: 10
       start_period: 10s
+  
+  # TDB Store - Jena Fuseki
+  fuseki:
+    image: stain/jena-fuseki
+    ports:
+      - "3030:3030"
+    container_name: servelogic_fuseki
+    networks:
+      - servelogic-network
+    environment:
+      - ADMIN_PASSWORD=admin
+    volumes:
+      - servelogic_fuseki_data:/fuseki
+    command: >
+      sh -c "
+      echo 'Enforcing login by default..' &&
+      sed -i 's|/\$/** = localhostFilter|/\$/** = authcBasic,user[admin]|g' /jena-fuseki/shiro.ini &&
+      /jena-fuseki/fuseki-server
+      "
+    healthcheck:
+      test: ["CMD", "sh", "-c", "wget --spider http://127.0.0.1:3030/ 2>&1 | grep -q '401\\|200'"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
 
   # ServeLogic API Backend
   servelogic-api:
@@ -31,8 +56,14 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - ARANGODB_HOST=arangodb
       - ARANGODB_PORT=8529
+      - ARANGODB_DATABASE=servelogic
       - ARANGODB_USER=root
       - ARANGODB_PASSWORD=root
+      - FUSEKI_HOST=fuseki
+      - FUSEKI_PORT=3030
+      - FUSEKI_DATASET=servelogic
+      - FUSEKI_USER=admin
+      - FUSEKI_PASSWORD=admin
     depends_on:
       arangodb:
         condition: service_healthy
@@ -76,6 +107,8 @@ services:
 
 volumes:
   servelogic_arangodb_data:
+    driver: local
+  servelogic_fuseki_data:
     driver: local
 
 networks:
