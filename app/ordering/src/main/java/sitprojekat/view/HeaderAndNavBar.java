@@ -13,7 +13,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 
-@StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")                       //import od googla za font 
+@StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")
+@StyleSheet("/css/style.css")
 public class HeaderAndNavBar extends AppLayout{
 
 	/**

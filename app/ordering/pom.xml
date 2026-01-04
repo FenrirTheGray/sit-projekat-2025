@@ -10,7 +10,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
         <configuration>
-          <release>25</release>
+          <release>23</release>
         </configuration>
       </plugin>
 
@@ -68,7 +68,13 @@
 		<artifactId>spring-data-commons</artifactId>
 		<version>4.0.1</version>
 	</dependency>
-	
+	<dependency>
+		<groupId>com.vaadin</groupId>
+		<artifactId>vaadin-dev</artifactId>
+		<version>25.0.2</version>
+		<optional>true</optional>
+	</dependency>
+
   </dependencies>
 
   

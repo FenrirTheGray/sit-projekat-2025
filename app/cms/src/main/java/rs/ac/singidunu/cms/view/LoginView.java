@@ -1,6 +1,6 @@
 package rs.ac.singidunu.cms.view;
 
-import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -13,7 +13,7 @@ import com.vaadin.flow.dom.Style.TextAlign;
 import com.vaadin.flow.router.Route;
 
 @Route(value = "")
-@CssImport("./style/style.css")
+@StyleSheet("/css/style.css")
 public class LoginView extends VerticalLayout {
 
 	private static final long serialVersionUID = 6313156717813295316L;

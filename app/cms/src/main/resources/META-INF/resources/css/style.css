@@ -1,0 +1,12 @@
+[theme~='dark'] {
+	--lumo-base-color: #202020;
+}
+.damnedButton vaadin-button[slot="forgot-password"] {
+	color: #fff;
+	margin-left: 0;
+}
+
+.damnedButton vaadin-button[slot="submit"] {
+	color: #000;
+	background-color: #fff;
+}
