@@ -18,6 +18,11 @@ services:
       timeout: 3s
       retries: 10
       start_period: 10s
+    #Limits for testing
+    deploy:
+      resources:
+        limits:
+          memory: 1G
   
   # TDB Store - Jena Fuseki
   fuseki:
@@ -29,6 +34,7 @@ services:
       - servelogic-network
     environment:
       - ADMIN_PASSWORD=admin
+      - JVM_ARGS=-Xmx800m
     volumes:
       - servelogic_fuseki_data:/fuseki
     command: >
@@ -43,6 +49,12 @@ services:
       timeout: 3s
       retries: 10
       start_period: 10s
+    #Limits for testing
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
 
   # ServeLogic API Backend
   servelogic-api:
@@ -70,6 +82,11 @@ services:
     networks:
       - servelogic-network
     restart: unless-stopped
+    #Limits for testing
+    deploy:
+      resources:
+        limits:
+          memory: 1G
 
   # CMS Frontend Application
   cms:
@@ -87,6 +104,11 @@ services:
     networks:
       - servelogic-network
     restart: unless-stopped
+    #Limits for testing
+    deploy:
+      resources:
+        limits:
+          memory: 1G
 
   # Ordering Frontend Application
   ordering:
@@ -104,6 +126,11 @@ services:
     networks:
       - servelogic-network
     restart: unless-stopped
+    #Limits for testing
+    deploy:
+      resources:
+        limits:
+          memory: 1G
 
 volumes:
   servelogic_arangodb_data:
