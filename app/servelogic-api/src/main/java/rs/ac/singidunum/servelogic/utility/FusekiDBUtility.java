@@ -3,6 +3,7 @@ package rs.ac.singidunum.servelogic.utility;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.net.http.HttpClient;
+import java.util.UUID;
 import java.util.function.Consumer;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.rdfconnection.RDFConnection;
@@ -53,24 +54,6 @@ public class FusekiDBUtility {
 		}
 		return this.connection;
 	}
-	
-	public void select(String queryString, Consumer<QuerySolution> rowProcessor) {
-        try (RDFConnection conn = getConnection()) {
-            conn.querySelect(queryString, rowProcessor);
-        }
-    }
-
-    public void update(String updateString) {
-        try (RDFConnection conn = getConnection()) {
-            conn.update(updateString);
-        }
-    }
-
-    public void loadFile(String filePath) {
-        try (RDFConnection conn = getConnection()) {
-            conn.load(filePath);
-        }
-    }
 
     public String getHost() {
     	return host;
@@ -87,5 +70,9 @@ public class FusekiDBUtility {
     public HttpClient getHttpClient() {
 		return httpClient;
 	}
+    
+    public String generateUUID4() {
+    	return UUID.randomUUID().toString();
+    }
 
 }

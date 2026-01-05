@@ -67,17 +67,24 @@ public class ModificationTypeDataInit {
     	Property modificationTypeActive = model.createProperty("%sactive".formatted(ModificationType.ns));
     	
 //    	modificationType1
-    	Resource modificationType1 = model.createResource("%smodificationType1".formatted(ModificationType.ns));
+    	Resource modificationType1 = model.createResource("%s%s".formatted(ModificationType.ns, db.generateUUID4()));
     	modificationType1
     		.addProperty(RDF.type, classModificationType)
     		.addProperty(modificationTypeName, "size")
 			.addProperty(modificationTypeActive, model.createTypedLiteral(true));
     	
 //    	modificationType2
-    	Resource modificationType2 = model.createResource("%smodificationType2".formatted(ModificationType.ns));
+    	Resource modificationType2 = model.createResource("%s%s".formatted(ModificationType.ns, db.generateUUID4()));
     	modificationType2
     		.addProperty(RDF.type, classModificationType)
     		.addProperty(modificationTypeName, "topping")
+			.addProperty(modificationTypeActive, model.createTypedLiteral(true));
+    	
+//    	modificationType3
+    	Resource modificationType3 = model.createResource("%s%s".formatted(ModificationType.ns, db.generateUUID4()));
+    	modificationType3
+    		.addProperty(RDF.type, classModificationType)
+    		.addProperty(modificationTypeName, "salad")
 			.addProperty(modificationTypeActive, model.createTypedLiteral(true));
     	
 //    	Wrap up
