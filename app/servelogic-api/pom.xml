@@ -56,12 +56,6 @@
 			<type>pom</type>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena-querybuilder</artifactId>
-			<version>5.6.0</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
