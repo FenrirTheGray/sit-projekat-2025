@@ -76,6 +76,7 @@ services:
       - FUSEKI_DATASET=servelogic
       - FUSEKI_USER=admin
       - FUSEKI_PASSWORD=admin
+      - FUSEKI_NAMESPACEROOT=http://www.singidunum.ac.rs
     depends_on:
       arangodb:
         condition: service_healthy

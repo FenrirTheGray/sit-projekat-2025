@@ -4,8 +4,6 @@ import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.net.http.HttpClient;
 import java.util.UUID;
-import java.util.function.Consumer;
-import org.apache.jena.query.QuerySolution;
 import org.apache.jena.rdfconnection.RDFConnection;
 import org.apache.jena.rdfconnection.RDFConnectionRemote;
 import org.springframework.context.annotation.Bean;
@@ -72,7 +70,10 @@ public class FusekiDBUtility {
 	}
     
     public String generateUUID4() {
-    	return UUID.randomUUID().toString();
+//    	Add a char or two in front so XML standard is satisfied
+//    	UUID4 has a chance to generate with a number at the start
+//    	This resolves that and leaves the random aspect there still
+    	return "sl" + UUID.randomUUID().toString();
     }
 
 }

@@ -3,14 +3,16 @@ package rs.ac.singidunum.servelogic.model;
 import org.springframework.data.annotation.Id;
 
 public class ModificationType {
-	
-	public static final String ns = "http://www.singidunum.ac.rs/servelogic#";
-	
+
+	public static final String ns = "%s/%s#".formatted(
+			System.getenv().getOrDefault("FUSEKI_NAMESPACEROOT", "http://www.singidunum.ac.rs"),
+			System.getenv().getOrDefault("FUSEKI_DATASET", "servelogic"));
+
 	@Id
 	private String id;
 	private String name;
 	private boolean active;
-	
+
 	public ModificationType() {
 		super();
 	}
@@ -45,9 +47,9 @@ public class ModificationType {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	
+
 	public String getUrl() {
 		return "%s%s".formatted(ns, id);
 	}
-	
+
 }
