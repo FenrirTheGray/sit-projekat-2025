@@ -3,16 +3,12 @@ package sitprojekat.view;
 import java.util.List;
 
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.GridVariant;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
@@ -21,98 +17,62 @@ import sitprojekat.service.ArticleService;
 
 
 
-@StyleSheet("/css/style.css")
 @Route(value = "",layout = HeaderAndNavBar.class)
 @RouteAlias(value = "Products",layout = HeaderAndNavBar.class)
 public class ProductsView extends VerticalLayout{
 
 	/**
-	 *
+	 * 
 	 */
 	private static final long serialVersionUID = 6116769739933744188L;
-
+	
 	private final ArticleService service;
-	private Grid<Article> articleTable;
-	private List<Article> allArticles;
-
-
+	
+	
 	public ProductsView(ArticleService service) {
+		//getStyle().set("background-color", "#204824");// za side bar #20281f
+		
 		this.service=service;
-
+		
 		TextField filterTextBox=new TextField();
-		filterTextBox.setPlaceholder("Pretraga proizvoda...");
+		
+		
+		
+		filterTextBox.setValue("pretraga");
 		filterTextBox.setClearButtonVisible(true);
-		filterTextBox.setPrefixComponent(VaadinIcon.SEARCH.create());
+		filterTextBox.setSuffixComponent(VaadinIcon.SEARCH.create());
+		filterTextBox.getStyle().set("background-color", "#ffffff");
+		filterTextBox.getStyle().set("border-radius", "30px");
 		filterTextBox.setWidth("350px");
-		filterTextBox.addClassName("search-filter");
-		filterTextBox.setValueChangeMode(ValueChangeMode.LAZY);
-		filterTextBox.addValueChangeListener(e -> filterArticles(e.getValue()));
-
+		//textboxFilter.getStyle().set("margin", "10px");
+		filterTextBox.getStyle().set("padding", "0px");
+		
 		HorizontalLayout filterContainer=new HorizontalLayout(filterTextBox);
 		filterContainer.setWidthFull();
 		filterContainer.setJustifyContentMode(JustifyContentMode.END);
-		filterContainer.getStyle().set("padding", "16px 0");
+		
+		Grid<Article> articleTable=new Grid<>(Article.class);
+		articleTable.setColumns("id","name","description","basePrice","active");
 
-		articleTable=new Grid<>(Article.class, false);
-		articleTable.addClassName("article-grid");
-		articleTable.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
-
-		// Configure columns with better headers
-		articleTable.addColumn(Article::getId)
-			.setHeader("Id")
-			.setSortable(true)
-			.setWidth("80px")
-			.setFlexGrow(0);
-
-		articleTable.addColumn(Article::getName)
-			.setHeader("Naziv")
-			.setSortable(true)
-			.setAutoWidth(true);
-
-		articleTable.addColumn(Article::getDescription)
-			.setHeader("Opis")
-			.setSortable(true)
-			.setAutoWidth(true);
-
-		articleTable.addColumn(article -> String.format("%.2f RSD", article.getBasePrice()))
-			.setHeader("Cena")
-			.setSortable(true)
-			.setWidth("120px")
-			.setFlexGrow(0);
-
-		articleTable.addColumn(new ComponentRenderer<>(article -> {
-			Span badge = new Span(article.isActive() ? "Aktivan" : "Neaktivan");
-			badge.addClassName("status-badge");
-			badge.addClassName(article.isActive() ? "status-active" : "status-inactive");
-			return badge;
-		}))
-			.setHeader("Status")
-			.setWidth("100px")
-			.setFlexGrow(0);
-
-		allArticles = service.getArticles();
-		articleTable.setItems(allArticles);
-
+		
+		
+		//List<Article> articles=List.of(new Article("1", "naziv1", "opis1", 250.0, true));
+		
+		List<Article> articles=service.getArticles();
+		articleTable.setItems(articles);
+		
+		articleTable.getStyle().set("background", "transparent");
+		
 		articleTable.addItemDoubleClickListener(e->{
 			Article article=e.getItem();
+		   // Notification.show("artikal ima : " +article.getId()+" "+article.getBasePrice());
 			UI.getCurrent().navigate(ArticleView.class,article.getId());
+			
 		});
-
+		
 		add(filterContainer,articleTable);
 	}
-
-	private void filterArticles(String filterText) {
-		if (filterText == null || filterText.isEmpty()) {
-			articleTable.setItems(allArticles);
-		} else {
-			String lowerFilter = filterText.toLowerCase();
-			articleTable.setItems(allArticles.stream()
-				.filter(article ->
-					article.getName().toLowerCase().contains(lowerFilter) ||
-					article.getDescription().toLowerCase().contains(lowerFilter))
-				.toList());
-		}
-	}
+	
 
 
 }
