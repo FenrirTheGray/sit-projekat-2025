@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: ordering
+server:
+  port: 8080
