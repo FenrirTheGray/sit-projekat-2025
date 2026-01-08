@@ -32,7 +32,7 @@
 	  <plugin>
 	  	<groupId>org.springframework.boot</groupId>
 	  	<artifactId>spring-boot-maven-plugin</artifactId>
-	  	<version>4.0.1</version>
+	  	<version>3.5.7</version>
 	  	<executions>
 	  		<execution>
 	  			<goals>
@@ -56,17 +56,17 @@
 	<dependency>
     	<groupId>org.springframework.boot</groupId>
     	<artifactId>spring-boot-starter-test</artifactId>
-    	<version>4.0.1</version>
+    	<version>3.5.7</version>
 	</dependency>
 	<dependency>
     	<groupId>org.springframework.boot</groupId>
     	<artifactId>spring-boot-starter-web</artifactId>
-    	<version>4.0.1</version>
+    	<version>3.5.7</version>
 	</dependency>
 	<dependency>
 		<groupId>org.springframework.data</groupId>
 		<artifactId>spring-data-commons</artifactId>
-		<version>4.0.1</version>
+		<version>3.5.7</version>
 	</dependency>
 	<dependency>
 		<groupId>com.vaadin</groupId>
