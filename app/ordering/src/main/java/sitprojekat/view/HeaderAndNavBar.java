@@ -79,10 +79,10 @@ public class HeaderAndNavBar extends AppLayout{
 
 
 	private void createHeader() {
-		Span title=new Span("Ordering app");
-		title.getStyle().set("color", "white");
-		title.getStyle().set("font-family", "'Kaushan Script");
-		title.getStyle().set("font-size", "32px");
+		Span titleSpan=new Span("Ordering app");
+		titleSpan.getStyle().set("color", "white");
+		titleSpan.getStyle().set("font-family", "'Kaushan Script");
+		titleSpan.getStyle().set("font-size", "32px");
 		
 		Icon userIcon=VaadinIcon.USER.create();
 		Icon shoppingCartIcon=VaadinIcon.CART_O.create();
@@ -106,7 +106,7 @@ public class HeaderAndNavBar extends AppLayout{
 		HorizontalLayout iconContainer=new HorizontalLayout(userIcon,shoppingCartIcon);
 		
 		
-		HorizontalLayout naslovKontainer=new HorizontalLayout(title);
+		HorizontalLayout naslovKontainer=new HorizontalLayout(titleSpan);
 		
 		HorizontalLayout header=new HorizontalLayout(naslovKontainer,iconContainer);
 		

@@ -33,14 +33,12 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 	 * 
 	 */
 	private static final long serialVersionUID = -4405949928698782190L;
-	private Icon shoppingCartIcon=VaadinIcon.CART_O.create();;
 	private Article mainArticle ;
 	private H2 articleName=new H2();
     private Span articleDescription = new Span();
     private Button addToCartButton = new Button();
     private IntegerField productCounter = new IntegerField();
     private ArticleService service=new ArticleService();
-    
 	@Override
 	public void setParameter(BeforeEvent event, String sentArticleID) {
 		
@@ -55,6 +53,7 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 			this.addToCartButton.setDisableOnClick(true);
 			this.productCounter.setEnabled(false);
 			this.addToCartButton.setText("Dodaj u korpu () RSD");
+			this.addToCartButton.setIcon(VaadinIcon.CART_O.create());
 		}
 	}
 	
@@ -71,13 +70,7 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 		//articleName.setText(mainArticle.getName());
 		articleName.getStyle().set("color", "#ffffff");
 		
-		
-//		Span articleDescription=new Span("asasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasff"
-//				+ "asasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsa"
-//				+ "fffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsa"
-//				+ "asasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaas"
-//				+ "asfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsa"
-//				+ "asasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsa");
+
 		//Span articleDescription=new Span(mainArticle.getDescription());
 		articleDescription.getStyle().set("color", "#ffffff");
 		articleDescription.getStyle().set("overflow-wrap","break-word");
@@ -88,12 +81,18 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 		articleImage.setHeight("300px");
 		//Image articleImage=new Image();
 		
+		productCounter.addClassName("productCounter");
 		productCounter.setValue(1);
 		productCounter.setStepButtonsVisible(true);
-		productCounter.addClassName("productCounter");	
+		productCounter.getStyle().set("background-color", "#ffffff");//3F220F
+		productCounter.getStyle().set("color", "#ffffff");
+		
+		
+		
+		Icon shoppingCartIcon=VaadinIcon.CART_O.create();
 		addToCartButton.getStyle().set("color", "#ffffff");
 		addToCartButton.getStyle().set("background-color", "#3F220F");
-		addToCartButton.setWidth("100%");
+		addToCartButton.setWidth("65%");
 		
 		productCounter.addValueChangeListener(e->{updateButtonValue();});
 		
@@ -114,13 +113,6 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 		H2 sizeChoice=new H2("Odabir Velicine");
 		sizeChoice.getStyle().set("color", "#ffffff");
 		
-//		RadioButtonGroup<String> radioArticleSize = new RadioButtonGroup<>();
-//		radioArticleSize.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);
-//		radioArticleSize.setLabel("Odabir Velicine");
-//		radioArticleSize.setItems("Veliki", "Srednji", "Mali");
-//		radioArticleSize.getStyle().set("background-color", "#ffffff");             // vec definisani nacin 
-//		radioArticleSize.setWidth("100%");
-//		radioArticleSize.setHeight("250px");
 		
 		RadioButtonGroup<Article> radioArticleSize = new RadioButtonGroup<>();
 		radioArticleSize.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);       //smer kako su poredjani
@@ -153,12 +145,6 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 		
 		H2 modificationChoice=new H2("Odabir Prilog");
 		modificationChoice.getStyle().set("color", "#ffffff");
-//		RadioButtonGroup<String> radioModifikator = new RadioButtonGroup<>();
-//		radioModifikator.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);
-//		radioModifikator.setItems("Modifikator1", "Modifikator2", "Modifikator3");          // vec definisani nacin
-//		radioModifikator.getStyle().set("background-color", "#ffffff");//#20281f
-//		radioModifikator.setWidth("100%");
-//		radioModifikator.setHeight("250px");
 		
 		
 		CheckboxGroup<Article> checkBoxModifikator = new CheckboxGroup<>();   
@@ -206,7 +192,6 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
         if (mainArticle != null) {
             double totalPrice = mainArticle.getBasePrice() * productCounter.getValue();
             addToCartButton.setText("Dodaj u korpu (" + totalPrice + ") RSD");
-            addToCartButton.setIcon(VaadinIcon.CART_O.create());
         }
     }
 	
