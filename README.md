@@ -94,9 +94,9 @@ Za lokalni development bez Docker-a.
 #### Preduslovi
 
 - Docker i Docker Compose (samo za bazu podataka)
-- Java 21+ (za API)
-- Java 17+ (za frontend aplikacije)
-- Maven
+- Java 23 (obavezno - Vaadin 24.6.3 ne podržava Java 25)
+- Maven (uključen kroz Maven Wrapper)
+- Node.js (za Vaadin frontend build)
 
 #### 1. Pokretanje baze podataka
 
@@ -105,26 +105,48 @@ cd app
 docker-compose -f docker-compose.env-dev.yml up -d
 ```
 
+Ovo pokreće ArangoDB na portu 8529 (korisnik: `root`, lozinka: `root`).
+
 #### 2. Pokretanje API-ja
 
 ```powershell
 cd app/servelogic-api
-./mvnw spring-boot:run
+.\mvnw spring-boot:run
 ```
+
+API će biti dostupan na: http://localhost:7999
 
 #### 3. Pokretanje CMS aplikacije
 
 ```powershell
 cd app/cms
-mvnw spring-boot:run
+.\mvnw spring-boot:run
 ```
+
+CMS će biti dostupan na: http://localhost:7998
 
 #### 4. Pokretanje aplikacije za poručivanje (Ordering App)
 
 ```powershell
 cd app/ordering
-mvnw spring-boot:run
+.\mvnw spring-boot:run
 ```
+
+Ordering App će biti dostupan na: http://localhost:8080
+
+#### Napomene za lokalni razvoj
+
+- **Redosled pokretanja:** Uvek prvo pokrenite bazu podataka, zatim API, pa frontend aplikacije.
+- **Prvi build:** Prvi put kada pokrećete frontend aplikacije (CMS/Ordering), Vaadin će kompajlirati frontend komponente što može potrajati nekoliko minuta.
+- **Java verzija:** Ako koristite novije verzije Jave, možda ćete dobiti grešku "Unsupported class file major version 69". U tom slučaju instalirajte Java 23 i podesite `JAVA_HOME`:
+  ```powershell
+  $env:JAVA_HOME = "C:\Program Files\Java\jdk-23"
+  ```
+- **Čist build:** Ako naiđete na probleme, pokušajte:
+  ```powershell
+  .\mvnw clean install
+  .\mvnw spring-boot:run
+  ```
 
 ## 👥 Tim
 
