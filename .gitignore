@@ -45,6 +45,7 @@ HELP.md
 # Vaadin / Frontend
 # The following files are generated/updated by vaadin-maven-plugin
 **/node_modules/
+**/*.bundle
 vite.generated.ts
 **/frontend/generated/
 public
