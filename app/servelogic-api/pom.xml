@@ -13,7 +13,7 @@
 	<artifactId>servelogic</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>servelogic</name>
-	<description>Restaurant managing suite backend</description>
+	<description>Restaurant managing suite restapi</description>
 	<url />
 	<licenses>
 		<license />
@@ -28,9 +28,19 @@
 		<url />
 	</scm>
 	<properties>
-		<java.version>23</java.version>
+		<release>${java.version}</release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -55,16 +65,6 @@
 			<version>5.6.0</version>
 			<type>pom</type>
 		</dependency>
-
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>
