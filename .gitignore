@@ -45,9 +45,18 @@ HELP.md
 # Vaadin / Frontend
 # The following files are generated/updated by vaadin-maven-plugin
 **/node_modules/
-**/*.bundle
-vite.generated.ts
-**/frontend/generated/
+app/**/src/main/bundles/
+app/**/vite.generated.ts
+app/**/vite.config.ts
+app/**/src/main/frontend/generated/
+app/**/src/main/frontend/index.html
+app/**/package.json
+app/**/package-lock.json
+app/**/target/
+app/**/tsconfig.json
+app/**/types.d.ts
+app/**/node/
+
 public
 scripts/.cache
 scripts/docs-app
