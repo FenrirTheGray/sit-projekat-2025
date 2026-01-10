@@ -1,41 +1,86 @@
-# ServeLogic - Sistem za restoranski menadžment
+# ServeLogic
 
-ServeLogic je web zasnovani sistem za upravljanje restoranskim jelovnicima, procesom poručivanja i pregledom statistike porudžbina. Projekat je razvijen u okviru predmeta *Metodologija razvoja softvera*.
+Web sistem za upravljanje restoranom - menadžment menija, poručivanje i statistika porudžbina.
 
-## 🚀 Komponente sistema
+## Pregled
 
-Sistem se sastoji iz četiri glavne komponente:
+ServeLogic je full-stack aplikacija koja omogućava administratorima restorana da upravljaju menijima i prate porudžbine, dok korisnicima pruža intuitivan interfejs za poručivanje.
 
-1.  **CMS App** - Frontend administratorska Web aplikacija za upravljanje restoranskim menijem i praćenje statistike porudžbina.
-2.  **Ordering App** - Frontend Web Aplikacija za pravljenje porudžbina od strane kupaca.
-3.  **ServeLogic API** - Centralna Backend API aplikacija koja implementira poslovnu logiku i pravila validacije.
-4.  **ServeLogic DB** - ArangoDB baza podataka za perzistenciju podataka.
+## Arhitektura sistema
 
-## 🛠️ Tehnologije
+```
+┌─────────────────┐     ┌─────────────────┐
+│   CMS App       │     │  Ordering App   │
+│  (Admin UI)     │     │  (Korisnički UI)│
+│   Port 7998     │     │   Port 8080     │
+└────────┬────────┘     └────────┬────────┘
+         │                       │
+         └───────────┬───────────┘
+                     │
+                     ▼
+         ┌───────────────────────┐
+         │    ServeLogic API     │
+         │      Port 7999        │
+         └───────────┬───────────┘
+                     │
+         ┌───────────┴───────────┐
+         │                       │
+         ▼                       ▼
+┌─────────────────┐     ┌─────────────────┐
+│    ArangoDB     │     │  Apache Fuseki  │
+│   Port 8529     │     │   Port 3030     │
+└─────────────────┘     └─────────────────┘
+```
 
-- **Backend:** Java, Spring Boot
-- **Frontend:** Java, Vaadin
-- **Baza podataka:** ArangoDB
-- **Kontejnerizacija:** Docker
+### Komponente
 
-## 📋 Funkcionalnosti
+| Komponenta | Opis | Port |
+|------------|------|------|
+| **CMS App** | Admin interfejs za upravljanje menijem i statistiku porudžbina | 7998 |
+| **Ordering App** | Korisnička aplikacija za pregled menija i poručivanje | 8080 |
+| **ServeLogic API** | Backend REST API sa poslovnom logikom | 7999 |
+| **ArangoDB** | Document baza podataka za perzistenciju | 8529 |
+| **Apache Fuseki** | RDF/SPARQL server za semantičke podatke | 3030 |
 
-- **Upravljanje jelovnikom:** Kreiranje i izmena kategorija, artikala, modifikatora i "combo" ponuda.
-- **Poručivanje:** Interfejs za kupce za pregled jelovnika i kreiranje porudžbina.
-- **Statistika:** Pregled prometa, broja porudžbina i najprodavanijih artikala.
-- **Autentifikacija:** Siguran pristup administratorskim funkcijama.
+## Tehnologije
 
-## 💻 Pokretanje projekta
+| Sloj | Tehnologija |
+|------|-------------|
+| Backend | Java 23, Spring Boot 3.4.1 |
+| Frontend | Vaadin 24.6.3 |
+| Baza podataka | ArangoDB 3.11 |
+| Semantički store | Apache Jena Fuseki |
+| Build alat | Maven 3.9 |
+| Kontejnerizacija | Docker, Docker Compose |
 
-### Opcija 1: Docker (Preporučeno)
+## Funkcionalnosti
 
-Najbrži način da pokrenete ceo sistem je korišćenjem Docker-a. Potreban je samo Docker i Docker Compose.
+### CMS aplikacija (Administratori)
+- Upravljanje menijem (kategorije, artikli, modifikatori, combo ponude)
+- Praćenje i statistika porudžbina
+- Izveštaji o prometu i analitika
+- Autentifikacija korisnika
 
-#### Preduslovi
+### Ordering aplikacija (Kupci)
+- Pregled kategorija i artikala iz menija
+- Prilagođavanje porudžbina sa modifikatorima
+- Upravljanje korpom
+- Istorija porudžbina
 
+## Pokretanje projekta
+
+### Preduslovi
+
+**Za Docker deployment:**
 - Docker Desktop ili Docker Engine sa Docker Compose
 
-#### Pokretanje jednom komandom
+**Za lokalni razvoj:**
+- Java 23
+- Maven
+- Node.js
+- Docker
+
+### Brzi start sa Docker-om (Preporučeno)
 
 **Windows:**
 ```powershell
@@ -47,58 +92,31 @@ Najbrži način da pokrenete ceo sistem je korišćenjem Docker-a. Potreban je s
 ./start-docker.sh
 ```
 
-Ili direktno sa Docker Compose:
+**Ili direktno sa Docker Compose:**
 ```bash
 docker-compose up --build
 ```
 
-Skripta će automatski:
-1. Izgraditi Docker Image za sve aplikacije
-2. Pokrenuti ArangoDB bazu podataka (port 8529)
-3. Pokrenuti ServeLogic API (port 7999)
-4. Pokrenuti CMS aplikaciju (port 7998)
-5. Pokrenuti Ordering aplikaciju (port 8080)
+Ovo će pokrenuti sve servise:
+- CMS App: http://localhost:7998
+- Ordering App: http://localhost:8080
+- API: http://localhost:7999/api
+- ArangoDB UI: http://localhost:8529 (korisnik: `root`, lozinka: `root`)
+- Fuseki UI: http://localhost:3030 (korisnik: `admin`, lozinka: `admin`)
 
-**Pristup aplikacijama:**
-- **CMS Aplikacija:** http://localhost:7998
-- **Ordering Aplikacija:** http://localhost:8080
-- **API Endpointi:** http://localhost:7999/api
-- **ArangoDB Web UI:** http://localhost:8529 (korisnik: `root`, lozinka: `root`)
-
-**Zaustavljanje:**
-Pritisnite `Ctrl+C` u terminalu gde je pokrenut Docker Compose, ili pokrenite:
+**Zaustavljanje servisa:**
 ```bash
 docker-compose down
 ```
 
-**Čišćenje (uklanja i podatke iz baze):**
+**Potpuno čišćenje (briše i podatke iz baze):**
 ```bash
 docker-compose down -v
 ```
 
-**Praćenje logova:**
-```bash
-# Svi servisi
-docker-compose logs -f
+### Lokalni razvoj
 
-# Pojedinačni servis
-docker-compose logs -f servelogic_api
-docker-compose logs -f servelogic_cms
-docker-compose logs -f servelogic_ordering
-```
-
-### Opcija 2: Development (Lokalno)
-
-Za lokalni development bez Docker-a.
-
-#### Preduslovi
-
-- Docker i Docker Compose (samo za bazu podataka)
-- Java 21+ (za API)
-- Java 17+ (za frontend aplikacije)
-- Maven
-
-#### 1. Pokretanje baze podataka
+#### 1. Pokretanje baza podataka
 
 ```powershell
 cd app
@@ -109,30 +127,115 @@ docker-compose -f docker-compose.env-dev.yml up -d
 
 ```powershell
 cd app/servelogic-api
-./mvnw spring-boot:run
+.\mvnw spring-boot:run
 ```
 
 #### 3. Pokretanje CMS aplikacije
 
 ```powershell
 cd app/cms
-mvnw spring-boot:run
+.\mvnw spring-boot:run
 ```
 
-#### 4. Pokretanje aplikacije za poručivanje (Ordering App)
+#### 4. Pokretanje Ordering aplikacije
 
 ```powershell
 cd app/ordering
-mvnw spring-boot:run
+.\mvnw spring-boot:run
 ```
 
-## 👥 Tim
+> **Napomena:** Pokrenite servise redom: baze podataka → API → frontend aplikacije. Prvi build može potrajati nekoliko minuta dok Vaadin kompajlira frontend komponente.
 
-- **Aleksandar Čolović** - 2023270030
-- **Gojko Dikić** - 2023270048
-- **Boris Radosavljević** - 2023270568
-- **Jovan Stoiljković** - 2024271443
-- **Dušan Krstić** - 2023270886
+### Rešavanje problema
 
----
-*Projekat razvijen za Univerzitet Singidunum - 2025*
+**Greška sa Java verzijom ("Unsupported class file major version 69"):**
+
+Podesite JAVA_HOME na Java 23:
+```powershell
+$env:JAVA_HOME = "C:\Program Files\Java\jdk-23"
+```
+
+**Problemi sa build-om:**
+```powershell
+.\mvnw clean install
+.\mvnw spring-boot:run
+```
+
+**Pregled logova:**
+```bash
+# Svi servisi
+docker-compose logs -f
+
+# Pojedinačni servis
+docker-compose logs -f servelogic_api
+docker-compose logs -f servelogic_cms
+docker-compose logs -f servelogic_ordering
+```
+
+## Struktura projekta
+
+```
+sit-projekat-2025/
+├── app/
+│   ├── servelogic-api/          # Backend REST API
+│   │   ├── src/main/java/       # Java izvorni kod
+│   │   │   └── rs/ac/singidunum/servelogic/
+│   │   │       ├── controller/  # REST endpointi
+│   │   │       ├── model/       # Entity klase
+│   │   │       ├── repository/  # Sloj za pristup podacima
+│   │   │       ├── service/     # Poslovna logika
+│   │   │       └── utility/     # Konfiguracija
+│   │   └── Dockerfile
+│   │
+│   ├── cms/                     # CMS frontend aplikacija
+│   │   ├── src/main/java/       # Vaadin prikazi i komponente
+│   │   └── Dockerfile
+│   │
+│   ├── ordering/                # Ordering frontend aplikacija
+│   │   ├── src/main/java/       # Vaadin prikazi i komponente
+│   │   └── Dockerfile
+│   │
+│   ├── arangodb/                # Skripte za inicijalizaciju baze
+│   └── docker-compose.env-dev.yml
+│
+├── documentation/               # Projektna dokumentacija
+│   ├── astah/                   # UML dijagrami
+│   ├── project-specification.md
+│   └── style-guide.md
+│
+├── docker-compose.yml           # Produkcioni Docker setup
+├── start-docker.cmd             # Windows Docker skripta
+├── start-docker.sh              # Linux/Mac Docker skripta
+└── start.cmd                    # Windows skripta za lokalni razvoj
+```
+
+## Pristup bazama podataka
+
+### ArangoDB
+- URL: http://localhost:8529
+- Korisnik: `root`
+- Lozinka: `root`
+- Baza: `servelogic`
+
+### Apache Fuseki
+- URL: http://localhost:3030
+- Korisnik: `admin`
+- Lozinka: `admin`
+- Dataset: `servelogic`
+
+## Dokumentacija
+
+Detaljna dokumentacija je dostupna u [documentation/](documentation/) folderu:
+- [Specifikacija projekta](documentation/project-specification.md)
+- [Stil kodiranja](documentation/style-guide.md)
+- UML dijagrami (use case, sekvencni, klasni, deployment) u [documentation/astah/](documentation/astah/)
+
+## Tim
+
+| Ime i prezime | Broj indeksa |
+|---------------|--------------|
+| Aleksandar Čolović | 2023270030 |
+| Gojko Dikić | 2023270048 |
+| Boris Radosavljević | 2023270568 |
+| Jovan Stoiljković | 2024271443 |
+| Dušan Krstić | 2023270886 |
