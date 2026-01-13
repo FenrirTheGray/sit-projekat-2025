@@ -1,12 +1,36 @@
 [theme~='dark'] {
 	--lumo-base-color: #202020;
 }
-.damnedButton vaadin-button[slot="forgot-password"] {
+
+.login-screen {
+	background-color: #202020;
+}
+
+.icon-pc {
+	width: 32px;
+	height: 32px;
+	color: white;
+}
+
+.login-title {
+	text-align: center;
+	width: 295px;
+	color: white;
+}
+
+.login-form-box {
+	width: 600px;
+	border-radius: 15px;
+	overflow: hidden;
+	background-color: #202020;
+}
+
+.login-form-box vaadin-button[slot="forgot-password"] {
 	color: #fff;
 	margin-left: 0;
 }
 
-.damnedButton vaadin-button[slot="submit"] {
+.login-form-box vaadin-button[slot="submit"] {
 	color: #000;
 	background-color: #fff;
 }

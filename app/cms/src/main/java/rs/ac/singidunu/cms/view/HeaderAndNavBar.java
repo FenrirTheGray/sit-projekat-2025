@@ -32,7 +32,8 @@ public class HeaderAndNavBar extends AppLayout{
 		SideNav leftNav=new SideNav();
 		
 		//SideNavItem pregledProizvoda=new SideNavItem("Pregled Proizvoda",PregledProizvoda.class); automatski bude plav ako je na toj stranici
-		SideNavItem productsView=new SideNavItem("Pregled Proizvoda");
+		//SideNavItem productsView=new SideNavItem("Pregled Proizvoda");
+		SideNavItem productsView = new SideNavItem("Pregled Proizvoda", ProductsView.class, VaadinIcon.PACKAGE.create());
 		productsView.getStyle().set("display", "flex");
 		productsView.getStyle().set("justify-content", "center"); 
 		productsView.getStyle().set("color", "white");
