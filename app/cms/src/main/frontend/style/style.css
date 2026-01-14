@@ -1,36 +1,127 @@
+/* =========================================
+   1. GLOBAL VARIABLES & FONT
+========================================= */
 [theme~='dark'] {
-	--lumo-base-color: #202020;
+	--lumo-base-color: #202020; /* Definiše tamnu pozadinu za ceo Lumo sistem */
 }
 
+* {
+	/* "!important" osigurava da Roboto pregazi bilo koji drugi font koji Vaadin pokuša da učita */
+	font-family: 'Roboto', sans-serif !important;
+}
+
+/* =========================================
+   2. LOGIN PAGE (LoginView.java)
+========================================= */
 .login-screen {
-	background-color: #202020;
+	background-color: #202020; /* Pozadina celog ekrana za logovanje */
 }
 
 .icon-pc {
 	width: 32px;
 	height: 32px;
-	color: white;
+	color: white; /* Boja desktop ikonice pored naslova */
 }
 
 .login-title {
 	text-align: center;
 	width: 295px;
-	color: white;
+	color: white; /* Boja "ServeLogic CMS" naslova */
 }
 
 .login-form-box {
 	width: 600px;
-	border-radius: 15px;
-	overflow: hidden;
+	border-radius: 15px; /* Zaobljene ivice bele kutije sa login formom */
+	overflow: hidden; /* Osigurava da sadržaj ne "beži" van zaobljenih ivica */
 	background-color: #202020;
 }
 
+/* Stilovi za elemente unutar same Vaadin Login komponente */
 .login-form-box vaadin-button[slot="forgot-password"] {
-	color: #fff;
+	color: #fff; /* Bela slova za "Zaboravljena lozinka" */
 	margin-left: 0;
 }
 
 .login-form-box vaadin-button[slot="submit"] {
-	color: #000;
+	color: #000; /* Crna slova na belom dugmetu "Prijava" */
 	background-color: #fff;
+}
+
+/* =========================================
+   3. MASTER LAYOUT (MasterLayout.java)
+========================================= */
+.master-layout-bg {
+	background-color: var(--lumo-base-color); /* Boja pozadine za glavni kontejner aplikacije */
+}
+
+/* =========================================
+   3a. HEADER (Gornja traka)
+========================================= */
+.main-header {
+	background-color: var(--lumo-base-color);
+	padding: 0 20px;
+	border-bottom: 1px solid #333; /* Tamno siva linija koja odvaja header od sadržaja */
+}
+
+.header-title {
+	color: white; /* Bela boja slova za naslov "CMS" */
+	font-size: 24px;
+	font-weight: 700;
+	letter-spacing: 1px; /* Razmak između slova CMS za moderniji izgled */
+}
+
+/* Profil korisnika u desnom uglu */
+.user-profile-box {
+	cursor: pointer; /* Menja kursor u "ruku" kada se pređe preko avatara/imena */
+	gap: 10px; /* Razmak između kruga sa slovom i teksta "Korisnik/Admin" */
+}
+
+.user-avatar {
+	background-color: #4a4a4a;
+	color: white;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%; /* Pravi savršen krug */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+}
+
+.user-label-top {
+	font-size: 11px;
+	color: #b3b3b3; /* Svetlija siva za labelu "Korisnik" */
+}
+
+.user-label-name {
+	font-size: 14px;
+	color: white;
+	font-weight: bold; /* Podebljano ime "Admin" */
+}
+
+/* =========================================
+   3b. SIDE NAVIGATION (Drawer / Meni levo)
+========================================= */
+.side-nav-wrapper {
+	background-color: #202020;
+	border-right: 1px solid #333;
+	height: 100%;
+}
+
+/* Centrira tekst unutar sivih dugmića */
+vaadin-side-nav-item::part(link) {
+	justify-content: center !important;
+}
+
+/* Sklanja plavičastu boju teksta i pozadine koju Vaadin nameće */
+vaadin-side-nav-item::part(link):hover,
+vaadin-side-nav-item[active]::part(link) {
+	color: inherit !important;
+	background-color: transparent !important;
+}
+
+/* Uklanja fokus (plavi okvir) */
+vaadin-side-nav-item::part(link):focus {
+	outline: none !important;
+	box-shadow: none !important;
 }

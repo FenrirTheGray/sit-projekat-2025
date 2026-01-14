@@ -1,6 +1,7 @@
 package rs.ac.singidunu.cms.view;
 
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -8,13 +9,15 @@ import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.dom.Style.Overflow;
-import com.vaadin.flow.dom.Style.TextAlign;
 import com.vaadin.flow.router.Route;
 
 @Route(value = "") // početna stranica
-@CssImport("./style/style.css")
+@StyleSheet("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap") //import od googla za font
+@CssImport("./style/style.css") // import css-a
 public class LoginView extends VerticalLayout {
+
+    // Vertical Layout = jedno ispod drugog
+    // Horizontal Layout = jedno pored drugog
 
 	private static final long serialVersionUID = 6313156717813295316L;
 
@@ -70,7 +73,7 @@ public class LoginView extends VerticalLayout {
             System.out.println("email: " + email.toLowerCase()); // testiramo ispis emaila u konzolu u IDE
 
             // Ova linija te prebacuje na ProductsView
-            getUI().ifPresent(ui -> ui.navigate(ProductsView.class));
+            getUI().ifPresent(ui -> ui.navigate(ArticlesView.class));
         });
 
         // velika kutija: content - u nju ubacujemo malu kutiju 1 (branding) i malu kutiju 2 (forma) - horizontal

@@ -4,11 +4,11 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "products", layout = HeaderAndNavBar.class)
+@Route(value = "articles", layout = MasterLayout.class)
 
-public class ProductsView extends VerticalLayout {
+public class ArticlesView extends VerticalLayout {
 
-    public ProductsView() {
+    public ArticlesView() {
         add(new H2("Ovde će biti lista proizvoda iz ArangoDB-a"));
 
         // Ovde ćemo kasnije dodati Grid (tabelu)
