@@ -12,6 +12,7 @@ import rs.ac.singidunum.servelogic.model.Category;
 import rs.ac.singidunum.servelogic.model.Modifier;
 import rs.ac.singidunum.servelogic.repository.CategoryRepository;
 import rs.ac.singidunum.servelogic.repository.IModifierRepository;
+import rs.ac.singidunum.servelogic.utility.ArangoFusekiReferenceService;
 
 @Mapper(componentModel = "spring")
 public abstract class ArticleMapper {
@@ -20,6 +21,8 @@ public abstract class ArticleMapper {
 	protected IModifierRepository modifierRepo;
 	@Autowired
 	protected CategoryRepository categoryRepo;
+	@Autowired
+	protected ArangoFusekiReferenceService populator;
 	IModifierMapper MAPPER = Mappers.getMapper(IModifierMapper.class);
 	
 	public abstract Article createToEntity(ArticleCreateRequestDTO dto);
@@ -31,7 +34,7 @@ public abstract class ArticleMapper {
 		if (id == null) {
 			return null;
 		}
-		return modifierRepo.findById(id).orElse(null);
+		return populator.populate(modifierRepo.findById(id).orElse(null));
 	}
 	public Category idToCategory(String id) {
 		if (id == null) {
