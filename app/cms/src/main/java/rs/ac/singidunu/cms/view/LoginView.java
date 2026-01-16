@@ -1,6 +1,7 @@
 package rs.ac.singidunu.cms.view;
 
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -8,59 +9,79 @@ import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.dom.Style.Overflow;
-import com.vaadin.flow.dom.Style.TextAlign;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "")
-@CssImport("./style/style.css")
+@Route(value = "") // početna stranica
+@StyleSheet("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap") //import od googla za font
+@CssImport("./style/style.css") // import css-a
 public class LoginView extends VerticalLayout {
+
+    // Vertical Layout = jedno ispod drugog
+    // Horizontal Layout = jedno pored drugog
 
 	private static final long serialVersionUID = 6313156717813295316L;
 
 	public LoginView() {
-		getStyle().set("background-color", "#202020");
+        // postavljanje podešavanja canvas-a (platna)
+        setSizeFull(); // postavljanje platna preko celog  (da zauzme 100% širine i visine ekrana)
+        setAlignItems(Alignment.CENTER); // centriranje sadržaja horizontalno (Levo - Desno)
+        setJustifyContentMode(JustifyContentMode.CENTER); // centriranje sadržaja vertikalno (Gore - Dole)
+
+        // postavljanje klase za pozadinu (čiju boju menjamo u style.css)
+        addClassName("login-screen");
+
+        // postavljanje tamne teme
 		getElement().getThemeList().add("dark");
-		Icon computerIcon = VaadinIcon.DESKTOP.create();
-		computerIcon.setSize("32px");
-		computerIcon.getStyle().set("color", "white");
-		H1 title = new H1("ServeLogic CMS");
-		title.getStyle().setTextAlign(TextAlign.CENTER);
+
+        // KOMPONENTE
+        // ikonica
+        Icon computerIcon = VaadinIcon.DESKTOP.create();
+        computerIcon.addClassName("icon-pc"); // dodeljujemo joj klasu
+
+        // naslov
+        H1 title = new H1("ServeLogic CMS");
+        title.addClassName("login-title");
+
+        // mala kutija 1: branding (box) - vertical - ikonica i naslov (h1)
 		VerticalLayout branding = new VerticalLayout(computerIcon, title);
+        // branding.addClassName("branding-box");
 		branding.setAlignItems(Alignment.CENTER);
-		title.getStyle().setWidth("295px");
-//		title.getStyle().setPadding("50px 150px");
-		LoginForm loginForm = new LoginForm();
+
+        // mala kutija 2: login-form (box) - vertical (podrazumevano - jer je gotova komponenta) - forma (sa elementima)
+		LoginForm loginForm = new LoginForm(); // kreiramo formu (u koju ćemo da ubacimo formular)
 		loginForm.getElement().getThemeList().add("light dark");
-		LoginI18n login = LoginI18n.createDefault();
-        login.getForm().setUsername("Email");
-        login.getForm().setPassword("Lozinka");
-        login.getForm().setSubmit("Prijava");
-        login.getForm().setForgotPassword("Zaboravljena lozinka?");
-        login.getForm().setTitle("");
-        
+
+        // Internationalization (I 18slova n)
+        // DTO = Data Transfer Object
+		LoginI18n login = LoginI18n.createDefault(); // kreiranje formulara, ali na engleskom (a mi hoćemo da bude na srpskom)
+        login.getForm().setUsername("Email"); // Username -> Email
+        login.getForm().setPassword("Lozinka"); // Password -> Lozinka
+        login.getForm().setSubmit("Prijava"); // Log In -> Prijava
+        login.getForm().setForgotPassword("Zaboravljena lozinka?"); // Forgot password -> Zaboravljena lozinka
+        login.getForm().setTitle(""); // brišemo podrazumevani naslov
+
+        // u formu ubacujemo formular na srpskom (umesto da bude na engleskom)
         loginForm.setI18n(login);
-        loginForm.getElement().getClassList().add("damnedButton");
-        loginForm.getElement().getStyle().setWidth("600px");
-        loginForm.getStyle().setBorderRadius("15px");
-        loginForm.getStyle().setOverflow(Overflow.HIDDEN);
-        loginForm.getStyle().setBackgroundColor("#202020");
-		
+        loginForm.addClassName("login-form-box"); // pravimo klasu za css
+
+        // listener za logovanje
+        // TODO: treba izmeniti i srediti u budućnosti kad dodamo logovanje
 		loginForm.addLoginListener(event -> {
             String email = event.getUsername();
-//            String password = event.getPassword();
+            // String password = event.getPassword();
             
-            System.out.println("email: " + email.toLowerCase().toString());
+            System.out.println("email: " + email.toLowerCase()); // testiramo ispis emaila u konzolu u IDE
+
+            // Ova linija te prebacuje na ProductsView
+            getUI().ifPresent(ui -> ui.navigate(ArticlesView.class));
         });
-		
+
+        // velika kutija: content - u nju ubacujemo malu kutiju 1 (branding) i malu kutiju 2 (forma) - horizontal
 		HorizontalLayout content = new HorizontalLayout(branding, loginForm);
         content.setAlignItems(Alignment.CENTER);
         content.setSpacing(true);
 
-        setSizeFull();
-        setAlignItems(Alignment.CENTER);
-        setJustifyContentMode(JustifyContentMode.CENTER);
-
+        // "lepimo" veliku kutiju (content) za prozor (LoginView)
         add(content);
 	}
 	
