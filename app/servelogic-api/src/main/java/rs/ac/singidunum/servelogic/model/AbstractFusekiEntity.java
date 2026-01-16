@@ -1,27 +1,25 @@
 package rs.ac.singidunum.servelogic.model;
 
+import java.util.Objects;
+
 import org.springframework.data.annotation.Id;
 
-public class ModificationType {
+public abstract class AbstractFusekiEntity {
 
 	public static final String ns = "%s/%s#".formatted(
 			System.getenv().getOrDefault("FUSEKI_NAMESPACEROOT", "http://www.singidunum.ac.rs"),
 			System.getenv().getOrDefault("FUSEKI_DATASET", "servelogic"));
-
+	
 	@Id
 	private String id;
-	private String name;
-	private boolean active;
-
-	public ModificationType() {
+	
+	public AbstractFusekiEntity() {
 		super();
 	}
 
-	public ModificationType(String id, String name, boolean active) {
-		super();
+	public AbstractFusekiEntity(String id) {
+		this();
 		this.id = id;
-		this.name = name;
-		this.active = active;
 	}
 
 	public String getId() {
@@ -32,24 +30,24 @@ public class ModificationType {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
 	public String getUrl() {
 		return "%s%s".formatted(ns, id);
 	}
-
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof AbstractFusekiEntity)) {
+			return false;
+		}
+		AbstractFusekiEntity other = (AbstractFusekiEntity) obj;
+		return Objects.equals(id, other.id);
+	}
+	
 }

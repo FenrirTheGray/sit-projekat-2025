@@ -2,23 +2,20 @@ package rs.ac.singidunum.servelogic.model;
 
 import java.util.Objects;
 import org.springframework.data.annotation.Id;
-
 import com.arangodb.springframework.annotation.ArangoId;
 
-
-public abstract class AbstractEntity {
+public abstract class AbstractArangoEntity {
 
 	@ArangoId
 	private String id; //._id
-	
 	@Id
 	private String key;	//._key
 	
-	protected AbstractEntity() {
+	protected AbstractArangoEntity() {
 		super();
 	}
-
-	protected AbstractEntity(String id, String key) {
+	protected AbstractArangoEntity(String id, String key) {
+		this();
 		this.id = id;
 		this.key = key;
 	}
@@ -26,15 +23,12 @@ public abstract class AbstractEntity {
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public String getKey() {
 		return key;
 	}
-
 	public void setKey(String id) {
 		this.key = id;
 	}
@@ -43,16 +37,15 @@ public abstract class AbstractEntity {
 	public int hashCode() {
 		return Objects.hash(key);
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof AbstractEntity)) {
+		if (!(obj instanceof AbstractArangoEntity)) {
 			return false;
 		}
-		AbstractEntity other = (AbstractEntity) obj;
+		AbstractArangoEntity other = (AbstractArangoEntity) obj;
 		return Objects.equals(key, other.key);
 	}
 

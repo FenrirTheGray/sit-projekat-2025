@@ -12,41 +12,42 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rs.ac.singidunum.servelogic.dto.create.ArticleCreateRequestDTO;
-import rs.ac.singidunum.servelogic.dto.response.ArticleResponseDTO;
-import rs.ac.singidunum.servelogic.dto.update.ArticleUpdateRequestDTO;
-import rs.ac.singidunum.servelogic.service.ArticleService;
+import rs.ac.singidunum.servelogic.dto.create.ModifierTypeCreateRequestDTO;
+import rs.ac.singidunum.servelogic.dto.response.ModifierTypeResponseDTO;
+import rs.ac.singidunum.servelogic.dto.update.ModifierTypeUpdateRequestDTO;
+import rs.ac.singidunum.servelogic.service.ModifierTypeService;
 
 @RestController
-@RequestMapping(value={"/api/articles", "/api/articles/"})
-public class ArticleController {
+@RequestMapping(value = { "/api/modifiertypes", "/api/modifiertypes/" })
+public class ModifierTypeController {
 	
 	@Autowired
-	private ArticleService service;
+	private ModifierTypeService service;
 
+//	TODO: Protect routes that get all
 	@GetMapping
-	public List<ArticleResponseDTO> findAll() {
+	public List<ModifierTypeResponseDTO> findAll() {
 		return service.findAll();
 	}
-	@GetMapping("/{key}")
-	public ResponseEntity<ArticleResponseDTO> findByKey(@PathVariable("key") String key) {
-		return service.findByKey(key).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+	@GetMapping("/{id}")
+	public ResponseEntity<ModifierTypeResponseDTO> findById(@PathVariable("id") String id) {
+		return service.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 	@PostMapping
-	public ResponseEntity<ArticleResponseDTO> create(@RequestBody ArticleCreateRequestDTO item) {
+	public ResponseEntity<ModifierTypeResponseDTO> create(@RequestBody ModifierTypeCreateRequestDTO item) {
 		return service.create(item).map(created -> ResponseEntity.status(HttpStatus.CREATED).body(created))
 				.orElse(ResponseEntity.badRequest().build());
 	}
-	@PutMapping("/{key}")
-	public ResponseEntity<ArticleResponseDTO> update(@PathVariable String key, @RequestBody ArticleUpdateRequestDTO item) {
-		if (item.getKey() != null && item.getKey().equals(key)) {
+	@PutMapping("/{id}")
+	public ResponseEntity<ModifierTypeResponseDTO> update(@PathVariable String id, @RequestBody ModifierTypeUpdateRequestDTO item) {
+		if (item.getId() != null && item.getId().equals(id)) {
 			return service.update(item).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
 		}
 		return ResponseEntity.badRequest().build();
 	}
-	@DeleteMapping("/{key}")
-	public ResponseEntity<Void> delete(@PathVariable String key) {
-		service.deleteByKey(key);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable String id) {
+		service.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
 	
