@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Configuration;
 import com.arangodb.ArangoDB;
 import com.arangodb.springframework.annotation.EnableArangoRepositories;
 import com.arangodb.springframework.config.ArangoConfiguration;
-
 import jakarta.annotation.PostConstruct;
 
 @Configuration

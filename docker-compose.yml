@@ -65,6 +65,7 @@ services:
     ports:
       - "7999:7999"
     environment:
+      - REST_PORT=7999
       - SPRING_PROFILES_ACTIVE=docker
       - ARANGODB_HOST=arangodb
       - ARANGODB_PORT=8529
