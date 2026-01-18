@@ -2,15 +2,20 @@ package rs.ac.singidunum.servelogic.utility;
 
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
+import java.net.URI;
 import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.UUID;
 import org.apache.jena.rdfconnection.RDFConnection;
 import org.apache.jena.rdfconnection.RDFConnectionRemote;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import jakarta.annotation.PostConstruct;
 
 @Configuration
 public class FusekiDBUtility {
+	
 	private final String host;
 	private final int port;
 	private final String dataset;
@@ -52,7 +57,28 @@ public class FusekiDBUtility {
 		}
 		return this.connection;
 	}
+	
+	@PostConstruct
+	public void init() {
 
+        try {
+//        	Create the dataset if one doesn't exist
+        	String adminUrl = "http://%s:%d/$/datasets".formatted(this.getHost(), this.getPort());
+    		String formData = "dbName=%s&dbType=tdb2".formatted(this.getDataset());
+    		
+    		HttpRequest request = HttpRequest.newBuilder()
+    	            .uri(URI.create(adminUrl))
+    	            .header("Content-Type", "application/x-www-form-urlencoded")
+    	            .POST(HttpRequest.BodyPublishers.ofString(formData))
+    	            .build();
+			this.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+		
+        } catch (Exception e) {
+			System.err.println("Fuseki initialization failed");
+			e.printStackTrace();
+		}
+    }
+	
     public String getHost() {
     	return host;
     }

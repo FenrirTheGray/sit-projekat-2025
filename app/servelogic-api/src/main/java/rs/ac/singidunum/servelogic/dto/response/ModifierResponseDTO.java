@@ -1,57 +1,49 @@
-package rs.ac.singidunum.servelogic.model;
+package rs.ac.singidunum.servelogic.dto.response;
 
-import com.arangodb.springframework.annotation.Document;
-
-@Document("modification")
-public class Modification extends AbstractEntity {
+public class ModifierResponseDTO {
 	
+	private String key;
 	private String name;
 	private String description;
 	private double price;
 	private boolean active;
+	private ModifierTypeResponseDTO type;
 	
-	protected Modification() {
-		super();
+	public String getKey() {
+		return key;
 	}
-	
-	public Modification(String id, String key, String name, String description, double price, boolean active) {
-		super(id, key);
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.active = active;
+	public void setKey(String key) {
+		this.key = key;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getDescription() {
 		return description;
 	}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 	public double getPrice() {
 		return price;
 	}
-
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
 	public boolean isActive() {
 		return active;
 	}
-
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public ModifierTypeResponseDTO getType() {
+		return type;
+	}
+	public void setType(ModifierTypeResponseDTO type) {
+		this.type = type;
 	}
 	
 }

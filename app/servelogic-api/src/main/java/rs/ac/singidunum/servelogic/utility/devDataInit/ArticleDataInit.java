@@ -3,27 +3,28 @@ package rs.ac.singidunum.servelogic.utility.devDataInit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import rs.ac.singidunum.servelogic.model.Article;
-import rs.ac.singidunum.servelogic.model.Modification;
+import rs.ac.singidunum.servelogic.model.Category;
+import rs.ac.singidunum.servelogic.model.Modifier;
 import rs.ac.singidunum.servelogic.repository.IArticleRepository;
-import rs.ac.singidunum.servelogic.service.ModificationService;
+import rs.ac.singidunum.servelogic.service.CategoryService;
+import rs.ac.singidunum.servelogic.service.ModifierService;
 
 @Component
-@Order(2)
+@Order(3)
 public class ArticleDataInit implements ApplicationRunner {
 
-	private final IArticleRepository repo;
-	private final ModificationService modificationsService;
-
-	public ArticleDataInit(IArticleRepository repo, ModificationService modificationsService) {
-		super();
-		this.repo = repo;
-		this.modificationsService = modificationsService;
-	}
+	@Autowired
+	private IArticleRepository repo;
+	@Autowired
+	private ModifierService modifierService;
+	@Autowired
+	private CategoryService categoryService;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -31,18 +32,21 @@ public class ArticleDataInit implements ApplicationRunner {
 			return;
 		}
 
-		List<Modification> modifications = modificationsService.findAll();
+		List<Modifier> modifiers = modifierService.findAllInit();
+		List<Category> categories = categoryService.findAllInit();
 		List<Article> articles = new ArrayList<>();
-
-		if (modifications.isEmpty()) {
-			System.out.println("Modifications not initialized. Stopping Article initialization");
+		
+		if (modifiers.isEmpty() || categories.isEmpty()) {
+			System.out.println("Modifiers or Categories not initialized. Stopping Article initialization");
 			return;
 		}
 
-		for (int i = 1; i <= 10; i++) {
-			Article article = new Article(null, null, "Article " + i, "Description for article " + i, i * 10.0, true);
+		for (int i = 1; i <= 25; i++) {
+			Article article = new Article(null, null, "Article a" + i, "Description for a" + i + " article.", "https://cdn.dribbble.com/userupload/22570626/file/original-379b4978ee41eeb352e0ddacbaa6df96.jpg?resize=512x384", i * ThreadLocalRandom.current().nextInt(100, 250), true);
 
-			article.setModifications(modifications.stream().skip(ThreadLocalRandom.current().nextInt(0, modifications.size()-3)).limit(2).toList());
+			article.setModifiers(modifiers.stream().skip(ThreadLocalRandom.current().nextInt(0, modifiers.size()-3)).limit(2).toList());
+			
+			article.setCategory(categories.stream().skip(ThreadLocalRandom.current().nextInt(0, categories.size()-1)).limit(1).findFirst().get());
 
 			articles.add(article);
 		}

@@ -27,16 +27,34 @@
 		<tag />
 		<url />
 	</scm>
+
 	<properties>
-		<release>${java.version}</release>
+		<java.version>23</java.version>
+		<org.mapstruct.version>1.6.3</org.mapstruct.version>
+		<com.arangodb.arangodb-spring-data.version>4.6.0</com.arangodb.arangodb-spring-data.version>
+		<org.apache.jena.apache-jena-libs.version>5.6.0</org.apache.jena.apache-jena-libs.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${org.mapstruct.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -56,14 +74,20 @@
 		<dependency>
 			<groupId>com.arangodb</groupId>
 			<artifactId>arangodb-spring-data</artifactId>
-			<version>4.6.0</version>
+			<version>${com.arangodb.arangodb-spring-data.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
-			<version>5.6.0</version>
+			<version>${org.apache.jena.apache-jena-libs.version}</version>
 			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${org.mapstruct.version}</version>
 		</dependency>
 	</dependencies>
 
