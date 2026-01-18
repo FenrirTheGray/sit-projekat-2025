@@ -1,6 +1,8 @@
 package sitprojekat.view;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
@@ -11,6 +13,8 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
@@ -21,81 +25,70 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.model.Article;
+import sitprojekat.interfajsi.ArticleViewInterface;
+import sitprojekat.model.Modifier;
+import sitprojekat.presenter.ArticlePresenter;
 import sitprojekat.service.ArticleService;
+import sitprojekat.service.ProductInCartService;
 
 
 @CssImport("./style/style.css")
 @Route(value = "Article",layout = HeaderAndNavBar.class)
-public class ArticleView  extends HorizontalLayout implements HasUrlParameter<String>{
+public class ArticleView  extends HorizontalLayout implements HasUrlParameter<String> ,ArticleViewInterface{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4405949928698782190L;
-	private Icon shoppingCartIcon=VaadinIcon.CART_O.create();;
-	private Article mainArticle ;
 	private H2 articleName=new H2();
     private Span articleDescription = new Span();
     private Button addToCartButton = new Button();
     private IntegerField productCounter = new IntegerField();
-    private ArticleService service=new ArticleService();
+    private final ArticlePresenter presenter;
+    private RadioButtonGroup<Modifier> articleSizeRadioButtonGroup;
+    private CheckboxGroup<Modifier> articleModifierCheckBoxGroup;
     
 	@Override
 	public void setParameter(BeforeEvent event, String sentArticleID) {
-		
-		this.mainArticle=service.findByID(sentArticleID);
-		if (mainArticle != null) {
-	        this.articleName.setText(mainArticle.getName());
-	        this.articleDescription.setText(mainArticle.getDescription());
-	        updateButtonValue();
-	    }else {
-			this.articleName.setText("Placeholder ako nije dobro ucitan");
-			this.articleDescription.setText("Placeholder ako nije dobro ucitan");
-			this.addToCartButton.setDisableOnClick(true);
-			this.productCounter.setEnabled(false);
-			this.addToCartButton.setText("Dodaj u korpu () RSD");
-		}
+		presenter.findByID(sentArticleID);
 	}
 	
 	
-	public ArticleView() {
+	public ArticleView(ArticleService articleService,ProductInCartService cartService) {
+		
+		this.presenter=new ArticlePresenter(this, articleService,cartService);
 		
 		Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
-		Button buttonBack=new Button("Povratak",backArrowIcon);
-		//dugmeNazad.getStyle().set("background-color", "#3F220F");
-		//dugmeNazad.getStyle().set("color", "#ffffff");
-		buttonBack.addClassName("dugmeNazad");
+		Button backButton=new Button("Povratak",backArrowIcon);
+		backButton.addClassName("brownButton");
 		
-		//H2 articleName=new H2("Naziv Artikla");
-		//articleName.setText(mainArticle.getName());
-		articleName.getStyle().set("color", "#ffffff");
+		articleName.addClassName("whiteText");
 		
-		
-//		Span articleDescription=new Span("asasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasff"
-//				+ "asasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsa"
-//				+ "fffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsa"
-//				+ "asasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaas"
-//				+ "asfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsa"
-//				+ "asasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsaasasfffffffffffffffffffsa");
+
 		//Span articleDescription=new Span(mainArticle.getDescription());
-		articleDescription.getStyle().set("color", "#ffffff");
-		articleDescription.getStyle().set("overflow-wrap","break-word");
-		articleDescription.setWidth("350px");
+		articleDescription.addClassName("DescriptionSpan");
 		
 		Image articleImage=new Image("/images/image_burger.jpg","slika primer proizvoda");
-		articleImage.setWidth("400px");
-		articleImage.setHeight("300px");
-		//Image articleImage=new Image();
+		articleImage.addClassName("articleImage");
+
 		
+		productCounter.addClassName("productCounter");
 		productCounter.setValue(1);
 		productCounter.setStepButtonsVisible(true);
-		productCounter.addClassName("productCounter");	
-		addToCartButton.getStyle().set("color", "#ffffff");
-		addToCartButton.getStyle().set("background-color", "#3F220F");
-		addToCartButton.setWidth("100%");
 		
-		productCounter.addValueChangeListener(e->{updateButtonValue();});
+		
+		addToCartButton.addClassName("brownButton");
+		
+		addToCartButton.addClickListener(e->{   // mora biti izabran size i kolicina veca od 0
+			if(productCounter.getValue()>0) {
+				presenter.addToCart();
+		}
+		});
+		
+		this.articleSizeRadioButtonGroup = createRadioButtonGroupForSize(new ArrayList<>());
+        this.articleModifierCheckBoxGroup = createCheckboxGroupForModifiers(new ArrayList<>());
+		
+		productCounter.addValueChangeListener(e->presenter.orderAmountChange(e.getValue())); // menja se cena buttona sa kolicinom
 		
 		
 		VerticalLayout articleNameAndDescriptionAndImageContainer=new VerticalLayout();
@@ -108,108 +101,177 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 		counterAndAddtoCartContainer.add(productCounter,addToCartButton);
 		
 		VerticalLayout leftSideContainer=new VerticalLayout();
-		leftSideContainer.add(buttonBack,articleNameAndDescriptionAndImageContainer,counterAndAddtoCartContainer);
+		leftSideContainer.add(backButton,articleNameAndDescriptionAndImageContainer,counterAndAddtoCartContainer);
 		
 		
-		H2 sizeChoice=new H2("Odabir Velicine");
-		sizeChoice.getStyle().set("color", "#ffffff");
-		
-//		RadioButtonGroup<String> radioArticleSize = new RadioButtonGroup<>();
-//		radioArticleSize.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);
-//		radioArticleSize.setLabel("Odabir Velicine");
-//		radioArticleSize.setItems("Veliki", "Srednji", "Mali");
-//		radioArticleSize.getStyle().set("background-color", "#ffffff");             // vec definisani nacin 
-//		radioArticleSize.setWidth("100%");
-//		radioArticleSize.setHeight("250px");
-		
-		RadioButtonGroup<Article> radioArticleSize = new RadioButtonGroup<>();
-		radioArticleSize.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);       //smer kako su poredjani
-		radioArticleSize.getStyle().set("background-color", "#ffffff");
-		
-		List<Article> listaArtikala=List.of(new Article("1", "Veliki", "opis1", 250.0, true),new Article("2", "Srednji", "opis2", 350.0, true)); // test za velicine
-		
-		radioArticleSize.setItems(listaArtikala); 
-		radioArticleSize.setWidth("100%");
-		radioArticleSize.setHeight("250px");
-																			// nacin da od svakog uzme listu njegovih podatka samo test za sad
-		radioArticleSize.setRenderer(new ComponentRenderer<>(article -> {  //za svaki artikal se pravi
-		    VerticalLayout container = new VerticalLayout(); 
-		    container.setSpacing(false);
-		    container.setPadding(false);      // jedno ispod drugog bez razmaka
-		    Span articleTitle = new Span("Naziv Artikla");   // naziv articla i izgled 
-		    articleTitle.getStyle().set("font-weight", "bold");
-		    articleTitle.getStyle().set("color", "#3F220F");
-
-		    Span articlePriceSubText = new Span("+ "+String.valueOf(article.getBasePrice()+" RSD")); // ispod articla cena kao manji info
-		    articlePriceSubText.getStyle().set("font-size", "var(--lumo-font-size-s)");              // manji font
-		    articlePriceSubText.getStyle().set("color", "gray");									// boja
-
-		    container.add(articleTitle, articlePriceSubText);
-		    return container;                // dodaje u container i vraca pa ako ima jos pravi novi container
-		}));
+		H2 sizeChoiceH2=new H2("Odabir Velicine");
+		sizeChoiceH2.addClassName("whiteText");
 		
 		
+		H2 modificationChoiceH2=new H2("Odabir Modifikator");
+		modificationChoiceH2.addClassName("whiteText");
+			
+		
+		VerticalLayout rightSideContainer=new VerticalLayout();	
+		
+		articleSizeRadioButtonGroup.addValueChangeListener(e->{ // kad se menja izabrani menja cenu
+			presenter.orderAmountChange(getOrderAmount());
+		});
+		articleModifierCheckBoxGroup.addValueChangeListener(e->{ //  kad se menja izabrani menja cenu
+			presenter.orderAmountChange(getOrderAmount());
+		});
 		
 		
-		H2 modificationChoice=new H2("Odabir Prilog");
-		modificationChoice.getStyle().set("color", "#ffffff");
-//		RadioButtonGroup<String> radioModifikator = new RadioButtonGroup<>();
-//		radioModifikator.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);
-//		radioModifikator.setItems("Modifikator1", "Modifikator2", "Modifikator3");          // vec definisani nacin
-//		radioModifikator.getStyle().set("background-color", "#ffffff");//#20281f
-//		radioModifikator.setWidth("100%");
-//		radioModifikator.setHeight("250px");
-		
-		
-		CheckboxGroup<Article> checkBoxModifikator = new CheckboxGroup<>();   
-		checkBoxModifikator.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);       //smer kako su poredjani
-		checkBoxModifikator.getStyle().set("background-color", "#ffffff");
-		
-		List<Article> listaArtikala2=List.of(new Article("1", "modifikator1", "opis1", 250.0, true),new Article("2", "modifikator2", "opis2", 350.0, true)); // test kao modifikator
-		
-		checkBoxModifikator.setItems(listaArtikala2); 
-		checkBoxModifikator.setWidth("100%");
-		checkBoxModifikator.setHeight("250px");
-		
-		checkBoxModifikator.setRenderer(new ComponentRenderer<>(article -> {  //za svaki modifikator se pravi
-		    VerticalLayout container = new VerticalLayout(); 
-		    container.setSpacing(false);
-		    container.setPadding(false);      // jedno ispod drugog bez razmaka
-		    Span articleTitle = new Span(article.getName());   // naziv za opis i izgled 
-		    articleTitle.getStyle().set("font-weight", "bold");
-		    articleTitle.getStyle().set("color", "#3F220F");
-
-		    Span articlePriceSubText = new Span("+ "+String.valueOf(article.getBasePrice()+" RSD")); // ispod modifikator cena kao manji info
-		    articlePriceSubText.getStyle().set("font-size", "var(--lumo-font-size-s)");              // manji font
-		    articlePriceSubText.getStyle().set("color", "gray");									// boja
-
-		    container.add(articleTitle, articlePriceSubText);
-		    return container;                // dodaje u container i vraca pa ako ima jos pravi novi container
-		}));
-		
-		
-		
-		
-		
-		VerticalLayout rightSideContainer=new VerticalLayout();
-		
-		
-		rightSideContainer.add(sizeChoice,radioArticleSize,modificationChoice,checkBoxModifikator);
-		
-		
+		rightSideContainer.add(sizeChoiceH2,articleSizeRadioButtonGroup,modificationChoiceH2,articleModifierCheckBoxGroup);
 		
 		add(leftSideContainer,rightSideContainer);
 		
 	}
 
-	private void updateButtonValue() { 		// menja se vrednost u buttonu cena * kolicina koju narucuje
-        if (mainArticle != null) {
-            double totalPrice = mainArticle.getBasePrice() * productCounter.getValue();
-            addToCartButton.setText("Dodaj u korpu (" + totalPrice + ") RSD");
-            addToCartButton.setIcon(VaadinIcon.CART_O.create());
-        }
-    }
+	private RadioButtonGroup<Modifier> createRadioButtonGroupForSize(List<Modifier> modifierList){
+		
+		RadioButtonGroup<Modifier> articleSizeRadio = new RadioButtonGroup<>();
+		articleSizeRadio.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);       //smer kako su poredjani
+		articleSizeRadio.addClassName("choiceContainer");
+				
+		articleSizeRadio.setItems(modifierList); 
+																			// nacin da od svakog uzme listu njegovih podatka samo test za sad
+		articleSizeRadio.setRenderer(new ComponentRenderer<>(modifier -> {  //za svaki artikal se pravi
+		    VerticalLayout container = new VerticalLayout(); 
+		    container.setSpacing(false);
+		    container.setPadding(false);      // jedno ispod drugog bez razmaka
+		    Span articleTitleSpan = new Span(modifier.getName());   // naziv articla i izgled 
+		    articleTitleSpan.addClassName("choiceButton");
+
+		    Span articlePriceSubTextSpan = new Span("+ "+String.valueOf(modifier.getPrice()+" RSD")); // ispod articla cena kao manji info
+		    articlePriceSubTextSpan.addClassName("choiceButtonSubText");
+
+		    container.add(articleTitleSpan, articlePriceSubTextSpan);
+		    return container;                // dodaje u container i vraca pa ako ima jos pravi novi container
+		}));
+		
+		return articleSizeRadio;
+		
+	}
+	private CheckboxGroup<Modifier> createCheckboxGroupForModifiers(List<Modifier> articlesList){
+		
+		CheckboxGroup<Modifier> modifierCheckBox = new CheckboxGroup<>();   
+		modifierCheckBox.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);       //smer kako su poredjani
+		modifierCheckBox.addClassName("choiceContainer");
 	
+		modifierCheckBox.setItems(articlesList); 
+
+	
+		modifierCheckBox.setRenderer(new ComponentRenderer<>(modifier -> {  //za svaki modifikator se pravi
+			VerticalLayout container = new VerticalLayout(); 
+			container.setSpacing(false);
+			container.setPadding(false);      // jedno ispod drugog bez razmaka
+			Span articleTitleSpan = new Span(modifier.getName());   // naziv za opis i izgled 
+			 articleTitleSpan.addClassName("choiceButton");
+
+			Span articlePriceSubTextSpan = new Span("+ "+String.valueOf(modifier.getPrice()+" RSD")); // ispod modifikator cena kao manji info
+			articlePriceSubTextSpan.addClassName("choiceButtonSubText");
+			container.add(articleTitleSpan, articlePriceSubTextSpan);
+			return container;                // dodaje u container i vraca pa ako ima jos pravi novi container
+		}));
+		return modifierCheckBox;
+		
+		}
+
+	@Override
+	public void setArticleName(String name) { // stavlja naziv
+		
+		this.articleName.setText(name);
+		
+	}
+
+	@Override
+	public void setArticleDescription(String description) { // stavlja description
+		
+		this.articleDescription.setText(description);
+		
+	}
+
+	@Override
+	public void setPrice(double price) { // stavlja cenu zavisi od izabranog modifiera siza i kolicine
+
+		this.addToCartButton.setText("Dodaj u korpu (" + price + ") RSD");
+		
+	}
+
+	@Override
+	public int getOrderAmount() {
+		return productCounter.getValue();
+	}
+
+
+	@Override
+	public void AddToCartNotif(String string) {    // notif da je dodat proizvod
+		Notification notification = Notification.show(string, 3000, Notification.Position.BOTTOM_START); // sta pise , koliko traje, pozicija
+	    notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);// koje je boje
+		
+	}
+
+
+	@Override
+	public void setArticleSizes(List<Modifier> articleSizes) {  // stavlja size od tog articla
+		articleSizeRadioButtonGroup.setItems(articleSizes);
+	
+	}
+
+
+	@Override
+	public void setArticleModifiers(List<Modifier> articleModifiers) { // stavlja modifiere od tog articla
+		articleModifierCheckBoxGroup.setItems(articleModifiers);
+		
+	}
+
+
+	public RadioButtonGroup<Modifier> getArticleSizeRadioButtonGroup() {
+		return articleSizeRadioButtonGroup;
+	}
+
+
+	public void setArticleSizeRadioButtonGroup(RadioButtonGroup<Modifier> articleSizeRadioButtonGroup) {
+		this.articleSizeRadioButtonGroup = articleSizeRadioButtonGroup;
+	}
+
+
+	public CheckboxGroup<Modifier> getArticleModifierCheckBoxGroup() {
+		return articleModifierCheckBoxGroup;
+	}
+
+
+	public void setArticleModifierCheckBoxGroup(CheckboxGroup<Modifier> articleModifierCheckBoxGroup) {
+		this.articleModifierCheckBoxGroup = articleModifierCheckBoxGroup;
+	}
+
+
+	@Override
+	public double getArticleSizesRadioButton() {   // vraca cenu izabranog siza ako je neki izabran
+	    if (this.articleSizeRadioButtonGroup.getValue() == null) {
+	        return 0;
+	    }
+	    return this.articleSizeRadioButtonGroup.getValue().getPrice();
+		
+	}
+
+
+	@Override
+	public double getArticleModifiersCheckBox() {
+		Set<Modifier> selectedItems=this.articleModifierCheckBoxGroup.getSelectedItems(); // vraca cenu za izabrane modifiere ako su izabrani
+		double price=0;
+		
+		for (Modifier modifier : selectedItems) {
+			price+=modifier.getPrice();
+		}
+		
+		
+		return price;
+	}
+
+
+
 
 	
 	

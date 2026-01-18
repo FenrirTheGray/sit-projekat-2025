@@ -1,44 +1,84 @@
 package sitprojekat.view;
 
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.icon.VaadinIcon;
+import java.util.List;
+
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "Orders", layout = HeaderAndNavBar.class)
-public class OrdersView extends VerticalLayout {
+import sitprojekat.model.Article;
 
-	private static final long serialVersionUID = 1L;
+@CssImport("./style/style.css")
+@Route(value = "Orders",layout = HeaderAndNavBar.class)
+public class OrdersView extends VerticalLayout{
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7881133440689089779L;
 	public OrdersView() {
-		getStyle().set("background-color", "#204824");
-		setPadding(true);
-		setSpacing(true);
-		setSizeFull();
+					
+		List<Article> listaArtikala=List.of(new Article("1", "Porudzbina1", "Datum Porudzbine :15.11.2025", 250.0, true, null, null),
+				new Article("2", "Porudzbina2", "Datum Porudzbine :15.11.2025", 350.0, true, null, null),
+				new Article("3", "Porudzbina3", "Datum Porudzbine :15.11.2025", 650.0, true, null, null)); // test za velicine
+		
+		VerticalLayout orderedProductsContainer=new VerticalLayout();
+		
+		Double totalSumDouble=0.0;
+		for (Article a : listaArtikala) {
+			orderedProductsContainer.add(createOrdersContainer(a));
+			totalSumDouble+=a.getBasePrice();
+		}
+		
+		orderedProductsContainer.setAlignItems(Alignment.CENTER);
+		orderedProductsContainer.setJustifyContentMode(JustifyContentMode.CENTER);
+		
+		add(orderedProductsContainer);
+	}
+	public VerticalLayout createOrdersContainer(Article article) {
+		
+	    VerticalLayout orderContainer = new VerticalLayout(); // glavni pravougaonik
+	    orderContainer.addClassName("orderContainer");
+	    
+	    orderContainer.setSpacing(false);
 
-		H2 title = new H2("Pregled Porudžbina");
-		title.getStyle().set("color", "#ffffff");
+	    HorizontalLayout topRowContainer = new HorizontalLayout();  // gornji red
+	    topRowContainer.setWidthFull();
+	    
+	    Span titleSpan = new Span(article.getName());
+	    titleSpan.addClassName("boldText2");
+    
+	    topRowContainer.add(titleSpan);
+	    topRowContainer.expand(titleSpan);
 
-		TextField filterTextBox = new TextField();
-		filterTextBox.setPlaceholder("Pretraga porudžbina...");
-		filterTextBox.setClearButtonVisible(true);
-		filterTextBox.setSuffixComponent(VaadinIcon.SEARCH.create());
-		filterTextBox.getStyle().set("background-color", "#ffffff");
-		filterTextBox.getStyle().set("border-radius", "30px");
-		filterTextBox.setWidth("350px");
+	    VerticalLayout dateTimeContainer = new VerticalLayout(); // spojeno datum i vreme u jedan
+	    dateTimeContainer.setSpacing(false); 
+	    dateTimeContainer.setPadding(false); 
+	    
+	    Span dateOrderedSpan = new Span(article.getDescription());   
+	    dateOrderedSpan.addClassName("whiteText2");
+	   
+	    HorizontalLayout bottomRowContainer = new HorizontalLayout(); // donji red
+	    bottomRowContainer.setWidthFull();
+	    bottomRowContainer.setAlignItems(Alignment.CENTER);
 
-		HorizontalLayout filterContainer = new HorizontalLayout(filterTextBox);
-		filterContainer.setWidthFull();
-		filterContainer.setJustifyContentMode(JustifyContentMode.END);
+	    Span timeOrderedSpan = new Span(article.getBasePrice()+" umesto cene drugi datum koji sadrzi");
+	    timeOrderedSpan.addClassName("whiteText");
+    
+	    Button detailsButton = new Button("Detalji");
+	    detailsButton.addClassName("greenButton");
+	    
+	    dateTimeContainer.add(dateOrderedSpan,timeOrderedSpan);
+	    
+	    bottomRowContainer.add(dateTimeContainer,detailsButton);
+	    bottomRowContainer.setJustifyContentMode(JustifyContentMode.BETWEEN);
 
-		// Placeholder grid for orders - will be populated with actual order data later
-		Grid<String> ordersGrid = new Grid<>();
-		ordersGrid.addColumn(item -> item).setHeader("Order ID");
-		ordersGrid.getStyle().set("background", "transparent");
-
-		add(title, filterContainer, ordersGrid);
+	    orderContainer.add(topRowContainer,bottomRowContainer);   
+	    
+	    return orderContainer;
 	}
 }
