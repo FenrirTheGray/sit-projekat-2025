@@ -1,20 +1,325 @@
-.dugmeNazad {
+.SideNavItemNotActive{
+	display:flex;
+	justify-content:center; 
+	color:white;
+	background-color:#3F220F;
+	border-radius:10px;
+	margin:10px;
+	width:230px;
+}
+.SideNavItemActive{                																									
+	display:flex;
+	justify-content:center; 
+	color:#ffffff;
+	background-color:#C9AB71;
+	border-radius:10px;
+	margin:10px;
+	width:230px;
+}
+/*kako bi radio cursor pointer bez ovoga tekst nema u pravougaoniku*/
+.SideNavItemNotActive::part(link) {
+    cursor: pointer !important;
+}
+.SideNavItemActive::part(link) {
+    cursor: pointer !important;
+}
+/*za header logo */
+.LogoText{
+	color:white;
+	font-family:Kaushan Script;
+	font-size:32px;
+}
+.userIcon{
+	color:#8C6774;
+	background-color:white;
+	border-radius:5px;
+	cursor:pointer;
+}
+.header{
+	background-color:#3F220F;                                    
+	height:60px;
+	width:100%;
+
+}
+.shoppingCartIcon{
+	margin-right:10px;
+	color:#74904C;
+	cursor:pointer;
+}
+/*kako bi radio cursor pointer je dodatk samo tekst onda ima u pravougaoniku*/
+.leftNav{
+	color: #ffffff;
+	cursor:pointer;
+}
+
+.filterTextBox{
+	background-color:#ffffff;
+	border-radius:30px;
+	width: 350px;
+	padding:0px;
+}
+.promoImage{
+	width: 550px;
+	Height:450px;
+}
+.cursorPointer{
+	cursor:pointer;
+}
+.arrowIcon{
+	color: #ffffff;
+	background-color:#74914c;
+	border-radius:50%;
+	cursor:pointer;
+}
+.activeCarousel{
+	width:7;
+	height:7px;
+	color:#ffffff
+}
+.notActiveCarousel{
+	width:7;
+	height:7px;
+	color:#74914c
+
+}
+.productContainer{
+	width:300px !important;				
+	border:2px solid;
+	border-color:#3F220F;
+	border-radius:10px;
+}
+.productImage{
+	width: 100px;
+	height: 100px;
+}
+.articleImage{
+	width:400px;
+	height:300px;
+}
+.DescriptionSpan{
+	color:#ffffff;
+	overflow-wrap:break-word;
+	Width:350px !important;
+}
+.categoryH1{
+	text-align:center;
+	color:#ffffff;
+}
+.boldText{
+	font-weight:bold;
+	font-size:20px;
+	color:#ffffff;
+}
+.boldText2{
+	font-weight:bold;
+	font-size:20px;
+	color:#ffffff;
+	margin-bottom:20px;
+}
+.whiteText2{
+	color: #ffffff;
+	margin-top:0px;
+	margin-bottom:0px;
+}
+.whiteText3{
+	color: #ffffff;
+	margin-bottom:10px;
+}
+.whiteText4{
+	color: #ffffff;
+	margin-bottom:20px;
+}
+.greenBackground{
+	background-color:#204824
+}
+.NOTFOUND{
+	color:#FF0000;
+	font-size:120px;
+}
+/*svi u toj kategoriji 3 po jednom redu*/
+.articleContainer{      
+	    display:grid !important;
+	    grid-template-columns:repeat(3, 1fr); 
+	    gap:120px; 
+	    margin-left:auto;
+	    margin-right:auto;
+}
+.continueToOrderButton{
+	background-color:#3F220F;
+	color:#ffffff;
+	border-radius:8px;
+	width:850px;
+	cursor:pointer;
+}
+.productOrderedContainer{
+	width:850px !important; 
+	background-color:#20281f;
+	border-radius:12px;
+	padding:15px;
+	margin-bottom:15px;
+}
+.orderContainer{
+	width:850px !important; 
+	background-color:#20281f;
+	border-radius:12px;
+	padding:15px;
+	margin-bottom:15px;
+}
+.choiceContainer{
+	background-color:#20281f;
+	width:100%;
+	height:250px;
+}
+.choiceBackground{
+	background-color:#20281f;
+}
+.choiceButton{
+	font-weight:bold;
+	color:#ffffff;
+}
+.choiceButtonSubText{
+	font-size:var(--lumo-font-size-s);            /*manji font*/  
+	color:gray !important;	
+}
+/* za default dugme */
+.brownButton{
     background-color: #3F220F;
     color: #ffffff;
+	cursor:pointer;
+}
+.greenButton{
+	background-color: #74914c;
+	color: #ffffff;
+	cursor:pointer;
+}
+/* dugme u userProfile braon*/
+.saveChangesButton{
+    background-color: #3F220F;
+    color: #ffffff;
+	cursor:pointer;
+	border-radius:8px;
+}
+/* dugme u userProfile crveno*/
+.logOutButton{
+    background-color: #910707;
+    color: #ffffff;
+	cursor:pointer;
+	border-radius:8px;
+}
+/* container u userProfile */
+.userProfileContainer{
+	max-width: 350px;
+
+	background-color:#c9ab71;
+	padding:20px;
+	border-radius:8px;
+	align-items: stretch;
+}
+.centeredText{
+	    width: 100% !important;
+	    text-align: center;
+}
+.payingOptionChoiceContainer{
+	gap:45px;
+}
+.createOrderButton{
+	background-color:#3F220F;
+	color:#ffffff;
+	border-radius:8px;
+	cursor:pointer;
+}
+.orderingContainer{
+	width:350px !important; 
+	background-color:#c9ab71;
+	padding:20px;
+	border-radius:8px;
+}
+/* beo tekst */
+.whiteText{
+    color: #ffffff;
+}
+.whiteTextNotif{
+	font-family:Kaushan Script !important;
+	font-size:64px;
+	color:#ffffff;
+}
+.notifText{
+	width: 100% !important;
+	text-align: center;
+	color:#000000;
+}
+.informationContainer{
+	width:350px !important; 
+	background-color:#c9ab71;
+	padding:20px;
+	border-radius:8px;
+	height:250px;
+}
+.loginButton{
+	background-color:#3F220F;
+	color:#ffffff;
+	border-radius:8px;
+	cursor:pointer;
+}
+.underlineText{
+	text-align:center;
+	text-decoration:underline;
+	margin-bottom:40px;
+	cursor:pointer;
+	align-self:center;
+}
+.underlineText2{
+	text-align:center;
+	text-decoration:underline;
+	margin-bottom:15px;
+	cursor:pointer;
+	align-self:center;
+}
+.emailField{
+	background-color:#204824;
+	color:#ffffff;
+	border-radius:8px;
+	margin-top:40px;
+	margin-bottom:20px;
+	--lumo-body-text-color: #ffffff;      /* boja slova */
+	--lumo-secondary-text-color: #ffffff; /* boja placeholdera */
+}
+.loginSpan{
+	text-align:center;
+	text-decoration:underline;
+	margin-bottom:20px;
+	margin-bottom:20px;
+	cursor:pointer;
+	align-self:center;
+}
+/* za ikonice */
+.icon{
+    color: #ffffff;
+}
+/* za polje sa unosom */
+.inputField{
+	background-color:#204824;
+	border-radius:8px;
+	--lumo-body-text-color: #ffffff;      /* boja slova */
+	--lumo-secondary-text-color: #ffffff; /* boja placeholdera */
+}
+/* belo oko za lozinku */
+vaadin-password-field::part(reveal-button)::before{
+	color:#ffffff;
 }
 
-/* okvir */
 .productCounter{
     background-color: transparent !important;
+    color: white !important;	
+	width:125px !important;
 }
 
-/* pozadina i broj */
+/* pozadina */
 .productCounter::part(input-field) {
     background-color: #3F220F;
-	color: white !important;
 }
 
-/* zeleni krug */
+/* zeleni krug*/
 .productCounter::part(increase-button),
 .productCounter::part(decrease-button){
     background-color: #74914c;
@@ -30,5 +335,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
-	padding-bottom: 4px; 
+	padding-bottom: 2px; 
+   
 }
+/* broj*/
+.productCounter input{
+    color: white ;
+}
+vaadin-dialog-overlay.notif {
+    --lumo-base-color: #204824;
+}
+/* bela labela - mali tekst iznad izbora*/
+vaadin-radio-group::part(label),
+vaadin-checkbox-group::part(label) {
+    color: white !important;
+}
+vaadin-radio-button, 
+vaadin-checkbox {
+    /* boja kada nije selektovan */
+    --lumo-contrast-20pct: #ffffff; 
+    
+    /* boja kada se selektuje */
+    --lumo-primary-color: #ffffff; 
+	
+	/* boja kad je selektovan  */
+	--lumo-primary-contrast-color: #204824;
+    
+}
+

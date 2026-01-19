@@ -2,10 +2,16 @@ package sitprojekat.model;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 public abstract class AbstractEntity {
 
+	@JsonProperty("key")    // arangoDB key je nama id
 	private String id;
 
+	public AbstractEntity(){}
+		
 	protected AbstractEntity(String id) {
 		this.id = id;
 	}
