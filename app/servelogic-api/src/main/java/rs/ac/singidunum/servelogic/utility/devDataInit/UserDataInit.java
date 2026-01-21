@@ -7,12 +7,15 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import rs.ac.singidunum.servelogic.model.User;
 import rs.ac.singidunum.servelogic.repository.IUserRepository;
+import rs.ac.singidunum.servelogic.service.UserService;
 
 @Component
 @Order(4)
 public class UserDataInit implements ApplicationRunner {
     @Autowired
     private IUserRepository repo;
+    @Autowired
+    private UserService service;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -24,10 +27,10 @@ public class UserDataInit implements ApplicationRunner {
         User chola =  new User("user/4", "4", "chola", "Chola123");
         User jovan =  new User("user/5", "5", "jovan", "Jovan123");
 
-        repo.save(dusan);
-        repo.save(gojko);
-        repo.save(boris);
-        repo.save(chola);
-        repo.save(jovan);
+        service.register(dusan);
+        service.register(gojko);
+        service.register(boris);
+        service.register(chola);
+        service.register(jovan);
     }
 }
