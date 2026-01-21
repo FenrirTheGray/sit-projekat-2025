@@ -1,0 +1,33 @@
+package rs.ac.singidunum.servelogic.utility.devDataInit;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+import rs.ac.singidunum.servelogic.model.User;
+import rs.ac.singidunum.servelogic.repository.IUserRepository;
+
+@Component
+@Order(4)
+public class UserDataInit implements ApplicationRunner {
+    @Autowired
+    private IUserRepository repo;
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        if(repo.count() > 0) return;
+
+        User dusan =  new User("user/1", "1", "dusan", "Dusan123");
+        User gojko =  new User("user/2", "2", "gojko", "Gojko123");
+        User boris =  new User("user/3", "3", "boris", "Boris123");
+        User chola =  new User("user/4", "4", "chola", "Chola123");
+        User jovan =  new User("user/5", "5", "jovan", "Jovan123");
+
+        repo.save(dusan);
+        repo.save(gojko);
+        repo.save(boris);
+        repo.save(chola);
+        repo.save(jovan);
+    }
+}
