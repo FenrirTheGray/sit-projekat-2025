@@ -1,0 +1,182 @@
+/*
+=== GLAVNA TEMA ===
+*/
+[theme~='dark'] {
+    --lumo-base-color: #202020;
+}
+
+* {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+/*
+=== MASTER LAYOUT ===
+*/
+.master-layout-bg {
+    background-color: #202020;
+}
+
+.master-button-active {
+    display: flex;
+    justify-content: center;
+    color: #ffffff;
+    background-color: #555555;
+    border-radius: 10px;
+    margin: 10px;
+    width: 230px;
+}
+
+.master-button-not-active {
+    display: flex;
+    justify-content: center;
+    color: #b3b3b3;
+    background-color: #333333;
+    border-radius: 10px;
+    margin: 10px;
+    width: 230px;
+}
+/* da bi radio cursor pointer i za dugme i za tekst */
+.master-button-active::part(link) {
+    cursor: pointer !important;
+}
+
+.master-button-not-active::part(link) {
+    cursor: pointer !important;
+}
+
+.master-nav {
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.master-kontejner-nav {
+    background-color: #202020;
+    border-right: 1px solid #333333;
+}
+
+.master-header-title {
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.master-user-icon {
+    background-color: #4a4a4a;
+    color: #ffffff;
+    width: 55px;
+    height: 35px;
+    border-radius: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.master-user-label {
+    font-size: 12px;
+    color: #b3b3b3;
+}
+
+.master-user-name {
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.master-kontejner-user {
+    gap: 10px;
+}
+
+.master-header {
+    background-color: #202020;
+    padding: 0 20px;
+    border-bottom: 1px solid #333333;
+    /*height: 75px;*/
+    /*width:100%;*/
+}
+
+/*
+=== ARTICLE VIEW ===
+*/
+.articles-search-bar {
+    background-color: #f0f0f0;
+    border-radius: 25px;
+    width: 250px;
+    padding: 0px;
+    margin-left: 50px;
+}
+
+.articles-button-add {
+    background-color: #555555;
+    color: #ffffff;
+    border-radius: 25px;
+    width: 250px;
+    padding: 0px;
+    margin-right: 50px;
+    cursor: pointer;
+}
+
+.articles-container-toolbar {
+    margin-bottom: 15px;
+}
+
+.articles-container-all-items {
+    overflow: auto;
+}
+
+.article-card {
+    height: 100px;
+    border: 10px solid #b3b3b3;
+    border-radius: 15px;
+    margin: 5px;
+}
+
+.article-image {
+    height: 60px;
+    min-height: 60px;
+    width: 60px;
+    min-width: 60px;
+    flex-shrink: 0; /* sprečava smanjivanje slike */
+    background-color: #b3b3b3;
+    margin: 5px 15px;
+}
+
+.article-container-info {
+    height: 75px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.article-info {
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.article-container-buttons {
+    width: auto;
+    margin-right: 15px;
+}
+
+.article-buttons-edit-and-delete {
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -5px 0px;
+}
+
+.article-buttons-edit-and-delete:hover {
+    color: #000000;
+    background-color: #555555;
+    transition: 0.2s;
+}
+

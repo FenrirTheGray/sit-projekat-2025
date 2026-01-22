@@ -1,4 +1,4 @@
-package rs.ac.singidunu.cms.view;
+package rs.ac.singidunum.cms.view;
 
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
@@ -13,7 +13,7 @@ import com.vaadin.flow.router.Route;
 
 @Route(value = "") // početna stranica
 @StyleSheet("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap") //import od googla za font
-@CssImport("./style/style.css") // import css-a
+@CssImport("./style/style-login.css") // import css-a
 public class LoginView extends VerticalLayout {
 
     // Vertical Layout = jedno ispod drugog
@@ -84,10 +84,5 @@ public class LoginView extends VerticalLayout {
         // "lepimo" veliku kutiju (content) za prozor (LoginView)
         add(content);
 	}
-	
-	
-	
-	
 
-	
 }
