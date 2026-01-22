@@ -1,5 +1,10 @@
 spring:
   application:
     name: cms
+
+vaadin:
+  frontend:
+    hotdeploy: true
+    
 server:
   port: 7998

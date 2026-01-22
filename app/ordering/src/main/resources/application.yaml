@@ -1,5 +1,10 @@
 spring:
   application:
     name: ordering
+
+vaadin:
+  frontend:
+    hotdeploy: true
+
 server:
   port: 8080
