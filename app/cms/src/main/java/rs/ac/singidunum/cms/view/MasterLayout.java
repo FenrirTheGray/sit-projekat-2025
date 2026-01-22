@@ -2,12 +2,15 @@ package rs.ac.singidunum.cms.view;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.contextmenu.ContextMenu;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 
@@ -77,13 +80,47 @@ public class MasterLayout extends AppLayout {
 	}
 
 	public void createHeader() {
+		// naslov (CMS)
 		Span title = new Span("CMS");
 		title.addClassName("master-header-title");
 
 		HorizontalLayout kontejnerTitle = new HorizontalLayout(title);
 
-		Span iconKorisnik = new Span("A");
+		// padajući meni
+		Select<String> menuSelect = new Select<>();
+		menuSelect.addClassName("master-menu-select");
+		menuSelect.setItems("Proizvodi", "Statistika");
+		menuSelect.setValue("Proizvodi"); // početna vrednost
+
+		// navigacija za meni
+		menuSelect.addValueChangeListener(event -> {
+			String selected = event.getValue();
+
+			if ("Proizvodi".equals(selected)) {
+				UI.getCurrent().navigate("articles");
+			} else if ("Statistika".equals(selected)) { // TODO: privremeno je logout
+				UI.getCurrent().navigate("");
+			}
+		});
+
+		// ikonica i tekst za korisnika
+		Span iconKorisnik = new Span("A"); // TODO: promeniti da ikonica bude prvo slovo imena Korisnika
 		iconKorisnik.addClassName("master-user-icon");
+		// kreiranje context menija (korisnički meni) za ikonicu slova
+		ContextMenu userMenu = new ContextMenu();
+		userMenu.setTarget(iconKorisnik); // povezivanje sa ikonicom
+		userMenu.setOpenOnClick(true);
+		// dodavanje događaja
+		// događaj "Podešavanja"
+		userMenu.addItem("Podešavanja", e -> {
+			// Navigacija na podešavanja
+		});
+		// linija između opcija
+		userMenu.add(new Hr());
+		// događaj "Odjava"
+		userMenu.addItem("Odjava", e -> {
+			UI.getCurrent().navigate(""); // "" == default ruta
+		});
 
 		Span labelKorisnik = new Span("Korisnik");
 		labelKorisnik.addClassName("master-user-label");
@@ -103,7 +140,7 @@ public class MasterLayout extends AppLayout {
 		kontejnerKorisnik.setAlignItems(FlexComponent.Alignment.CENTER);
 		kontejnerKorisnik.addClassName("master-kontejner-user");
 
-		HorizontalLayout header = new HorizontalLayout(kontejnerTitle, kontejnerKorisnik);
+		HorizontalLayout header = new HorizontalLayout(kontejnerTitle, menuSelect, kontejnerKorisnik);
 		header.addClassName("master-header");
 		header.setWidthFull();
 		header.setHeight("60px");

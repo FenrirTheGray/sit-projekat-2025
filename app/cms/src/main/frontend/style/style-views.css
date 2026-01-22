@@ -97,6 +97,12 @@
     /*width:100%;*/
 }
 
+.master-menu-select {
+    width: 150px;
+    --vaadin-input-field-background: #555555;
+    --vaadin-input-field-value-color: #f0f0f0;
+}
+
 /*
 === ARTICLE VIEW ===
 */
