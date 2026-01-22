@@ -5,6 +5,6 @@ spring:
 vaadin:
   frontend:
     hotdeploy: true
-
+    
 server:
   port: 7998
