@@ -66,63 +66,6 @@ public class ArticlesView extends VerticalLayout {
         containerAllArticles.setPadding(false);
         containerAllArticles.setSpacing(true);
 
-        /*
-        // kontejner za svaki artikal pojedinačno (kartica artikla)
-        HorizontalLayout articleCard = new HorizontalLayout();
-        articleCard.addClassName("article-card");
-        articleCard.setWidthFull();
-        articleCard.setPadding(false);
-        articleCard.setSpacing(false);
-        articleCard.setAlignItems(Alignment.CENTER);
-
-        // element kartice - slika
-        Div imagePlaceholder = new Div();
-        imagePlaceholder.addClassName("article-image");
-
-        // element kartice - podaci
-        VerticalLayout infoContainer = new VerticalLayout();
-        infoContainer.addClassName("article-container-info");
-        infoContainer.setSpacing(false);
-        infoContainer.setPadding(false);
-        infoContainer.setJustifyContentMode(JustifyContentMode.AROUND); // jednaki razmaci u visini
-
-        Span naziv = new Span("Naziv artikla 1");
-        naziv.addClassName("article-info");
-        Span cena = new Span("1500.00");
-        cena.addClassName("article-info");
-        Span opis = new Span("Lorem ipsum opis random artikla");
-        opis.addClassName("article-info");
-
-        infoContainer.add(naziv, cena, opis);
-
-        // element kartice - buttons (edit, delete)
-        VerticalLayout actionsContainer = new VerticalLayout();
-        actionsContainer.addClassName("article-container-buttons");
-        actionsContainer.setSpacing(true);
-        actionsContainer.setPadding(false);
-        actionsContainer.setAlignItems(Alignment.END);
-
-        Icon iconEdit = VaadinIcon.EDIT.create();
-        iconEdit.setSize("25px");
-        Button buttonEdit = new Button(iconEdit);
-        buttonEdit.addClassName("article-buttons-edit-and-delete");
-        Icon iconDelete = VaadinIcon.TRASH.create();
-        iconDelete.setSize("25px");
-        Button buttonDelete = new Button(iconDelete);
-        buttonDelete.addClassName("article-buttons-edit-and-delete");
-
-        actionsContainer.add(buttonEdit, buttonDelete);
-
-        // dodavanje svega u karticu
-        articleCard.add(imagePlaceholder, infoContainer, actionsContainer);
-        articleCard.expand(infoContainer); // guramo ikonice (dugmiće)
-
-        // dodavanje kartice u glavni kontejner
-        containerAllArticles.add(articleCard);
-
-        add(containerAllArticles);
-        */
-
         // GENERISANJE DUMMY PODATAKA ZA ITEME (ARTIKLE)
         for (int i = 1; i <= 50; i++) {
             // Pozivamo pomoćnu metodu da nam napravi jednu karticu
@@ -138,7 +81,7 @@ public class ArticlesView extends VerticalLayout {
         // kontejner za svaki artikal pojedinačno (kartica artikla)
         HorizontalLayout articleCard = new HorizontalLayout();
         articleCard.addClassName("article-card");
-        articleCard.setWidthFull(); // TODO: namestiti da nemamo horizontalni skrol
+        // articleCard.setWidthFull(); // prebačen u css -> width: 95%
         articleCard.setPadding(false);
         articleCard.setSpacing(false);
         articleCard.setAlignItems(Alignment.CENTER);

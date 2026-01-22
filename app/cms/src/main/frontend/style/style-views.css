@@ -124,11 +124,13 @@
 
 .articles-container-all-items {
     overflow: auto;
+    overflow-x: hidden;
 }
 
 .article-card {
     height: 100px;
-    border: 10px solid #b3b3b3;
+    width: 95%;
+    border: 1px solid #555555;
     border-radius: 15px;
     margin: 5px;
 }
