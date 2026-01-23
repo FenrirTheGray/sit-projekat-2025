@@ -1,13 +1,13 @@
 /* =========================================
-   1. GLOBAL VARIABLES & FONT
+   1. GLOBAL VARIABLES & FONT -> MAIN ALL
 ========================================= */
-[theme~='dark'] {
-    --lumo-base-color: #202020; /* Definiše tamnu pozadinu za ceo Lumo sistem */
-}
 
-* {
-    /* "!important" osigurava da Roboto pregazi bilo koji drugi font koji Vaadin pokuša da učita */
-    font-family: 'Roboto', sans-serif !important;
+/*[theme~='dark'] {*/
+/*    --lumo-base-color: #202020; !* Definiše tamnu pozadinu za ceo Lumo sistem *!*/
+/*}*/
+
+html {
+    --lumo-font-family: 'Roboto', sans-serif;
 }
 
 /* =========================================

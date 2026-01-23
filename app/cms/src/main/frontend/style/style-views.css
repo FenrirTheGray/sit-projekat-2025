@@ -1,12 +1,9 @@
 /*
-=== GLAVNA TEMA ===
+=== MAIN ALL ===
 */
-[theme~='dark'] {
-    --lumo-base-color: #202020;
-}
-
-* {
-    font-family: 'Roboto', sans-serif !important;
+html {
+    --lumo-font-family: 'Roboto', sans-serif;
+    --lumo-clickable-cursor: pointer;
 }
 
 /*
@@ -34,14 +31,6 @@
     border-radius: 10px;
     margin: 10px;
     width: 230px;
-}
-/* da bi radio cursor pointer i za dugme i za tekst */
-.master-button-active::part(link) {
-    cursor: pointer !important;
-}
-
-.master-button-not-active::part(link) {
-    cursor: pointer !important;
 }
 
 .master-nav {
