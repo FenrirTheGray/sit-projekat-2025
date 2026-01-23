@@ -26,13 +26,19 @@ public class UserService {
         userDTO.setPassword(encoder.encode(userDTO.getPassword()));
 
         User user = mapper.createToEntity(userDTO);
+        user.setRole("USER");
+
         UserResponseDTO userResponse = mapper.toResponse(repo.save(user));
 
         return Optional.of(userResponse);
     }
 
-    public Optional<UserResponseDTO> register(User user){
-        return register(mapper.toCreateResponse(user));
+    public Optional<UserResponseDTO> create(User user){
+        user.setPassword(encoder.encode(user.getPassword()));
+
+        UserResponseDTO userResponse = mapper.toResponse(repo.save(user));
+
+        return Optional.of(userResponse);
     }
 
 }

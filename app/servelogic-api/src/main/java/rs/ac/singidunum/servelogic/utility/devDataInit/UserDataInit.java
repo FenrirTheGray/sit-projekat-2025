@@ -21,16 +21,16 @@ public class UserDataInit implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         if(repo.count() > 0) return;
 
-        User dusan =  new User("user/1", "1", "dusan", "Dusan123");
-        User gojko =  new User("user/2", "2", "gojko", "Gojko123");
-        User boris =  new User("user/3", "3", "boris", "Boris123");
-        User chola =  new User("user/4", "4", "chola", "Chola123");
-        User jovan =  new User("user/5", "5", "jovan", "Jovan123");
+        User dusan =  new User("user/1", "1", "dusan", "Dusan123", "ADMIN");
+        User gojko =  new User("user/2", "2", "gojko", "Gojko123", "ADMIN");
+        User boris =  new User("user/3", "3", "boris", "Boris123", "ADMIN");
+        User chola =  new User("user/4", "4", "chola", "Chola123", "ADMIN");
+        User jovan =  new User("user/5", "5", "jovan", "Jovan123", "ADMIN");
 
-        service.register(dusan);
-        service.register(gojko);
-        service.register(boris);
-        service.register(chola);
-        service.register(jovan);
+        service.create(dusan);
+        service.create(gojko);
+        service.create(boris);
+        service.create(chola);
+        service.create(jovan);
     }
 }

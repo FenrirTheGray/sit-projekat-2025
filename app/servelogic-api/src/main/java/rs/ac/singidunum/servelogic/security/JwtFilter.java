@@ -30,17 +30,30 @@ public class JwtFilter extends OncePerRequestFilter{
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
 
-        if(authHeader == null || !authHeader.startsWith("Bearer ")) filterChain.doFilter(request, response);;
+        if(authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         String token = authHeader.substring(7);
+
         String username = jwtService.getUsernameFromToken(token);
 
-        if(username == null) filterChain.doFilter(request, response);;
-        if(SecurityContextHolder.getContext().getAuthentication() != null) filterChain.doFilter(request, response);;
+        if(username == null) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        if(SecurityContextHolder.getContext().getAuthentication() != null) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         UserDetails userDetails = context.getBean(ServelogicUserDetailsService.class).loadUserByUsername(username);
 
-        if(!jwtService.validateToken(token, userDetails)) filterChain.doFilter(request, response);;
+        if(!jwtService.validateToken(token, userDetails)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
