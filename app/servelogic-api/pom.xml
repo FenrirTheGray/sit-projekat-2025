@@ -33,6 +33,8 @@
 		<org.mapstruct.version>1.6.3</org.mapstruct.version>
 		<com.arangodb.arangodb-spring-data.version>4.6.0</com.arangodb.arangodb-spring-data.version>
 		<org.apache.jena.apache-jena-libs.version>5.6.0</org.apache.jena.apache-jena-libs.version>
+		<org.springdoc.version>2.6.0</org.springdoc.version>
+		<io.jsonwebtoken.version>0.13.0</io.jsonwebtoken.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
@@ -77,6 +79,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${org.springdoc.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>com.arangodb</groupId>
 			<artifactId>arangodb-spring-data</artifactId>
 			<version>${com.arangodb.arangodb-spring-data.version}</version>
@@ -98,21 +107,21 @@
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
-			<version>0.13.0</version>
+			<version>${io.jsonwebtoken.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-impl</artifactId>
-			<version>0.13.0</version>
+			<version>${io.jsonwebtoken.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
-			<version>0.13.0</version>
+			<version>${io.jsonwebtoken.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>

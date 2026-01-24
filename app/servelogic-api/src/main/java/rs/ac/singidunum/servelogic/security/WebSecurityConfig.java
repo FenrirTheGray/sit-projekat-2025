@@ -39,17 +39,22 @@ public class WebSecurityConfig {
 //                        .requestMatchers("/api/modifiers/**").hasAuthority("ADMIN")
 //                        .requestMatchers("/api/categories/**").hasAuthority("ADMIN")
 //                        .requestMatchers("/api/users/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/v3/**").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/api/modifiertypes/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/articles/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/modifiers/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+
+                        .requestMatchers("/auth/register").anonymous()
                         .requestMatchers("/auth/**").permitAll()
+
                         .anyRequest().hasAuthority("ADMIN"))
 //              .formLogin(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .httpBasic(Customizer.withDefaults())
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
