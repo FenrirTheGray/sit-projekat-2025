@@ -5,13 +5,13 @@ import com.arangodb.springframework.annotation.Document;
 @Document("user")
 public class User extends AbstractArangoEntity{
 
-    private String username;
+    private String email;
     private String password;
     private String role;
 
-    public User(String id, String key, String username, String password, String role){
+    public User(String id, String key, String email, String password, String role){
         super(id, key);
-        this.username = username;
+        this.email = email;
         this.password = password;
         this.role = role;
     }
@@ -24,12 +24,12 @@ public class User extends AbstractArangoEntity{
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getRole() {

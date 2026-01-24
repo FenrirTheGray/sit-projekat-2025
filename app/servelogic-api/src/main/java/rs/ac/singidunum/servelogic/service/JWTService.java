@@ -47,19 +47,19 @@ public class JWTService {
     }
 
     public String getUsernameFromToken(String token){
-        return extractUsername(token);
+        return extractEmail(token);
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        final String email = extractEmail(token);
+        return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private SecretKey getKey(){
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 
-    public String extractUsername(String token){
+    public String extractEmail(String token){
         return extractClaim(token, Claims::getSubject);
     }
     private Date extractExpiration(String token){

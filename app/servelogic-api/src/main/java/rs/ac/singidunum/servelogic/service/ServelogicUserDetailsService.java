@@ -17,7 +17,7 @@ public class ServelogicUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username).next();
+        User user = userRepo.findByEmail(username).next();
 
         if(user == null){
             System.out.printf("User %s does not exist!", username);

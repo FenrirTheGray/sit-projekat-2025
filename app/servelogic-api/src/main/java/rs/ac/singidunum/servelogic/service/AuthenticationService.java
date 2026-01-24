@@ -16,10 +16,10 @@ public class AuthenticationService {
 
     public String verify(UserCreateRequestDTO userDTO){
         Authentication auth = authManager
-                .authenticate(new UsernamePasswordAuthenticationToken(userDTO.getUsername(), userDTO.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword()));
 
         if(auth.isAuthenticated())
-            return jwtService.generateToken(userDTO.getUsername());
+            return jwtService.generateToken(userDTO.getEmail());
         System.out.println("No Pasar");
         return "No pasar";
     }

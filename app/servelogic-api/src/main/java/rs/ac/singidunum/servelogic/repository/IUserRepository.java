@@ -5,5 +5,5 @@ import com.arangodb.springframework.repository.ArangoRepository;
 import rs.ac.singidunum.servelogic.model.User;
 
 public interface IUserRepository extends ArangoRepository<User, String> {
-    ArangoCursor<User> findByUsername(String username);
+    ArangoCursor<User> findByEmail(String email);
 }
