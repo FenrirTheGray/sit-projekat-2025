@@ -1,4 +1,4 @@
-package rs.ac.singidunu.cms.model;
+package rs.ac.singidunum.cms.model;
 
 import java.util.Objects;
 
