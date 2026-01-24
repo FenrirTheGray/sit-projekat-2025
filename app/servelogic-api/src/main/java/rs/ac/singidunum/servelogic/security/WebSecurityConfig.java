@@ -34,11 +34,6 @@ public class WebSecurityConfig {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-//                        .requestMatchers("/api/modifiertypes/**").hasAuthority("ADMIN")
-//                        .requestMatchers("/api/articles/**").hasAuthority("ADMIN")
-//                        .requestMatchers("/api/modifiers/**").hasAuthority("ADMIN")
-//                        .requestMatchers("/api/categories/**").hasAuthority("ADMIN")
-//                        .requestMatchers("/api/users/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/v3/**").permitAll()
 
@@ -46,13 +41,12 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/articles/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/modifiers/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
 
                         .requestMatchers("/auth/register").anonymous()
                         .requestMatchers("/auth/**").permitAll()
 
                         .anyRequest().hasAuthority("ADMIN"))
-//              .formLogin(Customizer.withDefaults())
+//                .formLogin(Customizer.withDefaults())
 //                .httpBasic(Customizer.withDefaults())
 //                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

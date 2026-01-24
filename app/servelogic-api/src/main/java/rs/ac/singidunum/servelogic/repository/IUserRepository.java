@@ -6,4 +6,5 @@ import rs.ac.singidunum.servelogic.model.User;
 
 public interface IUserRepository extends ArangoRepository<User, String> {
     ArangoCursor<User> findByEmail(String email);
+    ArangoCursor<User> findByKey(String key);
 }

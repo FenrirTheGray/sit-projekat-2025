@@ -5,7 +5,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import rs.ac.singidunum.servelogic.dto.create.LoginReqeustDTO;
 import rs.ac.singidunum.servelogic.dto.create.UserCreateRequestDTO;
+import rs.ac.singidunum.servelogic.dto.response.LoginResponseDTO;
 
 @Service
 public class AuthenticationService {
@@ -14,13 +16,13 @@ public class AuthenticationService {
     @Autowired
     private JWTService jwtService;
 
-    public String verify(UserCreateRequestDTO userDTO){
+    public LoginResponseDTO verify(LoginReqeustDTO loginDTO){
         Authentication auth = authManager
-                .authenticate(new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
 
-        if(auth.isAuthenticated())
-            return jwtService.generateToken(userDTO.getEmail());
-        System.out.println("No Pasar");
-        return "No pasar";
+        LoginResponseDTO loginResponse = new LoginResponseDTO();
+        if(auth.isAuthenticated()) loginResponse.setToken(jwtService.generateToken(loginDTO.getEmail()));
+
+        return loginResponse;
     }
 }
