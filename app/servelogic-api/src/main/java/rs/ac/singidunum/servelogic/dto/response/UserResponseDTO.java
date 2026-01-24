@@ -2,16 +2,16 @@ package rs.ac.singidunum.servelogic.dto.response;
 
 public class UserResponseDTO {
 
-    private String id;
+    private String key;
     private String email;
     private String role;
 
-    public String getId() {
-        return id;
+    public String getKey() {
+        return key;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getRole() {
