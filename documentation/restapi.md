@@ -2,6 +2,8 @@
 This document describes how to access and use data acquired from the restapi.
 > By default the api will be running on port 7999.
 
+When the api is started you can check out the OpenAPI documentation at http://localhost:7999/swagger-ui/index.html
+
 ## Article
 <table>
   <tr>
