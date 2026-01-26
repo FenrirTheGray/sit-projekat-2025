@@ -11,20 +11,35 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
+import sitprojekat.interfaces.UserProfileViewInterface;
+import sitprojekat.model.UserAccount;
+import sitprojekat.presenter.UserProfilePresenter;
+import sitprojekat.service.UserAccountService;
+
 @CssImport("./style/style.css")
 @Route(value = "UserProfile",layout = HeaderAndNavBar.class)
-public class UserProfileView extends VerticalLayout{
+public class UserProfileView extends VerticalLayout implements UserProfileViewInterface{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7812594761038414434L;
 
-	public UserProfileView() {
+	private EmailField emailField = new EmailField();
+	private TextField addressTextField = new TextField();
+	private TextField telephoneTextField = new TextField();
+	private PasswordField passwordPasswordField = new PasswordField();
+	private PasswordField confirmPasswordPasswordField = new PasswordField();
+	private final UserProfilePresenter presenter;
+	private UserAccount user;
+	public UserProfileView(UserAccountService service) {
+		this.user=service.getUser();
+		this.presenter=new UserProfilePresenter(this, user);
 		
 		Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
 		Button backButton=new Button("Povratak",backArrowIcon);
 		backButton.addClassName("brownButton");
+		backButton.addClickListener(e->presenter.backClick());
 		
 		H2 titleH2=new H2();
 		titleH2.setText("Profil");
@@ -32,7 +47,7 @@ public class UserProfileView extends VerticalLayout{
 		
 		Icon userIcon=VaadinIcon.USER.create();
 		userIcon.addClassName("icon");
-		EmailField emailField = new EmailField();
+		
 		emailField.setPlaceholder("Email");
 		emailField.setPrefixComponent(userIcon);
 		emailField.addClassName("inputField");
@@ -40,28 +55,28 @@ public class UserProfileView extends VerticalLayout{
 		
 		Icon homeIcon=VaadinIcon.HOME_O.create();
 		homeIcon.addClassName("icon");
-		TextField addressTextField = new TextField();
+		
 		addressTextField.setPlaceholder("Adresa (Opciono)");
 		addressTextField.setPrefixComponent(homeIcon);
 		addressTextField.addClassName("inputField");
 		
 		Icon phoneIcon=VaadinIcon.PHONE.create();
 		phoneIcon.addClassName("icon");
-		TextField telephoneTextField = new TextField();
+		
 		telephoneTextField.setPlaceholder("Broj Telefona (Opciono)");
 		telephoneTextField.setPrefixComponent(phoneIcon);
 		telephoneTextField.addClassName("inputField");
 		
 		Icon keyIconPassword=VaadinIcon.KEY_O.create();
 		keyIconPassword.addClassName("icon");
-		PasswordField passwordPasswordField = new PasswordField();
+		
 		passwordPasswordField.setPlaceholder("Lozinka");
 		passwordPasswordField.setPrefixComponent(keyIconPassword);
 		passwordPasswordField.addClassName("inputField");
 		
 		Icon keyIconPasswordCheck=VaadinIcon.KEY_O.create();
 		keyIconPasswordCheck.addClassName("icon");
-		PasswordField confirmPasswordPasswordField = new PasswordField();
+		
 		confirmPasswordPasswordField.setPlaceholder("Potvrdi Lozinku");
 		confirmPasswordPasswordField.setPrefixComponent(keyIconPasswordCheck);
 		confirmPasswordPasswordField.addClassName("inputField");
@@ -69,7 +84,7 @@ public class UserProfileView extends VerticalLayout{
 		Button saveChangesButton =new Button();
 		saveChangesButton.setText("Sacuvaj Izmene");
 		saveChangesButton.addClassName("saveChangesButton");
-
+		saveChangesButton.addClickListener(e->presenter.saveChanges());
 		
 		Button logOutButton =new Button();
 		logOutButton.setText("Odjavi se");
@@ -89,7 +104,52 @@ public class UserProfileView extends VerticalLayout{
 		
 		add(backButton,formContainer);
 	}
-
+	@Override
+	public String getEmailField() {
+		return emailField.getValue();
+	}
+	@Override
+	public void setEmailField(EmailField email) {
+		
+		
+	}
+	@Override
+	public String getAddressTextField() {
+		return addressTextField.getValue();
+	}
+	@Override
+	public void setAddressTextField(TextField address) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public String getTelephoneTextField() {
+		return telephoneTextField.getValue();
+	}
+	@Override
+	public void setTelephoneTextField(TextField telephone) {
+		
+		
+	}
+	@Override
+	public String getPasswordPasswordField() {
+		return passwordPasswordField.getValue();
+	}
+	@Override
+	public void setPasswordPasswordField(PasswordField password) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public String getConfirmPasswordPasswordField() {
+		return confirmPasswordPasswordField.getValue();
+	}
+	@Override
+	public void setConfirmPasswordPasswordField(PasswordField confirmPassword) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 	
 	

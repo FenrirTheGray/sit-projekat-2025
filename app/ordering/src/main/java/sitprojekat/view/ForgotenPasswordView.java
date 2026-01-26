@@ -11,9 +11,12 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.router.Route;
 
+import sitprojekat.interfaces.ForgotenPasswordViewInterface;
+import sitprojekat.presenter.ForgotenPasswordPresenter;
+
 @StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")        
 @Route("ForgotenPassword")
-public class ForgotenPasswordView extends VerticalLayout{
+public class ForgotenPasswordView extends VerticalLayout implements ForgotenPasswordViewInterface{
 
 	
 	/**
@@ -21,8 +24,13 @@ public class ForgotenPasswordView extends VerticalLayout{
 	 */
 	private static final long serialVersionUID = 6425992396889072675L;
 
-	public ForgotenPasswordView() {
-		getStyle().set("background-color", "#204824");
+	private EmailField emailField = new EmailField();
+	private Button restorePasswordButton =new Button();
+	private ForgotenPasswordPresenter presenter;
+	public ForgotenPasswordView(ForgotenPasswordPresenter presenter) {
+		this.presenter=presenter;
+		presenter.setView(this);
+		addClassName("greenBackground");
 		setSizeFull();
 		
 		H2 titleH2=new H2();
@@ -31,7 +39,7 @@ public class ForgotenPasswordView extends VerticalLayout{
 		
 		Icon userIcon=VaadinIcon.USER.create();
 		userIcon.addClassName("icon");
-		EmailField emailField = new EmailField();
+		
 		emailField.setPlaceholder("Email");
 		emailField.setPrefixComponent(userIcon);
 		emailField.addClassName("emailField");
@@ -39,15 +47,16 @@ public class ForgotenPasswordView extends VerticalLayout{
 		VerticalLayout forgotenPasswordContainer = new VerticalLayout(); 
 		
 		
-		Button restorePasswordButton =new Button();
+		
 		restorePasswordButton.setText("Restore password");
 		restorePasswordButton.addClassName("brownButton");
+		restorePasswordButton.addClickListener(e->presenter.getAccountPassword());
 		
 		Span loginSpan=new Span();
 		loginSpan.setText("Prijavite se");
 		loginSpan.addClassName("loginSpan");
 		
-		loginSpan.addClickListener(e->{UI.getCurrent().navigate("LoginScreen");});
+		loginSpan.addClickListener(e->presenter.loginScreen());
 		
 		forgotenPasswordContainer.add(emailField,restorePasswordButton,loginSpan);
 		
@@ -62,4 +71,9 @@ public class ForgotenPasswordView extends VerticalLayout{
 		
 		add(orderContainer);
 	}
+	@Override
+	public EmailField getEmailField() {
+		return emailField;
+	}
+	
 }

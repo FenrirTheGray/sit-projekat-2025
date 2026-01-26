@@ -2,17 +2,23 @@ package sitprojekat.presenter;
 
 import java.util.List;
 
-import sitprojekat.interfajsi.CartViewInterface;
+import org.springframework.stereotype.Component;
+
+import com.vaadin.flow.spring.annotation.UIScope;
+
+import sitprojekat.interfaces.CartViewInterface;
 import sitprojekat.model.ProductInCart;
 import sitprojekat.service.ProductInCartService;
+import sitprojekat.view.NotificationChoiceConfirmationDeleteFromCart;
 
+@Component
+@UIScope
 public class CartPresenter {
 
-	private final CartViewInterface view;
-    private final ProductInCartService cartService;
+	private CartViewInterface view;
+    private ProductInCartService cartService;
     
-    public CartPresenter(CartViewInterface view, ProductInCartService cartService) {
-        this.view = view;
+    public CartPresenter( ProductInCartService cartService) {
         this.cartService = cartService;
     }
     public void updateCart() {   // menja se ukupna cena za sve proizvode
@@ -20,19 +26,30 @@ public class CartPresenter {
         
         view.showCartItems(productsInCart);
         
-        double totalPrice = 0;
-        for (ProductInCart product : productsInCart) {
-            totalPrice += product.getTotalPrice();
-        }
-        view.updateTotalPrice(totalPrice);
+        view.updateTotalPrice(cartService.getTotalPrice());
     }
     public void removeFromCart(ProductInCart product,int removeAmount) {
-    	if (product.getNumberOrdered() > removeAmount) { //ako ima idalje kolicinu samo se smanji broj
-    		product.updateOrderedAmount(product.getNumberOrdered() -removeAmount);
-    	} else {
-    		cartService.removeProduct(product);//brise se ako nema
-    	}
-    	updateCart(); 
+    	NotificationChoiceConfirmationDeleteFromCart notif=new NotificationChoiceConfirmationDeleteFromCart();
+    	notif.addConfirmListener(e->{ // sta radni dugme yes
+    		if (product.getNumberOrdered() > removeAmount) { //ako ima idalje kolicinu samo se smanji broj
+        		product.updateOrderedAmount(product.getNumberOrdered() -removeAmount);
+        	} else {
+        		cartService.removeProduct(product);//brise se ako nema
+        	}
+    		notif.close();
+        	updateCart(); 
+    	});
+    	
+    	notif.open();
     }
+    
+    public List<ProductInCart> getProducts(){
+    	return cartService.getProducts();
+    	
+    }
+	public void setView(CartViewInterface view) {
+		this.view=view;
+		
+	}
 }
 

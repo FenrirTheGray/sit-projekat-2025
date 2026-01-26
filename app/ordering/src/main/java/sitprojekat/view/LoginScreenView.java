@@ -1,6 +1,5 @@
 package sitprojekat.view;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.H2;
@@ -11,26 +10,26 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.Route;
+
+import sitprojekat.interfaces.LoginScreenViewInterface;
 import sitprojekat.presenter.LoginScreenPresenter;
-import sitprojekat.service.UserService;
 
 @StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")        
 @Route("LoginScreen")
-public class LoginScreenView extends VerticalLayout{
+public class LoginScreenView extends VerticalLayout implements LoginScreenViewInterface{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3461984050180148438L;
-
-	private final EmailField emailField;
-	private final PasswordField passwordPasswordField;
-
+	private EmailField emailField = new EmailField();
+	private PasswordField passwordPasswordField = new PasswordField();
+	private Button loginButton =new Button();
 	private final LoginScreenPresenter presenter;
-
-	public LoginScreenView(UserService userService) {
-
-		this.presenter = new LoginScreenPresenter(this, userService);
+	public LoginScreenView(LoginScreenPresenter presenter) {
+		this.presenter=presenter;
+		presenter.setView(this);
+		
 		addClassName("greenBackground");
 		setSizeFull();
 		
@@ -40,49 +39,42 @@ public class LoginScreenView extends VerticalLayout{
 		
 		Icon userIcon=VaadinIcon.USER.create();
 		userIcon.addClassName("icon");
-		emailField = new EmailField();
+		
 		emailField.setPlaceholder("Email");
 		emailField.setPrefixComponent(userIcon);
 		emailField.addClassName("inputField");
 		
 		Icon keyIconPassword=VaadinIcon.KEY_O.create();
 		keyIconPassword.addClassName("icon");
-		passwordPasswordField = new PasswordField();
+		
 		passwordPasswordField.setPlaceholder("Lozinka");
 		passwordPasswordField.setPrefixComponent(keyIconPassword);
 		passwordPasswordField.addClassName("inputField");		
 		
 		VerticalLayout loginContainer = new VerticalLayout(); 
 				
-		Button loginButton =new Button();
+		
 		loginButton.setText("Login");
 		loginButton.addClassName("loginButton");
-
-		loginButton.addClickListener(e->{
-			if(this.presenter.login()) UI.getCurrent().navigate("Main");
-		});
+		loginButton.addClickListener(e->presenter.login());
 		
 		Span forgotenPasswordSpan=new Span();
 		forgotenPasswordSpan.setText("Zaboravili ste lozinku?");
 		forgotenPasswordSpan.addClassName("underlineText");
 		
-		forgotenPasswordSpan.addClickListener(e->{UI.getCurrent().navigate("ForgotenPassword");});
+		forgotenPasswordSpan.addClickListener(e->presenter.forgotenPasswordScreen());
 		
 		Span dontHaveAnAccountSpan=new Span();
 		dontHaveAnAccountSpan.setText("Nemate nalog?");
 		dontHaveAnAccountSpan.addClassName("underlineText2");
 		
-		dontHaveAnAccountSpan.addClickListener(e->{UI.getCurrent().navigate("AccountCreation");});
+		dontHaveAnAccountSpan.addClickListener(e->presenter.accountCreationScreen());
 		
 		loginContainer.add(emailField,passwordPasswordField,loginButton,forgotenPasswordSpan,dontHaveAnAccountSpan);
-		
-		loginContainer.setMaxWidth("350px"); 
-		loginContainer.getStyle().set("background-color", "#c9ab71");
-		loginContainer.getStyle().set("padding", "20px");
-		loginContainer.getStyle().set("border-radius", "8px");
+
 		loginContainer.setPadding(true);
 		loginContainer.setAlignItems(Alignment.STRETCH);
-		
+		loginContainer.addClassName("orderingContainer");
 		VerticalLayout orderContainer=new VerticalLayout();
 		orderContainer.add(titleH2,loginContainer);
 		orderContainer.setAlignItems(Alignment.CENTER);
@@ -90,7 +82,18 @@ public class LoginScreenView extends VerticalLayout{
 		
 		add(orderContainer);
 	}
+	@Override
+	public EmailField getEmailField() {
+		return emailField;
+	}
+	@Override
+	public PasswordField getPasswordPasswordField() {
+		return passwordPasswordField;
+	}
+	@Override
+	public Button getLoginButton() {
+		return loginButton;
+	}
 
-	public String getEmail() {return emailField.getValue();}
-	public String getPassword() {return passwordPasswordField.getValue();}
+	
 }

@@ -8,23 +8,29 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
+import sitprojekat.interfaces.NotFoundViewInterface;
+import sitprojekat.presenter.NotFoundPresenter;
+
 
 @CssImport("./style/style.css")
 @Route(value = "404NotFound",layout = HeaderAndNavBar.class)
-public class NotFoundView extends VerticalLayout{
+public class NotFoundView extends VerticalLayout implements NotFoundViewInterface{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3125964915820738388L;
-
-
-	public NotFoundView() {
+	
+	private Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
+	private Button backButton=new Button("Povratak",backArrowIcon);
+	private NotFoundPresenter presenter;
+	public NotFoundView(NotFoundPresenter presenter) {
+		this.presenter=presenter;
+		presenter.setView(this);
 		
-		Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
-		Button backButton=new Button("Povratak",backArrowIcon);
+		
 		backButton.addClassName("brownButton");
-		
+		backButton.addClickListener(e->presenter.backClick());
 		
 		H1 titleH1=new H1("404 NOT FOUND");
 		titleH1.addClassName("NOTFOUND");
@@ -35,4 +41,16 @@ public class NotFoundView extends VerticalLayout{
 		setSizeFull();
 		add(titleH1,backButton);
 	}
+
+	@Override
+	public void backClick() {
+	}
+
+	
+
+
+
+
+	
+	
 }

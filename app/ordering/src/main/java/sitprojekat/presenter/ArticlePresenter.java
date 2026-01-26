@@ -2,8 +2,13 @@ package sitprojekat.presenter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-import sitprojekat.interfajsi.ArticleViewInterface;
+import org.springframework.stereotype.Component;
+
+import com.vaadin.flow.spring.annotation.UIScope;
+
+import sitprojekat.interfaces.ArticleViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.Category;
 import sitprojekat.model.Modifier;
@@ -11,16 +16,18 @@ import sitprojekat.model.ProductInCart;
 import sitprojekat.model.Type;
 import sitprojekat.service.ArticleService;
 import sitprojekat.service.ProductInCartService;
+import sitprojekat.view.ArticleView;
 
+@Component
+@UIScope  // svaki tab/korisnik dobija svoj presenter
 public class ArticlePresenter {
 
-	private final ArticleViewInterface view;
+	private ArticleViewInterface view;
     private final ArticleService service;
     private final ProductInCartService productInCartService;
     private Article article;
     
-    public ArticlePresenter(ArticleViewInterface view, ArticleService service,ProductInCartService productInCartService) {
-        this.view = view;
+    public ArticlePresenter(ArticleService service,ProductInCartService productInCartService) {
         this.service = service;
         this.productInCartService=productInCartService;
     }
@@ -49,20 +56,47 @@ public class ArticlePresenter {
     }
     public void orderAmountChange(Integer orderAmount) { // menja se vrednost u buttonu (cena proizvoda + cena modifiera) * kolicina koju narucuje 
     	
-
         if (article != null && orderAmount != null) {
-        	double sizePrice=view.getArticleSizesRadioButton();
-        	double modifierPrice=view.getArticleModifiersCheckBox();
-        	double newPrice = (article.getBasePrice()+sizePrice+modifierPrice) * orderAmount;
+        	Modifier sizeModifier=view.getArticleSizesRadioButton();
+            Set<Modifier> toppingModifier=view.getArticleModifiersCheckBox();
+            
+            double sizeModifierPrice=0;
+            double toppingModifierPrice=0;
+            
+            if(sizeModifier != null) {
+            	sizeModifierPrice=sizeModifier.getPrice();
+            }
+            
+            if(toppingModifier != null) {
+            
+            	for (Modifier modifier : toppingModifier) {
+            		toppingModifierPrice+=modifier.getPrice();
+            	}
+            }
+        	double newPrice = (article.getBasePrice()+sizeModifierPrice+toppingModifierPrice) * orderAmount;
             view.setPrice(newPrice);
         }
     }
     public void addToCart() {  // dodaje se u korp proizvod sa modifierima
         if (article != null) {
             int orderAmount = view.getOrderAmount();
-            double sizePrice=view.getArticleSizesRadioButton();
-            double modifierPrice=view.getArticleModifiersCheckBox();
-            double totalPrice = (article.getBasePrice()+sizePrice+modifierPrice) * orderAmount;
+            Modifier sizeModifier=view.getArticleSizesRadioButton();
+            Set<Modifier> toppingModifier=view.getArticleModifiersCheckBox();
+            double sizeModifierPrice=0;
+            double toppingModifierPrice=0;
+            
+            if(sizeModifier != null) {
+            	sizeModifierPrice=sizeModifier.getPrice();
+            }
+            
+            if(toppingModifier != null) {
+            
+            	for (Modifier modifier : toppingModifier) {
+            		toppingModifierPrice+=modifier.getPrice();
+            	}
+            }
+            
+            double totalPrice = (article.getBasePrice()+sizeModifierPrice+toppingModifierPrice) * orderAmount;
 
             ProductInCart productInCart = new ProductInCart(this.article, orderAmount,totalPrice,view.getArticleSizesRadioButton(),view.getArticleModifiersCheckBox());
             productInCartService.addProduct(productInCart);
@@ -111,6 +145,11 @@ public class ArticlePresenter {
 		return article;
 		
 		
+		
+	}
+
+	public void setView(ArticleView view) {
+		this.view=view;
 		
 	}
 }

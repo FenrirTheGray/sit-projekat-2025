@@ -10,40 +10,56 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
+import sitprojekat.interfaces.OrderViewInterface;
 import sitprojekat.model.Article;
+import sitprojekat.presenter.OrderPresenter;
 
 @CssImport("./style/style.css")
 @Route(value = "Order", layout = HeaderAndNavBar.class)
-public class OrderView extends VerticalLayout {
+public class OrderView extends VerticalLayout implements OrderViewInterface{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -354889220122711558L;
 
-	public OrderView() {
-		Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
-		Button backButton=new Button("Povratak",backArrowIcon);
+	private Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
+	private Button backButton=new Button("Povratak",backArrowIcon);
+	private Span titleSpan = new Span();
+	private Span orderDateSpan = new Span(); 
+	private Span orderTimeSpan = new Span();
+	private Span orderTimeSentSpan = new Span(); 
+	private Span orderTimeDeliveredSpan = new Span();
+	private Span orderStatusSpan=new Span(); 
+	private Span orderTotalSumSpan=new Span();
+	private Span orderPaymentType=new Span();   
+	private final OrderPresenter presenter;
+	
+	public OrderView(OrderPresenter presenter) {
+		this.presenter=presenter;
+		presenter.setView(this);
+		
 		backButton.addClassName("brownButton");
-
+		backButton.addClickListener(e->presenter.backClick());
+		
 		VerticalLayout mainContainer=new VerticalLayout();
 		VerticalLayout orderInformationContainer=new VerticalLayout();
 		orderInformationContainer.addClassName("orderContainer");
 		orderInformationContainer.setSpacing(false);
 		    
-		Span titleSpan = new Span("Porudzbina 1");
+		titleSpan.setText("Porudzbina 1");
 		titleSpan.addClassName("boldText2");
 
-		Span orderDateSpan = new Span("Datum Porudzbine: 15.21.2025"); 
+		orderDateSpan.setText("Datum Porudzbine: 15.21.2025"); 
 		orderDateSpan.addClassName("whiteText");
 		
-		Span orderTimeSpan = new Span("Vreme Porudzbine: 16:30");
+		orderTimeSpan.setText("Vreme Porudzbine: 16:30");
 		orderTimeSpan.addClassName("whiteText3");
 		    
-		Span orderTimeSentSpan = new Span("Porudzbina poslata: 17:03"); 
-		orderTimeSentSpan.addClassName("whiteText");
+		orderTimeDeliveredSpan.setText("Porudzbina poslata: 17:03");
+		orderTimeDeliveredSpan.addClassName("whiteText");
 		
-		Span orderTimeDeliveredSpan = new Span("Vreme isporuke: 18:23");
+		orderTimeDeliveredSpan.setText("Vreme isporuke: 18:23");
 		orderTimeDeliveredSpan.addClassName("whiteText3");
 		
 		List<Article> listaArtikala=List.of(new Article("1", "Artical1", "modifikator1", 250.0, true, null, null),
@@ -66,13 +82,13 @@ public class OrderView extends VerticalLayout {
 		}
 		
 		
-		Span orderStatusSpan=new Span("Status: U pripremi"); 
+		orderStatusSpan.setText("Status: U pripremi");
 		orderStatusSpan.addClassName("whiteText3");
 		
-		Span orderTotalSumSpan=new Span("Cena:"+totalSumDouble);    
+		orderTotalSumSpan.setText("Cena:"+totalSumDouble);    
 		orderTotalSumSpan.addClassName("whiteText");
 		
-		Span orderPaymentType=new Span("Nacin placanja: Kes");    
+		orderPaymentType.setText("Nacin placanja: Kes");
 		orderPaymentType.addClassName("whiteText4");
 		
 		orderInformationContainer.add(orderStatusSpan,orderTotalSumSpan,orderPaymentType);
@@ -81,5 +97,53 @@ public class OrderView extends VerticalLayout {
 		mainContainer.setJustifyContentMode(JustifyContentMode.CENTER);
 
 		add(backButton,mainContainer);
+	}
+
+	@Override
+	public void setTitleSpan(String title) {
+		// TODO Auto-generated method stub presenter.getOrder.Title i service mozda 
+		
+	}
+
+	@Override
+	public void setOrderDateSpan(String orderDate) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOrderTimeSpan(String orderTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOrderTimeSentSpan(String timeSpent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOrderTimeDeliveredSpan(String orderTimeDelivered) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOrderStatusSpan(String orderStatus) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOrderTotalSumSpan(String orderTotalSum) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOrderPaymentType(String orderPaymentType) {
+		// TODO Auto-generated method stub
+		
 	}
 }

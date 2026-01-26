@@ -1,21 +1,25 @@
 package sitprojekat.presenter;
 
-import sitprojekat.service.UserService;
-import sitprojekat.view.LoginScreenView;
+import org.springframework.stereotype.Component;
 
+import com.vaadin.flow.component.UI;
+
+import sitprojekat.interfaces.LoginScreenViewInterface;
+import sitprojekat.service.UserService;
+
+@Component
 public class LoginScreenPresenter {
 
-    private final LoginScreenView view;
-    private final UserService userService;
+    private  LoginScreenViewInterface view;
+    private  UserService userService;
 
-    public LoginScreenPresenter(LoginScreenView view, UserService userService){
-        this.view = view;
+    public LoginScreenPresenter(UserService userService){
         this.userService = userService;
     }
 
     public boolean login(){
-        String email = this.view.getEmail();
-        String password = this.view.getPassword();
+        String email = this.view.getEmailField().getValue();
+        String password = this.view.getPasswordPasswordField().getValue();
 
         if(email == null || email.isEmpty()) {
             //TODO: Red border email and display error
@@ -37,4 +41,17 @@ public class LoginScreenPresenter {
     public void logout(){
         userService.logout();
     }
+
+	public void setView(LoginScreenViewInterface view) {
+		this.view=view;
+		
+	}
+
+	public void forgotenPasswordScreen() {
+		UI.getCurrent().navigate("ForgotenPassword");
+	}
+
+	public void accountCreationScreen() {
+		UI.getCurrent().navigate("AccountCreation");
+	}
 }
