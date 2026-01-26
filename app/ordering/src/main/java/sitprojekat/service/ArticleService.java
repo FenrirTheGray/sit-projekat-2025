@@ -1,50 +1,26 @@
 package sitprojekat.service;
 
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-
 import sitprojekat.model.Article;
+
+import java.util.List;
 
 @Service
 public class ArticleService {
 
-	private static final String API_BASE_URL = System.getenv().getOrDefault("API_BASE_URL", "http://localhost:7999")+"/api";
-	
-	 //putanja do springBoota kad je pokrenut 
-	private RestClient springBootRoute;
-	/**
-	 * Vraca listu articles koji se nalaze u arangoDBu
-	 * <p>
-	 * Preuzimaju se sirovi json podaci sa /articles pa se mapiraju u {@link Article} pomocu konstruktora
-	 * <p>
-	 * @return List {@link Article}
-	 */
+	@Autowired
+	private HttpService httpService;
+
+	private final String controllerPath = "/articles";
+
 	public List<Article> getArticles() {
-        try {
-	        	springBootRoute = RestClient.create(API_BASE_URL);
-	            return springBootRoute.get()   // dobijanje artikala iz springBoot articles
-	                    .uri("/articles")
-	                    .retrieve()
-	                    .body(new ParameterizedTypeReference<List<Article>>() {});
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            return List.of();
-	        }
-	}
+		return httpService.get(httpService.API_BASE_URL + controllerPath, new ParameterizedTypeReference<>() {});
+    }
 	public Article findByID(String id) {
-		try {
-			springBootRoute = RestClient.create(API_BASE_URL);
-			return springBootRoute.get() // dobijanje artikala iz springBoot articles
-					.uri("/articles/"+id)
-					.retrieve()
-					.body(Article.class); // jackson mapira automatski
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		return httpService.get(httpService.API_BASE_URL + controllerPath + "/" + id, Article.class);
 	}
 }
