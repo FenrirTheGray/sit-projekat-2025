@@ -1,27 +1,33 @@
-.SideNavItemNotActive{
-	display:flex;
-	justify-content:center; 
-	color:white;
-	background-color:#3F220F;
-	border-radius:10px;
-	margin:10px;
-	width:230px;
+/* obican navbar*/
+vaadin-side-nav-item {
+    display: flex;
+    justify-content: center; 
+    background-color: #3F220F !important;
+    border-radius: 10px;
+    margin: 10px;
+    width: 230px;
 }
-.SideNavItemActive{                																									
-	display:flex;
-	justify-content:center; 
-	color:#ffffff;
-	background-color:#C9AB71;
-	border-radius:10px;
-	margin:10px;
-	width:230px;
-}
-/*kako bi radio cursor pointer bez ovoga tekst nema u pravougaoniku*/
-.SideNavItemNotActive::part(link) {
+
+/* tekst bela boja */
+vaadin-side-nav-item::part(link) {
+    color: white !important;
     cursor: pointer !important;
 }
-.SideNavItemActive::part(link) {
-    cursor: pointer !important;
+
+/* aktivan je druge boje */
+vaadin-side-nav-item[current] {
+    background-color: #C9AB71 !important;
+}
+/* bude siv okvir oko teksta bez ovoga za selektovan*/
+vaadin-side-nav-item[current]::part(link) {
+     background-color: #C9AB71 !important;
+}
+/* pojavljuje se beli pravougaonik oko tekst kad se prebaci ovo ga iskljucuje */
+vaadin-side-nav-item::part(link),
+vaadin-side-nav-item::part(link)::before,
+vaadin-side-nav-item::part(link)::after {
+    transition: none !important;
+    animation: none !important;
 }
 /*za header logo */
 .LogoText{
