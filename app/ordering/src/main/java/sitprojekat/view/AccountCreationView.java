@@ -11,7 +11,7 @@ import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfajsi.AccountCreationViewInterface;
+import sitprojekat.interfaces.AccountCreationViewInterface;
 import sitprojekat.presenter.AccountCreationPresenter;
 
 @StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")        

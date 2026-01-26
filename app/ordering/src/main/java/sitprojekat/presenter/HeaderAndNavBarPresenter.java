@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
 
-import sitprojekat.interfajsi.HeaderAndNavBarInterface;
+import sitprojekat.interfaces.HeaderAndNavBarInterface;
 
 @Component
 public class HeaderAndNavBarPresenter {

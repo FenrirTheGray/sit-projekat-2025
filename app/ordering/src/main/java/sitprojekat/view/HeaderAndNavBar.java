@@ -13,7 +13,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 
-import sitprojekat.interfajsi.HeaderAndNavBarInterface;
+import sitprojekat.interfaces.HeaderAndNavBarInterface;
 import sitprojekat.presenter.HeaderAndNavBarPresenter;
 
 @CssImport("./style/style.css")

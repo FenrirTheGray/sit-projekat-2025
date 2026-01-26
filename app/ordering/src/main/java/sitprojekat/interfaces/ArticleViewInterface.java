@@ -1,4 +1,4 @@
-package sitprojekat.interfajsi;
+package sitprojekat.interfaces;
 
 import java.util.List;
 import java.util.Set;

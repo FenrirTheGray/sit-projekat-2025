@@ -8,7 +8,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfajsi.NotFoundViewInterface;
+import sitprojekat.interfaces.NotFoundViewInterface;
 import sitprojekat.presenter.NotFoundPresenter;
 
 

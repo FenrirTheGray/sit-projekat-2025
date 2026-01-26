@@ -11,7 +11,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfajsi.ForgotenPasswordViewInterface;
+import sitprojekat.interfaces.ForgotenPasswordViewInterface;
 import sitprojekat.presenter.ForgotenPasswordPresenter;
 
 @StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")        

@@ -1,14 +1,14 @@
-package sitprojekat.interfajsi;
+package sitprojekat.interfaces;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 
-public interface LoginScreenViewInterface {
+public interface AccountCreationViewInterface {
 
 	public EmailField getEmailField();
 	public PasswordField getPasswordPasswordField();
-	public Button getLoginButton();
-
+	public PasswordField getConfirmPasswordPasswordField();
+	public Button getCreateAccountButton();
 
 }

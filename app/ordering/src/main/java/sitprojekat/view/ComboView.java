@@ -21,7 +21,7 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfajsi.ComboViewInterface;
+import sitprojekat.interfaces.ComboViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.presenter.ComboPresenter;
 import sitprojekat.service.ArticleService;

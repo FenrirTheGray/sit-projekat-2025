@@ -8,7 +8,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfajsi.OrderDeniedViewInterface;
+import sitprojekat.interfaces.OrderDeniedViewInterface;
 import sitprojekat.presenter.OrderDeniedPresenter;
 
 @Route(value = "OrderDenied",layout = HeaderAndNavBar.class)

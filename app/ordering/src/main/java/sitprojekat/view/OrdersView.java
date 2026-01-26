@@ -9,7 +9,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfajsi.OrdersViewInterface;
+import sitprojekat.interfaces.OrdersViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.presenter.OrdersPresenter;
 

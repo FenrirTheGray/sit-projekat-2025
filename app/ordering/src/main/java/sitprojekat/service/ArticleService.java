@@ -12,6 +12,7 @@ import sitprojekat.model.Article;
 @Service
 public class ArticleService {
 
+	private static final String API_BASE_URL = System.getenv().getOrDefault("API_BASE_URL", "http://localhost:7999") + "/api";
 	
 	 //putanja do springBoota kad je pokrenut 
 	private RestClient springBootRoute;
@@ -24,7 +25,7 @@ public class ArticleService {
 	 */
 	public List<Article> getArticles() {
         try {
-	        	springBootRoute = RestClient.create("http://localhost:7999/api");
+	        	springBootRoute = RestClient.create(API_BASE_URL);
 	            return springBootRoute.get()   // dobijanje artikala iz springBoot articles
 	                    .uri("/articles")
 	                    .retrieve()
@@ -36,7 +37,7 @@ public class ArticleService {
 	}
 	public Article findByID(String id) {
 		try {
-			springBootRoute = RestClient.create("http://localhost:7999/api");
+			springBootRoute = RestClient.create(API_BASE_URL);
 			return springBootRoute.get() // dobijanje artikala iz springBoot articles
 					.uri("/articles/"+id)
 					.retrieve()

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.spring.annotation.UIScope;
 
-import sitprojekat.interfajsi.OrderCreationViewInterface;
+import sitprojekat.interfaces.OrderCreationViewInterface;
 import sitprojekat.service.ProductInCartService;
 
 @Component

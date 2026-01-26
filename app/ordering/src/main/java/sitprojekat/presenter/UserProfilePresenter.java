@@ -4,7 +4,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 
-import sitprojekat.interfajsi.UserProfileViewInterface;
+import sitprojekat.interfaces.UserProfileViewInterface;
 import sitprojekat.model.UserAccount;
 
 

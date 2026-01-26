@@ -11,7 +11,7 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfajsi.UserProfileViewInterface;
+import sitprojekat.interfaces.UserProfileViewInterface;
 import sitprojekat.model.UserAccount;
 import sitprojekat.presenter.UserProfilePresenter;
 import sitprojekat.service.UserAccountService;

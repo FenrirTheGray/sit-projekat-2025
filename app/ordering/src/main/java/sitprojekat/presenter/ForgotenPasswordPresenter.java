@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
 
-import sitprojekat.interfajsi.ForgotenPasswordViewInterface;
+import sitprojekat.interfaces.ForgotenPasswordViewInterface;
 import sitprojekat.service.UserAccountService;
 
 @Component

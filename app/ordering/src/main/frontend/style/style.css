@@ -2,7 +2,7 @@
 vaadin-side-nav-item {
     display: flex;
     justify-content: center; 
-    background-color: #3F220F !important;
+    background-color: #3F220F;
     border-radius: 10px;
     margin: 10px;
     width: 230px;
@@ -10,24 +10,24 @@ vaadin-side-nav-item {
 
 /* tekst bela boja */
 vaadin-side-nav-item::part(link) {
-    color: white !important;
-    cursor: pointer !important;
+    color: white;
+    cursor: pointer;
 }
 
 /* aktivan je druge boje */
 vaadin-side-nav-item[current] {
-    background-color: #C9AB71 !important;
+    background-color: #C9AB71 ;
 }
 /* bude siv okvir oko teksta bez ovoga za selektovan*/
 vaadin-side-nav-item[current]::part(link) {
-     background-color: #C9AB71 !important;
+     background-color: #C9AB71 ;
 }
 /* pojavljuje se beli pravougaonik oko tekst kad se prebaci ovo ga iskljucuje */
 vaadin-side-nav-item::part(link),
 vaadin-side-nav-item::part(link)::before,
 vaadin-side-nav-item::part(link)::after {
-    transition: none !important;
-    animation: none !important;
+    transition: none ;
+    animation: none ;
 }
 /*za header logo */
 .LogoText{
@@ -89,7 +89,7 @@ vaadin-side-nav-item::part(link)::after {
 
 }
 .productContainer{
-	width:300px !important;				
+	width:300px ;				
 	border:2px solid;
 	border-color:#3F220F;
 	border-radius:10px;
@@ -105,11 +105,13 @@ vaadin-side-nav-item::part(link)::after {
 .DescriptionSpan{
 	color:#ffffff;
 	overflow-wrap:break-word;
-	Width:350px !important;
+	Width:350px;
 }
 .categoryH1{
 	text-align:center;
 	color:#ffffff;
+	max-width: 1200px;
+	margin: 20px auto;
 }
 .boldText{
 	font-weight:bold;
@@ -144,11 +146,13 @@ vaadin-side-nav-item::part(link)::after {
 }
 /*svi u toj kategoriji 3 po jednom redu*/
 .articleContainer{      
-	    display:grid !important;
-	    grid-template-columns:repeat(3, 1fr); 
-	    gap:120px; 
-	    margin-left:auto;
-	    margin-right:auto;
+	display:grid ;
+	grid-template-columns:repeat(3, 1fr); 
+	gap:px; 
+	max-width: 1200px; /* bude ogroman razmak bez ovoga */
+	margin: 0 auto; /* Centriranje celog grida na sredinu ekrana */
+	width: 100%;
+	justify-items: center;
 }
 .continueToOrderButton{
 	background-color:#3F220F;
@@ -158,14 +162,16 @@ vaadin-side-nav-item::part(link)::after {
 	cursor:pointer;
 }
 .productOrderedContainer{
-	width:850px !important; 
+	max-width:850px; 
+	width:100%; 
 	background-color:#20281f;
 	border-radius:12px;
 	padding:15px;
 	margin-bottom:15px;
 }
 .orderContainer{
-	width:850px !important; 
+	max-width:850px; 
+	width:100%;
 	background-color:#20281f;
 	border-radius:12px;
 	padding:15px;
@@ -185,7 +191,7 @@ vaadin-side-nav-item::part(link)::after {
 }
 .choiceButtonSubText{
 	font-size:var(--lumo-font-size-s);            /*manji font*/  
-	color:gray !important;	
+	color:gray;	
 }
 /* za default dugme */
 .brownButton{
@@ -215,15 +221,14 @@ vaadin-side-nav-item::part(link)::after {
 /* container u userProfile */
 .userProfileContainer{
 	max-width: 350px;
-
 	background-color:#c9ab71;
 	padding:20px;
 	border-radius:8px;
 	align-items: stretch;
 }
 .centeredText{
-	    width: 100% !important;
-	    text-align: center;
+	width: 100%;
+	text-align: center;
 }
 .payingOptionChoiceContainer{
 	gap:45px;
@@ -235,7 +240,8 @@ vaadin-side-nav-item::part(link)::after {
 	cursor:pointer;
 }
 .orderingContainer{
-	width:350px !important; 
+	max-width:350px;
+	width:100%;
 	background-color:#c9ab71;
 	padding:20px;
 	border-radius:8px;
@@ -245,17 +251,18 @@ vaadin-side-nav-item::part(link)::after {
     color: #ffffff;
 }
 .whiteTextNotif{
-	font-family:Kaushan Script !important;
+	font-family:Kaushan Script;
 	font-size:64px;
 	color:#ffffff;
 }
 .notifText{
-	width: 100% !important;
+	width: 100%;
 	text-align: center;
 	color:#000000;
 }
 .informationContainer{
-	width:350px !important; 
+	max-width:350px;
+	width:100%;
 	background-color:#c9ab71;
 	padding:20px;
 	border-radius:8px;
@@ -315,9 +322,9 @@ vaadin-password-field::part(reveal-button)::before{
 }
 
 .productCounter{
-    background-color: transparent !important;
-    color: white !important;	
-	width:125px !important;
+    background-color: transparent;
+    color: white;	
+	width:125px;
 }
 
 /* pozadina */
@@ -354,7 +361,7 @@ vaadin-dialog-overlay.notif {
 /* bela labela - mali tekst iznad izbora*/
 vaadin-radio-group::part(label),
 vaadin-checkbox-group::part(label) {
-    color: white !important;
+    color: white ;
 }
 vaadin-radio-button, 
 vaadin-checkbox {

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.spring.annotation.UIScope;
 
-import sitprojekat.interfajsi.ArticleViewInterface;
+import sitprojekat.interfaces.ArticleViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.Category;
 import sitprojekat.model.Modifier;

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
 
-import sitprojekat.interfajsi.AccountCreationViewInterface;
+import sitprojekat.interfaces.AccountCreationViewInterface;
 import sitprojekat.model.UserAccount;
 import sitprojekat.service.UserAccountService;
 

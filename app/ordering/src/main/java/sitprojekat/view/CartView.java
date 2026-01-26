@@ -14,7 +14,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfajsi.CartViewInterface;
+import sitprojekat.interfaces.CartViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.ProductInCart;
 import sitprojekat.presenter.CartPresenter;

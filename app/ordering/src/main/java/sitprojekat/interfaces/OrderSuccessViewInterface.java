@@ -1,4 +1,4 @@
-package sitprojekat.interfajsi;
+package sitprojekat.interfaces;
 
 public interface OrderSuccessViewInterface {
 

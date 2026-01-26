@@ -1,4 +1,4 @@
-package sitprojekat.interfajsi;
+package sitprojekat.interfaces;
 
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;

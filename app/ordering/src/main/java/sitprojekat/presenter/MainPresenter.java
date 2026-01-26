@@ -7,7 +7,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 
-import sitprojekat.interfajsi.MainViewInterface;
+import sitprojekat.interfaces.MainViewInterface;
 
 @Component
 public class MainPresenter {

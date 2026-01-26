@@ -8,7 +8,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfajsi.OrderSuccessViewInterface;
+import sitprojekat.interfaces.OrderSuccessViewInterface;
 import sitprojekat.presenter.OrderSuccessPresenter;
 
 @Route(value = "OrderSuccess",layout = HeaderAndNavBar.class)

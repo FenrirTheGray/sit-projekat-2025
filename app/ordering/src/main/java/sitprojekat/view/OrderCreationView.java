@@ -10,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfajsi.OrderCreationViewInterface;
+import sitprojekat.interfaces.OrderCreationViewInterface;
 import sitprojekat.presenter.OrderCreationPresenter;
 
 @Route(value = "OrderCreation", layout = HeaderAndNavBar.class)

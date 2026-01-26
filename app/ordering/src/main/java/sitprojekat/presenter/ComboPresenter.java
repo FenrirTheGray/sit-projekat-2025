@@ -2,7 +2,7 @@ package sitprojekat.presenter;
 
 import org.springframework.stereotype.Component;
 
-import sitprojekat.interfajsi.ComboViewInterface;
+import sitprojekat.interfaces.ComboViewInterface;
 import sitprojekat.view.ComboView;
 
 @Component

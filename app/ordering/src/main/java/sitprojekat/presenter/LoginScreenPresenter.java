@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
 
-import sitprojekat.interfajsi.LoginScreenViewInterface;
+import sitprojekat.interfaces.LoginScreenViewInterface;
 import sitprojekat.service.UserAccountService;
 
 @Component

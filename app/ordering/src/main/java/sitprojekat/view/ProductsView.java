@@ -15,7 +15,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfajsi.ProductsViewInterface;
+import sitprojekat.interfaces.ProductsViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.presenter.ProductsPresenter;
 import sitprojekat.service.ArticleService;
@@ -107,7 +107,7 @@ public class ProductsView extends VerticalLayout implements ProductsViewInterfac
 	    categoryH1.addClassName("categoryH1");  //naslov	    
 	    categoryH1.setWidthFull();
 
-	    FlexLayout articleContainer = new FlexLayout();            // svi u toj kategoriji 3 po jednom redu
+	    VerticalLayout articleContainer = new VerticalLayout();            // svi u toj kategoriji 3 po jednom redu
 	    articleContainer.addClassName("articleContainer");
 
 	    for (Article article : articles) {

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.spring.annotation.UIScope;
 
-import sitprojekat.interfajsi.CartViewInterface;
+import sitprojekat.interfaces.CartViewInterface;
 import sitprojekat.model.ProductInCart;
 import sitprojekat.service.ProductInCartService;
 import sitprojekat.view.NotificationChoiceConfirmationDeleteFromCart;

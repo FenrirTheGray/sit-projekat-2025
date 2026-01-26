@@ -12,7 +12,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfajsi.MainViewInterface;
+import sitprojekat.interfaces.MainViewInterface;
 import sitprojekat.presenter.MainPresenter;
 
 @Route(value = "Main",layout = HeaderAndNavBar.class)

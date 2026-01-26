@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
 
-import sitprojekat.interfajsi.NotFoundViewInterface;
+import sitprojekat.interfaces.NotFoundViewInterface;
 import sitprojekat.view.NotFoundView;
 
 @Component
