@@ -1,4 +1,4 @@
-package sitprojekat.service;
+package rs.ac.singidunum.cms.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -19,7 +19,7 @@ public class HttpService {
 
     private final RestClient apiClient;
 
-    public HttpService() {
+    public HttpService(){
         apiClient = RestClient.create();
     }
 
@@ -106,6 +106,7 @@ public class HttpService {
 
             System.out.println(response.getStatusCode());
             return response.getBody();
+
         } catch (Exception e) {
             e.printStackTrace();
             return null;

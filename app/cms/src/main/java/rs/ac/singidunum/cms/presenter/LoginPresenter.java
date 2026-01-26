@@ -1,22 +1,19 @@
-package sitprojekat.presenter;
+package rs.ac.singidunum.cms.presenter;
 
-import sitprojekat.service.UserService;
-import sitprojekat.view.LoginScreenView;
+import rs.ac.singidunum.cms.service.UserService;
+import rs.ac.singidunum.cms.view.LoginView;
 
-public class LoginScreenPresenter {
+public class LoginPresenter {
 
-    private final LoginScreenView view;
+    private final LoginView view;
     private final UserService userService;
 
-    public LoginScreenPresenter(LoginScreenView view, UserService userService){
+    public LoginPresenter(LoginView view, UserService userService){
         this.view = view;
         this.userService = userService;
     }
 
-    public boolean login(){
-        String email = this.view.getEmail();
-        String password = this.view.getPassword();
-
+    public boolean login(String email, String password){
         if(email == null || email.isEmpty()) {
             //TODO: Red border email and display error
             return false;
@@ -33,7 +30,6 @@ public class LoginScreenPresenter {
 
         return false;
     }
-
     public void logout(){
         userService.logout();
     }

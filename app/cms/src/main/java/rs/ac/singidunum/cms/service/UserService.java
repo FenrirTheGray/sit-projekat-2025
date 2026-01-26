@@ -1,9 +1,9 @@
-package sitprojekat.service;
+package rs.ac.singidunum.cms.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sitprojekat.dto.LoginRequestDTO;
-import sitprojekat.dto.LoginResponseDTO;
+import rs.ac.singidunum.cms.dto.LoginRequestDTO;
+import rs.ac.singidunum.cms.dto.LoginResponseDTO;
 
 @Service
 public class UserService {
@@ -32,6 +32,4 @@ public class UserService {
     public void logout(){
         userStoreService.deleteToken();
     }
-
-
 }

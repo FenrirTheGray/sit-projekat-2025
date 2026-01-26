@@ -10,6 +10,8 @@ import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import rs.ac.singidunum.cms.presenter.LoginPresenter;
+import rs.ac.singidunum.cms.service.UserService;
 
 @Route(value = "") // početna stranica
 @StyleSheet("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap") //import od googla za font
@@ -21,7 +23,11 @@ public class LoginView extends VerticalLayout {
 
 	private static final long serialVersionUID = 6313156717813295316L;
 
-	public LoginView() {
+    private final LoginPresenter presenter;
+
+	public LoginView(UserService userService) {
+
+        this.presenter = new LoginPresenter(this, userService);
         // postavljanje podešavanja canvas-a (platna)
         setSizeFull(); // postavljanje platna preko celog  (da zauzme 100% širine i visine ekrana)
         setAlignItems(Alignment.CENTER); // centriranje sadržaja horizontalno (Levo - Desno)
@@ -65,15 +71,21 @@ public class LoginView extends VerticalLayout {
         loginForm.addClassName("login-form-box"); // pravimo klasu za css
 
         // listener za logovanje
-        // TODO: treba izmeniti i srediti u budućnosti kad dodamo logovanje
 		loginForm.addLoginListener(event -> {
             String email = event.getUsername();
-            // String password = event.getPassword();
+            String password = event.getPassword();
             
             System.out.println("email: " + email.toLowerCase()); // testiramo ispis emaila u konzolu u IDE
+            System.out.println("password: " + password);
 
-            // Ova linija te prebacuje na ProductsView
-            getUI().ifPresent(ui -> ui.navigate(ArticlesView.class));
+            if(this.presenter.login(email, password)){
+                // Ova linija te prebacuje na ProductsView
+                System.out.println("Logged in");
+                getUI().ifPresent(ui -> ui.navigate(ArticlesView.class));
+            }
+
+            //TODO: Error handling if login doesnt pass
+
         });
 
         // velika kutija: content - u nju ubacujemo malu kutiju 1 (branding) i malu kutiju 2 (forma) - horizontal
