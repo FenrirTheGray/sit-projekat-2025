@@ -1,8 +1,11 @@
 package sitprojekat.presenter;
 
+import org.springframework.stereotype.Component;
+
 import sitprojekat.interfajsi.ComboViewInterface;
 import sitprojekat.view.ComboView;
 
+@Component
 public class ComboPresenter {
 
 	private ComboViewInterface view;
