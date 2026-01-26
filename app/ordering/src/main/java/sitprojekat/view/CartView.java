@@ -18,7 +18,6 @@ import sitprojekat.interfajsi.CartViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.ProductInCart;
 import sitprojekat.presenter.CartPresenter;
-import sitprojekat.service.ProductInCartService;
 
 @CssImport("./style/style.css")
 @Route(value = "Cart",layout = HeaderAndNavBar.class)
@@ -36,8 +35,9 @@ public class CartView extends VerticalLayout implements CartViewInterface{
     private final CartPresenter presenter;
 	
 	
-	public CartView(ProductInCartService cartService) {
-		this.presenter = new CartPresenter(this, cartService);
+	public CartView(CartPresenter presenter) {
+		this.presenter=presenter;
+		presenter.setView(this);
 		
 		Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
 		Button backButton=new Button("Povratak",backArrowIcon);
@@ -46,7 +46,14 @@ public class CartView extends VerticalLayout implements CartViewInterface{
 		
 							
 		continueToOrderButton.addClassName("continueToOrderButton");
-				
+		continueToOrderButton.addClickListener(e->{
+			List<ProductInCart> products=presenter.getProducts();
+			
+			if(!products.isEmpty()) {
+				UI.getCurrent().navigate("OrderCreation");
+			}
+			
+		});		
 
 		totalPriceH4.addClassName("whiteText");
 		
@@ -109,7 +116,7 @@ public class CartView extends VerticalLayout implements CartViewInterface{
 	    Button detailsButton = new Button("Detalji");
 	    detailsButton.addClassName("greenButton");
 	    
-	    detailsButton.addClickListener(e->{UI.getCurrent().navigate("Article/"+productInCart.getArticle().getName());});
+	    detailsButton.addClickListener(e->{UI.getCurrent().navigate("Article/"+productInCart.getArticle().getId());});
 	    bottomRowContainer.add(orderAmountSumSpan, totalCostSpan, detailsButton);
 	    bottomRowContainer.setJustifyContentMode(JustifyContentMode.BETWEEN);
 

@@ -8,30 +8,38 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
+import sitprojekat.interfajsi.OrderSuccessViewInterface;
+import sitprojekat.presenter.OrderSuccessPresenter;
+
 @Route(value = "OrderSuccess",layout = HeaderAndNavBar.class)
-public class OrderSuccessView extends VerticalLayout{
+public class OrderSuccessView extends VerticalLayout implements OrderSuccessViewInterface{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5932756931587031517L;
 
-	public OrderSuccessView() {
+	private Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
+	private Button backButton=new Button("Povratak",backArrowIcon);
+	private H2 titleH2=new H2();
+	private Span orderIDSpan=new Span();
+	private Span itemsOrderedSpan=new Span();
+	private final OrderSuccessPresenter presenter;
+	public OrderSuccessView(OrderSuccessPresenter presenter) {
+		this.presenter=presenter;
+		this.presenter.setView(this);
 		
-		Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
-		Button backButton=new Button("Povratak",backArrowIcon);
 		backButton.addClassName("brownButton");
+		backButton.addClickListener(e->presenter.mainScreen());
 		
-		H2 titleH2=new H2();
 		titleH2.setText("Porudzbina Uspesno Primljena");
 		titleH2.addClassName("centeredText");
 		
-		Span orderIDSpan=new Span();
 		orderIDSpan.setText("Porudzbina ID:");
 		
 		VerticalLayout orderingContainer = new VerticalLayout(); 
 
-		Span itemsOrderedSpan=new Span();
+		
 		itemsOrderedSpan.setText("Pregled Proizvoda:");
 		
 		orderingContainer.add(titleH2,orderIDSpan,itemsOrderedSpan,backButton);
@@ -48,4 +56,5 @@ public class OrderSuccessView extends VerticalLayout{
 		add(orderContainer);
 		}
 	}
+
 

@@ -45,7 +45,7 @@ public class NotificationAddToCardNotValidView extends Dialog{
 		informationContainer.setPadding(true);
 		informationContainer.setAlignItems(Alignment.CENTER);
 		
-		Button okButton=new Button();//#74914c
+		Button okButton=new Button();
 		okButton.setText("OK");
 		okButton.addClassName("greenButton");
 		okButton.addClickListener(e->close());

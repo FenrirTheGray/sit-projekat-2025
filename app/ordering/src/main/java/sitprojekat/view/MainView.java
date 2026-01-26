@@ -12,8 +12,11 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
+import sitprojekat.interfajsi.MainViewInterface;
+import sitprojekat.presenter.MainPresenter;
+
 @Route(value = "Main",layout = HeaderAndNavBar.class)
-public class MainView extends VerticalLayout{
+public class MainView extends VerticalLayout implements MainViewInterface{
 
 	/**
 	 * 
@@ -22,22 +25,25 @@ public class MainView extends VerticalLayout{
 
 	private int currentIndexInt = 0;
     private List<String> imagesList=new ArrayList<String>();
+    private TextField filterTextBox=new TextField();
+    private final MainPresenter presenter;
     private HorizontalLayout carouselDotsContainer = new HorizontalLayout();
-	
-	public MainView() {
-		
+    private Image promoImage;
+    
+	public MainView(MainPresenter presenter) {
+		this.presenter=presenter;
+		presenter.setView(this);
 		
 		imagesList.add("/images/image_burger.jpg");
 		imagesList.add("/images/image_pizza.jpg");
+		promoImage=new Image(imagesList.get(currentIndexInt),"slika primer proizvoda");
 		
-		TextField filterTextBox=new TextField();
 			
-		filterTextBox.setValue("pretraga");
+		filterTextBox.setPlaceholder("pretraga");
 		filterTextBox.setClearButtonVisible(true);
 		filterTextBox.setSuffixComponent(VaadinIcon.SEARCH.create());
 		filterTextBox.addClassName("filterTextBox");
 		
-		Image promoImage=new Image(imagesList.get(currentIndexInt),"slika primer proizvoda");
 		promoImage.addClassName("promoImage");
 		
 		H2 titleH2=new H2();
@@ -48,12 +54,7 @@ public class MainView extends VerticalLayout{
 		leftArrowIcon.addClassName("arrowIcon");
 		
 		leftArrowIcon.addClickListener(e -> {
-			currentIndexInt-=1;
-			if((currentIndexInt)<0) {
-				currentIndexInt=imagesList.size()-1;
-			}
-            promoImage.setSrc(imagesList.get(currentIndexInt));
-            changeCarouselDots();
+			presenter.leftArrow();
         });
 		
 		
@@ -61,12 +62,7 @@ public class MainView extends VerticalLayout{
 		rightArrowIcon.addClassName("arrowIcon");
 		
 		rightArrowIcon.addClickListener(e -> {
-			currentIndexInt+=1;
-			if((currentIndexInt)>=imagesList.size()) {
-				currentIndexInt=0;
-			}
-           promoImage.setSrc(imagesList.get(currentIndexInt));
-           changeCarouselDots();
+			presenter.rightArrow();
         });
 		
 		
@@ -80,27 +76,66 @@ public class MainView extends VerticalLayout{
 		mainContentContainer.setJustifyContentMode(JustifyContentMode.CENTER);
 		mainContentContainer.setAlignItems(Alignment.CENTER);
 		
-		changeCarouselDots();
+		presenter.changeCarouselDots();
 		
 		
 		
 		add(mainContentContainer);
 	}
-	private void changeCarouselDots() {
-        carouselDotsContainer.removeAll();
-        for (int i = 0; i < imagesList.size(); i++) {
-            Icon carouselDotIcon = VaadinIcon.CIRCLE.create();
-            if(i==currentIndexInt) {
-            	 carouselDotIcon.addClassName("activeCarousel");// drugacije boje stavlja selektovanu
-            }
-            else {
-            carouselDotIcon.addClassName("notActiveCarousel");
-            }
-            carouselDotsContainer.add(carouselDotIcon);
-            carouselDotsContainer.setAlignItems(Alignment.CENTER);
-            carouselDotsContainer.setJustifyContentMode(JustifyContentMode.CENTER);
-        }
-    }
+
+	@Override
+	public int getCurrentIndexInt() {
+		return currentIndexInt;
+	}
+
+	@Override
+	public void setCurrentIndexInt(int currentIndexInt) {
+		this.currentIndexInt=currentIndexInt;
+		
+	}
+
+	@Override
+	public List<String> getImagesList() {
+		return imagesList;
+	}
+
+	@Override
+	public void setImagesList(List<String> imagesList) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPresenter(MainPresenter presenter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public HorizontalLayout getCarouselDotsContainer() {
+		return carouselDotsContainer;
+	}
+
+	@Override
+	public void setCarouselDotsContainer(HorizontalLayout carouselDotsContainer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Image getPromoImage() {
+		return promoImage;
+	}
+
+	@Override
+	public void setPromoImage(Image promoImage) {
+		this.promoImage=promoImage;
+		
+	}
+
+	
+	
+
 
 	
 }

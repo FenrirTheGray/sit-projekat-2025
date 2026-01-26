@@ -1,6 +1,5 @@
 package sitprojekat.view;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
@@ -14,44 +13,42 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 
+import sitprojekat.interfajsi.HeaderAndNavBarInterface;
+import sitprojekat.presenter.HeaderAndNavBarPresenter;
+
 @CssImport("./style/style.css")
 @StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")                       //import od googla za font 
-public class HeaderAndNavBar extends AppLayout{
+public class HeaderAndNavBar extends AppLayout implements HeaderAndNavBarInterface {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2259364331400139508L;
-
-	public HeaderAndNavBar() {
+	
+	private SideNav leftNav=new SideNav();
+	private SideNavItem productsView=new SideNavItem("Pregled Proizvoda", "Products");
+	private SideNavItem ordersView=new SideNavItem("Pregled Porudzbina", "Orders");
+	private Span titleSpan=new Span("Ordering app");
+	private Icon userIcon=VaadinIcon.USER.create();
+	private Icon shoppingCartIcon=VaadinIcon.CART_O.create();
+	private final HeaderAndNavBarPresenter presenter;
+	
+	public HeaderAndNavBar(HeaderAndNavBarPresenter presenter) {
+		this.presenter=presenter;
+		presenter.setView(this);
+		
+		
 		createHeader();
 		createNavBar();
-		addClassName("greenBackground");// za side bar #20281f
+		addClassName("greenBackground");
 	}
 	
 
 	private void createNavBar() {
-		SideNav leftNav=new SideNav();
-		
-		//SideNavItem pregledProizvoda=new SideNavItem("Pregled Proizvoda",PregledProizvoda.class); automatski bude plav ako je na toj stranici
-		SideNavItem productsView=new SideNavItem("Pregled Proizvoda");
-		productsView.addClassName("SideNavItemNotActive");
-		//pregledProizvoda.addClickListener(e->{UI.getCurrent().navigate("Korpa");}); mora sa get elemnt jer addclick nema
-		productsView.getElement().addEventListener("click", e->{UI.getCurrent().navigate("Products");}); //za rout
-		//pregledProizvoda.getElement().addEventListener("click", e->{UI.getCurrent().getPage().setLocation("https://www.google.com");}); za url
-		//pregledProizvoda.getElement().addEventListener("click", e->{UI.getCurrent().getPage().open("https://www.google.com");}); otvara novu stranicu
-		//pregledProizvoda.getElement().addEventListener("click", e->{UI.getCurrent().navigate("https://www.google.com/");});
-		//pregledProizvoda.getStyle().set("cursor","pointer"); samo za spoljne strane oko teksta
-		
-		SideNavItem ordersView=new SideNavItem("Pregled Porudzbina");
-		ordersView.addClassName("SideNavItemActive");
-
 		
 		leftNav.addItem(productsView,ordersView);
 		
-
 		leftNav.addClassName("leftNav");
-
 		
 		VerticalLayout containerForLeftNav=new VerticalLayout(leftNav);
 		containerForLeftNav.setSizeFull();
@@ -67,38 +64,34 @@ public class HeaderAndNavBar extends AppLayout{
 
 
 	private void createHeader() {
-		Span titleSpan=new Span("Ordering app");
+		
 		titleSpan.addClassName("LogoText");
 		
-		Icon userIcon=VaadinIcon.USER.create();
-		Icon shoppingCartIcon=VaadinIcon.CART_O.create();
-		
 		userIcon.addClassName("userIcon");
+		userIcon.addClickListener(e->presenter.userProfileScreen());
 		
-		userIcon.addClickListener(e->{UI.getCurrent().navigate("UserProfile");});
+		shoppingCartIcon.addClassName("shoppingCartIcon");		
+		shoppingCartIcon.addClickListener(e->presenter.shoppingCartScreen());
 		
-		shoppingCartIcon.addClassName("shoppingCartIcon");
-		
-		shoppingCartIcon.addClickListener(e->{UI.getCurrent().navigate("Cart");});
-		
-		
-		HorizontalLayout iconContainer=new HorizontalLayout(userIcon,shoppingCartIcon);
-		
-		
+		HorizontalLayout iconContainer=new HorizontalLayout(userIcon,shoppingCartIcon);	
 		HorizontalLayout naslovKontainer=new HorizontalLayout(titleSpan);
-		
 		HorizontalLayout header=new HorizontalLayout(naslovKontainer,iconContainer);
 		
-		
 		header.addClassName("header");
-		//header.setWidthFull();
 		header.setDefaultVerticalComponentAlignment(Alignment.CENTER);
 		header.setJustifyContentMode(JustifyContentMode.BETWEEN);
-		addToNavbar(header);
+		 addToNavbar(header);
 	}
-	
-	
-	
-	
-	
+
+
+	@Override
+	public SideNavItem getProductsView() {
+		return productsView;
+	}
+
+	@Override
+	public SideNavItem getOrdersView() {
+		return ordersView;
+	}
+
 }

@@ -21,12 +21,14 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
+import sitprojekat.interfajsi.ComboViewInterface;
 import sitprojekat.model.Article;
+import sitprojekat.presenter.ComboPresenter;
 import sitprojekat.service.ArticleService;
 
 @CssImport("./style/style.css")
 @Route(value = "Combo",layout = HeaderAndNavBar.class)
-public class ComboView  extends HorizontalLayout implements HasUrlParameter<String>{
+public class ComboView  extends HorizontalLayout implements HasUrlParameter<String>, ComboViewInterface{
 
 	/**
 	 * 
@@ -38,7 +40,8 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
     private Span comboDescription = new Span();
     private Button addToCartButton = new Button();
     private IntegerField productCounter = new IntegerField();
-    private ArticleService service=new ArticleService();
+    private final ArticleService service=new ArticleService();
+    private final ComboPresenter presenter;
 	@Override
 	public void setParameter(BeforeEvent event, String sentComboID) {
 		
@@ -57,7 +60,10 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 			this.addToCartButton.setIcon(VaadinIcon.CART_O.create());
 		}
 	}
-	public ComboView() {
+	public ComboView(ComboPresenter presenter) {
+		this.presenter=presenter;
+		this.presenter.setView(this);
+		
 		Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
 		Button backButton=new Button("Povratak",backArrowIcon);
 		backButton.addClassName("brownButton");

@@ -28,8 +28,6 @@ import com.vaadin.flow.router.Route;
 import sitprojekat.interfajsi.ArticleViewInterface;
 import sitprojekat.model.Modifier;
 import sitprojekat.presenter.ArticlePresenter;
-import sitprojekat.service.ArticleService;
-import sitprojekat.service.ProductInCartService;
 
 
 @CssImport("./style/style.css")
@@ -53,10 +51,9 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 		presenter.findByID(sentArticleID);
 	}
 	
-	
-	public ArticleView(ArticleService articleService,ProductInCartService cartService) {
-		
-		this.presenter=new ArticlePresenter(this, articleService,cartService);
+	public ArticleView(ArticlePresenter presenter) {
+		this.presenter=presenter;
+		presenter.setView(this);
 		
 		Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
 		Button backButton=new Button("Povratak",backArrowIcon);
@@ -248,26 +245,19 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 
 
 	@Override
-	public double getArticleSizesRadioButton() {   // vraca cenu izabranog siza ako je neki izabran
+	public Modifier getArticleSizesRadioButton() {   // vraca cenu izabranog siza ako je neki izabran
 	    if (this.articleSizeRadioButtonGroup.getValue() == null) {
-	        return 0;
+	        return null;
 	    }
-	    return this.articleSizeRadioButtonGroup.getValue().getPrice();
+	    return this.articleSizeRadioButtonGroup.getValue();
 		
 	}
 
 
 	@Override
-	public double getArticleModifiersCheckBox() {
-		Set<Modifier> selectedItems=this.articleModifierCheckBoxGroup.getSelectedItems(); // vraca cenu za izabrane modifiere ako su izabrani
-		double price=0;
-		
-		for (Modifier modifier : selectedItems) {
-			price+=modifier.getPrice();
-		}
-		
-		
-		return price;
+	public Set<Modifier> getArticleModifiersCheckBox() {
+		return this.articleModifierCheckBoxGroup.getSelectedItems(); // vraca cenu za izabrane modifiere ako su izabrani
+
 	}
 
 

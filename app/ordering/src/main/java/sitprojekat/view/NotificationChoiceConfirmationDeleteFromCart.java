@@ -1,14 +1,16 @@
 package sitprojekat.view;
 
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 
 @StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")
 @CssImport("./style/style.css")
@@ -18,6 +20,8 @@ public class NotificationChoiceConfirmationDeleteFromCart extends Dialog {
 	 * 
 	 */
 	private static final long serialVersionUID = 8757622649524542547L;
+	private Button YesButton = new Button();
+	private Button NoButton = new Button();
 
 	public NotificationChoiceConfirmationDeleteFromCart() {
 		setWidth("850px");
@@ -42,12 +46,11 @@ public class NotificationChoiceConfirmationDeleteFromCart extends Dialog {
 		informationContainer.setPadding(true);
 		informationContainer.setAlignItems(Alignment.CENTER);
 
-		Button YesButton = new Button();
+		
 		YesButton.setText("Da");
 		YesButton.addClassName("greenButton");
-		YesButton.addClickListener(e -> close());
 		
-		Button NoButton = new Button();
+		
 		NoButton.setText("Ne");
 		NoButton.addClassName("brownButton");
 		NoButton.addClickListener(e -> close());
@@ -59,5 +62,8 @@ public class NotificationChoiceConfirmationDeleteFromCart extends Dialog {
 		dialogContainer.add(titleH2, informationContainer);
 
 		add(dialogContainer);
+	}
+	public void addConfirmListener(ComponentEventListener<ClickEvent<Button>> listener) {
+	    YesButton.addClickListener(listener);
 	}
 }

@@ -1,8 +1,6 @@
 package sitprojekat.view;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.H1;
@@ -17,31 +15,36 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
+import sitprojekat.interfajsi.ProductsViewInterface;
 import sitprojekat.model.Article;
+import sitprojekat.presenter.ProductsPresenter;
 import sitprojekat.service.ArticleService;
 
 
 
 @Route(value = "Products",layout = HeaderAndNavBar.class)
-public class ProductsView extends VerticalLayout{
+public class ProductsView extends VerticalLayout implements ProductsViewInterface{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6116769739933744188L;
 	
-	private final ArticleService service;
+	private final ProductsPresenter	 presenter;
 	private final List<Article> allArticles;
+	private TextField filterTextBox=new TextField();
 	private final VerticalLayout productsContainer = new VerticalLayout();
 	
-	public ProductsView(ArticleService service) {		
+	public ProductsView(ProductsPresenter presenter) {			
 		
-		this.service=service;
+		this.presenter=presenter;
+		presenter.setView(this);
+		
 		
 		Icon searchIcon=VaadinIcon.SEARCH.create();
 		searchIcon.addClassName("cursorPointer");
 		
-		TextField filterTextBox=new TextField();
+		
 		
 		filterTextBox.setPlaceholder("pretraga");
 		filterTextBox.addClassName("filterTextBox");
@@ -49,20 +52,20 @@ public class ProductsView extends VerticalLayout{
 		filterTextBox.setSuffixComponent(searchIcon);
 		
 		searchIcon.addClickListener(e -> {
-		    updateView(filterTextBox.getValue());
+		    presenter.updateView(filterTextBox.getValue());
 		});
 		
 		HorizontalLayout filterContainer=new HorizontalLayout(filterTextBox);
 		filterContainer.setWidthFull();
 		filterContainer.setJustifyContentMode(JustifyContentMode.END);
 		
-		this.allArticles =service.getArticles();		
+		this.allArticles =presenter.getArticles();		
         productsContainer.setWidthFull();
 		
 		
 		add(filterContainer, productsContainer);
 		if(!allArticles.isEmpty()) {
-			updateView("");
+			presenter.updateView("");
 		}
 		else {
 			Span noProductsSpan=new Span("desila se greska ");
@@ -71,7 +74,7 @@ public class ProductsView extends VerticalLayout{
 		}
 		
 	}
-	private VerticalLayout createProductContainer(Article article) {
+	public VerticalLayout createProductContainer(Article article) {
 		
 	    VerticalLayout productContainer = new VerticalLayout();		 // glavni kontejner proizvoda
 	    productContainer.addClassName("productContainer");			
@@ -99,7 +102,7 @@ public class ProductsView extends VerticalLayout{
 	    
 	    return productContainer;
 	}
-	private VerticalLayout createCategorySection(String title, List<Article> articles) {
+	public VerticalLayout createCategorySection(String title, List<Article> articles) {
 	    H1 categoryH1 = new H1(title);
 	    categoryH1.addClassName("categoryH1");  //naslov	    
 	    categoryH1.setWidthFull();
@@ -115,25 +118,36 @@ public class ProductsView extends VerticalLayout{
 	    section.setPadding(false);
 	    return section;
 	}
-	private void updateView(String filterText) {
-		productsContainer.removeAll(); // brise sve sto ima
-
-		List<Article> filteredArticles = allArticles.stream()   // filter
-	            .filter(article -> article.getName().toLowerCase().contains(filterText.toLowerCase()))
-	            .toList();
+	@Override
+	public String getFilterTextBox() {
+		return this.filterTextBox.getValue();
 		
-		if (filteredArticles.isEmpty()) {
-	    	Span noContentSpan=new Span("Nema proizvoda: " +filterText); 	  // ako nema niceg sa tim nazivom
-	    	noContentSpan.addClassName("whiteText");
-	        productsContainer.add(noContentSpan);
-	        return ;
-	    }
-	    
-	    Map<String, List<Article>> articleCategoriesGrouped = filteredArticles.stream()
-                .collect(Collectors.groupingBy(article->article.getCategory().getName()));
-
-	    articleCategoriesGrouped.forEach((categoryName,articleGrouped)->{
-	    	productsContainer.add(createCategorySection(categoryName, articleGrouped));
-	    });
 	}
+	@Override
+	public void setFilterTextBox(String filter) {
+		this.filterTextBox.setValue(filter);
+		
+	}
+	@Override
+	public List<Article>  getAllArticles() {
+		return this.allArticles;
+		
+	}
+	@Override
+	public VerticalLayout getProductsContainer() {
+		return this.productsContainer;
+		
+	}
+	@Override
+	public void noContentSpan(String noContent) {
+		Span noContentSpan=new Span(noContent);
+    	noContentSpan.addClassName("whiteText");
+        add(noContentSpan);
+        return ;
+		
+	}
+
+	
+	
+	
 }
