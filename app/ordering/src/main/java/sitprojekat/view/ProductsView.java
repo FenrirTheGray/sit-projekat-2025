@@ -20,7 +20,9 @@ import sitprojekat.model.Article;
 import sitprojekat.presenter.ProductsPresenter;
 import sitprojekat.service.ArticleService;
 
-
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Route(value = "Products",layout = HeaderAndNavBar.class)
 public class ProductsView extends VerticalLayout implements ProductsViewInterface{

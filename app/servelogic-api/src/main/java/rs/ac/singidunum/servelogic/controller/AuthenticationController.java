@@ -2,6 +2,7 @@ package rs.ac.singidunum.servelogic.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rs.ac.singidunum.servelogic.dto.create.LoginReqeustDTO;
 import rs.ac.singidunum.servelogic.dto.create.RegisterRequestDTO;
-import rs.ac.singidunum.servelogic.dto.create.UserCreateRequestDTO;
 import rs.ac.singidunum.servelogic.dto.response.LoginResponseDTO;
 import rs.ac.singidunum.servelogic.dto.response.UserResponseDTO;
 import rs.ac.singidunum.servelogic.service.AuthenticationService;
@@ -18,6 +18,7 @@ import rs.ac.singidunum.servelogic.service.UserService;
 
 @RestController
 @RequestMapping(value = {"/auth", "/auth/"})
+@Profile("!no-security")
 public class AuthenticationController {
 
     @Autowired
