@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 import rs.ac.singidunum.servelogic.dto.create.LoginReqeustDTO;
 import rs.ac.singidunum.servelogic.dto.response.LoginResponseDTO;
@@ -18,11 +19,17 @@ public class AuthenticationService {
     private JWTService jwtService;
 
     public LoginResponseDTO verify(LoginReqeustDTO loginDTO){
-        Authentication auth = authManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
-
         LoginResponseDTO loginResponse = new LoginResponseDTO();
-        if(auth.isAuthenticated()) loginResponse.setToken(jwtService.generateToken(loginDTO.getEmail()));
+
+        try{
+            Authentication auth = authManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
+
+            if(auth.isAuthenticated()) loginResponse.setToken(jwtService.generateToken(loginDTO.getEmail()));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         return loginResponse;
     }
