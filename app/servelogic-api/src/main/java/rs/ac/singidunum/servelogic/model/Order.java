@@ -17,13 +17,35 @@ public class Order extends AbstractArangoEntity {
 
     @Transient
     private User user;
-    @Ref
+
     private List<Product> products = new ArrayList<>();
 
     public Order(){super();}
 
-    public Order(User user){
-        super();
+    public Order(String id, String key, User user, Date createdAt, OrderStatus status, List<Product> products){
+        super(id, key);
+        this.user = user;
+        this.createdAt = createdAt;
+        this.status = status;
+        this.products = products;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+    public void addProducts(Product product) {
+        this.products.add(product);
+    }
+    public void removeProducts(Product product) {
+        this.products.remove(product);
+    }
+    public void removeProductsByIndex(int i) {
+        try {
+            this.products.remove(i);
+        } catch (Exception e) {}
     }
 
     public double getTotal(){

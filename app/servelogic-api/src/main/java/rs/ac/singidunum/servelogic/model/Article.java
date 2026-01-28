@@ -7,13 +7,10 @@ import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
 @Document("article")
-public class Article extends AbstractArangoEntity {
-
-	private String name;
+public class Article extends Product {
+	
 	private String description;
-	private String imageUrl;
-	private double basePrice;
-	private boolean active;
+
 	private String categoryId;
 	
 	@Transient
@@ -25,12 +22,8 @@ public class Article extends AbstractArangoEntity {
 		super();
 	}
 	public Article(String id, String key, String name, String description, String imageUrl, double basePrice, boolean active) {
-		super(id, key);
-		this.name = name;
+		super(id, key, name, imageUrl, basePrice, active);
 		this.description = description;
-		this.imageUrl = imageUrl;
-		this.basePrice = basePrice;
-		this.active = active;
 		this.category = null;
 		this.categoryId = null;
 	}
@@ -47,36 +40,13 @@ public class Article extends AbstractArangoEntity {
 		this.categoryId = category.getId();
 	}
 
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getImageUrl() {
-		return imageUrl;
-	}
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-	public double getBasePrice() {
-		return basePrice;
-	}
-	public void setBasePrice(double basePrice) {
-		this.basePrice = basePrice;
-	}
-	public boolean isActive() {
-		return active;
-	}
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+
 	public List<Modifier> getModifiers() {
 		return modifiers;
 	}
@@ -94,6 +64,7 @@ public class Article extends AbstractArangoEntity {
 			this.modifiers.remove(i);
 		} catch (Exception e) {}
 	}
+
 	public String getCategoryId() {
 		return categoryId;
 	}
@@ -109,5 +80,15 @@ public class Article extends AbstractArangoEntity {
 			this.categoryId = category.getId();
 		}
 	}
+
+	@Override
+	public double calculatePrice(){
+		double total = getBasePrice();
+
+		for(Modifier m : getModifiers()) total += m.getPrice();
+
+		return total;
+	}
+
 	
 }
