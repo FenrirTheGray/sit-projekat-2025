@@ -66,7 +66,7 @@ services:
       - "7999:7999"
     environment:
       - REST_PORT=7999
-      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_PROFILES_ACTIVE=docker,devDataInit
       - ARANGODB_HOST=arangodb
       - ARANGODB_PORT=8529
       - ARANGODB_DATABASE=servelogic
@@ -78,6 +78,8 @@ services:
       - FUSEKI_USER=admin
       - FUSEKI_PASSWORD=admin
       - FUSEKI_NAMESPACEROOT=http://www.singidunum.ac.rs
+      - ROOT_USER_EMAIL=root@sl.com
+      - ROOT_USER_PASSWORD=root
     depends_on:
       arangodb:
         condition: service_healthy
