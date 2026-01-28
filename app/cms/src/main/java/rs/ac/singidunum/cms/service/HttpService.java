@@ -121,11 +121,81 @@ public class HttpService {
         return post(endpoint, sendObject, responseType, true);
     }
 
-    public <T> void apiPut(String endpoint, String id, T sendObject){
-        throw new UnsupportedOperationException();
+    public <T, S> S put(String endpoint, String id, T sendObject, Class<S> responseType, boolean authorize) {
+        try {
+            String uri = endpoint + "/" + id;
+            var requestSpec = apiClient.put().uri(uri);
+
+            String token = userStoreService.getToken();
+            if (authorize && token != null && !token.isEmpty()) {
+                requestSpec.header("Authorization", "Bearer " + token);
+            }
+
+            ResponseEntity<S> response = requestSpec
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(sendObject)
+                    .retrieve()
+                    .toEntity(responseType);
+
+            System.out.println(response.getStatusCode());
+            return response.getBody();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public void apiDelete(String endpoint, String id){
-        throw new UnsupportedOperationException();
+    public <T, S> S put(String endpoint, String id, T sendObject, Class<S> responseType) {
+        return put(endpoint, id, sendObject, responseType, true);
+    }
+
+    public <T, S> S put(String endpoint, String id, T sendObject, ParameterizedTypeReference<S> responseType, boolean authorize) {
+        try {
+            String uri = endpoint + "/" + id;
+            var requestSpec = apiClient.put().uri(uri);
+
+            String token = userStoreService.getToken();
+            if (authorize && token != null && !token.isEmpty()) {
+                requestSpec.header("Authorization", "Bearer " + token);
+            }
+
+            ResponseEntity<S> response = requestSpec
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(sendObject)
+                    .retrieve()
+                    .toEntity(responseType);
+
+            System.out.println(response.getStatusCode());
+            return response.getBody();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public <T, S> S put(String endpoint, String id, T sendObject, ParameterizedTypeReference<S> responseType) {
+        return put(endpoint, id, sendObject, responseType, true);
+    }
+
+    public void delete(String endpoint, String id, boolean authorize) {
+        try {
+            String uri = endpoint + "/" + id;
+            var requestSpec = apiClient.delete().uri(uri);
+
+            String token = userStoreService.getToken();
+            if (authorize && token != null && !token.isEmpty()) {
+                requestSpec.header("Authorization", "Bearer " + token);
+            }
+
+            ResponseEntity<Void> response = requestSpec.retrieve().toEntity(Void.class);
+            System.out.println(response.getStatusCode());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Delete failed: " + e.getMessage(), e);
+        }
+    }
+
+    public void delete(String endpoint, String id) {
+        delete(endpoint, id, true);
     }
 }

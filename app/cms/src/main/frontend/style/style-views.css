@@ -177,3 +177,55 @@ html {
     transition: 0.2s;
 }
 
+/*
+=== CATEGORY FORM DIALOG ===
+*/
+vaadin-dialog-overlay[class*="category-form-dialog"]::part(overlay) {
+    background-color: #202020;
+    border: 1px solid #333333;
+    border-radius: 10px;
+}
+
+vaadin-dialog-overlay[class*="category-form-dialog"]::part(content) {
+    background-color: #202020;
+    color: white;
+    padding: 0;
+}
+
+.category-form-dialog vaadin-text-field,
+.category-form-dialog vaadin-text-area {
+    --vaadin-input-field-background: #333333;
+    --vaadin-input-field-border-color: #555555;
+    --vaadin-input-field-value-color: #ffffff;
+    --vaadin-input-field-label-color: #b3b3b3;
+}
+
+.category-form-dialog vaadin-checkbox {
+    --vaadin-checkbox-label-color: #ffffff;
+    color: white;
+}
+
+.category-form-dialog vaadin-checkbox::part(label) {
+    color: white;
+}
+
+.category-form-dialog vaadin-button {
+    background-color: #555555;
+    color: white;
+}
+
+.category-form-dialog vaadin-button[theme~="primary"] {
+    background-color: #2196F3;
+    color: white;
+}
+
+.category-form-dialog vaadin-button:hover {
+    background-color: #666666;
+}
+
+.category-form-dialog h2 {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
