@@ -1,5 +1,16 @@
 spring:
   application:
     name: servelogic
+  profiles:
+    active: devDataInit
 server:
-  port: 7999
+  port: 7999  
+app:
+  cache:
+    ttl: 600000
+  devDataInit:
+    articles: 150
+    modifiers: 20
+    modifierTypes: 5
+    categories: 5
+    users: 10
