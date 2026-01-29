@@ -7,7 +7,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
 @CssImport("./style/style-views.css")
-@Route(value = "modifiers", layout = MasterLayout.class)
+@Route(value = "products/modifiers", layout = MasterHeaderNavLayout.class)
 public class ModifiersView extends VerticalLayout {
     // atributi
 
