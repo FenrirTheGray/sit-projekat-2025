@@ -1,11 +1,13 @@
 package rs.ac.singidunum.cms.view;
 
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "combos", layout = MasterLayout.class)
+@CssImport("./style/style-views.css")
+@Route(value = "products/combos", layout = MasterHeaderNavLayout.class)
 public class ComboView extends VerticalLayout {
     // atributi
 

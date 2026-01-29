@@ -14,7 +14,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
 @CssImport("./style/style-views.css")
-@Route(value = "articles", layout = MasterLayout.class)
+@Route(value = "products/articles", layout = MasterHeaderNavLayout.class)
 public class ArticlesView extends VerticalLayout {
     // atributi
     // ArticlesService - servis za artikle
@@ -41,16 +41,16 @@ public class ArticlesView extends VerticalLayout {
         // search bar
         TextField searchBar = new TextField();
         searchBar.setPlaceholder("Pretraga");
-        searchBar.addClassName("articles-search-bar");
+        searchBar.addClassName("view-search-bar");
         searchBar.setClearButtonVisible(true);
         searchBar.setPrefixComponent(VaadinIcon.SEARCH.create());
 
         // button add
         Button buttonAdd = new Button("Dodaj Artikal", VaadinIcon.PLUS.create());
-        buttonAdd.addClassName("articles-button-add");
+        buttonAdd.addClassName("view-button-add");
 
         HorizontalLayout containerToolbar = new HorizontalLayout(searchBar, buttonAdd);
-        containerToolbar.addClassName("articles-container-toolbar");
+        containerToolbar.addClassName("view-container-toolbar");
         containerToolbar.setWidthFull();
         containerToolbar.setJustifyContentMode(JustifyContentMode.BETWEEN);
         containerToolbar.setAlignItems(Alignment.CENTER);
@@ -61,7 +61,7 @@ public class ArticlesView extends VerticalLayout {
     private void createArticlesContainer() {
         // glavni kontejner za sve artikle
         VerticalLayout containerAllArticles = new VerticalLayout();
-        containerAllArticles.addClassName("articles-container-all-items"); // omogućavamo skrolovanje
+        containerAllArticles.addClassName("view-container-all-items"); // omogućavamo skrolovanje
         containerAllArticles.setWidthFull();
         containerAllArticles.setPadding(false);
         containerAllArticles.setSpacing(true);
@@ -80,7 +80,7 @@ public class ArticlesView extends VerticalLayout {
     private HorizontalLayout createArticleRow(String nazivItema, double cenaItema, String opisItema) {
         // kontejner za svaki artikal pojedinačno (kartica artikla)
         HorizontalLayout articleCard = new HorizontalLayout();
-        articleCard.addClassName("article-card");
+        articleCard.addClassName("item-card");
         // articleCard.setWidthFull(); // prebačen u css -> width: 95%
         articleCard.setPadding(false);
         articleCard.setSpacing(false);
@@ -88,28 +88,28 @@ public class ArticlesView extends VerticalLayout {
 
         // element kartice - slika
         Div imagePlaceholder = new Div();
-        imagePlaceholder.addClassName("article-image");
+        imagePlaceholder.addClassName("item-image");
 
         // element kartice - podaci
         VerticalLayout infoContainer = new VerticalLayout();
-        infoContainer.addClassName("article-container-info");
+        infoContainer.addClassName("item-container-info");
         infoContainer.setSpacing(false);
         infoContainer.setPadding(false);
         infoContainer.setJustifyContentMode(JustifyContentMode.AROUND); // jednaki razmaci u visini
 
         Span naziv = new Span(nazivItema);
-        naziv.addClassName("article-info");
+        naziv.addClassName("item-info");
         String formatiranaCena = String.format("%.2f", cenaItema);
         Span cena = new Span(formatiranaCena + " RSD");
-        cena.addClassName("article-info");
+        cena.addClassName("item-info");
         Span opis = new Span(opisItema);
-        opis.addClassName("article-info");
+        opis.addClassName("item-info");
 
         infoContainer.add(naziv, cena, opis);
 
         // element kartice - buttons (edit, delete)
         VerticalLayout actionsContainer = new VerticalLayout();
-        actionsContainer.addClassName("article-container-buttons");
+        actionsContainer.addClassName("item-container-buttons");
         actionsContainer.setSpacing(true);
         actionsContainer.setPadding(false);
         actionsContainer.setAlignItems(Alignment.END);
@@ -117,11 +117,11 @@ public class ArticlesView extends VerticalLayout {
         Icon iconEdit = VaadinIcon.EDIT.create();
         iconEdit.setSize("25px");
         Button buttonEdit = new Button(iconEdit);
-        buttonEdit.addClassName("article-buttons-edit-and-delete");
+        buttonEdit.addClassName("item-buttons-edit-and-delete");
         Icon iconDelete = VaadinIcon.TRASH.create();
         iconDelete.setSize("25px");
         Button buttonDelete = new Button(iconDelete);
-        buttonDelete.addClassName("article-buttons-edit-and-delete");
+        buttonDelete.addClassName("item-buttons-edit-and-delete");
 
         actionsContainer.add(buttonEdit, buttonDelete);
 

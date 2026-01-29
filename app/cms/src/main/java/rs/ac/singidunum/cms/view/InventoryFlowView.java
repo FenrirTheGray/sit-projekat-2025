@@ -2,23 +2,28 @@ package rs.ac.singidunum.cms.view;
 
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
 @CssImport("./style/style-views.css")
-@Route(value = "products/categories", layout = MasterHeaderNavLayout.class)
-public class CategoriesView extends VerticalLayout {
+@Route(value = "statistics/inventory-flow", layout = MasterHeaderNavLayout.class)
+public class InventoryFlowView extends VerticalLayout {
     // atributi
+    // SellersService - servis za promet
 
     // konstruktor
-    public CategoriesView() {
-        H1 naslov = new H1("Kategorije");
+    public InventoryFlowView() {
+        // naslov
+        H1 naslov = new H1("Promet");
         naslov.getStyle().set("color", "white");
         add(naslov);
 
+        // inicijalne metode
+        // createSearchBarAndAddButton();
+        // createArticlesContainer();
+
         // TODO: dodavanje liste proizvoda
-        add(new H2("Ovde će biti lista kategorija iz ArangoDB-a"));
+
 
         setSizeFull();
         setAlignItems(Alignment.CENTER);
