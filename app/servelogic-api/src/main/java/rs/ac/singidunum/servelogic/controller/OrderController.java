@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rs.ac.singidunum.servelogic.dto.response.OrderResponseDTO;
+import rs.ac.singidunum.servelogic.service.OrderService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value={"/api/orders", "/api/orders/"})
@@ -12,7 +16,7 @@ public class OrderController {
     @Autowired
     private OrderService service;
 
-    @GetMapping
+/*    @GetMapping
     public List<OrderResponseDTO> findAll() {
         return service.findAll();
     }
@@ -36,5 +40,5 @@ public class OrderController {
     public ResponseEntity<Void> delete(@PathVariable String key) {
         service.deleteByKey(key);
         return ResponseEntity.noContent().build();
-    }
+    }*/
 }

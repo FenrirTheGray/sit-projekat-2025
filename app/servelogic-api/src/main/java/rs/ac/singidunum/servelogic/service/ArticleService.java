@@ -33,6 +33,12 @@ public class ArticleService {
 				.collect(Collectors.toList());
 		
 	}
+
+	public List<Article> findAllInit(){
+		return populator.populateAllArticles(StreamSupport
+				.stream(repo.findAll().spliterator(), false)
+				.collect(Collectors.toList()));
+	}
 	
 	public Optional<ArticleResponseDTO> findByKey(String key) {
 		

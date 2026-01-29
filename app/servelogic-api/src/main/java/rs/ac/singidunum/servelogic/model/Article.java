@@ -80,15 +80,4 @@ public class Article extends Product {
 			this.categoryId = category.getId();
 		}
 	}
-
-	@Override
-	public double calculatePrice(){
-		double total = getBasePrice();
-
-		for(Modifier m : getModifiers()) total += m.getPrice();
-
-		return total;
-	}
-
-	
 }

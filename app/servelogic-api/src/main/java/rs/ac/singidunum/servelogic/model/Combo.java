@@ -9,11 +9,6 @@ import java.util.List;
 @Document("combo")
 public class Combo extends Product {
 
-
-    private Article mainSelected;
-    private Article sideSelected;
-    private Article drinkSelected;
-
     @Ref
     private List<Article> mainSelection = new ArrayList<>();
     @Ref
@@ -24,31 +19,6 @@ public class Combo extends Product {
 
     public Combo(String id, String key, String name, String imageUrl, double basePrice, boolean active) {
         super(id, key, name, imageUrl, basePrice, active);
-    }
-
-
-    public Article getMainSelected() {
-        return mainSelected;
-    }
-
-    public void setMainSelected(Article mainSelected) {
-        this.mainSelected = mainSelected;
-    }
-
-    public Article getSideSelected() {
-        return sideSelected;
-    }
-
-    public void setSideSelected(Article sideSelected) {
-        this.sideSelected = sideSelected;
-    }
-
-    public Article getDrinkSelected() {
-        return drinkSelected;
-    }
-
-    public void setDrinkSelected(Article drinkSelected) {
-        this.drinkSelected = drinkSelected;
     }
 
     public List<Article> getMainSelection() {
@@ -103,16 +73,5 @@ public class Combo extends Product {
         try {
             this.drinkSelection.remove(i);
         } catch (Exception e) {}
-    }
-
-    @Override
-    public double calculatePrice(){
-        double total = getBasePrice();
-
-        total += mainSelected.calculatePrice();
-        total += sideSelected.calculatePrice();
-        total += drinkSelected.calculatePrice();
-
-        return total;
     }
 }

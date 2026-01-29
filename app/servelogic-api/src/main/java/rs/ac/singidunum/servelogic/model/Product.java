@@ -43,8 +43,4 @@ public abstract class Product extends AbstractArangoEntity {
     public void setActive(boolean active) {
         this.active = active;
     }
-
-    public double calculatePrice(){
-        return basePrice;
-    }
 }
