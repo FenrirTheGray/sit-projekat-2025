@@ -5,8 +5,8 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@CssImport("./style/style-views.css")
 @Route(value = "user/profile", layout = MasterHeaderNavLayout.class)
+@CssImport("./style/style-views.css")
 public class ProfileView extends VerticalLayout {
     // atributi
     //
@@ -15,7 +15,7 @@ public class ProfileView extends VerticalLayout {
     public ProfileView() {
         // naslov
         H1 naslov = new H1("Profil");
-        naslov.getStyle().set("color", "white");
+        naslov.addClassName("page-title");
         add(naslov);
 
         // TODO: inicijalne metode
@@ -26,7 +26,7 @@ public class ProfileView extends VerticalLayout {
 
         // TODO: PRIVREMENO
         H1 ispis = new H1("Forma za korisnika");
-        ispis.getStyle().set("color", "white");
+        ispis.addClassName("page-title");
         add(ispis);
 
 

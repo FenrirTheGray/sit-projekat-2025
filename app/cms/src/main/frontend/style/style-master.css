@@ -1,23 +1,16 @@
 /*
-=== MAIN ALL ===
-*/
-html {
-    --lumo-font-family: 'Roboto', sans-serif;
-    --lumo-clickable-cursor: pointer;
-}
-
-/*
 === MASTER LAYOUT ===
+Uses CSS variables from style-views.css
 */
 .master-layout-bg {
-    background-color: #202020;
+    background-color: var(--cms-bg);
 }
 
 .master-button-active {
     display: flex;
     justify-content: center;
-    color: #ffffff;
-    background-color: #555555;
+    color: var(--cms-text);
+    background-color: var(--cms-border);
     border-radius: 10px;
     margin: 10px;
     width: 230px;
@@ -26,23 +19,28 @@ html {
 .master-button-not-active {
     display: flex;
     justify-content: center;
-    color: #b3b3b3;
-    background-color: #333333;
+    color: var(--cms-text-muted);
+    background-color: var(--cms-surface);
     border-radius: 10px;
     margin: 10px;
     width: 230px;
 }
 
+.master-button-not-active:hover {
+    background-color: var(--cms-border);
+    color: var(--cms-text);
+}
+
 .master-header-title {
-    color: #ffffff;
+    color: var(--cms-text);
     font-size: 32px;
     font-weight: 700;
     letter-spacing: 1px;
 }
 
 .master-user-icon {
-    background-color: #4a4a4a;
-    color: #ffffff;
+    background-color: var(--cms-surface);
+    color: var(--cms-text);
     width: 55px;
     height: 35px;
     border-radius: 35%;
@@ -55,12 +53,12 @@ html {
 
 .master-user-label {
     font-size: 12px;
-    color: #b3b3b3;
+    color: var(--cms-text-muted);
 }
 
 .master-user-name {
     font-size: 15px;
-    color: #ffffff;
+    color: var(--cms-text);
     font-weight: bold;
 }
 
@@ -69,23 +67,49 @@ html {
 }
 
 .master-header {
-    background-color: #202020;
+    background-color: var(--cms-bg);
     padding: 0 20px;
-    border-bottom: 1px solid #333333;
-    /*height: 75px;*/
-    /*width:100%;*/
+    border-bottom: 1px solid var(--cms-border);
 }
 
 .master-nav {
-    color: #ffffff;
+    color: var(--cms-text);
     cursor: pointer;
 }
 
 .master-kontejner-nav {
-    background-color: #202020;
-    border-right: 1px solid #333333;
+    background-color: var(--cms-bg);
+    border-right: 1px solid var(--cms-border);
 }
 
 .master-labels {
-    color: #ffffff;
+    color: var(--cms-text);
+}
+
+/*
+=== USER CONTEXT MENU (DROPDOWN) ===
+*/
+vaadin-context-menu-overlay::part(overlay) {
+    background-color: var(--cms-bg);
+    border: 1px solid var(--cms-border);
+    border-radius: 8px;
+}
+
+vaadin-context-menu-overlay::part(content) {
+    background-color: var(--cms-bg);
+    padding: 4px 0;
+}
+
+vaadin-context-menu-overlay vaadin-context-menu-item {
+    color: var(--cms-text);
+    background-color: var(--cms-bg);
+}
+
+vaadin-context-menu-overlay vaadin-context-menu-item:hover {
+    background-color: var(--cms-surface);
+}
+
+vaadin-context-menu-overlay hr {
+    border-color: var(--cms-border);
+    margin: 4px 0;
 }

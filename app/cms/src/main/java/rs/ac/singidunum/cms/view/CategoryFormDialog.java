@@ -1,10 +1,8 @@
 package rs.ac.singidunum.cms.view;
 
-import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.Checkbox;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -19,7 +17,6 @@ import rs.ac.singidunum.cms.dto.response.CategoryResponseDTO;
 import rs.ac.singidunum.cms.interfaces.CategoryFormViewInterface;
 import rs.ac.singidunum.cms.presenter.CategoryFormPresenter;
 
-@CssImport("./style/style-views.css")
 public class CategoryFormDialog extends Dialog implements CategoryFormViewInterface {
 
 	private final CategoryFormPresenter presenter;
@@ -63,35 +60,17 @@ public class CategoryFormDialog extends Dialog implements CategoryFormViewInterf
 		setWidth("650px");
 		setCloseOnEsc(true);
 		setCloseOnOutsideClick(false);
-
 		addClassName("category-form-dialog");
-
-		addOpenedChangeListener(e -> {
-			if (e.isOpened()) {
-				getElement().executeJs(
-					"const overlay = this.$.overlay.$.overlay;" +
-					"overlay.style.backgroundColor = '#202020';" +
-					"overlay.style.color = 'white';" +
-					"overlay.style.border = '1px solid #333333';" +
-					"overlay.style.borderRadius = '10px';"
-				);
-			}
-		});
 	}
 
 	private void initializeForm() {
 		VerticalLayout dialogContent = new VerticalLayout();
 		dialogContent.setPadding(true);
 		dialogContent.setSpacing(true);
-		dialogContent.getStyle()
-			.set("background-color", "#202020")
-			.set("color", "white");
+		dialogContent.addClassName("cms-dialog-content");
 
 		title = new H2("Kreiraj Kategoriju");
-		title.getStyle()
-			.set("color", "white")
-			.set("margin-top", "0")
-			.set("margin-bottom", "10px");
+		title.addClassName("cms-dialog-title");
 
 		loadingIndicator = new ProgressBar();
 		loadingIndicator.setIndeterminate(true);
@@ -101,19 +80,17 @@ public class CategoryFormDialog extends Dialog implements CategoryFormViewInterf
 		nameField = new TextField("Naziv");
 		nameField.setWidthFull();
 		nameField.setRequired(true);
-		styleFormField(nameField);
+		nameField.addClassName("cms-form-field");
 
 		descriptionField = new TextArea("Opis");
 		descriptionField.setWidthFull();
 		descriptionField.setRequired(true);
 		descriptionField.setHeight("120px");
-		styleFormField(descriptionField);
+		descriptionField.addClassName("cms-form-field");
 
 		activeCheckbox = new Checkbox("Aktivna");
 		activeCheckbox.setValue(true);
-		activeCheckbox.getStyle()
-			.set("color", "white")
-			.set("--vaadin-checkbox-label-color", "#ffffff");
+		activeCheckbox.addClassName("cms-checkbox");
 
 		HorizontalLayout buttonLayout = new HorizontalLayout();
 		buttonLayout.setWidthFull();
@@ -121,9 +98,7 @@ public class CategoryFormDialog extends Dialog implements CategoryFormViewInterf
 		buttonLayout.setSpacing(true);
 
 		cancelButton = new Button("Otkaži");
-		cancelButton.getStyle()
-			.set("background-color", "#333333")
-			.set("color", "white");
+		cancelButton.addClassName("cms-button-secondary");
 
 		saveButton = new Button("Sačuvaj");
 		saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -134,15 +109,6 @@ public class CategoryFormDialog extends Dialog implements CategoryFormViewInterf
 						 descriptionField, activeCheckbox, buttonLayout);
 
 		add(dialogContent);
-	}
-
-	private void styleFormField(HasStyle field) {
-		field.getStyle()
-			.set("--vaadin-input-field-background", "#333333")
-			.set("--vaadin-input-field-border-color", "#555555")
-			.set("--vaadin-input-field-value-color", "#ffffff")
-			.set("--vaadin-input-field-label-color", "#b3b3b3")
-			.set("color", "white");
 	}
 
 	private void setupListeners() {

@@ -5,8 +5,8 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@CssImport("./style/style-views.css")
 @Route(value = "users/list", layout = MasterHeaderNavLayout.class)
+@CssImport("./style/style-views.css")
 public class UsersView extends VerticalLayout {
     // atributi
     // UsersService - servis za korisnike
@@ -15,7 +15,7 @@ public class UsersView extends VerticalLayout {
     public UsersView() {
         // naslov
         H1 naslov = new H1("Korisnici");
-        naslov.getStyle().set("color", "white");
+        naslov.addClassName("page-title");
         add(naslov);
 
         // inicijalne metode

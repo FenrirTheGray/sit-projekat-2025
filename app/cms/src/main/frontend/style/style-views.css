@@ -1,5 +1,21 @@
 /*
-=== MAIN ALL ===
+=== CMS DARK MODE COLOR PALETTE ===
+6-color system for consistent theming
+*/
+:root {
+    --cms-accent-hover: #6aa1ff;
+    --cms-accent: #4f8cff;
+    --cms-bg: #0f1115;
+    --cms-border: #2a2f3a;
+    --cms-surface-2: #1f2430;
+    --cms-surface: #181b22;
+    --cms-text-muted: #9aa4b2;
+    --cms-text: #e5e7eb;
+}
+
+
+/*
+=== GLOBAL SETTINGS ===
 */
 html {
     --lumo-font-family: 'Roboto', sans-serif;
@@ -7,24 +23,130 @@ html {
 }
 
 /*
-=== EVERY VIEW ===
+=== REUSABLE CLASSES ===
+*/
+
+/* Page title for all views */
+.page-title {
+    color: var(--cms-text);
+}
+
+/* Status badges */
+.status-badge {
+    color: var(--cms-text);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.status-badge--active {
+    background-color: var(--lumo-success-color, #28a745);
+}
+
+.status-badge--inactive {
+    background-color: var(--cms-text-muted);
+}
+
+/* Empty state message */
+.empty-state-message {
+    color: var(--cms-text);
+    font-size: 18px;
+}
+
+/* Form fields for dialogs */
+.cms-form-field {
+    --vaadin-input-field-background: var(--cms-surface);
+    --vaadin-input-field-border-color: var(--cms-border);
+    --vaadin-input-field-value-color: var(--cms-text);
+    --vaadin-input-field-label-color: var(--cms-text-muted);
+    color: var(--cms-text);
+}
+
+/* Checkbox styling */
+.cms-checkbox {
+    --vaadin-checkbox-label-color: var(--cms-text);
+    color: var(--cms-text);
+}
+
+/* Secondary button (cancel, etc.) */
+.cms-button-secondary {
+    background-color: var(--cms-surface);
+    color: var(--cms-text);
+}
+
+/* Dialog content container */
+.cms-dialog-content {
+    background-color: var(--cms-bg);
+    color: var(--cms-text);
+}
+
+/* Dialog title */
+.cms-dialog-title {
+    color: var(--cms-text);
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/* Icon in cards */
+.item-icon {
+    color: var(--cms-text);
+}
+
+/*
+=== VIEW TOOLBAR ===
 */
 .view-search-bar {
-    background-color: #f0f0f0;
+    --vaadin-input-field-background: var(--cms-surface);
+    --vaadin-input-field-border-color: var(--cms-border);
+    --vaadin-input-field-value-color: var(--cms-text);
+    --vaadin-input-field-label-color: var(--cms-text-muted);
+    --vaadin-input-field-placeholder-color: var(--cms-text-muted);
     border-radius: 25px;
     width: 250px;
     padding: 0px;
     margin-left: 50px;
 }
 
+.view-search-bar::part(input-field) {
+    background-color: var(--cms-surface);
+    border: 1px solid var(--cms-border);
+    border-radius: 25px;
+}
+
+.view-search-bar [slot="prefix"] {
+    color: var(--cms-text-muted);
+}
+
+.view-search-bar::part(input-field):hover {
+    background-color: var(--cms-surface-2);
+}
+
+.view-search-bar:hover {
+    --vaadin-input-field-placeholder-color: var(--cms-text);
+}
+
+.view-search-bar:hover [slot="prefix"] {
+    color: var(--cms-text);
+}
+
+.view-search-bar::part(input-field):focus-within {
+    border-color: var(--cms-accent);
+}
+
 .view-button-add {
-    background-color: #555555;
-    color: #ffffff;
+    background-color: var(--cms-surface);
+    color: var(--cms-text);
+    border: 1px solid var(--cms-border);
     border-radius: 25px;
     width: 250px;
     padding: 0px;
     margin-right: 50px;
     cursor: pointer;
+}
+
+.view-button-add:hover {
+    background-color: var(--cms-surface-2);
+    border-color: var(--cms-accent);
 }
 
 .view-container-toolbar {
@@ -36,10 +158,13 @@ html {
     overflow-x: hidden;
 }
 
+/*
+=== ITEM CARDS ===
+*/
 .item-card {
     height: 100px;
     width: 95%;
-    border: 1px solid #555555;
+    border: 1px solid var(--cms-border);
     border-radius: 15px;
     margin: 5px;
 }
@@ -49,9 +174,12 @@ html {
     min-height: 60px;
     width: 60px;
     min-width: 60px;
-    flex-shrink: 0; /* sprečava smanjivanje slike */
-    background-color: #b3b3b3;
+    flex-shrink: 0;
+    background-color: var(--cms-surface);
     margin: 5px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .item-container-info {
@@ -62,7 +190,7 @@ html {
 }
 
 .item-info {
-    color: #ffffff;
+    color: var(--cms-text);
     font-size: 15px;
 }
 
@@ -75,7 +203,7 @@ html {
     cursor: pointer;
     height: 30px;
     width: 30px;
-    color: #ffffff;
+    color: var(--cms-text);
     background-color: transparent;
     border: none;
     padding: 0;
@@ -86,60 +214,104 @@ html {
 }
 
 .item-buttons-edit-and-delete:hover {
-    color: #000000;
-    background-color: #555555;
+    color: var(--cms-bg);
+    background-color: var(--cms-border);
     transition: 0.2s;
 }
 
 /*
 === CATEGORY FORM DIALOG ===
 */
-vaadin-dialog-overlay[class*="category-form-dialog"]::part(overlay) {
-    background-color: #202020;
-    border: 1px solid #333333;
+.category-form-dialog {
+    --lumo-base-color: var(--cms-bg);
+}
+
+.category-form-dialog::part(overlay) {
+    background-color: var(--cms-bg);
+    border: 1px solid var(--cms-border);
     border-radius: 10px;
 }
 
-vaadin-dialog-overlay[class*="category-form-dialog"]::part(content) {
-    background-color: #202020;
-    color: white;
+.category-form-dialog::part(content) {
+    background-color: var(--cms-bg);
+    color: var(--cms-text);
     padding: 0;
 }
 
 .category-form-dialog vaadin-text-field,
 .category-form-dialog vaadin-text-area {
-    --vaadin-input-field-background: #333333;
-    --vaadin-input-field-border-color: #555555;
-    --vaadin-input-field-value-color: #ffffff;
-    --vaadin-input-field-label-color: #b3b3b3;
+    --vaadin-input-field-background: var(--cms-surface);
+    --vaadin-input-field-border-color: var(--cms-border);
+    --vaadin-input-field-value-color: var(--cms-text);
+    --vaadin-input-field-label-color: var(--cms-text-muted);
 }
 
 .category-form-dialog vaadin-checkbox {
-    --vaadin-checkbox-label-color: #ffffff;
-    color: white;
+    --vaadin-checkbox-label-color: var(--cms-text);
+    color: var(--cms-text);
 }
 
 .category-form-dialog vaadin-checkbox::part(label) {
-    color: white;
+    color: var(--cms-text);
 }
 
 .category-form-dialog vaadin-button {
-    background-color: #555555;
-    color: white;
+    background-color: var(--cms-surface);
+    color: var(--cms-text);
 }
 
 .category-form-dialog vaadin-button[theme~="primary"] {
-    background-color: #2196F3;
-    color: white;
+    background-color: var(--cms-accent);
+    color: var(--cms-text);
 }
 
 .category-form-dialog vaadin-button:hover {
-    background-color: #666666;
+    background-color: var(--cms-border);
 }
 
 .category-form-dialog h2 {
-    color: white;
+    color: var(--cms-text);
     margin-top: 0;
     margin-bottom: 10px;
 }
 
+/*
+=== CONFIRM DIALOG (DELETE) ===
+*/
+vaadin-confirm-dialog-overlay::part(overlay) {
+    background-color: var(--cms-bg);
+    border: 1px solid var(--cms-border);
+    border-radius: 10px;
+}
+
+vaadin-confirm-dialog-overlay::part(content) {
+    background-color: var(--cms-bg);
+    color: var(--cms-text);
+}
+
+vaadin-confirm-dialog-overlay::part(header) {
+    background-color: var(--cms-bg);
+    color: var(--cms-text);
+}
+
+vaadin-confirm-dialog-overlay::part(footer) {
+    background-color: var(--cms-bg);
+}
+
+vaadin-confirm-dialog-overlay [slot="header"] {
+    color: var(--cms-text);
+}
+
+vaadin-confirm-dialog-overlay [slot="cancel-button"] {
+    background-color: var(--cms-surface);
+    color: var(--cms-text);
+}
+
+vaadin-confirm-dialog-overlay [slot="confirm-button"] {
+    /* Uses Vaadin's error theme variant for delete */
+}
+
+vaadin-confirm-dialog-overlay h2,
+vaadin-confirm-dialog-overlay .header {
+    color: var(--cms-text);
+}
