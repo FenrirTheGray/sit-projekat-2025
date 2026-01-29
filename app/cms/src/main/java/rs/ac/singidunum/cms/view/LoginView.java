@@ -37,7 +37,7 @@ public class LoginView extends VerticalLayout {
         addClassName("login-screen");
 
         // postavljanje tamne teme
-		getElement().getThemeList().add("dark");
+		// getElement().getThemeList().add("dark");
 
         // KOMPONENTE
         // ikonica
@@ -55,9 +55,9 @@ public class LoginView extends VerticalLayout {
 
         // mala kutija 2: login-form (box) - vertical (podrazumevano - jer je gotova komponenta) - forma (sa elementima)
 		LoginForm loginForm = new LoginForm(); // kreiramo formu (u koju ćemo da ubacimo formular)
-		loginForm.getElement().getThemeList().add("light dark");
+		// loginForm.getElement().getThemeList().add("light dark");
 
-        // Internationalization (I 18slova n)
+        // Internationalization (I 18slova n) (modifikujemo labele i polja u formi)
         // DTO = Data Transfer Object
 		LoginI18n login = LoginI18n.createDefault(); // kreiranje formulara, ali na engleskom (a mi hoćemo da bude na srpskom)
         login.getForm().setUsername("Email"); // Username -> Email
