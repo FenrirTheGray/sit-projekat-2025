@@ -17,8 +17,8 @@ public class Combo extends Product {
     private List<Article> drinkSelection = new ArrayList<>();
 
 
-    public Combo(String id, String key, String name, String imageUrl, double basePrice, boolean active) {
-        super(id, key, name, imageUrl, basePrice, active);
+    public Combo(String id, String key, String name, String description, String imageUrl, double basePrice, boolean active) {
+        super(id, key, name, description, imageUrl, basePrice, active);
     }
 
     public List<Article> getMainSelection() {

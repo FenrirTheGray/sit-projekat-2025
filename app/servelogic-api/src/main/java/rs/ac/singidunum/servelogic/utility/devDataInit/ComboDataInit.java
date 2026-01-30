@@ -31,17 +31,17 @@ public class ComboDataInit implements ApplicationRunner {
 
         List<Combo> combos = new ArrayList<>();
 
-        combos.add(new Combo("combo/1", "1", "combo1", "https://images.pexels.com/photos/4676402/pexels-photo-4676402.jpeg",
+        combos.add(new Combo("combo/1", "1", "combo1", "This is a description of combo1","https://images.pexels.com/photos/4676402/pexels-photo-4676402.jpeg",
                 500, true));
-        combos.add(new Combo("combo/2", "2", "combo2", "https://images.pexels.com/photos/4676402/pexels-photo-4676402.jpeg",
+        combos.add(new Combo("combo/2", "2", "combo2", "This is a description of combo2","https://images.pexels.com/photos/4676402/pexels-photo-4676402.jpeg",
                 520, true));
-        combos.add(new Combo("combo/3", "3", "combo3", "https://images.pexels.com/photos/4676402/pexels-photo-4676402.jpeg",
+        combos.add(new Combo("combo/3", "3", "combo3", "This is a description of combo3","https://images.pexels.com/photos/4676402/pexels-photo-4676402.jpeg",
                 5430, true));
-        combos.add(new Combo("combo/4", "4", "combo4", "https://images.pexels.com/photos/4676402/pexels-photo-4676402.jpeg",
+        combos.add(new Combo("combo/4", "4", "combo4", "This is a description of combo4","https://images.pexels.com/photos/4676402/pexels-photo-4676402.jpeg",
                 100, true));
-        combos.add(new Combo("combo/5", "5", "combo5", "https://images.pexels.com/photos/4676402/pexels-photo-4676402.jpeg",
+        combos.add(new Combo("combo/5", "5", "combo5", "This is a description of combo5","https://images.pexels.com/photos/4676402/pexels-photo-4676402.jpeg",
                 4040, true));
-        combos.add(new Combo("combo/6", "6", "combo6", "https://images.pexels.com/photos/4676402/pexels-photo-4676402.jpeg",
+        combos.add(new Combo("combo/6", "6", "combo6", "This is a description of combo6","https://images.pexels.com/photos/4676402/pexels-photo-4676402.jpeg",
                 67, true));
 
         for(Combo c : combos){

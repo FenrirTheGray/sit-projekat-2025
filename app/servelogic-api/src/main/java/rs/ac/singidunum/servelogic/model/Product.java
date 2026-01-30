@@ -2,15 +2,17 @@ package rs.ac.singidunum.servelogic.model;
 
 public abstract class Product extends AbstractArangoEntity {
     private String name;
+    private String description;
     private double basePrice;
     private boolean active;
     private String imageUrl;
 
     public Product () {super();}
 
-    public Product(String id, String key, String name, String imageUrl, double basePrice, boolean active) {
+    public Product(String id, String key, String name, String description, String imageUrl, double basePrice, boolean active) {
         super(id, key);
         this.name = name;
+        this.description = description;
         this.imageUrl = imageUrl;
         this.basePrice = basePrice;
         this.active = active;
@@ -21,6 +23,13 @@ public abstract class Product extends AbstractArangoEntity {
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getImageUrl() {

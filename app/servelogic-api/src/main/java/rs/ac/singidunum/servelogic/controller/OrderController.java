@@ -38,7 +38,7 @@ public class OrderController {
     }
     @DeleteMapping("/{key}")
     public ResponseEntity<Void> delete(@PathVariable String key) {
-        service.deleteByKey(key);
+        if(service.deleteByKey(key)) return ResponseEntity.noContent().build();
         return ResponseEntity.noContent().build();
     }*/
 }

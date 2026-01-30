@@ -8,8 +8,6 @@ import com.arangodb.springframework.annotation.Ref;
 
 @Document("article")
 public class Article extends Product {
-	
-	private String description;
 
 	private String categoryId;
 	
@@ -22,8 +20,7 @@ public class Article extends Product {
 		super();
 	}
 	public Article(String id, String key, String name, String description, String imageUrl, double basePrice, boolean active) {
-		super(id, key, name, imageUrl, basePrice, active);
-		this.description = description;
+		super(id, key, name, description, imageUrl, basePrice, active);
 		this.category = null;
 		this.categoryId = null;
 	}
@@ -40,12 +37,7 @@ public class Article extends Product {
 		this.categoryId = category.getId();
 	}
 
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
+
 
 	public List<Modifier> getModifiers() {
 		return modifiers;
