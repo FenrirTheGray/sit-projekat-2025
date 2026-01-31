@@ -1,6 +1,6 @@
 package sitprojekat.view;
 
-import java.util.List;
+import java.time.format.DateTimeFormatter;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -10,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
 import sitprojekat.interfaces.OrdersViewInterface;
-import sitprojekat.model.Article;
+import sitprojekat.model.Order;
 import sitprojekat.presenter.OrdersPresenter;
 
 @CssImport("./style/style.css")
@@ -22,34 +22,22 @@ public class OrdersView extends VerticalLayout  implements OrdersViewInterface{
 	 */
 	private static final long serialVersionUID = 7881133440689089779L;
 
-	private List<Article> listaArtikala;
-	private Double totalSumDouble = 0.0;
 	private final OrdersPresenter presenter;
+	
+	VerticalLayout orderedProductsContainer = new VerticalLayout();
 	public OrdersView(OrdersPresenter presenter) {
 		this.presenter=presenter;
 		presenter.setView(this);
+		presenter.findById1();
 		
-		listaArtikala = List.of(
-				new Article("1", "Porudzbina1", "Datum Porudzbine :15.11.2025", 250.0, true, null, null),
-				new Article("2", "Porudzbina2", "Datum Porudzbine :15.11.2025", 350.0, true, null, null),
-				new Article("3", "Porudzbina3", "Datum Porudzbine :15.11.2025", 650.0, true, null, null)); // test za
-																											// velicine
-
-		VerticalLayout orderedProductsContainer = new VerticalLayout();
-
 		
-		for (Article a : listaArtikala) {
-			orderedProductsContainer.add(createOrdersContainer(a));
-			totalSumDouble += a.getBasePrice();
-		}
-
-		orderedProductsContainer.setAlignItems(Alignment.CENTER);
-		orderedProductsContainer.setJustifyContentMode(JustifyContentMode.CENTER);
-
-		add(orderedProductsContainer);
+		
+		
+		add(orderedProductsContainer);                                           
+		
 	}
 
-	public VerticalLayout createOrdersContainer(Article article) {
+	public VerticalLayout createOrdersContainer(Order o) {
 
 		VerticalLayout orderContainer = new VerticalLayout(); // glavni pravougaonik
 		orderContainer.addClassName("orderContainer");
@@ -59,7 +47,7 @@ public class OrdersView extends VerticalLayout  implements OrdersViewInterface{
 		HorizontalLayout topRowContainer = new HorizontalLayout(); // gornji red
 		topRowContainer.setWidthFull();
 
-		Span titleSpan = new Span(article.getName());
+		Span titleSpan = new Span("Porudzbina "+o.getId());
 		titleSpan.addClassName("boldText2");
 
 		topRowContainer.add(titleSpan);
@@ -69,19 +57,24 @@ public class OrdersView extends VerticalLayout  implements OrdersViewInterface{
 		dateTimeContainer.setSpacing(false);
 		dateTimeContainer.setPadding(false);
 
-		Span dateOrderedSpan = new Span(article.getDescription());
+		DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd MM yyyy");
+		
+		String formattedDdateCreated = o.getCreatedAtDate().format(formatterDate);
+		
+		Span dateOrderedSpan = new Span(formattedDdateCreated);
 		dateOrderedSpan.addClassName("whiteText2");
 
 		HorizontalLayout bottomRowContainer = new HorizontalLayout(); // donji red
 		bottomRowContainer.setWidthFull();
 		bottomRowContainer.setAlignItems(Alignment.CENTER);
 
-		Span timeOrderedSpan = new Span(article.getBasePrice() + " umesto cene drugi datum koji sadrzi");
+		Span timeOrderedSpan = new Span("poslato: "+o.getSentAtTime()+" uzeto "+o.getRecievedtedAtTime() );
 		timeOrderedSpan.addClassName("whiteText");
 
 		Button detailsButton = new Button("Detalji");
 		detailsButton.addClassName("greenButton");
-
+		detailsButton.addClickListener(e->presenter.OrderDetailsScreen(o.getId()));
+		
 		dateTimeContainer.add(dateOrderedSpan, timeOrderedSpan);
 
 		bottomRowContainer.add(dateTimeContainer, detailsButton);
@@ -91,4 +84,19 @@ public class OrdersView extends VerticalLayout  implements OrdersViewInterface{
 
 		return orderContainer;
 	}
+
+	@Override
+	public VerticalLayout getOrderedProductsContainer() {
+		return this.orderedProductsContainer;
+	}
+
+	@Override
+	public void setOrderedProductsContainer(VerticalLayout orderedProductsContainer) {
+		this.orderedProductsContainer=orderedProductsContainer;
+		
+	}
+
+
+
+	
 }

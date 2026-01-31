@@ -45,7 +45,7 @@ public class ProductsPresenter {
 			Map<String, List<Article>> articleCategoriesGrouped = filteredArticles.stream()
 					.collect(Collectors.groupingBy(article->{
 						
-						if(article.getCategory() != null) {
+						if(article.getCategory() != null) { // provera da li ima kategorju
 						
 						return article.getCategory().getName();
 						}
