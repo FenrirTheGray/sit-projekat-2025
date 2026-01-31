@@ -19,10 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @StyleSheet("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap")
+@CssImport("./style/style-views.css")
 @CssImport("./style/style-master.css")
 public class MasterHeaderNavLayout extends AppLayout implements AfterNavigationObserver {
     // atributi
-    private List<SideNavItem> listaDugmica = new ArrayList<>(); // lista dugmića
+    private List<SideNavItem> listaDugmica = new ArrayList<>();
 
     // konstruktor
     public MasterHeaderNavLayout() {
@@ -41,34 +42,29 @@ public class MasterHeaderNavLayout extends AppLayout implements AfterNavigationO
         HorizontalLayout kontejnerTitle = new HorizontalLayout(title);
 
         // ikonica i tekst za korisnika
-        Span iconKorisnik = new Span("A"); // TODO: promeniti da ikonica bude prvo slovo imena Korisnika
+        Span iconKorisnik = new Span("A");
         iconKorisnik.addClassName("master-user-icon");
-        // kreiranje context menija (korisnički meni) za ikonicu slova
+
         ContextMenu userMenu = new ContextMenu();
-        userMenu.setTarget(iconKorisnik); // povezivanje sa ikonicom
+        userMenu.setTarget(iconKorisnik);
         userMenu.setOpenOnClick(true);
-        // dodavanje događaja
-        // događaj "Podešavanja"
         userMenu.addItem("Podešavanja", e -> {
             UI.getCurrent().navigate("user/profile");
         });
-        // linija između opcija
         userMenu.add(new Hr());
-        // događaj "Odjava"
         userMenu.addItem("Odjava", e -> {
-            UI.getCurrent().navigate(""); // "" == default ruta
+            UI.getCurrent().navigate("");
         });
 
         Span labelKorisnik = new Span("Korisnik");
         labelKorisnik.addClassName("master-user-label");
 
-        Span nameKorisnik = new Span("Admin"); // TODO: ubaciti da se prikazuje pravo korisničko ime Korisnika
+        Span nameKorisnik = new Span("Admin");
         nameKorisnik.addClassName("master-user-name");
 
         VerticalLayout kontejnerLabele = new VerticalLayout(labelKorisnik, nameKorisnik);
         kontejnerLabele.setPadding(false);
         kontejnerLabele.setSpacing(false);
-        // kontejnerLabele.addClassName("master-kontejner-labels");
 
         HorizontalLayout kontejnerKorisnik = new HorizontalLayout(iconKorisnik, kontejnerLabele);
         kontejnerKorisnik.setAlignItems(FlexComponent.Alignment.CENTER);
@@ -85,18 +81,15 @@ public class MasterHeaderNavLayout extends AppLayout implements AfterNavigationO
     }
 
     public void createSideNav() {
-        // glavni kontejner
         VerticalLayout kontejnerNav = new VerticalLayout();
 
-        // pomoćni kontejneri
         SideNav navProizvodi = new SideNav();
         navProizvodi.addClassName("master-nav");
         SideNav navStatistika = new SideNav();
-        navProizvodi.addClassName("master-nav");
+        navStatistika.addClassName("master-nav");
         SideNav navKorisnici = new SideNav();
-        navProizvodi.addClassName("master-nav");
+        navKorisnici.addClassName("master-nav");
 
-        // labele
         Span proizvodiLabel = new Span("Proizvodi");
         proizvodiLabel.addClassName("master-labels");
         Span stastikaLabel = new Span("Statistika");
@@ -106,7 +99,6 @@ public class MasterHeaderNavLayout extends AppLayout implements AfterNavigationO
 
         listaDugmica.clear();
 
-        // buttoni: PROIZVODI
         SideNavItem artikliButton = kreirajStavku("Artikli", "products/articles");
         SideNavItem modifButton = kreirajStavku("Modifikatori", "products/modifiers");
         SideNavItem comboButton = kreirajStavku("Combo", "products/combos");
@@ -114,19 +106,16 @@ public class MasterHeaderNavLayout extends AppLayout implements AfterNavigationO
 
         navProizvodi.addItem(artikliButton, modifButton, comboButton, kategorijeButton);
 
-        // buttoni: STATISTIKA
         SideNavItem prometButton = kreirajStavku("Promet", "statistics/inventory-flow");
         SideNavItem ucestalostButton = kreirajStavku("Učestalost", "statistics/frequency-products");
         SideNavItem najprodavanijiButton = kreirajStavku("Najprodavaniji", "statistics/best-sellers");
 
         navStatistika.addItem(prometButton, ucestalostButton, najprodavanijiButton);
 
-        // buttoni: KORISNICI
         SideNavItem korisniciButton = kreirajStavku("Korisnici", "users/list");
 
         navKorisnici.addItem(korisniciButton);
 
-        // dodavanje svega u Drawer
         kontejnerNav.add(proizvodiLabel, navProizvodi, stastikaLabel, navStatistika, korisniciLabel, navKorisnici);
         kontejnerNav.setSizeFull();
         kontejnerNav.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
@@ -136,7 +125,6 @@ public class MasterHeaderNavLayout extends AppLayout implements AfterNavigationO
         addToDrawer(kontejnerNav);
     }
 
-    // pomoćna metoda za postavljanje "aktivnih" i "neaktivnih" dugmića
     private void updateSelection(SideNavItem selectedItem) {
         listaDugmica.forEach(item -> {
             if (item == selectedItem) {
@@ -147,7 +135,6 @@ public class MasterHeaderNavLayout extends AppLayout implements AfterNavigationO
         });
     }
 
-    // pomoćna metoda za navigaciju dugmića
     private SideNavItem kreirajStavku(String label, String ruta) {
         SideNavItem item = new SideNavItem(label);
         item.getElement().addEventListener("click", e -> {
@@ -169,7 +156,7 @@ public class MasterHeaderNavLayout extends AppLayout implements AfterNavigationO
 
         for (SideNavItem item : listaDugmica) {
             String labelLower = item.getLabel().toLowerCase();
-            if (path.contains(labelLower.substring(0, Math.min(labelLower.length(), 4)))) { // fuzzy matching
+            if (path.contains(labelLower.substring(0, Math.min(labelLower.length(), 4)))) {
                 updateSelection(item);
                 break;
             }

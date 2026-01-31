@@ -6,15 +6,15 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@CssImport("./style/style-views.css")
 @Route(value = "products/modifiers", layout = MasterHeaderNavLayout.class)
+@CssImport("./style/style-views.css")
 public class ModifiersView extends VerticalLayout {
     // atributi
 
     // konstruktor
     public ModifiersView() {
         H1 naslov = new H1("Modifikatori");
-        naslov.getStyle().set("color", "white");
+        naslov.addClassName("page-title");
         add(naslov);
 
         // TODO: dodavanje liste proizvoda
