@@ -57,6 +57,13 @@ public class UserService {
 
         return allUsers;
     }
+    public List<User> findAllInit(){
+        List<User> allUsers = new ArrayList<>();
+
+        repo.findAll().forEach(allUsers::add);
+
+        return allUsers;
+    }
 
     public Optional<UserResponseDTO> findByKey(String key) {
         Optional<User> opUser = findUserByKey(key);

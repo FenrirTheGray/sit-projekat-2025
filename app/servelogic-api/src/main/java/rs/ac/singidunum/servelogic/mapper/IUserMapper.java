@@ -10,8 +10,6 @@ import rs.ac.singidunum.servelogic.model.User;
 
 @Mapper(componentModel = "spring")
 public interface IUserMapper {
-    IUserMapper MAPPER = Mappers.getMapper(IUserMapper.class);
-
     User createToEntity(UserCreateRequestDTO dto);
     User registerToEntity(RegisterRequestDTO dto);
     User updateToEntity(UserUpdateRequestDTO dto);
