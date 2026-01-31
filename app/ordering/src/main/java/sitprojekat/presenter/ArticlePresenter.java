@@ -13,6 +13,7 @@ import sitprojekat.model.Article;
 import sitprojekat.model.Category;
 import sitprojekat.model.Modifier;
 import sitprojekat.model.ProductInCart;
+import sitprojekat.model.ProductInCartArticle;
 import sitprojekat.model.Type;
 import sitprojekat.service.ArticleService;
 import sitprojekat.service.ProductInCartService;
@@ -98,7 +99,7 @@ public class ArticlePresenter {
             
             double totalPrice = (article.getBasePrice()+sizeModifierPrice+toppingModifierPrice) * orderAmount;
 
-            ProductInCart productInCart = new ProductInCart(this.article, orderAmount,totalPrice,view.getArticleSizesRadioButton(),view.getArticleModifiersCheckBox());
+            ProductInCart productInCart = new ProductInCartArticle(this.article, orderAmount,totalPrice,view.getArticleModifiersCheckBox(),view.getArticleSizesRadioButton());
             productInCartService.addProduct(productInCart);
 
             view.AddToCartNotif(article.getName() + " dodat u korpu");
@@ -128,7 +129,7 @@ public class ArticlePresenter {
 		modifierList.add(mod5);
 		modifierList.add(mod6);
 		
-		this.article= new Article("test1", "test1", "test1", 23, false,new Category("1","n1", "d1", false),modifierList);
+		this.article= new Article("test1", "test1", "test1", "slika1", 23, false,new Category("1","n1", "d1", false),modifierList);
 		view.setArticleName(article.getName());
 		view.setArticleDescription(article.getDescription());
 		view.setPrice(article.getBasePrice());

@@ -1,6 +1,9 @@
 package sitprojekat.view;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
@@ -11,6 +14,8 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
@@ -23,8 +28,10 @@ import com.vaadin.flow.router.Route;
 
 import sitprojekat.interfaces.ComboViewInterface;
 import sitprojekat.model.Article;
+import sitprojekat.model.Combo;
+import sitprojekat.model.Modifier;
 import sitprojekat.presenter.ComboPresenter;
-import sitprojekat.service.ArticleService;
+import sitprojekat.service.ComboService;
 
 @CssImport("./style/style.css")
 @Route(value = "Combo",layout = HeaderAndNavBar.class)
@@ -35,30 +42,37 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 	 */
 	private static final long serialVersionUID = 8994010294830377854L;
 
-	private Article mainCombo ;
 	private H2 comboName=new H2();
     private Span comboDescription = new Span();
-    private Button addToCartButton = new Button();
+	private Button addToCartButton = new Button();
     private IntegerField productCounter = new IntegerField();
-    private final ArticleService service=new ArticleService();
     private final ComboPresenter presenter;
+    
+    Image articleImage=new Image("/images/image_burger.jpg","slika primer proizvoda");
+    
+    List<Article> mainChoiceList;
+    List<Article> sideChoiceList;
+    List<Article> sideDrinkList;
+    
+    List<Modifier> mainModifiersChoice;
+    List<Modifier> sideModifierChoiceList;
+    List<Modifier> drinkModifierChoiceList;
+    
+    private RadioButtonGroup<Article> mainRadioButtonGroup=new RadioButtonGroup<Article>();
+    private CheckboxGroup<Modifier> mainModifierCheckBoxGroup=new CheckboxGroup<Modifier>();
+    
+    private RadioButtonGroup<Article> sideRadioButtonGroup=new RadioButtonGroup<Article>();
+    private CheckboxGroup<Modifier> sideModifierCheckBoxGroup=new CheckboxGroup<Modifier>();
+    
+    private RadioButtonGroup<Article> drinkRadioButtonGroup=new RadioButtonGroup<Article>();
+    private CheckboxGroup<Modifier> drinkModifierCheckBoxGroup=new CheckboxGroup<Modifier>();
+    
+    VerticalLayout comboChoiceContainer=new VerticalLayout();
+	VerticalLayout comboModificationsContainer=new VerticalLayout();
+	
 	@Override
 	public void setParameter(BeforeEvent event, String sentComboID) {
-		
-		this.mainCombo=service.findByID(sentComboID);
-		if (mainCombo != null) {
-	        this.comboName.setText(mainCombo.getName());
-	        this.comboDescription.setText(mainCombo.getDescription());
-	        updateButtonValue();
-	        productCounter.setMin(1);
-	    }else {
-			this.comboName.setText("Placeholder ako nije dobro ucitan");
-			this.comboDescription.setText("Placeholder ako nije dobro ucitan");
-			this.addToCartButton.setEnabled(false);
-			this.productCounter.setEnabled(false);
-			this.addToCartButton.setText("Dodaj u korpu () RSD");
-			this.addToCartButton.setIcon(VaadinIcon.CART_O.create());
-		}
+		presenter.findByID1(sentComboID);
 	}
 	public ComboView(ComboPresenter presenter) {
 		this.presenter=presenter;
@@ -69,21 +83,19 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 		backButton.addClassName("brownButton");
 		comboName.addClassName("whiteText");
 		
-		
 		comboDescription.addClassName("DescriptionSpan");
-		
-		Image articleImage=new Image("/images/image_burger.jpg","slika primer proizvoda");
+				
 		articleImage.addClassName("articleImage");
-		//Image articleImage=new Image();
-		
+
 		productCounter.addClassName("productCounter");
 		productCounter.setValue(1);
 		productCounter.setStepButtonsVisible(true);
 		
 		
 		addToCartButton.addClassName("brownButton");
+		addToCartButton.addClickListener(e->presenter.addToCart());
 		
-		productCounter.addValueChangeListener(e->{updateButtonValue();});
+		productCounter.addValueChangeListener(e->presenter.orderAmountChange(productCounter.getValue()));
 		
 		
 		VerticalLayout comboNameAndDescriptionAndImageContainer=new VerticalLayout();
@@ -103,36 +115,13 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 		comboChoiceH2.addClassName("whiteText");
 		
 		
-		//List<Article> mainChoiceList=List.of(new Article("1", "Veliki", "opis1", 250.0, true),new Article("2", "Srednji", "opis2", 350.0, true)); // test za velicine
-		List<Article> mainChoiceList=List.of(new Article("1", "Veliki", "opis1", 250.0, true, null, null),new Article("2", "Srednji", "opis2", 350.0, true, null, null)); // test za velicine
-		RadioButtonGroup<Article> comboMainRadio = createComboRadioButtons("Moguci Izbor za main",mainChoiceList);
 		
-		List<Article> sideChoiceList=List.of(new Article("1", "Veliki", "opis1", 250.0, true, null, null),new Article("2", "Srednji", "opis2", 350.0, true, null, null)); // test za velicine
-		RadioButtonGroup<Article> radioComboSide = createComboRadioButtons("Moguci izbor za side", sideChoiceList);
-	
-		List<Article> sideDrinkList=List.of(new Article("1", "Veliki", "opis1", 250.0, true, null, null),new Article("2", "Srednji", "opis2", 350.0, true, null, null)); // test za velicine
-		RadioButtonGroup<Article> radioComboDrink = createComboRadioButtons("Moguci izbor za drink", sideDrinkList);
-		radioComboDrink.setHeight("175px");
 		
-		H2 modificationChoice=new H2("Ukljuceni modifikatori");
-		modificationChoice.addClassName("whiteText");
 
-		List<Article> mainModifiersChoice=List.of(new Article("1", "modifikator1", "opis1", 250.0, true, null, null),new Article("2", "modifikator2", "opis2", 350.0, true, null, null)); // test kao modifikator
-		CheckboxGroup<Article> checkBoxModifierMain = createComboCheckBox("Moguci izbor za main",mainModifiersChoice);
-		
-		List<Article> sideModifierChoiceList=List.of(new Article("1", "modifikator1", "opis1", 250.0, true, null, null),new Article("2", "modifikator2", "opis2", 350.0, true, null, null)); // test kao modifikator
-		CheckboxGroup<Article> checkBoxModifierSide = createComboCheckBox("Moguci izbor za side",sideModifierChoiceList);
-		
-		List<Article> drinkModifierChoiceList=List.of(new Article("1", "modifikator1", "opis1", 250.0, true, null, null),new Article("2", "modifikator2", "opis2", 350.0, true, null, null)); // test kao modifikator
-		CheckboxGroup<Article> checkBoxModifierDrink = createComboCheckBox("Moguci izbor za drink",drinkModifierChoiceList);   
-		checkBoxModifierDrink.setHeight("175px");
 			
-		VerticalLayout comboChoiceContainer=new VerticalLayout();
-		comboChoiceContainer.add(comboChoiceH2,comboMainRadio,radioComboSide,radioComboDrink);		
 		comboChoiceContainer.setSpacing(false);
 
-		VerticalLayout comboModificationsContainer=new VerticalLayout();
-		comboModificationsContainer.add(modificationChoice,checkBoxModifierMain,checkBoxModifierSide,checkBoxModifierDrink);
+
 		comboModificationsContainer.setSpacing(false);
 		
 		HorizontalLayout rightSideContainer=new HorizontalLayout();
@@ -145,13 +134,8 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 		
 	}
 
-	private void updateButtonValue() { 		// menja se vrednost u buttonu cena * kolicina koju narucuje
-        if (mainCombo != null) {
-            double totalPrice = mainCombo.getBasePrice() * productCounter.getValue();
-            addToCartButton.setText("Dodaj u korpu (" + totalPrice + ") RSD");
-        }
-    }
-	private RadioButtonGroup<Article> createComboRadioButtons(String label,List<Article> articles) {
+
+	public RadioButtonGroup<Article> createComboRadioButtons(String label,List<Article> articles) {
 	    RadioButtonGroup<Article> comboRadioButtonGroup = new RadioButtonGroup<>();
 	    comboRadioButtonGroup.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL); //smer kako su poredjani
 	    comboRadioButtonGroup.addClassName("choiceBackground");
@@ -159,21 +143,20 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 	    comboRadioButtonGroup.setItems(articles);
 	    comboRadioButtonGroup.setWidthFull();
 	    comboRadioButtonGroup.setRenderer(createArticleRenderer());
-	    return comboRadioButtonGroup;
+	     return comboRadioButtonGroup;
 	}
 
-	private CheckboxGroup<Article> createComboCheckBox(String label,List<Article> articles) {
-	    CheckboxGroup<Article> comboCheckboxGroup = new CheckboxGroup<>();
+	public CheckboxGroup<Modifier> createComboCheckBox(String label,List<Modifier> mainModifiersChoice2) {
+	    CheckboxGroup<Modifier> comboCheckboxGroup = new CheckboxGroup<>();
 	    comboCheckboxGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL); //smer kako su poredjani
 	    comboCheckboxGroup.addClassName("choiceBackground");
 	    comboCheckboxGroup.setLabel(label);
-	    comboCheckboxGroup.setItems(articles);
+	    comboCheckboxGroup.setItems(mainModifiersChoice2);
 	    comboCheckboxGroup.setWidthFull();
-	    comboCheckboxGroup.setRenderer(createArticleRenderer());
+	    comboCheckboxGroup.setRenderer(createModifierRenderer());
 	    return comboCheckboxGroup;
 	}
-
-	private ComponentRenderer<VerticalLayout, Article> createArticleRenderer() {
+	public ComponentRenderer<VerticalLayout, Article> createArticleRenderer() {
 	    return new ComponentRenderer<>(article ->  {  //za svaki modifikator se pravi
 		    VerticalLayout container = new VerticalLayout(); 
 		    container.setSpacing(false);
@@ -181,11 +164,150 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 		    Span articleTitleSpan = new Span(article.getName());   // naziv za opis i izgled 
 		    articleTitleSpan.addClassName("choiceButton");
 
-		    Span articlePriceSubTextSpan = new Span("+ "+String.valueOf(article.getBasePrice()+" RSD")); // ispod modifikator cena kao manji info
+		    Span articlePriceSubTextSpan = new Span("opcija "+article.getDescription()); // ispod modifikator cena kao manji info
 		    articlePriceSubTextSpan.addClassName("choiceButtonSubText");								// boja
 
 		    container.add(articleTitleSpan, articlePriceSubTextSpan);
 		    return container;                // dodaje u container i vraca pa ako ima jos pravi novi container
 	    });
+	}
+
+	public ComponentRenderer<VerticalLayout, Modifier> createModifierRenderer() {
+	    return new ComponentRenderer<>(modifier ->  {  //za svaki modifikator se pravi
+		    VerticalLayout container = new VerticalLayout(); 
+		    container.setSpacing(false);
+		    container.setPadding(false);      // jedno ispod drugog bez razmaka
+		    Span articleTitleSpan = new Span(modifier.getName());   // naziv za opis i izgled 
+		    articleTitleSpan.addClassName("choiceButton");
+
+		    Span articlePriceSubTextSpan = new Span("+ "+String.valueOf(modifier.getPrice()+" RSD")); // ispod modifikator cena kao manji info
+		    articlePriceSubTextSpan.addClassName("choiceButtonSubText");								// boja
+
+		    container.add(articleTitleSpan, articlePriceSubTextSpan);
+		    return container;                // dodaje u container i vraca pa ako ima jos pravi novi container
+	    });
+	}
+	@Override
+	public void setComboName(String string) {
+		this.comboName.setText(string);
+		
+	}
+	@Override
+	public void setComboDescription(String string) {
+		this.comboDescription.setText(string);
+		
+	}
+	@Override
+	public Integer getProductCounter() {
+		return this.productCounter.getValue();
+	}
+	
+	public RadioButtonGroup<Article> getMainRadioButtonGroup() {
+		return mainRadioButtonGroup;
+	}
+	@Override
+	public void setMainRadioButtonGroup(RadioButtonGroup<Article> mainRadioButtonGroup) {
+		this.mainRadioButtonGroup=mainRadioButtonGroup;
+		
+	}
+	@Override
+	public CheckboxGroup<Modifier> getMainModifierCheckBoxGroup() {
+		return mainModifierCheckBoxGroup;
+	}
+	@Override
+	public void setMainModifierCheckBoxGroup(CheckboxGroup<Modifier> mainModifierCheckBoxGroup) {
+		this.mainModifierCheckBoxGroup=mainModifierCheckBoxGroup;
+		
+	}
+	@Override
+	public RadioButtonGroup<Article> getSideRadioButtonGroup() {
+		return sideRadioButtonGroup;
+	}
+	@Override
+	public void setSideRadioButtonGroup(RadioButtonGroup<Article> sideRadioButtonGroup) {
+		this.sideRadioButtonGroup=sideRadioButtonGroup;
+		
+	}
+	@Override
+	public CheckboxGroup<Modifier> getSideModifierCheckBoxGroup() {
+		return sideModifierCheckBoxGroup;
+	}
+	@Override
+	public void setSideModifierCheckBoxGroup(CheckboxGroup<Modifier> sideModifierCheckBoxGroup) {
+		this.sideModifierCheckBoxGroup=sideModifierCheckBoxGroup;
+		
+	}
+	@Override
+	public RadioButtonGroup<Article> getDrinkRadioButtonGroup() {
+		return drinkRadioButtonGroup;
+	}
+	@Override
+	public void setDrinkRadioButtonGroup(RadioButtonGroup<Article> drinkRadioButtonGroup) {
+		this.drinkRadioButtonGroup=drinkRadioButtonGroup;
+		
+	}
+	@Override
+	public CheckboxGroup<Modifier> getDrinkModifierCheckBoxGroup() {
+		return drinkModifierCheckBoxGroup;
+	}
+	@Override
+	public void setDrinkModifierCheckBoxGroup(CheckboxGroup<Modifier> drinkModifierCheckBoxGroup) {
+		this.drinkModifierCheckBoxGroup=drinkModifierCheckBoxGroup;
+		
+	}
+	@Override
+	public VerticalLayout getComboChoiceContainer() {
+		return comboChoiceContainer;
+	}
+	@Override
+	public void setComboChoiceContainer(VerticalLayout comboChoiceContainer) {
+		this.comboChoiceContainer=comboChoiceContainer;
+		
+	}
+	@Override
+	public VerticalLayout getComboModificationsContainer() {
+		return comboModificationsContainer;
+	}
+	@Override
+	public void setComboModificationsContainer(VerticalLayout comboModificationsContainer) {
+		this.comboModificationsContainer=comboModificationsContainer;
+		
+	}
+	@Override
+	public void setPrice(double basePrice) {
+		this.addToCartButton.setText("Dodaj u korpu (" + basePrice + ") RSD");
+		
+	}
+	@Override
+	public void AddToCartNotif(String string) {
+		Notification notification = Notification.show(string, 3000, Notification.Position.BOTTOM_START); // sta pise , koliko traje, pozicija
+	    notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);// koje je boje
+		
+	}
+	@Override
+	public List<Article> getSelectedArticles() {
+		List<Article> articles=new ArrayList<Article>();
+		
+		 if (mainRadioButtonGroup.getValue() != null) {
+			 articles.add(mainRadioButtonGroup.getValue());
+		    }
+		 if (sideRadioButtonGroup.getValue() != null) {
+			 articles.add(sideRadioButtonGroup.getValue());
+		    }
+		 if (drinkRadioButtonGroup.getValue() != null) {
+			 articles.add(drinkRadioButtonGroup.getValue());
+		    }
+		return articles;
+	}
+	@Override
+	public Set<Modifier> getSelectedModifiers() {
+		Set<Modifier> modifiers=new HashSet<Modifier>();
+		
+
+		modifiers.addAll(mainModifierCheckBoxGroup.getSelectedItems());
+		modifiers.addAll(sideModifierCheckBoxGroup.getSelectedItems());
+		modifiers.addAll(drinkModifierCheckBoxGroup.getSelectedItems());
+
+		return modifiers;
 	}
 }

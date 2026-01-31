@@ -66,7 +66,7 @@ public class ProductsView extends VerticalLayout implements ProductsViewInterfac
 		
 		
 		add(filterContainer, productsContainer);
-		if(!allArticles.isEmpty()) {
+		if(allArticles!=null && !allArticles.isEmpty()) {
 			presenter.updateView("");
 		}
 		else {
