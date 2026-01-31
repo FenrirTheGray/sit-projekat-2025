@@ -43,7 +43,17 @@ public class ProductsPresenter {
 		else {
 	    
 			Map<String, List<Article>> articleCategoriesGrouped = filteredArticles.stream()
-					.collect(Collectors.groupingBy(article->article.getCategory().getName())); // deli ih u kategorije
+					.collect(Collectors.groupingBy(article->{
+						
+						if(article.getCategory() != null) {
+						
+						return article.getCategory().getName();
+						}
+						else {
+							return "nema kategoriju";
+						}
+						
+					})); // deli ih u kategorije
 
 			articleCategoriesGrouped.forEach((categoryName,articleGrouped)->{
 				view.getProductsContainer().add(view.createCategorySection(categoryName, articleGrouped));
