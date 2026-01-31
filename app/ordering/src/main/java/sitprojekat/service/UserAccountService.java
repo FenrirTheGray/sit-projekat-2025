@@ -7,7 +7,7 @@ import sitprojekat.model.UserAccount;
 @Service
 public class UserAccountService {
 
-	private UserAccount user=new UserAccount("email", "adresa", "telefon", "pass");
+	private UserAccount user=new UserAccount("id","email", "adresa", "telefon", "pass");
 	
 	public UserAccountService() {
 
