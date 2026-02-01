@@ -1,115 +1,297 @@
-/*
-=== MASTER LAYOUT ===
-Uses CSS variables from style-views.css
-*/
+/* ============================================
+   CMS DARK THEME - MASTER LAYOUT
+   Header + Side Navigation
+   ============================================ */
+
+/* --------------------------------------------
+   MAIN LAYOUT BACKGROUND
+   -------------------------------------------- */
 .master-layout-bg {
     background-color: var(--cms-bg);
 }
 
-.master-button-active {
-    display: flex;
-    justify-content: center;
-    color: var(--cms-text);
-    background-color: var(--cms-border);
-    border-radius: 10px;
-    margin: 10px;
-    width: 230px;
+/* Vaadin App Layout overrides */
+vaadin-app-layout {
+    --vaadin-app-layout-navbar-background: var(--cms-bg);
+    --vaadin-app-layout-drawer-background: var(--cms-bg);
 }
 
-.master-button-not-active {
-    display: flex;
-    justify-content: center;
-    color: var(--cms-text-muted);
-    background-color: var(--cms-surface);
-    border-radius: 10px;
-    margin: 10px;
-    width: 230px;
+vaadin-app-layout::part(navbar) {
+    background-color: var(--cms-bg);
 }
 
-.master-button-not-active:hover {
-    background-color: var(--cms-border);
-    color: var(--cms-text);
+vaadin-app-layout::part(drawer) {
+    background-color: var(--cms-bg);
+}
+
+/* --------------------------------------------
+   HEADER
+   -------------------------------------------- */
+.master-header {
+    background-color: var(--cms-bg);
+    padding: 0 1.5rem;
+    border-bottom: 1px solid var(--cms-border);
+    height: 64px;
 }
 
 .master-header-title {
     color: var(--cms-text);
-    font-size: 32px;
+    font-size: 1.5rem;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: -0.025em;
+}
+
+/* --------------------------------------------
+   USER SECTION (Top Right)
+   -------------------------------------------- */
+.master-kontejner-user {
+    gap: 12px;
 }
 
 .master-user-icon {
-    background-color: var(--cms-surface);
-    color: var(--cms-text);
-    width: 55px;
-    height: 35px;
-    border-radius: 35%;
+    background-color: var(--cms-accent);
+    color: var(--cms-bg);
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 1rem;
     cursor: pointer;
+    transition: all var(--cms-transition);
+    aspect-ratio: 1 / 1;
+}
+
+.master-user-icon:hover {
+    background-color: var(--cms-accent-hover);
+    transform: scale(1.05);
 }
 
 .master-user-label {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--cms-text-muted);
+    line-height: 1.2;
 }
 
 .master-user-name {
-    font-size: 15px;
+    font-size: 0.875rem;
     color: var(--cms-text);
-    font-weight: bold;
+    font-weight: 600;
+    line-height: 1.2;
 }
 
-.master-kontejner-user {
-    gap: 10px;
-}
-
-.master-header {
-    background-color: var(--cms-bg);
-    padding: 0 20px;
-    border-bottom: 1px solid var(--cms-border);
-}
-
-.master-nav {
-    color: var(--cms-text);
-    cursor: pointer;
-}
-
+/* --------------------------------------------
+   SIDE NAVIGATION CONTAINER
+   -------------------------------------------- */
 .master-kontejner-nav {
     background-color: var(--cms-bg);
     border-right: 1px solid var(--cms-border);
+    padding: 1rem 0.75rem;
 }
 
+/* Section labels */
 .master-labels {
+    color: var(--cms-text-muted);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.75rem 1rem 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.master-labels:first-child {
+    margin-top: 0;
+}
+
+/* Navigation group */
+.master-nav {
+    color: var(--cms-text);
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 0.25rem;
+    width: 100%;
+}
+
+/* Vaadin SideNav full width */
+vaadin-side-nav {
+    width: 100%;
+}
+
+/* --------------------------------------------
+   NAVIGATION BUTTONS (SideNavItems)
+   -------------------------------------------- */
+
+/* Active button base styles */
+.master-kontejner-nav .master-button-active,
+.master-kontejner-nav .master-button-active a,
+.master-kontejner-nav .master-button-active span,
+.master-kontejner-nav .master-button-active * {
+    color: var(--cms-accent);
+}
+
+.master-kontejner-nav .master-button-active {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: var(--cms-accent-muted);
+    border-radius: 8px;
+    margin: 4px 8px;
+    padding: 0 1rem;
+    height: 40px;
+    width: calc(100% - 16px);
+    font-weight: 500;
+    transition: all var(--cms-transition);
+}
+
+/* Active button hover - maintain active styling */
+.master-kontejner-nav .master-button-active:hover,
+.master-kontejner-nav .master-button-active:hover a,
+.master-kontejner-nav .master-button-active:hover span,
+.master-kontejner-nav .master-button-active:hover * {
+    color: var(--cms-accent);
+    background-color: var(--cms-accent-muted);
+}
+
+/* Not active button base styles */
+.master-kontejner-nav .master-button-not-active,
+.master-kontejner-nav .master-button-not-active a,
+.master-kontejner-nav .master-button-not-active span,
+.master-kontejner-nav .master-button-not-active * {
+    color: var(--cms-text-secondary);
+}
+
+.master-kontejner-nav .master-button-not-active {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 8px;
+    margin: 4px 8px;
+    padding: 0 1rem;
+    height: 40px;
+    width: calc(100% - 16px);
+    font-weight: 500;
+    transition: all var(--cms-transition);
+}
+
+/* Not active button hover */
+.master-kontejner-nav .master-button-not-active:hover,
+.master-kontejner-nav .master-button-not-active:hover a,
+.master-kontejner-nav .master-button-not-active:hover span,
+.master-kontejner-nav .master-button-not-active:hover * {
+    background-color: var(--cms-surface-2);
     color: var(--cms-text);
 }
 
-/*
-=== USER CONTEXT MENU (DROPDOWN) ===
-*/
+/* --------------------------------------------
+   VAADIN SIDE NAV ITEM STYLING
+   -------------------------------------------- */
+.master-kontejner-nav vaadin-side-nav-item {
+    --vaadin-side-nav-item-background: transparent;
+    --vaadin-side-nav-item-hover-background: var(--cms-surface-2);
+    --vaadin-side-nav-item-text-color: var(--cms-text-secondary);
+    border-radius: 8px;
+    margin: 2px 8px;
+    width: calc(100% - 16px);
+}
+
+.master-kontejner-nav vaadin-side-nav-item::part(content) {
+    padding: 0.5rem 1rem;
+}
+
+/* Default state */
+.master-kontejner-nav vaadin-side-nav-item,
+.master-kontejner-nav vaadin-side-nav-item a,
+.master-kontejner-nav vaadin-side-nav-item span {
+    color: var(--cms-text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Hover state - only for non-active items */
+.master-kontejner-nav vaadin-side-nav-item:not([active]):hover,
+.master-kontejner-nav vaadin-side-nav-item:not([active]):hover a,
+.master-kontejner-nav vaadin-side-nav-item:not([active]):hover span {
+    color: var(--cms-text);
+}
+
+/* Active state */
+.master-kontejner-nav vaadin-side-nav-item[active] {
+    background-color: var(--cms-accent-muted);
+}
+
+.master-kontejner-nav vaadin-side-nav-item[active],
+.master-kontejner-nav vaadin-side-nav-item[active] a,
+.master-kontejner-nav vaadin-side-nav-item[active] span {
+    color: var(--cms-accent);
+}
+
+/* Active item hover - maintain active styling */
+.master-kontejner-nav vaadin-side-nav-item[active]:hover {
+    background-color: var(--cms-accent-muted);
+}
+
+.master-kontejner-nav vaadin-side-nav-item[active]:hover,
+.master-kontejner-nav vaadin-side-nav-item[active]:hover a,
+.master-kontejner-nav vaadin-side-nav-item[active]:hover span {
+    color: var(--cms-accent);
+}
+
+/* --------------------------------------------
+   USER CONTEXT MENU (Dropdown)
+   -------------------------------------------- */
 vaadin-context-menu-overlay::part(overlay) {
-    background-color: var(--cms-bg);
+    background-color: var(--cms-surface);
     border: 1px solid var(--cms-border);
     border-radius: 8px;
+    box-shadow: var(--cms-shadow-lg);
+    min-width: 160px;
 }
 
 vaadin-context-menu-overlay::part(content) {
-    background-color: var(--cms-bg);
-    padding: 4px 0;
+    background-color: var(--cms-surface);
+    padding: 0.5rem 0;
 }
 
 vaadin-context-menu-overlay vaadin-context-menu-item {
     color: var(--cms-text);
-    background-color: var(--cms-bg);
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    transition: all var(--cms-transition);
 }
 
 vaadin-context-menu-overlay vaadin-context-menu-item:hover {
-    background-color: var(--cms-surface);
+    background-color: var(--cms-surface-2);
+}
+
+/* Logout item - slight red tint */
+vaadin-context-menu-overlay vaadin-context-menu-item:last-child:hover {
+    background-color: var(--cms-error-muted);
+    color: var(--cms-error);
 }
 
 vaadin-context-menu-overlay hr {
-    border-color: var(--cms-border);
-    margin: 4px 0;
+    border: none;
+    border-top: 1px solid var(--cms-border);
+    margin: 0.5rem 0;
+}
+
+/* --------------------------------------------
+   APP LAYOUT DRAWER TOGGLE
+   -------------------------------------------- */
+vaadin-drawer-toggle {
+    color: var(--cms-text);
+}
+
+vaadin-drawer-toggle:hover {
+    color: var(--cms-accent);
 }
