@@ -43,16 +43,65 @@ public class OrderDataInit  implements ApplicationRunner {
         products.addAll(combos);
         products.addAll(articles);
 
-        Collections.shuffle(products);
-
         List<rs.ac.singidunum.servelogic.model.Order> orders = new ArrayList<>();
 
-        orders.add(new rs.ac.singidunum.servelogic.model.Order(
-                "order/1", "1",
+        for(int j = 0; j < 10; j++){
+            orders.add(new rs.ac.singidunum.servelogic.model.Order(
+                String.format("order/%d", j+1), String.format("%d", j+1),
                 users.get(ThreadLocalRandom.current().nextInt(users.size())),
                 new Date(),
                 OrderStatus.CREATED,
-                new ArrayList<>()
-        ));
+                generateRandomChoices(products, 3)
+            ));
+        }
+
+        repo.saveAll(orders);
     }
+
+    private List<Choice> generateRandomChoices(List<Product> products, int number){
+        ArrayList<Choice> choices = new ArrayList<>();
+
+        Collections.shuffle(products);
+
+        products.stream().skip(ThreadLocalRandom.current().nextInt(0, products.size()- (number + 1))).limit(number).forEach(product ->{
+            if(product.getClass().getSimpleName().equals("Article")){
+                choices.add(generateRandomArticleChoice((Article) product));
+            }
+            else{
+                choices.add(generateRandomComboChoice((Combo) product));
+            }
+        });
+
+        return choices;
+    }
+
+    private ArticleChoice generateRandomArticleChoice(Article a){
+
+        int mSize = a.getModifiers().size();
+        List<Modifier> modifiers = new ArrayList<>();
+        if(mSize > 0){
+            modifiers = List.of(a.getModifiers().get(ThreadLocalRandom.current().nextInt(0, mSize)));
+        }
+
+        return new ArticleChoice(a, ThreadLocalRandom.current().nextInt(1, 10), modifiers);
+    }
+
+    private ComboChoice generateRandomComboChoice(Combo c){
+
+
+        int size = 0;
+        List<ArticleChoice> articleChoices = new ArrayList<>();
+
+        size = c.getMainSelection().size();
+        articleChoices.add(generateRandomArticleChoice(c.getMainSelection().get(ThreadLocalRandom.current().nextInt(0, size))));
+
+        size = c.getSideSelection().size();
+        articleChoices.add(generateRandomArticleChoice(c.getSideSelection().get(ThreadLocalRandom.current().nextInt(0, size))));
+
+        size = c.getDrinkSelection().size();
+        articleChoices.add(generateRandomArticleChoice(c.getDrinkSelection().get(ThreadLocalRandom.current().nextInt(0, size))));
+
+        return new ComboChoice(c, ThreadLocalRandom.current().nextInt(1, 10), articleChoices);
+    }
+
 }

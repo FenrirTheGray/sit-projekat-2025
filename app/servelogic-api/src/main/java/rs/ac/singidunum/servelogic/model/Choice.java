@@ -1,8 +1,13 @@
 package rs.ac.singidunum.servelogic.model;
 
 public class Choice {
+    private Product product;
     private int amount;
 
+    public Choice(){}
+    public Choice(int amount){
+        this.amount = amount;
+    }
     public int getAmount() {
         return amount;
     }
@@ -10,6 +15,9 @@ public class Choice {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+    public Product getProduct() { return product; }
+    public void setProduct(Product p) { this.product = p; }
 
     public double getTotal(){
         return 0.0;
