@@ -2,7 +2,7 @@ package rs.ac.singidunum.servelogic.dto.create;
 
 import java.util.List;
 
-public class ArticleChoiceCreateDTO extends ChoiceCreateDTO{
+public class ArticleChoiceCreateRequestDTO extends ChoiceCreateRequestDTO {
     private String article;
     private List<String> modifierList;
 

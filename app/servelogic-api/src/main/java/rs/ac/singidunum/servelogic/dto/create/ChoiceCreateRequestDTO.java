@@ -9,10 +9,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         property = "className"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type( value = ArticleChoiceCreateDTO.class, name = "articleDTO"),
-        @JsonSubTypes.Type( value = ComboChoiceCreateDTO.class, name = "comboDTO")
+        @JsonSubTypes.Type( value = ArticleChoiceCreateRequestDTO.class, name = "articleDTO"),
+        @JsonSubTypes.Type( value = ComboChoiceCreateRequestDTO.class, name = "comboDTO")
 })
-public class ChoiceCreateDTO {
+public class ChoiceCreateRequestDTO {
     private int amount;
 
     public int getAmount() {

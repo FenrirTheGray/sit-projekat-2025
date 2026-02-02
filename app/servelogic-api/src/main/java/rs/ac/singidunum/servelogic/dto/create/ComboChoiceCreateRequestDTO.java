@@ -2,9 +2,9 @@ package rs.ac.singidunum.servelogic.dto.create;
 
 import java.util.List;
 
-public class ComboChoiceCreateDTO extends ChoiceCreateDTO{
+public class ComboChoiceCreateRequestDTO extends ChoiceCreateRequestDTO {
     private String combo;
-    private List<ArticleChoiceCreateDTO> articleChoiceList;
+    private List<ArticleChoiceCreateRequestDTO> articleChoiceList;
 
     public String getCombo() {
         return combo;
@@ -14,11 +14,11 @@ public class ComboChoiceCreateDTO extends ChoiceCreateDTO{
         this.combo = combo;
     }
 
-    public List<ArticleChoiceCreateDTO> getArticleChoiceList() {
+    public List<ArticleChoiceCreateRequestDTO> getArticleChoiceList() {
         return articleChoiceList;
     }
 
-    public void setArticleChoiceList(List<ArticleChoiceCreateDTO> articleChoiceList) {
+    public void setArticleChoiceList(List<ArticleChoiceCreateRequestDTO> articleChoiceList) {
         this.articleChoiceList = articleChoiceList;
     }
 }

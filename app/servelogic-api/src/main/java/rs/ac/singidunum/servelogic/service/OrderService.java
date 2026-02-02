@@ -6,13 +6,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import rs.ac.singidunum.servelogic.dto.create.OrderCreateRequestDTO;
 import rs.ac.singidunum.servelogic.dto.response.OrderResponseDTO;
+import rs.ac.singidunum.servelogic.dto.update.OrderUpdateRequestDTO;
 import rs.ac.singidunum.servelogic.mapper.OrderMapper;
+import rs.ac.singidunum.servelogic.model.Choice;
 import rs.ac.singidunum.servelogic.model.Order;
 import rs.ac.singidunum.servelogic.model.OrderStatus;
 import rs.ac.singidunum.servelogic.model.User;
 import rs.ac.singidunum.servelogic.repository.IOrderRepository;
 import rs.ac.singidunum.servelogic.repository.IUserRepository;
-import rs.ac.singidunum.servelogic.utility.ArangoFusekiReferenceService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -77,6 +78,27 @@ public class OrderService {
 
         return Optional.of(mapper.toResponse(order));
     }
+
+    public Optional<OrderResponseDTO> update(OrderUpdateRequestDTO orderDTO) {
+        Optional<Order> opOrder = findOrderByKey(orderDTO.getKey());
+        if(opOrder.isEmpty()) return Optional.empty();
+
+        Order order = opOrder.get();
+
+        if(orderDTO.getStatus() != null) order.setStatus(orderDTO.getStatus());
+        if(orderDTO.getCreatedAt() != null) order.setCreatedAt(orderDTO.getCreatedAt());
+        if(orderDTO.getChoices() != null){
+            List<Choice> newChoices = new ArrayList<>();
+
+            orderDTO.getChoices().forEach(choice -> newChoices.add(mapper.mapToChoice(choice)));
+
+            order.setChoices(newChoices);
+        }
+
+        repo.save(order);
+        return Optional.of(mapper.toResponse(order));
+    }
+
 
     public boolean deleteByKey(String key){
         Optional<Order> opOrder = findOrderByKey(key);

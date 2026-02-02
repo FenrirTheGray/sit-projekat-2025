@@ -3,9 +3,9 @@ package rs.ac.singidunum.servelogic.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.SubclassMapping;
 import org.springframework.beans.factory.annotation.Autowired;
-import rs.ac.singidunum.servelogic.dto.create.ArticleChoiceCreateDTO;
-import rs.ac.singidunum.servelogic.dto.create.ChoiceCreateDTO;
-import rs.ac.singidunum.servelogic.dto.create.ComboChoiceCreateDTO;
+import rs.ac.singidunum.servelogic.dto.create.ArticleChoiceCreateRequestDTO;
+import rs.ac.singidunum.servelogic.dto.create.ChoiceCreateRequestDTO;
+import rs.ac.singidunum.servelogic.dto.create.ComboChoiceCreateRequestDTO;
 import rs.ac.singidunum.servelogic.dto.create.OrderCreateRequestDTO;
 import rs.ac.singidunum.servelogic.dto.response.OrderResponseDTO;
 import rs.ac.singidunum.servelogic.dto.update.OrderUpdateRequestDTO;
@@ -29,11 +29,10 @@ public abstract class OrderMapper {
     public abstract Order createToEntity(OrderCreateRequestDTO dto);
     public abstract Order updateToEntity(OrderUpdateRequestDTO dto);
     public abstract OrderResponseDTO toResponse(Order order);
-
-
-    @SubclassMapping(source = ArticleChoiceCreateDTO.class, target = ArticleChoice.class)
-    @SubclassMapping(source = ComboChoiceCreateDTO.class, target = ComboChoice.class)
-    public abstract Choice mapToChoice(ChoiceCreateDTO choiceCreateDTO);
+    
+    @SubclassMapping(source = ArticleChoiceCreateRequestDTO.class, target = ArticleChoice.class)
+    @SubclassMapping(source = ComboChoiceCreateRequestDTO.class, target = ComboChoice.class)
+    public abstract Choice mapToChoice(ChoiceCreateRequestDTO choiceCreateRequestDTO);
 
     public Combo idToCombo(String id){
         if(id == null) return null;

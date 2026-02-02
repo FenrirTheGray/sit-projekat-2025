@@ -6,7 +6,7 @@ import java.util.List;
 
 public class OrderCreateRequestDTO {
     private OrderStatus status;
-    private List<ChoiceCreateDTO> choices;
+    private List<ChoiceCreateRequestDTO> choices;
 
     public OrderStatus getStatus() {
         return status;
@@ -16,11 +16,11 @@ public class OrderCreateRequestDTO {
         this.status = status;
     }
 
-    public List<ChoiceCreateDTO> getChoices() {
+    public List<ChoiceCreateRequestDTO> getChoices() {
         return choices;
     }
 
-    public void setChoices(List<ChoiceCreateDTO> choices) {
+    public void setChoices(List<ChoiceCreateRequestDTO> choices) {
         this.choices = choices;
     }
 }
