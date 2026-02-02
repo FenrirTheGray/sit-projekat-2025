@@ -61,13 +61,12 @@ public class OrderService {
 					ProductInCartArticle productInCartArticle = (ProductInCartArticle) product;
 
 					ArticleChoiceCreateRequestDTO articleChoiceCreateRequestDTO = new ArticleChoiceCreateRequestDTO();
-					articleChoiceCreateRequestDTO.setArticle(productInCartArticle.getProduct().getId());
+					articleChoiceCreateRequestDTO.setArticle("article/"+productInCartArticle.getProduct().getId());
 					articleChoiceCreateRequestDTO.setAmount(productInCartArticle.getNumberOrdered());
 
 					List<String> modifiersList = new ArrayList<String>();
-
-					for (Modifier m : product.getModifierToppings()) {
-						modifiersList.add(m.getId());
+					for (Modifier m : productInCartArticle.getModifierToppings()) {
+						modifiersList.add("modifier/"+m.getId());
 					}
 
 					articleChoiceCreateRequestDTO.setModifierList(modifiersList);
@@ -88,21 +87,39 @@ public class OrderService {
 					List<ArticleChoiceCreateRequestDTO> ArticleChoiceCreateRequestDTOList = new ArrayList<ArticleChoiceCreateRequestDTO>();
 					
 					ArticleChoiceCreateRequestDTO articleChoiceCreateRequestDTOMain = new ArticleChoiceCreateRequestDTO();
-					articleChoiceCreateRequestDTOMain.setArticle(productInCartCombo.getMain().getId());
+					articleChoiceCreateRequestDTOMain.setArticle(main.getId());
 					articleChoiceCreateRequestDTOMain.setClassName("articleDTO");
+					List<String> modifiersListMain = new ArrayList<String>();
+					
+					for (Modifier m : main.getModifiers()) {
+						modifiersListMain.add(m.getId());
+					}
+					articleChoiceCreateRequestDTOMain.setModifierList(modifiersListMain);
 					
 					ArticleChoiceCreateRequestDTOList.add(articleChoiceCreateRequestDTOMain);
 					
 					ArticleChoiceCreateRequestDTO articleChoiceCreateRequestDTOSide = new ArticleChoiceCreateRequestDTO();
-					articleChoiceCreateRequestDTOSide.setArticle(productInCartCombo.getMain().getId());
+					articleChoiceCreateRequestDTOSide.setArticle(side.getId());
 					articleChoiceCreateRequestDTOSide.setClassName("articleDTO");
+					List<String> modifiersListSide = new ArrayList<String>();
 					
+					for (Modifier m : side.getModifiers()) {
+						modifiersListSide.add(m.getId());
+					}
+					
+					articleChoiceCreateRequestDTOSide.setModifierList(modifiersListSide);
 					ArticleChoiceCreateRequestDTOList.add(articleChoiceCreateRequestDTOSide);
 					
 					ArticleChoiceCreateRequestDTO articleChoiceCreateRequestDTODrink = new ArticleChoiceCreateRequestDTO();
-					articleChoiceCreateRequestDTODrink.setArticle(productInCartCombo.getMain().getId());
+					articleChoiceCreateRequestDTODrink.setArticle(drink.getId());
 					articleChoiceCreateRequestDTODrink.setClassName("articleDTO");
 					
+					List<String> modifiersListDrink = new ArrayList<String>();
+					for (Modifier m : drink.getModifiers()) {
+						modifiersListDrink.add(m.getId());
+					}
+					
+					articleChoiceCreateRequestDTODrink.setModifierList(modifiersListDrink);
 					ArticleChoiceCreateRequestDTOList.add(articleChoiceCreateRequestDTODrink);
 					
 					comboChoiceCreateRequestDTO.setArticleChoiceList(ArticleChoiceCreateRequestDTOList);
