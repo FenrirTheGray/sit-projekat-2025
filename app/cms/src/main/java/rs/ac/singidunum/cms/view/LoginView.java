@@ -22,6 +22,7 @@ public class LoginView extends VerticalLayout {
 	private static final long serialVersionUID = 6313156717813295316L;
 
     private final LoginPresenter presenter;
+    private LoginForm loginForm;
 
 	public LoginView(UserService userService) {
         this.presenter = new LoginPresenter(this, userService);
@@ -41,7 +42,7 @@ public class LoginView extends VerticalLayout {
 		VerticalLayout branding = new VerticalLayout(computerIcon, title);
 		branding.setAlignItems(Alignment.CENTER);
 
-		LoginForm loginForm = new LoginForm();
+		loginForm = new LoginForm();
 
 		LoginI18n login = LoginI18n.createDefault();
         login.getForm().setUsername("Email");
@@ -71,5 +72,9 @@ public class LoginView extends VerticalLayout {
         content.setSpacing(true);
 
         add(content);
+	}
+
+	public void showLoginError() {
+		loginForm.setError(true);
 	}
 }
