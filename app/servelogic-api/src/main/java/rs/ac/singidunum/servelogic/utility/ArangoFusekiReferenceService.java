@@ -4,10 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import rs.ac.singidunum.servelogic.model.Article;
-import rs.ac.singidunum.servelogic.model.Category;
-import rs.ac.singidunum.servelogic.model.Combo;
-import rs.ac.singidunum.servelogic.model.Modifier;
+import rs.ac.singidunum.servelogic.model.*;
 import rs.ac.singidunum.servelogic.repository.CategoryRepository;
 import rs.ac.singidunum.servelogic.repository.ModifierTypeRepository;
 

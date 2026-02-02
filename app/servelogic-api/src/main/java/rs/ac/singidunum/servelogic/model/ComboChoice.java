@@ -9,7 +9,7 @@ public class ComboChoice extends Choice {
 
     @Ref
     private Combo combo;
-    private List<ArticleChoice> articleChoiceList = new ArrayList<>();
+    private List<ArticleChoice> articleChoiceList = new ArrayList<>(3);
 
     public ComboChoice(){}
 
@@ -25,6 +25,7 @@ public class ComboChoice extends Choice {
 
     @Override
     public void setProduct(Product c) {
+        if(c == null) return;
         if(!c.getClass().getSimpleName().equals("Combo")) throw new ClassCastException();
 
         this.combo = (Combo) c;
@@ -32,6 +33,14 @@ public class ComboChoice extends Choice {
     @Override
     public Combo getProduct(){
         return this.combo;
+    }
+
+    public Combo getCombo() {
+        return this.getProduct();
+    }
+
+    public void setCombo(Combo combo) {
+        this.setProduct(combo);
     }
 
     public List<ArticleChoice> getArticleChoiceList() {

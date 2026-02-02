@@ -1,16 +1,16 @@
 package rs.ac.singidunum.servelogic.dto.response;
 
+import rs.ac.singidunum.servelogic.model.Choice;
 import rs.ac.singidunum.servelogic.model.OrderStatus;
 
-import java.util.Date;
 import java.util.List;
 
 public class OrderResponseDTO {
     private String key;
-    private Date createdAt;
+    private String createdAt;
     private OrderStatus status;
     private UserResponseDTO user;
-    private List<ChoiceResponseDTO> choices;
+    private List<Choice> choices;
 
     public String getKey() {
         return key;
@@ -20,11 +20,11 @@ public class OrderResponseDTO {
         this.key = key;
     }
 
-    public Date getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -44,11 +44,11 @@ public class OrderResponseDTO {
         this.user = user;
     }
 
-    public List<ChoiceResponseDTO> getChoices() {
+    public List<Choice> getChoices() {
         return choices;
     }
 
-    public void setChoices(List<ChoiceResponseDTO> choices) {
+    public void setChoices(List<Choice> choices) {
         this.choices = choices;
     }
 }

@@ -43,11 +43,19 @@ public class ArticleChoice extends Choice {
         return this.article;
     }
 
-    public List<Modifier> getModifiers() {
+    public Article getArticle() {
+        return this.getProduct();
+    }
+
+    public void setArticle(Article article) {
+        this.setProduct(article);
+    }
+
+    public List<Modifier> getModifierList() {
         return modifierList;
     }
-    public void setModifiers(List<Modifier> modifiers) {
-        this.modifierList = modifiers;
+    public void setModifierList(List<Modifier> modifierList) {
+        this.modifierList = modifierList;
     }
     public void addModifier(Modifier modifier) {
         this.modifierList.add(modifier);
