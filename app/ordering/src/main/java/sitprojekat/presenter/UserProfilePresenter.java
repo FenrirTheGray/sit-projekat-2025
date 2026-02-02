@@ -6,17 +6,19 @@ import com.vaadin.flow.component.notification.NotificationVariant;
 
 import sitprojekat.interfaces.UserProfileViewInterface;
 import sitprojekat.model.UserAccount;
+import sitprojekat.service.UserService;
 
 
 public class UserProfilePresenter {
 
 	private UserProfileViewInterface view;
 	private UserAccount user;
+	private UserService service;
 	
 	
-	public UserProfilePresenter(UserProfileViewInterface view, UserAccount user) {
-		this.view = view;
-		this.user = user;
+	public UserProfilePresenter(UserService service) {
+		this.service=service;
+
 	}
 	
 	public void saveChanges() {
@@ -41,5 +43,15 @@ public class UserProfilePresenter {
 
 	public void backClick() {
 		UI.getCurrent().getPage().getHistory().back();
+	}
+
+	public void  LogOut() {
+		service.logout();
+		    
+	}
+
+	public void setView(UserProfileViewInterface userProfileView) {
+		this.view=view;
+		
 	}
 }

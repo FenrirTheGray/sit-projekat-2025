@@ -34,7 +34,7 @@ public class OrderCreationView extends VerticalLayout implements OrderCreationVi
 		backButton.addClassName("brownButton");
 		backButton.getStyle().set("cursor", "pointer");
 		backButton.addClickListener(e -> presenter.backClick());
-		
+
 		presenter.setTotalPrice();
 		titleH2.addClassName("whiteText");
 
@@ -91,6 +91,15 @@ public class OrderCreationView extends VerticalLayout implements OrderCreationVi
 
 		Button createOrderButton = new Button();
 		createOrderButton.setText("Kreiraj Porudzbinu");
+		createOrderButton.addClickListener(e -> {
+
+			if (choice != "") {
+				presenter.createOrder(addressTextField.getValue(),telephoneTextField.getValue(),choice);
+			}
+		}
+
+		);
+
 		createOrderButton.addClassName("createOrderButton");
 
 		Span disclamerSpan = new Span();
@@ -109,7 +118,7 @@ public class OrderCreationView extends VerticalLayout implements OrderCreationVi
 		orderContainer.setAlignItems(Alignment.CENTER);
 		orderContainer.setJustifyContentMode(JustifyContentMode.CENTER);
 
-		add(backButton, orderContainer);	
+		add(backButton, orderContainer);
 	}
 
 	@Override

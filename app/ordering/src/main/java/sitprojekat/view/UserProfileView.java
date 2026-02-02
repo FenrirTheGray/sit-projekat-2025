@@ -32,10 +32,9 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 	private PasswordField confirmPasswordPasswordField = new PasswordField();
 	private final UserProfilePresenter presenter;
 	private UserAccount user;
-	public UserProfileView(UserAccountService service) {
-		this.user=service.getUser();
-		this.presenter=new UserProfilePresenter(this, user);
-		
+	public UserProfileView(UserProfilePresenter presenter) {
+		this.presenter=presenter;
+		presenter.setView(this);
 		Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
 		Button backButton=new Button("Povratak",backArrowIcon);
 		backButton.addClassName("brownButton");
@@ -89,7 +88,7 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 		Button logOutButton =new Button();
 		logOutButton.setText("Odjavi se");
 		logOutButton.addClassName("logOutButton");
-		
+		logOutButton.addClickListener(e->presenter.LogOut());		
 		VerticalLayout userProfileContainer = new VerticalLayout(); 
 			
 		userProfileContainer.add(emailField,addressTextField,telephoneTextField,passwordPasswordField,confirmPasswordPasswordField,saveChangesButton,logOutButton);

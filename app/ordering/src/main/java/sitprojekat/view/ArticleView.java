@@ -62,7 +62,6 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 		articleName.addClassName("whiteText");
 		
 
-		//Span articleDescription=new Span(mainArticle.getDescription());
 		articleDescription.addClassName("DescriptionSpan");
 		
 		Image articleImage=new Image("/images/image_burger.jpg","slika primer proizvoda");

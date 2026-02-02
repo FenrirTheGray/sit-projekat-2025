@@ -3,6 +3,8 @@ package sitprojekat.presenter;
 import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 
 import sitprojekat.interfaces.LoginScreenViewInterface;
 import sitprojekat.service.UserService;
@@ -17,25 +19,27 @@ public class LoginScreenPresenter {
         this.userService = userService;
     }
 
-    public boolean login(){
+    public void login(){
         String email = this.view.getEmailField().getValue();
         String password = this.view.getPasswordPasswordField().getValue();
 
         if(email == null || email.isEmpty()) {
-            //TODO: Red border email and display error
-            return false;
+        	Notification notification = Notification.show("email je prazan", 3000, Notification.Position.BOTTOM_CENTER); // sta pise , koliko traje, pozicija
+    	    notification.addThemeVariants(NotificationVariant.LUMO_ERROR);// koje je boje
+            return ;
         }
         if(password == null || password.isEmpty()){
-            //TODO: Red border password and display error
-            return false;
+        	Notification notification = Notification.show("password je prazan", 3000, Notification.Position.BOTTOM_CENTER); // sta pise , koliko traje, pozicija
+    	    notification.addThemeVariants(NotificationVariant.LUMO_ERROR);// koje je boje
+            return ; 
         }
 
-        if(userService.login(email, password)) return true;
+        if(userService.login(email, password)) UI.getCurrent().navigate("OrderCreation");
         else {
-            //TODO: Error handling
+        	Notification notification = Notification.show("uneti podaci se ne podudaraju sa nalogom", 3000, Notification.Position.BOTTOM_CENTER); // sta pise , koliko traje, pozicija
+    	    notification.addThemeVariants(NotificationVariant.LUMO_ERROR);// koje je boje
+            return ;
         }
-
-        return false;
     }
 
     public void logout(){

@@ -3,9 +3,14 @@ package sitprojekat.presenter;
 import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.spring.annotation.UIScope;
 
+import sitprojekat.dto.OrderResponseDTO;
 import sitprojekat.interfaces.OrderDeniedViewInterface;
+import sitprojekat.service.OrderService;
+import sitprojekat.service.ProductInCartService;
 import sitprojekat.view.NotificationAddToCardNotValidView;
 
 @Component
@@ -13,7 +18,16 @@ import sitprojekat.view.NotificationAddToCardNotValidView;
 public class OrderDeniedPresenter {
 	
 	private OrderDeniedViewInterface view;
+	private ProductInCartService cartService;
+	private OrderService orderService;
+	private String address;
+	private String telephone;
+	private String paymentType;
 	
+	public OrderDeniedPresenter(ProductInCartService cartService,OrderService orderService) {
+		this.cartService = cartService;
+		this.orderService=orderService;
+	}	
 
 	public void setView(OrderDeniedViewInterface view) {
 		this.view=view;
@@ -22,14 +36,32 @@ public class OrderDeniedPresenter {
 
 
 	public void retry() {
-		NotificationAddToCardNotValidView notif=new NotificationAddToCardNotValidView();
-		notif.open();
-		
+		OrderResponseDTO orderResponseDTO=orderService.createOrders(cartService.getProducts(),address,telephone,paymentType,cartService.getTotalPrice());
+			
+			if(orderResponseDTO!=null) {
+				
+				Notification notification = Notification.show("Porudzbina je napravljenja", 3000, Notification.Position.BOTTOM_START); // sta pise , koliko traje, pozicija
+			    notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);// koje je boje
+				
+				cartService.getProducts().clear();
+				UI.getCurrent().navigate("Main");
+			}
 	}
 
 
 	public void backClick() {
-		UI.getCurrent().getPage().getHistory().back();
+		UI.getCurrent().navigate("Cart");
 	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public void setPaymentType(String paymentType) {
+		this.paymentType = paymentType;
+	}
+	
 
 }
