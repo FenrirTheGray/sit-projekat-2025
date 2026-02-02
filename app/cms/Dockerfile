@@ -9,9 +9,8 @@ RUN mvn dependency:go-offline -B
 # Copy source code
 COPY src ./src
 
-# Build Vaadin frontend and package
-RUN mvn vaadin:prepare-frontend vaadin:build-frontend && \
-    mvn clean package -DskipTests
+# Build with production profile (includes frontend build)
+RUN mvn clean package -Pproduction -DskipTests
 
 # Runtime stage
 FROM eclipse-temurin:23-jre

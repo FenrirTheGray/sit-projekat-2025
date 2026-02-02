@@ -32,8 +32,8 @@
    LOGIN FORM BOX
    -------------------------------------------- */
 .login-form-box {
-    width: 600px;
-    min-width: 480px;
+    width: 400px;
+    min-width: 400px;
     background-color: var(--cms-surface);
     border: 1px solid var(--cms-border);
     border-radius: 12px;
@@ -42,8 +42,16 @@
 }
 
 /* Vaadin Login Form Wrapper */
+.login-form-box vaadin-login-form {
+    display: block;
+    width: 100%;
+}
+
 .login-form-box vaadin-login-form-wrapper {
+    display: block;
     background-color: var(--cms-surface);
+    width: 100%;
+    max-width: none;
 }
 
 .login-form-box vaadin-login-form-wrapper::part(form) {
@@ -76,7 +84,7 @@
     --vaadin-input-field-label-color: var(--cms-text-secondary);
     --vaadin-input-field-placeholder-color: var(--cms-text-muted);
     margin-bottom: 0.75rem;
-    width: 480px;
+    width: 100%;
 }
 
 .login-form-box vaadin-text-field::part(input-field),
