@@ -12,7 +12,7 @@ public class OrderResponseDTO {
     private String createdAt;
     private OrderStatus status;
     private UserResponseDTO user;
-    private List<Choice> choices;
+    private List<ChoiceResponseDTO> choices;
 
     public String getKey() {
         return key;
@@ -46,11 +46,12 @@ public class OrderResponseDTO {
         this.user = user;
     }
 
-    public List<Choice> getChoices() {
-        return choices;
-    }
+	public List<ChoiceResponseDTO> getChoices() {
+		return choices;
+	}
 
-    public void setChoices(List<Choice> choices) {
-        this.choices = choices;
-    }
+	public void setChoices(List<ChoiceResponseDTO> choices) {
+		this.choices = choices;
+	}
+
 }
