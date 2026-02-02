@@ -53,7 +53,7 @@ public class MasterHeaderNavLayout extends AppLayout implements AfterNavigationO
         });
         userMenu.add(new Hr());
         userMenu.addItem("Odjava", e -> {
-            UI.getCurrent().navigate("");
+            UI.getCurrent().navigate("/login");
         });
 
         Span labelKorisnik = new Span("Korisnik");

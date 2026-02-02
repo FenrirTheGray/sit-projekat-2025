@@ -1,5 +1,7 @@
 package rs.ac.singidunum.cms.dto.create;
 
+import java.util.List;
+
 public class ArticleCreateRequestDTO {
 
 	private String name;
@@ -8,6 +10,7 @@ public class ArticleCreateRequestDTO {
 	private Double basePrice;
 	private Boolean active;
 	private String categoryId;
+	private List<String> modifiers;
 
 	public String getName() {
 		return name;
@@ -55,5 +58,13 @@ public class ArticleCreateRequestDTO {
 
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public List<String> getModifiers() {
+		return modifiers;
+	}
+
+	public void setModifiers(List<String> modifiers) {
+		this.modifiers = modifiers;
 	}
 }

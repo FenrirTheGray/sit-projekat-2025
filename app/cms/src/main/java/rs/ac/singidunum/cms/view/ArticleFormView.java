@@ -19,7 +19,6 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import rs.ac.singidunum.cms.dto.response.ArticleResponseDTO;
 import rs.ac.singidunum.cms.dto.response.CategoryResponseDTO;
-import rs.ac.singidunum.cms.interfaces.ArticleFormViewInterface;
 import rs.ac.singidunum.cms.presenter.ArticleFormPresenter;
 import rs.ac.singidunum.cms.service.CategoryService;
 
@@ -27,7 +26,7 @@ import java.util.List;
 
 @Route(value = "products/articles/form/:key?", layout = MasterHeaderNavLayout.class)
 @CssImport("./style/style-views.css")
-public class ArticleFormView extends VerticalLayout implements ArticleFormViewInterface, BeforeEnterObserver {
+public class ArticleFormView extends VerticalLayout implements BeforeEnterObserver {
 
 	private final ArticleFormPresenter presenter;
 	private final CategoryService categoryService;
@@ -158,7 +157,6 @@ public class ArticleFormView extends VerticalLayout implements ArticleFormViewIn
 		cancelButton.addClickListener(e -> presenter.onCancelClick());
 	}
 
-	@Override
 	public void setArticleData(ArticleResponseDTO article) {
 		nameField.setValue(article.getName() != null ? article.getName() : "");
 		descriptionField.setValue(article.getDescription() != null ? article.getDescription() : "");
@@ -171,7 +169,6 @@ public class ArticleFormView extends VerticalLayout implements ArticleFormViewIn
 		}
 	}
 
-	@Override
 	public void clearForm() {
 		nameField.clear();
 		descriptionField.clear();
@@ -182,86 +179,71 @@ public class ArticleFormView extends VerticalLayout implements ArticleFormViewIn
 		clearValidationErrors();
 	}
 
-	@Override
 	public String getArticleName() {
 		return nameField.getValue();
 	}
 
-	@Override
 	public String getArticleDescription() {
 		return descriptionField.getValue();
 	}
 
-	@Override
 	public String getArticleImageUrl() {
 		return imageUrlField.getValue();
 	}
 
-	@Override
 	public Double getArticleBasePrice() {
 		return basePriceField.getValue();
 	}
 
-	@Override
 	public Boolean getArticleActive() {
 		return activeCheckbox.getValue();
 	}
 
-	@Override
 	public String getSelectedCategoryId() {
 		CategoryResponseDTO selected = categoryComboBox.getValue();
 		return selected != null ? selected.getId() : null;
 	}
 
-	@Override
 	public void showLoading() {
 		loadingIndicator.setVisible(true);
 		saveButton.setEnabled(false);
 	}
 
-	@Override
 	public void hideLoading() {
 		loadingIndicator.setVisible(false);
 		saveButton.setEnabled(true);
 	}
 
-	@Override
 	public void showError(String message) {
 		Notification notification = Notification.show(message, 5000, Notification.Position.BOTTOM_START);
 		notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
 	}
 
-	@Override
 	public void showSuccess(String message) {
 		Notification notification = Notification.show(message, 3000, Notification.Position.BOTTOM_START);
 		notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 	}
 
-	@Override
 	public void showNameError(String message) {
 		nameField.setInvalid(true);
 		nameField.setErrorMessage(message);
 	}
 
-	@Override
 	public void showDescriptionError(String message) {
 		descriptionField.setInvalid(true);
 		descriptionField.setErrorMessage(message);
 	}
 
-	@Override
 	public void showPriceError(String message) {
 		basePriceField.setInvalid(true);
 		basePriceField.setErrorMessage(message);
 	}
 
-	@Override
 	public void showCategoryError(String message) {
 		categoryComboBox.setInvalid(true);
 		categoryComboBox.setErrorMessage(message);
 	}
 
-	@Override
 	public void clearValidationErrors() {
 		nameField.setInvalid(false);
 		descriptionField.setInvalid(false);
@@ -269,7 +251,6 @@ public class ArticleFormView extends VerticalLayout implements ArticleFormViewIn
 		categoryComboBox.setInvalid(false);
 	}
 
-	@Override
 	public void navigateBackToArticles() {
 		getUI().ifPresent(ui -> ui.navigate("products/articles"));
 	}

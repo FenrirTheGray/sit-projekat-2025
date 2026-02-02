@@ -381,7 +381,8 @@ vaadin-notification-card[theme~="error"] {
     width: 100%;
     min-width: 100%;
     max-width: 100%;
-    min-height: 80px;
+    height: auto;
+    max-height: 125px;
     transition: all var(--cms-transition);
 }
 

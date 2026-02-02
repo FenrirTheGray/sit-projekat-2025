@@ -3,8 +3,8 @@ package rs.ac.singidunum.cms.presenter;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import rs.ac.singidunum.cms.dto.response.ArticleResponseDTO;
-import rs.ac.singidunum.cms.interfaces.ArticlesViewInterface;
 import rs.ac.singidunum.cms.service.ArticleService;
+import rs.ac.singidunum.cms.view.ArticlesView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @UIScope
 public class ArticlesPresenter {
 
-	private ArticlesViewInterface view;
+	private ArticlesView view;
 	private final ArticleService articleService;
 	private List<ArticleResponseDTO> allArticles = new ArrayList<>();
 
@@ -22,7 +22,7 @@ public class ArticlesPresenter {
 		this.articleService = articleService;
 	}
 
-	public void setView(ArticlesViewInterface view) {
+	public void setView(ArticlesView view) {
 		this.view = view;
 	}
 

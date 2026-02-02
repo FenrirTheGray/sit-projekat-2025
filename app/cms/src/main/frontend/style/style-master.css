@@ -252,7 +252,7 @@ vaadin-context-menu-overlay::part(content) {
 vaadin-context-menu-overlay vaadin-context-menu-item {
     color: var(--cms-text);
     background-color: transparent;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.5rem;
     font-size: 0.875rem;
     transition: all var(--cms-transition);
 }

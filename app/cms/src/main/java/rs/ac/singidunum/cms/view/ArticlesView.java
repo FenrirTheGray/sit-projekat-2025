@@ -16,14 +16,13 @@ import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import rs.ac.singidunum.cms.dto.response.ArticleResponseDTO;
-import rs.ac.singidunum.cms.interfaces.ArticlesViewInterface;
 import rs.ac.singidunum.cms.presenter.ArticlesPresenter;
 
 import java.util.List;
 
 @Route(value = "products/articles", layout = MasterHeaderNavLayout.class)
 @CssImport("./style/style-views.css")
-public class ArticlesView extends VerticalLayout implements ArticlesViewInterface {
+public class ArticlesView extends VerticalLayout {
 
 	private final ArticlesPresenter presenter;
 	private TextField searchBar;
@@ -154,7 +153,6 @@ public class ArticlesView extends VerticalLayout implements ArticlesViewInterfac
 		return articleCard;
 	}
 
-	@Override
 	public void setArticles(List<ArticleResponseDTO> articles) {
 		containerAllArticles.removeAll();
 		for (ArticleResponseDTO article : articles) {
@@ -163,39 +161,32 @@ public class ArticlesView extends VerticalLayout implements ArticlesViewInterfac
 		}
 	}
 
-	@Override
 	public void clearArticles() {
 		containerAllArticles.removeAll();
 	}
 
-	@Override
 	public String getSearchText() {
 		return searchBar.getValue();
 	}
 
-	@Override
 	public void showLoading() {
 		loadingIndicator.setVisible(true);
 	}
 
-	@Override
 	public void hideLoading() {
 		loadingIndicator.setVisible(false);
 	}
 
-	@Override
 	public void showError(String message) {
 		Notification notification = Notification.show(message, 5000, Notification.Position.BOTTOM_START);
 		notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
 	}
 
-	@Override
 	public void showSuccess(String message) {
 		Notification notification = Notification.show(message, 3000, Notification.Position.BOTTOM_START);
 		notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 	}
 
-	@Override
 	public void showEmptyState(String message) {
 		containerAllArticles.removeAll();
 		Span emptyMessage = new Span(message);
@@ -203,17 +194,14 @@ public class ArticlesView extends VerticalLayout implements ArticlesViewInterfac
 		containerAllArticles.add(emptyMessage);
 	}
 
-	@Override
 	public void navigateToArticleEdit(String articleKey) {
 		getUI().ifPresent(ui -> ui.navigate("products/articles/form/" + articleKey));
 	}
 
-	@Override
 	public void navigateToArticleCreate() {
 		getUI().ifPresent(ui -> ui.navigate("products/articles/form"));
 	}
 
-	@Override
 	public void showDeleteConfirmation(String articleKey, String articleName) {
 		ConfirmDialog dialog = new ConfirmDialog();
 		dialog.setHeader("Potvrda brisanja");

@@ -10,20 +10,22 @@ import java.util.concurrent.ExecutionException;
 public class UserStoreService {
 
     public String getFromCookie(String cookieName){
-        //TODO: Test this
-        //WebStorage.getItem(WebStorage.Storage.SESSION_STORAGE);
+        var request = VaadinService.getCurrentRequest();
+        if (request == null) {
+            return "";
+        }
 
-        Cookie[] cookies = VaadinService.getCurrentRequest().getCookies();
-        String value = "";
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            return "";
+        }
 
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("accessToken".equals(cookie.getName())) {
-                    value = cookie.getValue();
-                }
+        for (Cookie cookie : cookies) {
+            if (cookieName.equals(cookie.getName())) {
+                return cookie.getValue();
             }
         }
-        return value;
+        return "";
     }
 
     public void setToCookie(String cookieName, String cookieValue){

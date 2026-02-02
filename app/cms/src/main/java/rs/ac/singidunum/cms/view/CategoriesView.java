@@ -16,7 +16,6 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import rs.ac.singidunum.cms.dto.response.CategoryResponseDTO;
-import rs.ac.singidunum.cms.interfaces.CategoriesViewInterface;
 import rs.ac.singidunum.cms.presenter.CategoriesPresenter;
 import rs.ac.singidunum.cms.presenter.CategoryFormPresenter;
 
@@ -24,10 +23,9 @@ import java.util.List;
 
 @Route(value = "products/categories", layout = MasterHeaderNavLayout.class)
 @CssImport("./style/style-views.css")
-public class CategoriesView extends VerticalLayout implements CategoriesViewInterface {
+public class CategoriesView extends VerticalLayout {
 
 	private final CategoriesPresenter presenter;
-	private final CategoryFormPresenter categoryFormPresenter;
 	private CategoryFormDialog categoryFormDialog;
 	private TextField searchBar;
 	private Button buttonAdd;
@@ -36,7 +34,6 @@ public class CategoriesView extends VerticalLayout implements CategoriesViewInte
 
 	public CategoriesView(CategoriesPresenter presenter, CategoryFormPresenter categoryFormPresenter) {
 		this.presenter = presenter;
-		this.categoryFormPresenter = categoryFormPresenter;
 		this.presenter.setView(this);
 
 		this.categoryFormDialog = new CategoryFormDialog(
@@ -158,7 +155,6 @@ public class CategoriesView extends VerticalLayout implements CategoriesViewInte
 	}
 
 
-	@Override
 	public void setCategories(List<CategoryResponseDTO> categories) {
 		containerAllCategories.removeAll();
 		for (CategoryResponseDTO category : categories) {
@@ -167,39 +163,32 @@ public class CategoriesView extends VerticalLayout implements CategoriesViewInte
 		}
 	}
 
-	@Override
 	public void clearCategories() {
 		containerAllCategories.removeAll();
 	}
 
-	@Override
 	public String getSearchText() {
 		return searchBar.getValue();
 	}
 
-	@Override
 	public void showLoading() {
 		loadingIndicator.setVisible(true);
 	}
 
-	@Override
 	public void hideLoading() {
 		loadingIndicator.setVisible(false);
 	}
 
-	@Override
 	public void showError(String message) {
 		Notification notification = Notification.show(message, 5000, Notification.Position.BOTTOM_START);
 		notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
 	}
 
-	@Override
 	public void showSuccess(String message) {
 		Notification notification = Notification.show(message, 3000, Notification.Position.BOTTOM_START);
 		notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 	}
 
-	@Override
 	public void showEmptyState(String message) {
 		containerAllCategories.removeAll();
 		Span emptyMessage = new Span(message);
@@ -207,17 +196,14 @@ public class CategoriesView extends VerticalLayout implements CategoriesViewInte
 		containerAllCategories.add(emptyMessage);
 	}
 
-	@Override
 	public void openCategoryEditDialog(String categoryId) {
 		categoryFormDialog.openForEdit(categoryId);
 	}
 
-	@Override
 	public void openCategoryCreateDialog() {
 		categoryFormDialog.openForCreate();
 	}
 
-	@Override
 	public void showDeleteConfirmation(String categoryId, String categoryName) {
 		ConfirmDialog dialog = new ConfirmDialog();
 		dialog.setHeader("Potvrda brisanja");

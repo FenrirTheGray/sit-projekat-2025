@@ -5,14 +5,14 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import rs.ac.singidunum.cms.dto.create.ArticleCreateRequestDTO;
 import rs.ac.singidunum.cms.dto.response.ArticleResponseDTO;
 import rs.ac.singidunum.cms.dto.update.ArticleUpdateRequestDTO;
-import rs.ac.singidunum.cms.interfaces.ArticleFormViewInterface;
 import rs.ac.singidunum.cms.service.ArticleService;
+import rs.ac.singidunum.cms.view.ArticleFormView;
 
 @SpringComponent
 @UIScope
 public class ArticleFormPresenter {
 
-	private ArticleFormViewInterface view;
+	private ArticleFormView view;
 	private final ArticleService articleService;
 	private String editingArticleKey;
 
@@ -20,7 +20,7 @@ public class ArticleFormPresenter {
 		this.articleService = articleService;
 	}
 
-	public void setView(ArticleFormViewInterface view) {
+	public void setView(ArticleFormView view) {
 		this.view = view;
 	}
 
@@ -78,6 +78,7 @@ public class ArticleFormPresenter {
 		createDTO.setBasePrice(view.getArticleBasePrice());
 		createDTO.setActive(view.getArticleActive());
 		createDTO.setCategoryId(view.getSelectedCategoryId());
+		createDTO.setModifiers(java.util.Collections.emptyList());
 
 		articleService.create(createDTO);
 		view.showSuccess("Artikal uspešno kreiran");

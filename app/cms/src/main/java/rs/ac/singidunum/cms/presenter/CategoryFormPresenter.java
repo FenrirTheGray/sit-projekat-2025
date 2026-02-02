@@ -5,14 +5,14 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import rs.ac.singidunum.cms.dto.create.CategoryCreateRequestDTO;
 import rs.ac.singidunum.cms.dto.response.CategoryResponseDTO;
 import rs.ac.singidunum.cms.dto.update.CategoryUpdateRequestDTO;
-import rs.ac.singidunum.cms.interfaces.CategoryFormViewInterface;
 import rs.ac.singidunum.cms.service.CategoryService;
+import rs.ac.singidunum.cms.view.CategoryFormDialog;
 
 @SpringComponent
 @UIScope
 public class CategoryFormPresenter {
 
-	private CategoryFormViewInterface view;
+	private CategoryFormDialog view;
 	private final CategoryService categoryService;
 	private String editingCategoryId;
 
@@ -20,7 +20,7 @@ public class CategoryFormPresenter {
 		this.categoryService = categoryService;
 	}
 
-	public void setView(CategoryFormViewInterface view) {
+	public void setView(CategoryFormDialog view) {
 		this.view = view;
 	}
 
