@@ -289,6 +289,8 @@ vaadin-notification-card {
     border-radius: 8px;
     box-shadow: var(--cms-shadow-lg);
     color: var(--cms-text);
+    width: fit-content;
+    max-width: 400px;
 }
 
 vaadin-notification-card[theme~="success"] {
@@ -470,7 +472,7 @@ vaadin-notification-card[theme~="error"] {
 
 .status-badge--active {
     background-color: var(--cms-success-muted);
-    color: var(--cms-success);
+    color: var(--cms-text);
 }
 
 .status-badge--inactive {
