@@ -1,5 +1,9 @@
 package sitprojekat.presenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
@@ -9,6 +13,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 
 import sitprojekat.dto.OrderResponseDTO;
 import sitprojekat.interfaces.OrderCreationViewInterface;
+import sitprojekat.model.ProductInCart;
 import sitprojekat.service.OrderService;
 import sitprojekat.service.ProductInCartService;
 import sitprojekat.service.UserAccountService;
@@ -21,6 +26,7 @@ public class OrderCreationPresenter {
     private ProductInCartService cartService;
     private OrderService orderService;
     private OrderDeniedPresenter orderDeniedPresenter;
+    @Autowired
     private OrderSuccessPresenter orderSuccessPresenter;
     private UserAccountService userAccountService;
     
@@ -54,10 +60,11 @@ public class OrderCreationPresenter {
 	
 			if(orderResponseDTO!=null) {
 			
-				Notification notification = Notification.show("Porudzbina je napravljenja", 3000, Notification.Position.BOTTOM_START); // sta pise , koliko traje, pozicija
-				notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);// koje je boje
 				orderSuccessPresenter.setOrderID(orderResponseDTO.getKey());
-				orderSuccessPresenter.setProductInCart(cartService.getProducts());
+				
+				List<ProductInCart> productsInOrder = new ArrayList<ProductInCart>();
+				productsInOrder.addAll(cartService.getProducts());
+				orderSuccessPresenter.setProductInCart(productsInOrder);
 				
 				cartService.getProducts().clear();
 			

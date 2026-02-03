@@ -150,6 +150,7 @@ public class OrderService {
 			orderCreateRequestDTO.setStatus(OrderStatus.CREATED);
 			orderCreateRequestDTO.setChoices(choices);
 			
+			
 			return httpService.post(httpService.API_BASE_URL + controllerPath, orderCreateRequestDTO, OrderResponseDTO.class, true);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -93,7 +93,7 @@ public class OrderCreationView extends VerticalLayout implements OrderCreationVi
 		createOrderButton.setText("Kreiraj Porudzbinu");
 		createOrderButton.addClickListener(e -> {
 
-			if (choice != "") {
+			if (choice != "" && !addressTextField.isEmpty() && !telephoneTextField.isEmpty()) {
 				presenter.createOrder(addressTextField.getValue(),telephoneTextField.getValue(),choice);
 			}
 		}

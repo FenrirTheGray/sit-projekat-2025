@@ -14,6 +14,7 @@ import sitprojekat.model.ProductInCart;
 @UIScope
 public class OrderSuccessPresenter {
 
+	
 	private OrderSuccessViewInterface view;
 	private String orderID;
 	private List<ProductInCart> productInCart;
@@ -34,10 +35,6 @@ public class OrderSuccessPresenter {
 		UI.getCurrent().navigate("Main");
 	}
 
-
-
-
-
 	public void setOrderID(String orderID) {
 		this.orderID = orderID;
 	}
@@ -46,6 +43,13 @@ public class OrderSuccessPresenter {
 
 	public void setProductInCart(List<ProductInCart> productInCart) {
 		this.productInCart = productInCart;
+	}
+
+
+	public void updateView() {
+		view.setOrderIDSpan(this.orderID);
+		view.setItemsOrderedSpan(this.productInCart);
+		
 	}
 	
 	
