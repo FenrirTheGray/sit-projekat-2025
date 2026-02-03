@@ -33,6 +33,12 @@ public class ArticleService {
 				.collect(Collectors.toList());
 		
 	}
+
+	public List<Article> findAllInit(){
+		return populator.populateAllArticles(StreamSupport
+				.stream(repo.findAll().spliterator(), false)
+				.collect(Collectors.toList()));
+	}
 	
 	public Optional<ArticleResponseDTO> findByKey(String key) {
 		
@@ -47,9 +53,7 @@ public class ArticleService {
 	public Optional<ArticleResponseDTO> create(ArticleCreateRequestDTO item) {
 		
 		Article entity = mapper.createToEntity(item);
-		if (entity == null || entity.getCategoryId() == null) {
-			return Optional.empty();
-		}
+
 		entity = populator.populate(entity);
 		if (entity != null && entity.getCategory() != null) {
 			return Optional.of(mapper.toResponse(repo.save(entity))); 				
