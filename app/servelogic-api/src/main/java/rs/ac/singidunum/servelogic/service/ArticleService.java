@@ -1,17 +1,30 @@
 package rs.ac.singidunum.servelogic.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
 import rs.ac.singidunum.servelogic.dto.create.ArticleCreateRequestDTO;
+import rs.ac.singidunum.servelogic.dto.file.ArticleFileDTO;
+import rs.ac.singidunum.servelogic.dto.file.ArticleXMLWrapper;
 import rs.ac.singidunum.servelogic.dto.response.ArticleResponseDTO;
 import rs.ac.singidunum.servelogic.dto.update.ArticleUpdateRequestDTO;
 import rs.ac.singidunum.servelogic.mapper.ArticleMapper;
 import rs.ac.singidunum.servelogic.model.Article;
+import rs.ac.singidunum.servelogic.repository.CategoryRepository;
 import rs.ac.singidunum.servelogic.repository.IArticleRepository;
+import rs.ac.singidunum.servelogic.repository.IModifierRepository;
 import rs.ac.singidunum.servelogic.utility.ArangoFusekiReferenceService;
 
 @Service
@@ -21,7 +34,15 @@ public class ArticleService {
 	private IArticleRepository repo;
 	@Autowired
 	private ArangoFusekiReferenceService populator;
-	@Autowired ArticleMapper mapper;
+	@Autowired
+	ArticleMapper mapper;
+    @Autowired
+    private CategoryRepository categoryRepo;
+    @Autowired
+    private IModifierRepository modifierRepo;
+    
+    private final ObjectMapper jsonMapper = new ObjectMapper();
+    private final XmlMapper xmlMapper = new XmlMapper();
 
 	public List<ArticleResponseDTO> findAll() {
 		
@@ -38,6 +59,11 @@ public class ArticleService {
 		return populator.populateAllArticles(StreamSupport
 				.stream(repo.findAll().spliterator(), false)
 				.collect(Collectors.toList()));
+	}
+	public List<ArticleFileDTO> findAllExport() {
+		
+		return repo.findAllExportRaw();
+		
 	}
 	
 	public Optional<ArticleResponseDTO> findByKey(String key) {
@@ -105,5 +131,58 @@ public class ArticleService {
 	public void deleteByKey(String key) {
 		repo.deleteById(key);
 	}
+	
+	@Transactional
+	public void importData(byte[] fileData, String format) throws Exception {
+		
+	    List<ArticleFileDTO> dtos = convertToDtos(fileData, format);
+	    processEntities(dtos);
+	}
+	 
+	private void processEntities(List<ArticleFileDTO> dtos) {
+        List<Article> articlesToSave = new ArrayList<>();
+
+        for (ArticleFileDTO dto : dtos) {
+            Article article;
+            if (StringUtils.hasText(dto.getKey())) {
+            	article = repo.findById(dto.getKey()).orElseThrow(() -> new RuntimeException("Update failed: Key " + dto.getKey() + " not found."));
+            } else {
+            	article = new Article();
+            }
+
+            verifyReferencesExist(dto);
+            mapper.updateArticleFromDto(dto, article);
+            
+            if (StringUtils.hasText(dto.getKey())) {
+                article.setKey(dto.getKey());
+            }
+            articlesToSave.add(article);
+        }
+        repo.saveAll(articlesToSave);
+    }
+
+    private void verifyReferencesExist(ArticleFileDTO dto) {
+        if (!categoryRepo.existsById(dto.getCategoryId())) {
+            throw new RuntimeException("Validation failed: Category ID " + dto.getCategoryId() + " does not exist.");
+        }
+        
+        for (String modId : dto.getModifiers()) {
+            if (!modifierRepo.existsById(modId)) {
+                throw new RuntimeException("Validation failed: Modifier ID " + modId + " does not exist.");
+            }
+        }
+    }
+
+    private List<ArticleFileDTO> convertToDtos(byte[] fileData, String format) throws Exception {
+        if (format.equalsIgnoreCase("json")) {
+        	JsonNode node = jsonMapper.readTree(fileData);
+            return jsonMapper.convertValue(node, new TypeReference<List<ArticleFileDTO>>() {});
+        } else {
+        	ArticleXMLWrapper<ArticleFileDTO> wrapper = xmlMapper.readValue(fileData, 
+                    new TypeReference<ArticleXMLWrapper<ArticleFileDTO>>() {});
+                return wrapper.getItems();
+        }
+    } 
+
 	
 }
