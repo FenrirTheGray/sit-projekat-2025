@@ -71,7 +71,8 @@ vaadin-app-layout::part(drawer) {
 
 .master-user-icon:hover {
     background-color: var(--cms-accent-hover);
-    transform: scale(1.05);
+    transform: scale(1.05);    
+    cursor: pointer;
 }
 
 .master-user-label {
@@ -98,15 +99,16 @@ vaadin-app-layout::part(drawer) {
 
 /* Section labels */
 .master-labels {
-    color: var(--cms-text-muted);
-    font-size: 0.95rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.75rem 1rem 0.5rem;
-    margin-top: 0.5rem;
     background-color: var(--cms-surface-2);
     border-radius: 8px;
+    color: var(--cms-text-muted);
+    cursor: default;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem 0.5rem;
+    text-transform: uppercase;
     width: 80%;
 }
 
@@ -138,7 +140,7 @@ vaadin-side-nav {
     align-items: center;
     background-color: var(--cms-accent-muted);
     border-radius: 8px;
-    color: var(--cms-);
+    color: var(--cms-text);
     display: flex;
     font-weight: 500;
     height: 40px;
@@ -167,7 +169,6 @@ vaadin-side-nav {
     margin: 4px 8px;
     padding: 0 1rem;
     height: 40px;
-    width: calc(100% - 16px);
     font-weight: 500;
     transition: all var(--cms-transition);
     width: auto;
@@ -175,7 +176,7 @@ vaadin-side-nav {
 
 /* Not active button hover */
 .master-kontejner-nav .master-button-not-active:hover {
-    background-color: var(--cms-surface-2);
+    background-color: var(--cms-accent);
     color: var(--cms-text);
 }
 
@@ -238,27 +239,36 @@ vaadin-side-nav {
 
 vaadin-context-menu-overlay::part(overlay) {
     background-color: var(--cms-surface);
-    border: 1px solid var(--cms-border);
     border-radius: 8px;
+    border: 1px solid var(--cms-border);
     box-shadow: var(--cms-shadow-lg);
-    min-width: 160px;
+    position: absolute;
+    right: -25px;
+    top: 34px;
+    width: 150px;
 }
 
 vaadin-context-menu-overlay::part(content) {
     background-color: var(--cms-surface);
-    padding: 0.5rem 0;
 }
 
 vaadin-context-menu-overlay vaadin-context-menu-item {
     color: var(--cms-text);
-    background-color: transparent;
-    padding: 0.5rem 0.5rem;
-    font-size: 0.875rem;
-    transition: all var(--cms-transition);
+    padding: 0 10px;
+}
+
+vaadin-context-menu-overlay vaadin-context-menu-item:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+vaadin-context-menu-overlay vaadin-context-menu-item::part(checkmark)::before {
+    display: none;
 }
 
 vaadin-context-menu-overlay vaadin-context-menu-item:hover {
     background-color: var(--cms-surface-2);
+    cursor: pointer;
 }
 
 /* Logout item - slight red tint */
@@ -268,9 +278,7 @@ vaadin-context-menu-overlay vaadin-context-menu-item:last-child:hover {
 }
 
 vaadin-context-menu-overlay hr {
-    border: none;
-    border-top: 1px solid var(--cms-border);
-    margin: 0.5rem 0;
+    background-color: var(--cms-text-muted);
 }
 
 /* --------------------------------------------

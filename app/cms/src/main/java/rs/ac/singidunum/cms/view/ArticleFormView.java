@@ -111,6 +111,9 @@ public class ArticleFormView extends VerticalLayout implements BeforeEnterObserv
 		activeCheckbox = new Checkbox("Aktivan");
 		activeCheckbox.setValue(true);
 		activeCheckbox.addClassName("form-checkbox");
+		activeCheckbox.addValueChangeListener(event -> {
+			activeCheckbox.setLabel(event.getValue() ? "Aktivan" : "Neaktivan");
+		});
 
 		categoryComboBox = new ComboBox<>("Kategorija");
 		categoryComboBox.setWidthFull();
