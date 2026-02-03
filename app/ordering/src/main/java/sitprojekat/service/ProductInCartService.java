@@ -62,7 +62,7 @@ public class ProductInCartService {
 			        	Objects.equals(productInCartCombo.getModifierToppings(),productInCartComboNew.getModifierToppings()))) {// ako vec postoji taj samo dodaje kolicinu
 			            	int updatedAmount = productInCartCombo.getNumberOrdered() + productInCartComboNew.getNumberOrdered(); 
 			            	productInCartCombo.updateOrderedAmount(updatedAmount);
-			            	System.out.println(productInCartComboNew.getMain().getName()+" "+updatedAmount);
+			            	System.out.println(productInCartComboNew.getProduct().getName()+" "+updatedAmount);
 			            	return;// da ne ide dalje
 				}
 			}

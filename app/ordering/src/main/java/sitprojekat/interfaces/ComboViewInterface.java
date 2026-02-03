@@ -16,6 +16,7 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import sitprojekat.model.Article;
 import sitprojekat.model.Combo;
 import sitprojekat.model.Modifier;
+import sitprojekat.model.Product;
 
 public interface ComboViewInterface {
 
@@ -44,10 +45,22 @@ public interface ComboViewInterface {
 	public List<Article> getSelectedArticles();
 	public Set<Modifier> getSelectedModifiers();
 	
+	public Article getMainArticle();
+	public Set<Modifier> getMainModifiers();
+	
+	public Article getSideArticle();
+	public Set<Modifier> getSideModifiers();
+	
+	public Article getDrinkArticle();
+	public Set<Modifier> getDrinkModifiers();
+	
 	public RadioButtonGroup<Article> createComboRadioButtons(String label,List<Article> articles);
 	public CheckboxGroup<Modifier> createComboCheckBox(String label,List<Modifier> modifiers);
 	public ComponentRenderer<VerticalLayout, Article> createArticleRenderer();
 	public ComponentRenderer<VerticalLayout, Modifier> createModifierRenderer();
 	public  void AddToCartNotif(String string);
+	
+
+	
 
 }

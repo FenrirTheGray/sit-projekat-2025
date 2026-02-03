@@ -78,48 +78,57 @@ public class OrderService {
 
 					ComboChoiceCreateRequestDTO comboChoiceCreateRequestDTO = new ComboChoiceCreateRequestDTO();
 					comboChoiceCreateRequestDTO.setCombo("combo/"+productInCartCombo.getProduct().getId());
+					System.out.println("combo id je "+comboChoiceCreateRequestDTO.getCombo());		
 					comboChoiceCreateRequestDTO.setAmount(productInCartCombo.getNumberOrdered());
-
-					Article main=(Article) productInCartCombo.getMain();
-					Article side=(Article) productInCartCombo.getSide();
-					Article drink=(Article) productInCartCombo.getDrink();
+					System.out.println("combo narucena kolicina je "+comboChoiceCreateRequestDTO.getAmount());
+					
+					ProductInCart main=(ProductInCart) productInCartCombo.getMain();
+					ProductInCart side=(ProductInCart) productInCartCombo.getSide();
+					ProductInCart drink=(ProductInCart) productInCartCombo.getDrink();
 
 					List<ArticleChoiceCreateRequestDTO> ArticleChoiceCreateRequestDTOList = new ArrayList<ArticleChoiceCreateRequestDTO>();
 					
-					ArticleChoiceCreateRequestDTO articleChoiceCreateRequestDTOMain = new ArticleChoiceCreateRequestDTO();
-					articleChoiceCreateRequestDTOMain.setArticle("article/"+main.getId());
+					ArticleChoiceCreateRequestDTO articleChoiceCreateRequestDTOMain = new ArticleChoiceCreateRequestDTO();				
+					articleChoiceCreateRequestDTOMain.setArticle("article/"+main.getProduct().getId());
+					System.out.println("main id je "+articleChoiceCreateRequestDTOMain.getArticle());
 					articleChoiceCreateRequestDTOMain.setClassName("articleDTO");
-					List<String> modifiersListMain = new ArrayList<String>();
 					
-					for (Modifier m : main.getModifiers()) {
+					List<String> modifiersListMain = new ArrayList<String>();
+					for (Modifier m : main.getModifierToppings()) {
+						System.out.println("main modofier je "+m.getId());
 						modifiersListMain.add("modifier/"+m.getId());
 					}
 					articleChoiceCreateRequestDTOMain.setModifierList(modifiersListMain);
+					articleChoiceCreateRequestDTOMain.setAmount(main.getNumberOrdered());
 					
 					ArticleChoiceCreateRequestDTOList.add(articleChoiceCreateRequestDTOMain);
 					
-					ArticleChoiceCreateRequestDTO articleChoiceCreateRequestDTOSide = new ArticleChoiceCreateRequestDTO();
-					articleChoiceCreateRequestDTOSide.setArticle("article/"+side.getId());
+					ArticleChoiceCreateRequestDTO articleChoiceCreateRequestDTOSide = new ArticleChoiceCreateRequestDTO();					
+					articleChoiceCreateRequestDTOSide.setArticle("article/"+side.getProduct().getId());
+					System.out.println("side id je "+articleChoiceCreateRequestDTOSide.getArticle());
 					articleChoiceCreateRequestDTOSide.setClassName("articleDTO");
-					List<String> modifiersListSide = new ArrayList<String>();
 					
-					for (Modifier m : side.getModifiers()) {
+					List<String> modifiersListSide = new ArrayList<String>();
+					for (Modifier m : side.getModifierToppings()) {
 						modifiersListSide.add("modifier/"+m.getId());
 					}
 					
 					articleChoiceCreateRequestDTOSide.setModifierList(modifiersListSide);
+					articleChoiceCreateRequestDTOSide.setAmount(1);
 					ArticleChoiceCreateRequestDTOList.add(articleChoiceCreateRequestDTOSide);
 					
 					ArticleChoiceCreateRequestDTO articleChoiceCreateRequestDTODrink = new ArticleChoiceCreateRequestDTO();
-					articleChoiceCreateRequestDTODrink.setArticle("article/"+drink.getId());
+					articleChoiceCreateRequestDTODrink.setArticle("article/"+drink.getProduct().getId());
+					System.out.println("drink id je "+articleChoiceCreateRequestDTODrink.getArticle());
 					articleChoiceCreateRequestDTODrink.setClassName("articleDTO");
 					
 					List<String> modifiersListDrink = new ArrayList<String>();
-					for (Modifier m : drink.getModifiers()) {
+					for (Modifier m : drink.getModifierToppings()) {
 						modifiersListDrink.add("modifier/"+m.getId());
 					}
 					
 					articleChoiceCreateRequestDTODrink.setModifierList(modifiersListDrink);
+					articleChoiceCreateRequestDTODrink.setAmount(1);
 					ArticleChoiceCreateRequestDTOList.add(articleChoiceCreateRequestDTODrink);
 					
 					comboChoiceCreateRequestDTO.setArticleChoiceList(ArticleChoiceCreateRequestDTOList);
@@ -147,28 +156,6 @@ public class OrderService {
 			UI.getCurrent().navigate("OrderDenied");
 			return null;
 		}
-//		 public boolean login(String email, String password){
-//		    	
-//		    	try {
-//		        LoginRequestDTO loginRequest = new LoginRequestDTO(email, password);
-//		        LoginResponseDTO responseDTO = httpService.post(httpService.AUTH_BASE_URL + "/login", loginRequest, LoginResponseDTO.class, false);
-//
-//		        if(responseDTO.token() == null || responseDTO.token().isEmpty()) {
-//		        	
-//		        	Notification notification = Notification.show("uneti podaci se ne podudaraju sa nalogom", 3000, Notification.Position.BOTTOM_CENTER); // sta pise , koliko traje, pozicija
-//		    	    notification.addThemeVariants(NotificationVariant.LUMO_ERROR);// koje je boje
-//		        	
-//		        	
-//		        	return false;
-//		        }
-//
-//		        userStoreService.setToken(responseDTO.token());
-//
-//		        return true;
-//		    }catch (Exception e) {
-//				return false;
-//			}
-//		    }
 
 	}
 

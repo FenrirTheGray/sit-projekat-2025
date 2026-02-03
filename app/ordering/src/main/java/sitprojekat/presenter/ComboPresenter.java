@@ -16,6 +16,7 @@ import sitprojekat.model.Article;
 import sitprojekat.model.Combo;
 import sitprojekat.model.Modifier;
 import sitprojekat.model.ProductInCart;
+import sitprojekat.model.ProductInCartArticle;
 import sitprojekat.model.ProductInCartCombo;
 import sitprojekat.model.Type;
 import sitprojekat.service.ComboService;
@@ -157,6 +158,13 @@ public class ComboPresenter {
             List<Article> articles=view.getSelectedArticles();
             Set<Modifier> toppingModifier=view.getSelectedModifiers();
             
+            
+            ProductInCart productInCartMain=new ProductInCartArticle(view.getMainArticle(),1,view.getMainArticle().getBasePrice(),view.getMainModifiers(), null);
+            
+            ProductInCart productInCartSide=new ProductInCartArticle(view.getSideArticle(),1,view.getSideArticle().getBasePrice(),view.getSideModifiers(), null);
+            
+            ProductInCart productInCartDrink=new ProductInCartArticle(view.getDrinkArticle(),1,view.getDrinkArticle().getBasePrice(),view.getDrinkModifiers(), null);
+            
             double articlesPrice=0;
             double toppingModifierPrice=0;
             
@@ -175,7 +183,9 @@ public class ComboPresenter {
             
             double totalPrice = (combo.getBasePrice()+articlesPrice+toppingModifierPrice) * orderAmount;
 
-            ProductInCart productInCart = new ProductInCartCombo(this.combo, orderAmount,totalPrice,view.getSelectedModifiers(),articles.get(0),articles.get(1),articles.get(2));
+            
+            
+            ProductInCart productInCart = new ProductInCartCombo(this.combo, orderAmount,totalPrice,productInCartMain,productInCartSide,productInCartDrink);
             productInCartService.addProduct(productInCart);
 
             view.AddToCartNotif(combo.getName() + " dodat u korpu");
