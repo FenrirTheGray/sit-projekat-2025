@@ -1,18 +1,15 @@
 package rs.ac.singidunum.servelogic.repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Property;
-import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.ResIterator;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.CrudRepository;
@@ -34,122 +31,103 @@ public class CategoryRepository implements CrudRepository<Category, String>{
 
 	@Override
 	public List<Category> findAll() {
+	    String query = String.format(
+	        "PREFIX : <%s> " +
+	        "SELECT ?id ?name ?description ?active WHERE { " +
+	        "  ?uri a :Category ; " +
+	        "       :name ?name ; " +
+	        "       :description ?description ; " +
+	        "       :active ?active . " +
+	        "  BIND(REPLACE(STR(?uri), '^.*(#|/)', '') AS ?id) " +
+	        "}", Category.ns);
 
-		List<Category> list = new ArrayList<Category>();
-		Model model = db.getConnection().fetch();
-		Resource classCategory = model.createResource("%sCategory".formatted(Category.ns));
-
-		ResIterator resources = model.listResourcesWithProperty(RDF.type, classCategory);
-		while (resources.hasNext()) {
-			list.add(this.objectFromTriplet(resources.nextResource()));
-		}
-		return list;
-
+	    return executeQueryAndMap(query);
 	}
 
 	public List<Category> findAllActive() {
+	    String query = String.format(
+	        "PREFIX : <%s> " +
+	        "SELECT ?id ?name ?description ?active WHERE { " +
+	        "  ?uri a :Category ; " +
+	        "       :name ?name ; " +
+	        "       :description ?description ; " +
+	        "       :active ?active . " +
+	        "  FILTER(?active = true) " +
+	        "  BIND(REPLACE(STR(?uri), '^.*(#|/)', '') AS ?id) " +
+	        "}", Category.ns);
 
-		List<Category> list = new ArrayList<Category>();
-		Model model = db.getConnection().fetch();
-		Resource classCategory = model.createResource("%sCategory".formatted(Category.ns));
-
-		ResIterator resources = model.listResourcesWithProperty(RDF.type, classCategory);
-		while (resources.hasNext()) {
-			Category item = this.objectFromTriplet(resources.nextResource());
-			if (item.isActive()) {
-				list.add(item);
-			}
-		}
-		return list;
-
+	    return executeQueryAndMap(query);
 	}
 
 	@Override
-	public Optional<Category> findById(String id) {
+    public Optional<Category> findById(String id) {
+        CachedValue<Category> c = cache.get(id);
+        if (c != null && !c.isExpired()) return Optional.of(c.data());
 
-		CachedValue<Category> c = cache.get(id);
-		if (c == null || c.isExpired()) {
-			if (c != null) cache.remove(id);
-			
-			Model model = db.getConnection().fetch();
+        String query = String.format(
+            "PREFIX : <%s> " +
+            "SELECT ?name ?description ?active WHERE { " +
+            "  :%s a :Category ; :name ?name ; :description ?description ; :active ?active . " +
+            "}", Category.ns, id);
 
-			String url = "%s%s".formatted(Category.ns, id);
-			Resource resource = model.getResource(url);
-
-			Category item = this.objectFromTriplet(resource);
-			if (item == null) {
-				return Optional.empty();
-			}
-			cache.put(id, new CachedValue<Category>(item, System.currentTimeMillis() + TTL_MS));
-			return Optional.of(item);
-		}
-		
-		return Optional.of(c.data());
-
-			
-
-	}
-
+        try (QueryExecution qexec = db.getConnection().query(query)) {
+            ResultSet rs = qexec.execSelect();
+            if (rs.hasNext()) {
+                QuerySolution sol = rs.nextSolution();
+                Category item = new Category(
+                    id,
+                    sol.get("name").asLiteral().getString(),
+                    sol.get("description").asLiteral().getString(),
+                    sol.get("active").asLiteral().getBoolean()
+                );
+                cache.put(id, new CachedValue<>(item, System.currentTimeMillis() + TTL_MS));
+                return Optional.of(item);
+            }
+        }
+        return Optional.empty();
+    }
+	
 	public Optional<Category> findByIdActive(String id) {
-
-		Optional<Category> item = findById(id);
-		if (item.isEmpty() || !item.get().isActive()) {
-			return Optional.empty();
-		}
-		return item;
-
-	}
+        return findById(id).filter(Category::isActive);
+    }
 
 	@Override
 	public <S extends Category> S save(S item) {
+	    if (item.getId() == null) {
+	        item.setId(db.generateUUID4());
+	    } else {
+	        cache.remove(item.getId());
+	    }
 
-		if (item.getId() == null) {
-			item.setId(db.generateUUID4());
-		} else {
-			CachedValue<Category> c = cache.get(item.getId());
-			if (c != null) {
-				cache.remove(item.getId());
-			}
-		}
-		
-		Model model = db.getConnection().fetch();
+	    String updateQuery = String.format(
+	        "PREFIX : <%s> " +
+	        "DELETE { :%s ?p ?o } " +
+	        "WHERE { :%s ?p ?o } ; " +
+	        "INSERT DATA { " +
+	        "  :%s a :Category ; " +
+	        "      :name \"%s\" ; " +
+	        "      :description \"%s\" ; " +
+	        "      :active %b . " +
+	        "}", 
+	        Category.ns, item.getId(), item.getId(), 
+	        item.getId(), item.getName().replace("\"", "\\\""), item.getDescription(), item.isActive()
+	    );
 
-		Resource resource = model.createResource(item.getUrl());
-
-		Property nameProp = model.createProperty("%sname".formatted(Category.ns));
-		Property descriptionProp = model.createProperty("%sdescription".formatted(Category.ns));
-		Property activeProp = model.createProperty("%sactive".formatted(Category.ns));
-		Resource typeClass = model.createProperty("%sCategory".formatted(Category.ns));
-
-		model.removeAll(resource, null, null);
-
-		resource.addProperty(RDF.type, typeClass);
-		resource.addProperty(nameProp, item.getName());
-		resource.addProperty(descriptionProp, item.getDescription());
-		resource.addLiteral(activeProp, item.isActive());
-
-		db.getConnection().put(model);
-
-		return item;
-
+	    db.getConnection().update(updateQuery);
+	    
+	    // Update cache with the fresh object
+	    cache.put(item.getId(), new CachedValue<>(item, System.currentTimeMillis() + TTL_MS));
+	    return item;
 	}
 
 	@Override
 	public void deleteById(String id) {
-		
-		CachedValue<Category> c = cache.get(id);
-		if (c != null) {
-			cache.remove(id);
-		}
-
-		Model model = db.getConnection().fetch();
-		
-		Resource resource = model.getResource("%s%s".formatted(Category.ns, id));
-
-		model.removeAll(resource, null, null);
-
-		db.getConnection().put(model);
-
+	    cache.remove(id);
+	    String deleteQuery = String.format(
+	        "PREFIX : <%s> DELETE WHERE { :%s ?p ?o }", 
+	        Category.ns, id
+	    );
+	    db.getConnection().update(deleteQuery);
 	}
 
 	@Override
@@ -163,9 +141,11 @@ public class CategoryRepository implements CrudRepository<Category, String>{
 
 	@Override
 	public boolean existsById(String id) {
-		Optional<Category> item = findById(id);
-		if (item.isPresent()) return true;
-		return false;
+	    String askQuery = String.format(
+	        "PREFIX : <%s> ASK { :%s a :Category }", 
+	        Category.ns, id
+	    );
+	    return db.executeAsk(askQuery);
 	}
 
 	@Override
@@ -181,9 +161,16 @@ public class CategoryRepository implements CrudRepository<Category, String>{
 	}
 
 	@Override
-	public long count() {
-		return findAll().size();
-	}
+    public long count() {
+        String query = String.format("PREFIX : <%s> SELECT (COUNT(?s) AS ?count) WHERE { ?s a :Category }", Category.ns);
+        try (QueryExecution qexec = db.getConnection().query(query)) {
+            ResultSet rs = qexec.execSelect();
+            if (rs.hasNext()) {
+                return rs.next().get("count").asLiteral().getLong();
+            }
+        }
+        return 0;
+    }
 
 	@Override
 	public void delete(Category entity) {
@@ -212,33 +199,39 @@ public class CategoryRepository implements CrudRepository<Category, String>{
 		});
 	}
 	
-	private Category objectFromTriplet(Resource resource) {
+	public Set<String> findExistingIds(Set<String> ids) {
+	    if (ids == null || ids.isEmpty()) return Collections.emptySet();
 
-		String id = resource.getLocalName();
-		String name = null;
-		String description = null;
-		boolean active = false;
+	    StringBuilder sparql = new StringBuilder();
+	    sparql.append("PREFIX : <").append(Category.ns).append("> \n");
+	    sparql.append("SELECT ?id WHERE { \n");
+	    sparql.append("  ?uri a :Category . \n");
+	    // This regex grabs everything after the last # or /
+	    sparql.append("  BIND(REPLACE(STR(?uri), '^.*(#|/)', '') AS ?id) \n");
+	    sparql.append("  VALUES ?id { ");
+	    for (String id : ids) {
+	        sparql.append("\"").append(id).append("\" ");
+	    }
+	    sparql.append(" } \n}");
 
-		StmtIterator props = resource.listProperties();
-		while (props.hasNext()) {
-			Statement prop = props.nextStatement();
-			Property predicate = prop.getPredicate();
-			RDFNode object = prop.getObject();
-
-			if (predicate.getURI().equals("%sname".formatted(Category.ns))) {
-				name = object.asLiteral().getString();
-			} else if (predicate.getURI().equals("%sdescription".formatted(Category.ns))) {
-				description = object.asLiteral().getString();
-			} else if (predicate.getURI().equals("%sactive".formatted(Category.ns))) {
-				active = object.asLiteral().getBoolean();
-			}
-
-		}
-		if (name == null) {
-			return null;
-		}
-		return new Category(id, name, description, active);
-
+	    return db.executeSelect(sparql.toString());
+	}
+	
+	private List<Category> executeQueryAndMap(String sparql) {
+	    List<Category> list = new ArrayList<>();
+	    try (QueryExecution qexec = db.getConnection().query(sparql)) {
+	        ResultSet rs = qexec.execSelect();
+	        while (rs.hasNext()) {
+	            QuerySolution sol = rs.nextSolution();
+	            list.add(new Category(
+	                sol.get("id").toString(),
+	                sol.get("name").asLiteral().getString(),
+	                sol.get("description").asLiteral().getString(),
+	                sol.get("active").asLiteral().getBoolean()
+	            ));
+	        }
+	    }
+	    return list;
 	}
 
 }

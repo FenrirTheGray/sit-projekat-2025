@@ -6,7 +6,12 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdfconnection.RDFConnection;
 import org.apache.jena.rdfconnection.RDFConnectionRemote;
 import org.springframework.context.annotation.Bean;
@@ -100,6 +105,33 @@ public class FusekiDBUtility {
 //    	UUID4 has a chance to generate with a number at the start
 //    	This resolves that and leaves the random aspect there still
     	return "sl" + UUID.randomUUID().toString();
+    }
+
+    public Set<String> executeSelect(String queryString) {
+        Set<String> results = new HashSet<>();
+        // getConnection() ensures the RDFConnection is ready
+        try (QueryExecution qexec = getConnection().query(queryString)) {
+            ResultSet rs = qexec.execSelect();
+            while (rs.hasNext()) {
+                QuerySolution sol = rs.nextSolution();
+                // We expect the SPARQL variable name to be "id"
+                if (sol.contains("id")) {
+                    results.add(sol.get("id").toString());
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("SPARQL Select failed: " + e.getMessage());
+        }
+        return results;
+    }
+
+    public boolean executeAsk(String queryString) {
+        try (QueryExecution qexec = getConnection().query(queryString)) {
+            return qexec.execAsk();
+        } catch (Exception e) {
+            System.err.println("SPARQL Ask failed: " + e.getMessage());
+            return false;
+        }
     }
 
 }

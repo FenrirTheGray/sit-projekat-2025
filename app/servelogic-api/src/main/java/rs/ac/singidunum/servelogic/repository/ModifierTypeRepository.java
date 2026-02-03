@@ -5,14 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Property;
-import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.ResIterator;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.CrudRepository;
@@ -33,121 +28,78 @@ public class ModifierTypeRepository implements CrudRepository<ModifierType, Stri
 	private long TTL_MS;
 
 	@Override
-	public List<ModifierType> findAll() {
-		
-		List<ModifierType> list = new ArrayList<ModifierType>();
-		Model model = db.getConnection().fetch();
-		Resource classModifierType = model.createResource("%sModifierType".formatted(ModifierType.ns));
+    public List<ModifierType> findAll() {
+        String query = String.format(
+            "PREFIX : <%s> " +
+            "SELECT ?id ?name ?active WHERE { " +
+            "  ?uri a :ModifierType ; :name ?name ; :active ?active . " +
+            "  BIND(REPLACE(STR(?uri), '^.*(#|/)', '') AS ?id) " +
+            "}", ModifierType.ns);
+        return executeQueryAndMap(query);
+    }
 
-		ResIterator resources = model.listResourcesWithProperty(RDF.type, classModifierType);
-		while (resources.hasNext()) {
-			list.add(this.objectFromTriplet(resources.nextResource()));
-		}
-		return list;
-		
-	}
-	
-	public List<ModifierType> findAllActive() {
-		
-		List<ModifierType> list = new ArrayList<ModifierType>();
-		Model model = db.getConnection().fetch();
-		Resource classModifierType = model.createResource("%sModifierType".formatted(ModifierType.ns));
-
-		ResIterator resources = model.listResourcesWithProperty(RDF.type, classModifierType);
-		while (resources.hasNext()) {
-			ModifierType item = this.objectFromTriplet(resources.nextResource());
-			if (item.isActive()) {
-				list.add(item);
-			}
-		}
-		return list;
-		
-	}
+    public List<ModifierType> findAllActive() {
+        String query = String.format(
+            "PREFIX : <%s> " +
+            "SELECT ?id ?name ?active WHERE { " +
+            "  ?uri a :ModifierType ; :name ?name ; :active ?active . " +
+            "  FILTER(?active = true) " +
+            "  BIND(REPLACE(STR(?uri), '^.*(#|/)', '') AS ?id) " +
+            "}", ModifierType.ns);
+        return executeQueryAndMap(query);
+    }
 	
 	@Override
-	public Optional<ModifierType> findById(String id) {
-		
-		CachedValue<ModifierType> c = cache.get(id);
-		if (c == null || c.isExpired()) {
-			if (c != null) cache.remove(id);
-		
-			Model model = db.getConnection().fetch();
-	
-			String url = "%s%s".formatted(ModifierType.ns, id);
-			Resource resource = model.getResource(url);
-			
-			ModifierType item = this.objectFromTriplet(resource);
-			if (item == null) {
-				return Optional.empty();
-			}
-			cache.put(id, new CachedValue<ModifierType>(item, System.currentTimeMillis() + TTL_MS));
-			return Optional.of(item);
-		
-		}
-		
-		return Optional.of(c.data());
-		
-	}
+    public Optional<ModifierType> findById(String id) {
+        CachedValue<ModifierType> c = cache.get(id);
+        if (c != null && !c.isExpired()) return Optional.of(c.data());
+
+        String query = String.format(
+            "PREFIX : <%s> " +
+            "SELECT ?name ?active WHERE { :%s a :ModifierType ; :name ?name ; :active ?active . }",
+            ModifierType.ns, id);
+
+        try (QueryExecution qexec = db.getConnection().query(query)) {
+            ResultSet rs = qexec.execSelect();
+            if (rs.hasNext()) {
+                QuerySolution sol = rs.nextSolution();
+                ModifierType mt = new ModifierType(id, sol.get("name").asLiteral().getString(), sol.get("active").asLiteral().getBoolean());
+                cache.put(id, new CachedValue<>(mt, System.currentTimeMillis() + TTL_MS));
+                return Optional.of(mt);
+            }
+        }
+        return Optional.empty();
+    }
 	
 	public Optional<ModifierType> findByIdActive(String id) {
-		Optional<ModifierType> item = findById(id);
-		if (item.isEmpty() || !item.get().isActive()) {
-			return Optional.empty();
-		}
-		return item;
-		
+		return findById(id).filter(ModifierType::isActive);
 	}
 	
 	@Override
-	public <S extends ModifierType> S save(S item) {
-		
-		if (item.getId() == null) {
-			item.setId(db.generateUUID4());
-		} else {
-			CachedValue<ModifierType> c = cache.get(item.getId());
-			if (c != null) {
-				cache.remove(item.getId());
-			}
-		}
-		Model model = db.getConnection().fetch();
-		
-		Resource resource = model.createResource(item.getUrl());
+    public <S extends ModifierType> S save(S item) {
+        if (item.getId() == null) {
+            item.setId(db.generateUUID4());
+        } else {
+            cache.remove(item.getId());
+        }
 
-		Property nameProp = model.createProperty("%sname".formatted(ModifierType.ns));
-		Property activeProp = model.createProperty("%sactive".formatted(ModifierType.ns));
-		Resource typeClass = model.createResource("%sModifierType".formatted(ModifierType.ns));
+        String updateQuery = String.format(
+            "PREFIX : <%s> " +
+            "DELETE { :%s ?p ?o } WHERE { :%s ?p ?o } ; " +
+            "INSERT DATA { :%s a :ModifierType ; :name \"%s\" ; :active %b . }",
+            ModifierType.ns, item.getId(), item.getId(), item.getId(), item.getName().replace("\"", "\\\""), item.isActive()
+        );
 
-//		This removes every triple where this resource is the subject
-//	    Allows us to have update and save in the same method
-		model.removeAll(resource, null, null);
-
-		resource.addProperty(RDF.type, typeClass);
-		resource.addProperty(nameProp, item.getName());
-		resource.addLiteral(activeProp, item.isActive());
-
-		db.getConnection().put(model);
-
-		return item;
-		
-	}
+        db.getConnection().update(updateQuery);
+        cache.put(item.getId(), new CachedValue<>(item, System.currentTimeMillis() + TTL_MS));
+        return item;
+    }
 	
 	@Override
-	public void deleteById(String id) {
-		
-		CachedValue<ModifierType> c = cache.get(id);
-		if (c != null) {
-			cache.remove(id);
-		}
-
-		Model model = db.getConnection().fetch();
-		
-		Resource resource = model.getResource("%s%s".formatted(ModifierType.ns, id));
-
-		model.removeAll(resource, null, null);
-
-		db.getConnection().put(model);
-
-	}
+    public void deleteById(String id) {
+        cache.remove(id);
+        db.getConnection().update(String.format("PREFIX : <%s> DELETE WHERE { :%s ?p ?o }", ModifierType.ns, id));
+    }
 	
 	@Override
 	public <S extends ModifierType> Iterable<S> saveAll(Iterable<S> entities) {
@@ -159,11 +111,10 @@ public class ModifierTypeRepository implements CrudRepository<ModifierType, Stri
 	}
 
 	@Override
-	public boolean existsById(String id) {
-		Optional<ModifierType> item = findById(id);
-		if (item.isPresent()) return true;
-		return false;
-	}
+    public boolean existsById(String id) {
+        if (cache.containsKey(id) && !cache.get(id).isExpired()) return true;
+        return db.executeAsk(String.format("PREFIX : <%s> ASK { :%s a :ModifierType }", ModifierType.ns, id));
+    }
 
 	@Override
 	public Iterable<ModifierType> findAllById(Iterable<String> ids) {
@@ -179,7 +130,14 @@ public class ModifierTypeRepository implements CrudRepository<ModifierType, Stri
 
 	@Override
 	public long count() {
-		return findAll().size();
+	    String query = String.format("PREFIX : <%s> SELECT (COUNT(?s) AS ?count) WHERE { ?s a :ModifierType }", ModifierType.ns);
+	    try (QueryExecution qexec = db.getConnection().query(query)) {
+	        ResultSet rs = qexec.execSelect();
+	        if (rs.hasNext()) {
+	            return rs.next().get("count").asLiteral().getLong(); // Use 'rs' here
+	        }
+	    }
+	    return 0;
 	}
 
 	@Override
@@ -209,30 +167,20 @@ public class ModifierTypeRepository implements CrudRepository<ModifierType, Stri
 		});
 	}
 	
-	private ModifierType objectFromTriplet(Resource resource) {
-		
-		String id = resource.getLocalName();
-		String name = null;
-		boolean active = false;
-
-		StmtIterator props = resource.listProperties();
-		while (props.hasNext()) {
-			Statement prop = props.nextStatement();
-			Property predicate = prop.getPredicate();
-			RDFNode object = prop.getObject();
-
-			if (predicate.getURI().equals("%sname".formatted(ModifierType.ns))) {
-				name = object.asLiteral().getString();
-			} else if (predicate.getURI().equals("%sactive".formatted(ModifierType.ns))) {
-				active = object.asLiteral().getBoolean();
-			}
-
-		}
-		if (name == null) {
-			return null;
-		}
-		return new ModifierType(id, name, active);
-		
-	}
+	private List<ModifierType> executeQueryAndMap(String sparql) {
+        List<ModifierType> list = new ArrayList<>();
+        try (QueryExecution qexec = db.getConnection().query(sparql)) {
+            ResultSet rs = qexec.execSelect();
+            while (rs.hasNext()) {
+                QuerySolution sol = rs.nextSolution();
+                list.add(new ModifierType(
+                    sol.get("id").toString(),
+                    sol.get("name").asLiteral().getString(),
+                    sol.get("active").asLiteral().getBoolean()
+                ));
+            }
+        }
+        return list;
+    }
 	
 }
