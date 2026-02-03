@@ -310,4 +310,40 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 
 		return modifiers;
 	}
+	@Override
+	public Article getMainArticle() {
+		Article articleMain=mainRadioButtonGroup.getValue();
+//		 if (mainRadioButtonGroup.getValue() != null) {
+//			 articles.add(mainRadioButtonGroup.getValue());
+//		    }
+		return articleMain;
+	}
+	@Override
+	public Set<Modifier> getMainModifiers(){
+		return mainModifierCheckBoxGroup.getSelectedItems();
+	}
+	@Override
+	public Article getSideArticle() {
+		Article articleSide=sideRadioButtonGroup.getValue();
+//		 if (mainRadioButtonGroup.getValue() != null) {
+//			 articles.add(mainRadioButtonGroup.getValue());
+//		    }
+		return articleSide;
+	}
+	@Override
+	public Set<Modifier> getSideModifiers(){
+		return sideModifierCheckBoxGroup.getSelectedItems();
+	}
+	@Override
+	public Article getDrinkArticle() {
+		Article articleDrink=drinkRadioButtonGroup.getValue();
+//		 if (mainRadioButtonGroup.getValue() != null) {
+//			 articles.add(mainRadioButtonGroup.getValue());
+//		    }
+		return articleDrink;
+	}
+	@Override
+	public Set<Modifier> getDrinkModifiers(){
+		return drinkModifierCheckBoxGroup.getSelectedItems();
+	}
 }

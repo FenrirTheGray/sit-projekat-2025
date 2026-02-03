@@ -8,6 +8,7 @@ import com.vaadin.flow.component.notification.NotificationVariant;
 
 import sitprojekat.dto.LoginRequestDTO;
 import sitprojekat.dto.LoginResponseDTO;
+import sitprojekat.model.UserAccount;
 
 @Service
 public class UserService {
@@ -16,8 +17,9 @@ public class UserService {
     UserStoreService userStoreService;
     @Autowired
     HttpService httpService;
-
-
+    @Autowired 
+    UserAccountService UserAccountService;
+    
     public void register(String email, String password){
         throw new UnsupportedOperationException();
     }
@@ -36,14 +38,27 @@ public class UserService {
         	
         	return false;
         }
-
         userStoreService.setToken(responseDTO.token());
-
+        System.out.println(email+"  "+password);
+        UserAccountService.setEmail(email);
+        System.out.println(UserAccountService.getUser().getEmail());
         return true;
     }catch (Exception e) {
 		return false;
 	}
     }
+    public boolean createAccount(String email, String password){
+    	
+    	try {
+        LoginRequestDTO accountRequest = new LoginRequestDTO(email, password);
+        return httpService.post(httpService.AUTH_BASE_URL + "/users", accountRequest, boolean.class, false);
+
+    }catch (Exception e) {
+		return false;
+	}
+    }
+    
+    
 
     public void logout(){
         userStoreService.deleteToken();

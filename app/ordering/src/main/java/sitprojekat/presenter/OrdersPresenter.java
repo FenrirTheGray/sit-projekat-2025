@@ -19,15 +19,17 @@ import sitprojekat.model.Order;
 import sitprojekat.model.OrderStatus;
 import sitprojekat.model.OrderedProduct;
 import sitprojekat.model.UserAccount;
+import sitprojekat.service.OrderService;
 
 @Component
 @UIScope
 public class OrdersPresenter {
 
 	private OrdersViewInterface view;
+	private OrderService service;
 
-	public OrdersPresenter() {
-
+	public OrdersPresenter(OrderService service) {
+		this.service=service;
 	}
 
 	public void setView(OrdersViewInterface view) {
@@ -35,31 +37,9 @@ public class OrdersPresenter {
 
 	}
 
-	public void findById() {
-
-		DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd MM yyyy");
-
-		LocalDate dateCreated = LocalDate.parse("2025-12-21");
-		String formattedDdateCreated = dateCreated.format(formatterDate); // lespi format za datum
-
-		LocalTime timeCreated = LocalTime.parse("16:30");
-		LocalTime timeSent = LocalTime.parse("16:35");
-		LocalTime timeRecieved = LocalTime.parse("17:30");
-
-		Order order = new Order("1", null, dateCreated, timeCreated, timeSent, timeRecieved, OrderStatus.CREATED, null,
-				23, "kes");
-
-		List<Order> listaOrders;
-
-		listaOrders = List.of(
-				new Order("1", null, dateCreated, timeCreated, timeSent, timeRecieved, OrderStatus.CREATED, null, 23,
-						"kes"),
-				new Order("2", null, dateCreated, timeCreated, timeSent, timeRecieved, OrderStatus.CREATED, null, 23,
-						"kes"),
-				new Order("3", null, dateCreated, timeCreated, timeSent, timeRecieved, OrderStatus.CREATED, null, 23,
-						"kes"),
-				new Order("4", null, dateCreated, timeCreated, timeSent, timeRecieved, OrderStatus.CREATED, null, 23,
-						"kes"));
+	public void findById(String id) {
+	
+		List<Order> listaOrders=service.getOrders(id);		
 
 		for (Order o : listaOrders) {
 

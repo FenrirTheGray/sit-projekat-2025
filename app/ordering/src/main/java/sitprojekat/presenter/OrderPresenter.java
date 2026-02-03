@@ -17,7 +17,6 @@ import sitprojekat.model.Combo;
 import sitprojekat.model.Order;
 import sitprojekat.model.OrderStatus;
 import sitprojekat.model.OrderedProduct;
-import sitprojekat.model.Product;
 import sitprojekat.service.OrderService;
 
 @Component
@@ -40,8 +39,32 @@ public class OrderPresenter {
 		UI.getCurrent().getPage().getHistory().back();
 	}
 
-	public void findByID(String string) {
-		// TODO Auto-generated method stub
+	public void findByID(String id) {
+		Order order=service.findByID(id);
+		
+		DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd MM yyyy");
+		String formattedDateCreated = order.getCreatedAtDate().format(formatterDate); // lespi format za datum
+
+
+
+		view.setTitleSpan("Porudzbina " + order.getId());
+		view.setOrderDateSpan("Datum Porudzbine: " + formattedDateCreated);
+		view.setOrderTimeSpan("Vreme Porudzbine: " + order.getCreatedAtTime());
+		view.setOrderTimeSentSpan("Porudzbina poslata: " + order.getSentAtTime());
+		view.setOrderTimeDeliveredSpan("Vreme isporuke: " + order.getRecievedtedAtTime());
+		
+		double totalSumDouble = 0;
+		for (int i = 0; i < order.getOrderedProducts().size(); i++) {
+			OrderedProduct p = order.getOrderedProducts().get(i);
+			Span OrderedProductSpan = new Span(p.getOrderedProduct().getName() + " " + p.getAmount());
+			OrderedProductSpan.addClassName("whiteText");
+			view.getOrderedProductsContainer().add(OrderedProductSpan);
+			totalSumDouble += p.getOrderedProduct().getBasePrice();
+		}
+
+		view.setOrderStatusSpan("Status: " + order.getStatus());
+		view.setOrderTotalSumSpan("Cena: " + totalSumDouble);
+		view.setOrderPaymentType("Nacin placanja: " + order.getPaymentType());
 
 	}
 

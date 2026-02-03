@@ -21,9 +21,6 @@ public class Combo  extends Product{
 		this.drink = drink;
 	}
 
-
-
-
 	public List<Article> getMain() {
 		return main;
 	}
@@ -40,24 +37,17 @@ public class Combo  extends Product{
 		this.side = side;
 	}
 
-	public List<Article> getMainDish() {
-		return main;
-	}
-	public void setMainDish(List<Article> mainDish) {
-		this.main = mainDish;
-	}
-	public List<Article> getSideDish() {
-		return side;
-	}
-	public void setSideDish(List<Article> sideDish) {
-		this.side = sideDish;
-	}
 	public List<Article> getDrink() {
 		return drink;
 	}
+
 	public void setDrink(List<Article> drink) {
 		this.drink = drink;
 	}
+
+
+
+
 
 
 	

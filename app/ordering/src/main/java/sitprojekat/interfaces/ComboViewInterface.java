@@ -4,12 +4,19 @@ import java.util.List;
 import java.util.Set;
 
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
+import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
+import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
+import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 
 import sitprojekat.model.Article;
+import sitprojekat.model.Combo;
 import sitprojekat.model.Modifier;
+import sitprojekat.model.Product;
 
 public interface ComboViewInterface {
 
@@ -38,10 +45,22 @@ public interface ComboViewInterface {
 	public List<Article> getSelectedArticles();
 	public Set<Modifier> getSelectedModifiers();
 	
+	public Article getMainArticle();
+	public Set<Modifier> getMainModifiers();
+	
+	public Article getSideArticle();
+	public Set<Modifier> getSideModifiers();
+	
+	public Article getDrinkArticle();
+	public Set<Modifier> getDrinkModifiers();
+	
 	public RadioButtonGroup<Article> createComboRadioButtons(String label,List<Article> articles);
 	public CheckboxGroup<Modifier> createComboCheckBox(String label,List<Modifier> modifiers);
 	public ComponentRenderer<VerticalLayout, Article> createArticleRenderer();
 	public ComponentRenderer<VerticalLayout, Modifier> createModifierRenderer();
 	public  void AddToCartNotif(String string);
+	
+
+	
 
 }

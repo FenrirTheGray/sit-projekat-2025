@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import rs.ac.singidunum.servelogic.model.Article;
-import rs.ac.singidunum.servelogic.model.Category;
-import rs.ac.singidunum.servelogic.model.Modifier;
+import rs.ac.singidunum.servelogic.model.*;
 import rs.ac.singidunum.servelogic.repository.CategoryRepository;
 import rs.ac.singidunum.servelogic.repository.ModifierTypeRepository;
 
@@ -45,7 +43,17 @@ public class ArangoFusekiReferenceService {
 		}
 		return item;
 	}
-	
+
+	public Combo populate(Combo item){
+		if(item == null) return null;
+
+		if(item.getMainSelection() != null) item.setMainSelection(populateAllArticles(item.getMainSelection()));
+		if(item.getSideSelection() != null) item.setSideSelection(populateAllArticles(item.getSideSelection()));
+		if(item.getDrinkSelection() != null) item.setDrinkSelection(populateAllArticles(item.getDrinkSelection()));
+
+		return item;
+	}
+
 	public List<Article> populateAllArticles(List<Article> items) {
 		items.forEach(item -> {
 			item = this.populate(item);
@@ -59,5 +67,6 @@ public class ArangoFusekiReferenceService {
 		});
 		return (List<Modifier>) items;
 	}
+
 
 }

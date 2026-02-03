@@ -34,7 +34,7 @@ public class LoginScreenPresenter {
             return ; 
         }
 
-        if(userService.login(email, password)) UI.getCurrent().getPage().getHistory().back() ;
+        if(userService.login(email, password)) UI.getCurrent().navigate("OrderCreation");
         else {
         	Notification notification = Notification.show("uneti podaci se ne podudaraju sa nalogom", 3000, Notification.Position.BOTTOM_CENTER); // sta pise , koliko traje, pozicija
     	    notification.addThemeVariants(NotificationVariant.LUMO_ERROR);// koje je boje

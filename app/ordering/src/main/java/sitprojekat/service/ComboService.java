@@ -17,7 +17,7 @@ public class ComboService {
 
 	private final String controllerPath = "/combos";
 
-	public List<Combo> getArticles() {
+	public List<Combo> getCombos() {
 		return httpService.get(httpService.API_BASE_URL + controllerPath, new ParameterizedTypeReference<>() {});
     }
 	public Combo findByID(String id) {

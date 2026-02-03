@@ -40,6 +40,8 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/articles/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/modifiers/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/orders/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/orders/**").hasAnyAuthority("ADMIN", "USER")
 
                         .requestMatchers("/auth/register").anonymous()
                         .requestMatchers("/auth/**").permitAll()
