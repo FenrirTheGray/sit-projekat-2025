@@ -2,26 +2,35 @@ package rs.ac.singidunum.cms.view;
 
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "products/modifiers", layout = MasterHeaderNavLayout.class)
+@Route(value = "user/profile", layout = MasterHeaderNavLayout.class)
 @CssImport("./style/style-views.css")
-public class ModifiersView extends VerticalLayout {
+public class ProfileView extends VerticalLayout {
     // atributi
+    //
 
     // konstruktor
-    public ModifiersView() {
-        H1 naslov = new H1("Modifikatori");
+    public ProfileView() {
+        // naslov
+        H1 naslov = new H1("Profil");
         naslov.addClassName("page-title");
         add(naslov);
 
+        // TODO: inicijalne metode
+        // createSearchBarAndAddButton();
+        // createProfileContainer();
+
         // TODO: dodavanje liste proizvoda
-        add(new H2("Ovde će biti lista modifikatora iz ArangoDB-a"));
+
+        // TODO: PRIVREMENO
+        H1 ispis = new H1("Forma za korisnika");
+        ispis.addClassName("page-title");
+        add(ispis);
+
 
         setSizeFull();
         setAlignItems(Alignment.CENTER);
     }
-
 }

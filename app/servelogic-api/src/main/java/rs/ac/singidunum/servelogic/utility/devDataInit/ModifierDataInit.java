@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import rs.ac.singidunum.servelogic.model.Modifier;
@@ -15,24 +15,23 @@ import rs.ac.singidunum.servelogic.repository.ModifierTypeRepository;
 
 @Component
 @Order(2)
-public class ModifierDataInit implements ApplicationRunner {
+@Profile("devDataInit")
+public class ModifierDataInit extends AbstractDataInit<IModifierRepository, Modifier> {
 
-	@Autowired
-	private IModifierRepository repo;
+	@Value("${app.devDataInit.modifiers:10}")
+	private int itemCount;
+	
 	@Autowired
 	private ModifierTypeRepository tRepo;
 
 	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		if (repo.count() > 0) {
-            return;
-        }
+	protected void dataInit() {
 
         List<Modifier> modifiers = new ArrayList<>();
         List<ModifierType> types = tRepo.findAll();
 
         try {
-        	for (int i = 1; i <= 15; i++) {
+        	for (int i = 1; i <= itemCount; i++) {
         		modifiers.add(new Modifier(
         				null, null,
         				"Modifier m" + i,
