@@ -2,6 +2,7 @@ package sitprojekat.view;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
@@ -14,7 +15,8 @@ import com.vaadin.flow.router.Route;
 import sitprojekat.interfaces.ForgotenPasswordViewInterface;
 import sitprojekat.presenter.ForgotenPasswordPresenter;
 
-@StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")        
+@CssImport("./style/style.css")
+@StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")
 @Route("ForgotenPassword")
 public class ForgotenPasswordView extends VerticalLayout implements ForgotenPasswordViewInterface{
 

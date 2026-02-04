@@ -21,8 +21,11 @@ import rs.ac.singidunum.cms.service.PasswordResetService;
 public class PasswordResetRequestView extends VerticalLayout {
 
     private final PasswordResetPresenter presenter;
+    private VerticalLayout branding;
     private EmailField emailField;
+    private Button submitButton;
     private Span messageSpan;
+    private RouterLink backToLogin;
 
     public PasswordResetRequestView(PasswordResetService service) {
         this.presenter = new PasswordResetPresenter(service);
@@ -39,7 +42,7 @@ public class PasswordResetRequestView extends VerticalLayout {
         H1 title = new H1("Resetovanje lozinke");
         title.addClassName("login-title");
 
-        VerticalLayout branding = new VerticalLayout(lockIcon, title);
+        branding = new VerticalLayout(lockIcon, title);
         branding.setAlignItems(Alignment.CENTER);
 
         emailField = new EmailField("Email");
@@ -48,14 +51,15 @@ public class PasswordResetRequestView extends VerticalLayout {
         emailField.setWidth("300px");
         emailField.addClassName("login-field");
 
-        Button submitButton = new Button("Posalji link", e -> presenter.requestPasswordReset(emailField.getValue()));
+        submitButton = new Button("Posalji link", e -> presenter.requestPasswordReset(emailField.getValue()));
         submitButton.addClassName("login-button");
         submitButton.setWidth("300px");
 
         messageSpan = new Span();
         messageSpan.setVisible(false);
+        messageSpan.addClassName("form-message");
 
-        RouterLink backToLogin = new RouterLink("Nazad na prijavu", LoginView.class);
+        backToLogin = new RouterLink("Nazad na prijavu", LoginView.class);
         backToLogin.addClassName("link-style");
 
         VerticalLayout form = new VerticalLayout(branding, emailField, submitButton, messageSpan, backToLogin);
@@ -69,11 +73,14 @@ public class PasswordResetRequestView extends VerticalLayout {
     public void showMessage(String message, boolean isError) {
         messageSpan.setText(message);
         messageSpan.setVisible(true);
-        messageSpan.getStyle().set("color", isError ? "#c62828" : "#2e7d32");
-        messageSpan.getStyle().set("margin-top", "10px");
-    }
+        messageSpan.removeClassName("success");
+        messageSpan.removeClassName("error");
+        messageSpan.addClassName(isError ? "error" : "success");
 
-    public void clearForm() {
-        emailField.clear();
+        if (!isError) {
+            branding.setVisible(false);
+            emailField.setVisible(false);
+            submitButton.setVisible(false);
+        }
     }
 }

@@ -26,10 +26,12 @@ import java.util.Map;
 public class PasswordResetConfirmView extends VerticalLayout implements BeforeEnterObserver {
 
     private final PasswordResetPresenter presenter;
+    private VerticalLayout branding;
     private PasswordField passwordField;
     private PasswordField confirmPasswordField;
     private Button submitButton;
     private Span messageSpan;
+    private RouterLink backToLogin;
     private String token;
 
     public PasswordResetConfirmView(PasswordResetService service) {
@@ -47,7 +49,7 @@ public class PasswordResetConfirmView extends VerticalLayout implements BeforeEn
         H1 title = new H1("Nova lozinka");
         title.addClassName("login-title");
 
-        VerticalLayout branding = new VerticalLayout(lockIcon, title);
+        branding = new VerticalLayout(lockIcon, title);
         branding.setAlignItems(Alignment.CENTER);
 
         passwordField = new PasswordField("Nova lozinka");
@@ -68,8 +70,9 @@ public class PasswordResetConfirmView extends VerticalLayout implements BeforeEn
 
         messageSpan = new Span();
         messageSpan.setVisible(false);
+        messageSpan.addClassName("form-message");
 
-        RouterLink backToLogin = new RouterLink("Nazad na prijavu", LoginView.class);
+        backToLogin = new RouterLink("Povratak na Prijavu", LoginView.class);
         backToLogin.addClassName("link-style");
 
         VerticalLayout form = new VerticalLayout(branding, passwordField, confirmPasswordField,
@@ -87,7 +90,7 @@ public class PasswordResetConfirmView extends VerticalLayout implements BeforeEn
         List<String> tokens = params.get("token");
 
         if (tokens == null || tokens.isEmpty()) {
-            showMessage("Neispravan link za resetovanje.", true);
+            showMessage("Neispravan link za resetovanje!", true);
             disableForm();
             return;
         }
@@ -103,8 +106,16 @@ public class PasswordResetConfirmView extends VerticalLayout implements BeforeEn
     public void showMessage(String message, boolean isError) {
         messageSpan.setText(message);
         messageSpan.setVisible(true);
-        messageSpan.getStyle().set("color", isError ? "#c62828" : "#2e7d32");
-        messageSpan.getStyle().set("margin-top", "10px");
+        messageSpan.removeClassName("success");
+        messageSpan.removeClassName("error");
+        messageSpan.addClassName(isError ? "error" : "success");
+    }
+
+    public void hideForm() {
+        branding.setVisible(false);
+        passwordField.setVisible(false);
+        confirmPasswordField.setVisible(false);
+        submitButton.setVisible(false);
     }
 
     public void disableForm() {

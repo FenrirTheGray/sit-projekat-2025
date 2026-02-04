@@ -32,7 +32,6 @@ public class PasswordResetPresenter {
 
         if (success) {
             requestView.showMessage("Ako postoji nalog sa tom email adresom, link za resetovanje je poslat.", false);
-            requestView.clearForm();
         } else {
             requestView.showMessage("Doslo je do greske. Pokusajte ponovo.", true);
         }
@@ -62,7 +61,7 @@ public class PasswordResetPresenter {
 
         if (success) {
             confirmView.showMessage("Lozinka je uspesno promenjena!", false);
-            confirmView.disableForm();
+            confirmView.hideForm();
         } else {
             confirmView.showMessage("Neuspesno resetovanje. Link je mozda istekao.", true);
         }

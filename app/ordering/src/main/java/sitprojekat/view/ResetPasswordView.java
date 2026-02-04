@@ -2,6 +2,7 @@ package sitprojekat.view;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
@@ -18,6 +19,7 @@ import sitprojekat.service.PasswordResetService;
 import java.util.List;
 import java.util.Map;
 
+@CssImport("./style/style.css")
 @StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")
 @Route("ResetPassword")
 public class ResetPasswordView extends VerticalLayout implements BeforeEnterObserver {
