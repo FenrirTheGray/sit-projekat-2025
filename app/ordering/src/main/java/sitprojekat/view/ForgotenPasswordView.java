@@ -26,6 +26,7 @@ public class ForgotenPasswordView extends VerticalLayout implements ForgotenPass
 
 	private EmailField emailField = new EmailField();
 	private Button restorePasswordButton =new Button();
+	private Span messageSpan = new Span();
 	private ForgotenPasswordPresenter presenter;
 	public ForgotenPasswordView(ForgotenPasswordPresenter presenter) {
 		this.presenter=presenter;
@@ -48,17 +49,19 @@ public class ForgotenPasswordView extends VerticalLayout implements ForgotenPass
 		
 		
 		
-		restorePasswordButton.setText("Restore password");
+		restorePasswordButton.setText("Posalji link");
 		restorePasswordButton.addClassName("brownButton");
 		restorePasswordButton.addClickListener(e->presenter.getAccountPassword());
-		
+
+		messageSpan.setVisible(false);
+
 		Span loginSpan=new Span();
 		loginSpan.setText("Prijavite se");
 		loginSpan.addClassName("loginSpan");
-		
+
 		loginSpan.addClickListener(e->presenter.loginScreen());
-		
-		forgotenPasswordContainer.add(emailField,restorePasswordButton,loginSpan);
+
+		forgotenPasswordContainer.add(emailField,restorePasswordButton,messageSpan,loginSpan);
 		
 		forgotenPasswordContainer.addClassName("orderingContainer");
 		forgotenPasswordContainer.setPadding(true);
@@ -75,5 +78,18 @@ public class ForgotenPasswordView extends VerticalLayout implements ForgotenPass
 	public EmailField getEmailField() {
 		return emailField;
 	}
-	
+
+	@Override
+	public void showMessage(String message, boolean isError) {
+		messageSpan.setText(message);
+		messageSpan.setVisible(true);
+		messageSpan.getStyle().set("color", isError ? "#c62828" : "#2e7d32");
+		messageSpan.getStyle().set("text-align", "center");
+	}
+
+	@Override
+	public void clearForm() {
+		emailField.clear();
+	}
+
 }

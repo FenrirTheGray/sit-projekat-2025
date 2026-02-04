@@ -42,6 +42,11 @@ HELP.md
 # MacOS
 .DS_Store
 
+# Environment variables (secrets)
+.env
+.env.local
+.env.*.local
+
 # Vaadin / Frontend
 # The following files are generated/updated by vaadin-maven-plugin
 **/node_modules/

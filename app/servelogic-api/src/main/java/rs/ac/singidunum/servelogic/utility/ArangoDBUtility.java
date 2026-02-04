@@ -1,5 +1,6 @@
 package rs.ac.singidunum.servelogic.utility;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import com.arangodb.ArangoDB;
 import com.arangodb.springframework.annotation.EnableArangoRepositories;
@@ -10,13 +11,23 @@ import jakarta.annotation.PostConstruct;
 @EnableArangoRepositories(basePackages = { "rs.ac.singidunum.servelogic.repository" })
 public class ArangoDBUtility implements ArangoConfiguration {
 
+	@Value("${app.arangodb.host}")
+	private String host;
+
+	@Value("${app.arangodb.port}")
+	private int port;
+
+	@Value("${app.arangodb.user}")
+	private String user;
+
+	@Value("${app.arangodb.password}")
+	private String password;
+
+	@Value("${app.arangodb.database}")
+	private String databaseName;
+
 	@Override
 	public ArangoDB.Builder arango() {
-		String host = System.getenv().getOrDefault("ARANGODB_HOST", "localhost");
-		int port = Integer.parseInt(System.getenv().getOrDefault("ARANGODB_PORT", "8529"));
-		String user = System.getenv().getOrDefault("ARANGODB_USER", "root");
-		String password = System.getenv().getOrDefault("ARANGODB_PASSWORD", "root");
-
 		return new ArangoDB.Builder()
 				.host(host, port)
 				.user(user)
@@ -25,8 +36,7 @@ public class ArangoDBUtility implements ArangoConfiguration {
 
 	@Override
 	public String database() {
-		String database = System.getenv().getOrDefault("ARANGODB_DATABASE", "servelogic");
-		return database;
+		return databaseName;
 	}
 
 	@PostConstruct
@@ -35,6 +45,10 @@ public class ArangoDBUtility implements ArangoConfiguration {
 		try {
 			if (!arangoDB.db(database()).exists()) {
 				arangoDB.createDatabase(database());
+			}
+			var db = arangoDB.db(database());
+			if (!db.collection("password_reset_token").exists()) {
+				db.createCollection("password_reset_token");
 			}
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot create or access database", e);

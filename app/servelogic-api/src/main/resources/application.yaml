@@ -3,8 +3,19 @@ spring:
     name: servelogic
   profiles:
     active: devDataInit
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 server:
-  port: 7999  
+  port: ${REST_PORT:7999}
 app:
   cache:
     ttl: 600000
@@ -14,3 +25,27 @@ app:
     modifierTypes: 5
     categories: 5
     users: 10
+  email:
+    from: ${MAIL_FROM:noreply@servelogic.com}
+  frontend:
+    cms-url: ${CMS_URL:http://localhost:7998}
+    ordering-url: ${ORDERING_URL:http://localhost:7998}
+  password-reset:
+    token-expiry-hours: 1
+    max-requests-per-hour: 3
+  root-user:
+    email: ${ROOT_USER_EMAIL:root@sl.com}
+    password: ${ROOT_USER_PASSWORD:root}
+  arangodb:
+    host: ${ARANGODB_HOST:localhost}
+    port: ${ARANGODB_PORT:8529}
+    user: ${ARANGODB_USER:root}
+    password: ${ARANGODB_PASSWORD:root}
+    database: ${ARANGODB_DATABASE:servelogic}
+  fuseki:
+    host: ${FUSEKI_HOST:localhost}
+    port: ${FUSEKI_PORT:3030}
+    dataset: ${FUSEKI_DATASET:servelogic}
+    user: ${FUSEKI_USER:admin}
+    password: ${FUSEKI_PASSWORD:admin}
+    namespace-root: ${FUSEKI_NAMESPACEROOT:http://www.singidunum.ac.rs}

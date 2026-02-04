@@ -67,6 +67,10 @@ public class LoginView extends VerticalLayout {
             }
         });
 
+        loginForm.addForgotPasswordListener(event -> {
+            getUI().ifPresent(ui -> ui.navigate(PasswordResetRequestView.class));
+        });
+
 		HorizontalLayout content = new HorizontalLayout(branding, loginForm);
         content.setAlignItems(Alignment.CENTER);
         content.setSpacing(true);
