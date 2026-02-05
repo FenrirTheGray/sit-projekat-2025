@@ -1,11 +1,14 @@
 package sitprojekat.view;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -14,7 +17,8 @@ import com.vaadin.flow.router.Route;
 import sitprojekat.interfaces.AccountCreationViewInterface;
 import sitprojekat.presenter.AccountCreationPresenter;
 
-@StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")        
+@CssImport("./style/style.css")
+@StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")
 @Route("AccountCreation")
 public class AccountCreationView  extends VerticalLayout implements AccountCreationViewInterface{
 
@@ -67,7 +71,21 @@ public class AccountCreationView  extends VerticalLayout implements AccountCreat
 		
 		createAccountButton.setText("Kreiraj nalog");
 		createAccountButton.addClassName("brownButton");
-		createAccountButton.addClickListener(e -> presenter.createAccount());
+		createAccountButton.addClickListener(e ->{
+			
+			if (!emailField.isEmpty()) {
+
+				if (passwordPasswordField.getValue().equals(confirmPasswordPasswordField.getValue())) {
+					presenter.createAccount(emailField.getValue(), confirmPasswordPasswordField.getValue());
+				} else {
+					Notification notification = Notification.show("lozinka mora biti ista",3000, Notification.Position.BOTTOM_CENTER); // sta pise , koliko traje, pozicija
+					notification.addThemeVariants(NotificationVariant.LUMO_ERROR);// koje je boje
+				}
+			}else {
+				Notification notification = Notification.show("email je prazan",3000, Notification.Position.BOTTOM_CENTER); // sta pise , koliko traje, pozicija
+				notification.addThemeVariants(NotificationVariant.LUMO_ERROR);// koje je boje
+			}
+		});
 		
 		
 		Span alreadyHaveAnAccountSpan=new Span();

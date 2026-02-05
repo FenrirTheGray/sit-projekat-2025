@@ -9,7 +9,6 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -17,12 +16,9 @@ import com.vaadin.flow.router.Route;
 
 import sitprojekat.interfaces.ProductsViewInterface;
 import sitprojekat.model.Article;
+import sitprojekat.model.Combo;
+import sitprojekat.model.Product;
 import sitprojekat.presenter.ProductsPresenter;
-import sitprojekat.service.ArticleService;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Route(value = "Products",layout = HeaderAndNavBar.class)
 public class ProductsView extends VerticalLayout implements ProductsViewInterface{
@@ -33,9 +29,11 @@ public class ProductsView extends VerticalLayout implements ProductsViewInterfac
 	private static final long serialVersionUID = 6116769739933744188L;
 	
 	private final ProductsPresenter	 presenter;
-	private final List<Article> allArticles;
+	private List<Article> allArticles;
+	private List<Combo> allCombos;
 	private TextField filterTextBox=new TextField();
 	private final VerticalLayout productsContainer = new VerticalLayout();
+	private Span noContentSpan=new Span("");
 	
 	public ProductsView(ProductsPresenter presenter) {			
 		
@@ -62,21 +60,22 @@ public class ProductsView extends VerticalLayout implements ProductsViewInterfac
 		filterContainer.setJustifyContentMode(JustifyContentMode.END);
 		
 		this.allArticles =presenter.getArticles();		
+		this.allCombos =presenter.getCombos();	
         productsContainer.setWidthFull();
 		
 		
 		add(filterContainer, productsContainer);
-		if(!allArticles.isEmpty()) {
+		if(allArticles!=null && !allArticles.isEmpty() && allCombos!=null && !allCombos.isEmpty()) {
 			presenter.updateView("");
 		}
 		else {
-			Span noProductsSpan=new Span("desila se greska ");
-			noProductsSpan.addClassName("whiteText");
-			add(noProductsSpan);
+			noContentSpan.setText("desila se greska");
+			noContentSpan.addClassName("whiteText");
 		}
+		add(noContentSpan);
 		
 	}
-	public VerticalLayout createProductContainer(Article article) {
+	public VerticalLayout createProductContainer(Product product) {
 		
 	    VerticalLayout productContainer = new VerticalLayout();		 // glavni kontejner proizvoda
 	    productContainer.addClassName("productContainer");			
@@ -89,22 +88,27 @@ public class ProductsView extends VerticalLayout implements ProductsViewInterfac
 	    productImage.addClassName("productImage");
 
 	    
-	    H3 productNameH3 = new H3(article.getName()); //   naziv i opis za proizvod
+	    H3 productNameH3 = new H3(product.getName()); //   naziv i opis za proizvod
 	    productNameH3.addClassName("whiteText");
 	    
-	    Span productDescriptionSpan = new Span(article.getDescription()); 
+	    Span productDescriptionSpan = new Span(product.getDescription()); 
 	    productDescriptionSpan.addClassName("whiteText");
 
 	    productContainer.add(productImage, productNameH3, productDescriptionSpan);
 	    productContainer.addClassName("cursorPointer");;  //  double click pa ode na detalje i menja mis 
 	    productContainer.addDoubleClickListener(e -> {
-	        UI.getCurrent().navigate(ArticleView.class, article.getId());
+	    	if(product instanceof Article)
+	        UI.getCurrent().navigate(ArticleView.class, product.getId());
+	    	else {
+	    		UI.getCurrent().navigate(ComboView.class, product.getId());
+	    	}
 	    });
 	    
 	    
 	    return productContainer;
 	}
-	public VerticalLayout createCategorySection(String title, List<Article> articles) {
+	@Override
+	public VerticalLayout createCategorySectionArticle(String title, List<Article> articles) {
 	    H1 categoryH1 = new H1(title);
 	    categoryH1.addClassName("categoryH1");  //naslov	    
 	    categoryH1.setWidthFull();
@@ -142,14 +146,30 @@ public class ProductsView extends VerticalLayout implements ProductsViewInterfac
 	}
 	@Override
 	public void noContentSpan(String noContent) {
-		Span noContentSpan=new Span(noContent);
+
     	noContentSpan.addClassName("whiteText");
-        add(noContentSpan);
-        return ;
+        noContentSpan.setText(noContent);
 		
 	}
+	@Override
+	public List<Combo> getAllCombos() {
+		return this.allCombos;
+	}
+	@Override
+	public VerticalLayout createCategorySectionCombo(String title, List<Combo> combos) {
+		H1 categoryH1 = new H1(title);
+	    categoryH1.addClassName("categoryH1");  //naslov	    
+	    categoryH1.setWidthFull();
 
-	
-	
-	
+	    VerticalLayout articleContainer = new VerticalLayout();            // svi u toj kategoriji 3 po jednom redu
+	    articleContainer.addClassName("articleContainer");
+
+	    for (Combo combo: combos) {
+	        articleContainer.add(createProductContainer(combo));
+	    }
+
+	    VerticalLayout section = new VerticalLayout(categoryH1, articleContainer);
+	    section.setPadding(false);
+	    return section;
+	}
 }

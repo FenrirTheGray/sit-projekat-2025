@@ -14,7 +14,6 @@ import com.vaadin.flow.router.Route;
 import sitprojekat.interfaces.UserProfileViewInterface;
 import sitprojekat.model.UserAccount;
 import sitprojekat.presenter.UserProfilePresenter;
-import sitprojekat.service.UserAccountService;
 
 @CssImport("./style/style.css")
 @Route(value = "UserProfile",layout = HeaderAndNavBar.class)
@@ -32,16 +31,17 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 	private PasswordField confirmPasswordPasswordField = new PasswordField();
 	private final UserProfilePresenter presenter;
 	private UserAccount user;
-	public UserProfileView(UserAccountService service) {
-		this.user=service.getUser();
-		this.presenter=new UserProfilePresenter(this, user);
-		
+	private VerticalLayout userProfileContainer = new VerticalLayout();
+	private H2 titleH2=new H2();
+	public UserProfileView(UserProfilePresenter presenter) {
+		this.presenter=presenter;
+		presenter.setView(this);
 		Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
 		Button backButton=new Button("Povratak",backArrowIcon);
 		backButton.addClassName("brownButton");
 		backButton.addClickListener(e->presenter.backClick());
 		
-		H2 titleH2=new H2();
+		
 		titleH2.setText("Profil");
 		titleH2.addClassName("whiteText");
 		
@@ -89,28 +89,38 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 		Button logOutButton =new Button();
 		logOutButton.setText("Odjavi se");
 		logOutButton.addClassName("logOutButton");
-		
-		VerticalLayout userProfileContainer = new VerticalLayout(); 
+		logOutButton.addClickListener(e->{
+			
+		emailField.setValue("");	
+		addressTextField.setValue("");
+		telephoneTextField.setValue("");
+		passwordPasswordField.setValue("");
+		confirmPasswordPasswordField.setValue("");
+		presenter.LogOut();
+	});		
+		 
 			
 		userProfileContainer.add(emailField,addressTextField,telephoneTextField,passwordPasswordField,confirmPasswordPasswordField,saveChangesButton,logOutButton);
 		
 		userProfileContainer.addClassName("userProfileContainer");
 
-		
+		userProfileContainer.setVisible(false);
+		titleH2.setVisible(false);
 		VerticalLayout formContainer=new VerticalLayout();
 		formContainer.add(titleH2,userProfileContainer);
 		formContainer.setAlignItems(Alignment.CENTER);
 		formContainer.setJustifyContentMode(JustifyContentMode.CENTER);
 		
 		add(backButton,formContainer);
+		presenter.updateView();
 	}
 	@Override
 	public String getEmailField() {
 		return emailField.getValue();
 	}
 	@Override
-	public void setEmailField(EmailField email) {
-		
+	public void setEmailField(String email) {
+		emailField.setValue(email);
 		
 	}
 	@Override
@@ -118,8 +128,8 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 		return addressTextField.getValue();
 	}
 	@Override
-	public void setAddressTextField(TextField address) {
-		// TODO Auto-generated method stub
+	public void setAddressTextField(String address) {
+		this.addressTextField.setValue(address);
 		
 	}
 	@Override
@@ -127,8 +137,8 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 		return telephoneTextField.getValue();
 	}
 	@Override
-	public void setTelephoneTextField(TextField telephone) {
-		
+	public void setTelephoneTextField(String telephone) {
+		this.telephoneTextField.setValue(telephone);
 		
 	}
 	@Override
@@ -136,7 +146,7 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 		return passwordPasswordField.getValue();
 	}
 	@Override
-	public void setPasswordPasswordField(PasswordField password) {
+	public void setPasswordPasswordField(String password) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -148,6 +158,22 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 	public void setConfirmPasswordPasswordField(PasswordField confirmPassword) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public VerticalLayout getUserProfileContainer() {
+		return userProfileContainer;
+	}
+	@Override
+	public void setUserProfileContainer(VerticalLayout userProfileContainer) {
+		this.userProfileContainer = userProfileContainer;
+	}
+	@Override
+	public H2 getTitleH2() {
+		return titleH2;
+	}
+	@Override
+	public void setTitleH2(H2 titleH2) {
+		this.titleH2 = titleH2;
 	}
 	
 	

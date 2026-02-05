@@ -1,12 +1,16 @@
 package sitprojekat.view;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 
+@StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")
+@CssImport("./style/style.css")
 public class NotificationCardDoesntHaveEnoughFunds extends Dialog{
 
 	/**

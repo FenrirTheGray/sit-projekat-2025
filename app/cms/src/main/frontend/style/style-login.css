@@ -6,70 +6,70 @@
    LOGIN SCREEN CONTAINER
    -------------------------------------------- */
 .login-screen {
-    background-color: var(--cms-bg);
-    min-height: 100vh;
+	background-color: var(--cms-bg);
+	min-height: 100vh;
 }
 
 /* --------------------------------------------
    BRANDING SECTION
    -------------------------------------------- */
 .icon-pc {
-    width: 48px;
-    height: 48px;
-    color: var(--cms-accent);
-    margin-bottom: 0.5rem;
+	width: 48px;
+	height: 48px;
+	color: var(--cms-accent);
+	margin-bottom: 0.5rem;
 }
 
 .login-title {
-    text-align: center;
-    color: var(--cms-text);
-    font-size: 1.75rem;
-    font-weight: 600;
-    letter-spacing: -0.025em;
+	text-align: center;
+	color: var(--cms-text);
+	font-size: 1.75rem;
+	font-weight: 600;
+	letter-spacing: -0.025em;
 }
 
 /* --------------------------------------------
    LOGIN FORM BOX
    -------------------------------------------- */
 .login-form-box {
-    width: 400px;
-    min-width: 400px;
-    background-color: var(--cms-surface);
-    border: 1px solid var(--cms-border);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--cms-shadow-lg);
+	width: 400px;
+	min-width: 400px;
+	background-color: var(--cms-surface);
+	border: 1px solid var(--cms-border);
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: var(--cms-shadow-lg);
 }
 
 /* Vaadin Login Form Wrapper */
 .login-form-box vaadin-login-form {
-    display: block;
-    width: 100%;
+	display: block;
+	width: 100%;
 }
 
 .login-form-box vaadin-login-form-wrapper {
-    display: block;
-    background-color: var(--cms-surface);
-    width: 100%;
-    max-width: none;
+	display: block;
+	background-color: var(--cms-surface);
+	width: 100%;
+	max-width: none;
 }
 
 .login-form-box vaadin-login-form-wrapper::part(form) {
-    background-color: var(--cms-surface);
-    padding: 2.5rem;
+	background-color: var(--cms-surface);
+	padding: 2.5rem;
 }
 
 .login-form-box vaadin-login-form-wrapper::part(form-title) {
-    color: var(--cms-text);
-    display: none;
+	color: var(--cms-text);
+	display: none;
 }
 
-.login-form-box [part="form"] {
-    background-color: var(--cms-surface);
+.login-form-box [part='form'] {
+	background-color: var(--cms-surface);
 }
 
 .login-form-box section {
-    background-color: var(--cms-surface);
+	background-color: var(--cms-surface);
 }
 
 /* --------------------------------------------
@@ -77,101 +77,125 @@
    -------------------------------------------- */
 .login-form-box vaadin-text-field,
 .login-form-box vaadin-password-field {
-    --vaadin-input-field-background: var(--cms-surface-2);
-    --vaadin-input-field-border-color: var(--cms-border);
-    --vaadin-input-field-border-radius: 8px;
-    --vaadin-input-field-value-color: var(--cms-text);
-    --vaadin-input-field-label-color: var(--cms-text-secondary);
-    --vaadin-input-field-placeholder-color: var(--cms-text-muted);
-    margin-bottom: 0.75rem;
-    width: 100%;
+	--vaadin-input-field-background: var(--cms-surface-2);
+	--vaadin-input-field-border-color: var(--cms-border);
+	--vaadin-input-field-border-radius: 8px;
+	--vaadin-input-field-value-color: var(--cms-text);
+	--vaadin-input-field-label-color: var(--cms-text-secondary);
+	--vaadin-input-field-placeholder-color: var(--cms-text-muted);
+	margin-bottom: 0.75rem;
+	width: 100%;
+}
+
+.login-form-box vaadin-password-field::part(reveal-button) {
+	color: var(--cms-text-secondary);
+}
+
+.login-form-box vaadin-password-field::part(reveal-button):hover {
+	color: var(--cms-text);
 }
 
 .login-form-box vaadin-text-field::part(input-field),
 .login-form-box vaadin-password-field::part(input-field) {
-    background-color: var(--cms-surface-2);
-    border: 1px solid var(--cms-border);
-    border-radius: 8px;
-    min-height: 2.75rem;
+	background-color: var(--cms-surface-2);
+	border: 1px solid var(--cms-border);
+	border-radius: 8px;
+	min-height: 2.75rem;
 }
 
 .login-form-box vaadin-text-field::part(input-field):hover,
 .login-form-box vaadin-password-field::part(input-field):hover {
-    border-color: var(--cms-text-muted);
+	border-color: var(--cms-text-muted);
 }
 
 .login-form-box vaadin-text-field::part(input-field):focus-within,
 .login-form-box vaadin-password-field::part(input-field):focus-within {
-    border-color: var(--cms-accent);
-    box-shadow: 0 0 0 3px var(--cms-accent-muted);
+	border-color: var(--cms-accent);
+	box-shadow: 0 0 0 3px var(--cms-accent-muted);
 }
 
 .login-form-box vaadin-text-field::part(label),
 .login-form-box vaadin-password-field::part(label) {
-    color: var(--cms-text-secondary);
-    font-weight: 500;
+	color: var(--cms-text-secondary);
+	font-weight: 500;
 }
 
 /* Password reveal button */
-.login-form-box vaadin-password-field [slot="reveal"] {
-    color: var(--cms-text-muted);
+.login-form-box vaadin-password-field [slot='reveal'] {
+	color: var(--cms-text-muted);
 }
 
-.login-form-box vaadin-password-field [slot="reveal"]:hover {
-    color: var(--cms-text);
+.login-form-box vaadin-password-field [slot='reveal']:hover {
+	color: var(--cms-text);
 }
 
 /* --------------------------------------------
    BUTTONS IN LOGIN FORM
    -------------------------------------------- */
 /* Submit button */
-.login-form-box vaadin-button[slot="submit"] {
-    background-color: var(--cms-accent);
-    color: var(--cms-bg);
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    min-height: 2.75rem;
-    margin-top: 0.5rem;
-    transition: all var(--cms-transition);
+.login-form-box vaadin-button[slot='submit'] {
+	background-color: var(--cms-accent);
+	color: var(--cms-bg);
+	border: none;
+	border-radius: 8px;
+	font-weight: 600;
+	min-height: 2.75rem;
+	margin-top: 0.5rem;
+	transition: all var(--cms-transition);
 }
 
-.login-form-box vaadin-button[slot="submit"]:hover {
-    background-color: var(--cms-accent-hover);
+.login-form-box vaadin-button[slot='submit']:hover {
+	background-color: var(--cms-accent-hover);
 }
 
 /* Forgot password button */
-.login-form-box vaadin-button[slot="forgot-password"] {
-    color: var(--cms-text-muted);
-    background: transparent;
-    border: none;
-    font-size: 0.875rem;
-    margin-left: 0;
-    padding: 0;
+.login-form-box vaadin-button[slot='forgot-password'] {
+	color: var(--cms-text-muted);
+	background: transparent;
+	border: none;
+	font-size: 0.875rem;
+	margin-left: 0;
+	padding: 0;
 }
 
-.login-form-box vaadin-button[slot="forgot-password"]:hover {
-    color: var(--cms-accent);
-    background: transparent;
+.login-form-box vaadin-button[slot='forgot-password']:hover {
+	color: var(--cms-accent);
+	background: transparent;
 }
 
 /* --------------------------------------------
    ERROR MESSAGE (if login fails)
    -------------------------------------------- */
-.login-form-box [part="error-message"] {
-    background-color: var(--cms-error-muted);
-    border: 1px solid var(--cms-error);
-    border-radius: 8px;
-    color: var(--cms-text);
-    padding: 0.75rem 1rem;
-    margin-bottom: 1rem;
+.login-form-box [part='error-message'] {
+	background-color: var(--cms-error-muted);
+	border: 1px solid var(--cms-error);
+	border-radius: 8px;
+	color: var(--cms-text);
+	padding: 0.75rem 1rem;
+	margin-bottom: 1rem;
 }
 
-.login-form-box [part="error-message-title"] {
-    color: var(--cms-error);
-    font-weight: 600;
+.login-form-box [part='error-message-title'] {
+	color: var(--cms-error);
+	font-weight: 600;
 }
 
-.login-form-box [part="error-message-description"] {
-    color: var(--cms-text-secondary);
+.login-form-box [part='error-message-description'] {
+	color: var(--cms-text-secondary);
+}
+
+/* --------------------------------------------
+   FORM MESSAGE (success/error feedback)
+   -------------------------------------------- */
+.login-form-box .form-message {
+	text-align: center;
+	margin-top: 10px;
+}
+
+.login-form-box .form-message.success {
+	color: var(--cms-text);
+}
+
+.login-form-box .form-message.error {
+	color: var(--cms-error);
 }

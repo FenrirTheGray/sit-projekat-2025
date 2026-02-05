@@ -77,7 +77,12 @@ body {
 /* --------------------------------------------
    TYPOGRAPHY
    -------------------------------------------- */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: var(--cms-text);
     font-weight: 600;
     margin: 0;
@@ -210,38 +215,13 @@ vaadin-combo-box::part(required-indicator) {
 }
 
 /* Clear button */
-vaadin-text-field [slot="clear-button"],
-vaadin-password-field [slot="clear-button"] {
+.view-search-bar::part(clear-button) {
     color: var(--cms-text-muted);
+    transition: color var(--cms-transition);
 }
 
-vaadin-text-field [slot="clear-button"]:hover,
-vaadin-password-field [slot="clear-button"]:hover {
-    color: var(--cms-text);
-}
-
-/* --------------------------------------------
-   CHECKBOX
-   -------------------------------------------- */
-vaadin-checkbox {
-    --vaadin-checkbox-label-color: var(--cms-text);
-    --vaadin-checkbox-background: var(--cms-surface);
-    --vaadin-checkbox-border-color: var(--cms-border);
-    color: var(--cms-text);
-}
-
-vaadin-checkbox::part(checkbox) {
-    background-color: var(--cms-surface);
-    border-color: var(--cms-border);
-}
-
-vaadin-checkbox[checked]::part(checkbox) {
-    background-color: var(--cms-accent);
-    border-color: var(--cms-accent);
-}
-
-vaadin-checkbox::part(label) {
-    color: var(--cms-text);
+.view-search-bar::part(clear-button):hover {
+    color: var(--cms-error);
 }
 
 /* --------------------------------------------
@@ -332,11 +312,11 @@ vaadin-notification-card[theme~="error"] {
 }
 
 .view-search-bar::part(input-field):hover {
-    border-color: var(--cms-text-muted);
+    border-color: var(--cms-text-secondary);
 }
 
 .view-search-bar::part(input-field):hover [slot="prefix"] {
-    color: var(--cms-text-secondary);
+    color: red;
 }
 
 .view-search-bar::part(input-field):focus-within {
@@ -532,7 +512,7 @@ vaadin-notification-card[theme~="error"] {
 }
 
 .form-checkbox[checked]::part(checkbox) {
-    background-color: var(--cms-accent);
+    background-color: var(--cms-success);
     border-color: var(--cms-accent);
 }
 

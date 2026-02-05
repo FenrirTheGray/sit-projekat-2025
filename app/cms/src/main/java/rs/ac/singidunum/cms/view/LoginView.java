@@ -19,12 +19,13 @@ import rs.ac.singidunum.cms.service.UserService;
 @CssImport("./style/style-login.css")
 public class LoginView extends VerticalLayout {
 
-	private static final long serialVersionUID = 6313156717813295316L;
+    private static final long serialVersionUID = 6313156717813295316L;
 
     private final LoginPresenter presenter;
     private LoginForm loginForm;
+    private final LoginI18n loginI18n;
 
-	public LoginView(UserService userService) {
+		public LoginView(UserService userService) {
         this.presenter = new LoginPresenter(this, userService);
 
         setSizeFull();
@@ -44,37 +45,58 @@ public class LoginView extends VerticalLayout {
 
 		loginForm = new LoginForm();
 
-		LoginI18n login = LoginI18n.createDefault();
-        login.getForm().setUsername("Email");
-        login.getForm().setPassword("Lozinka");
-        login.getForm().setSubmit("Prijava");
-        login.getForm().setForgotPassword("Zaboravljena lozinka?");
-        login.getForm().setTitle("");
+		loginI18n = LoginI18n.createDefault();
+		loginI18n.getForm().setUsername("Email");
+		loginI18n.getForm().setPassword("Lozinka");
+		loginI18n.getForm().setSubmit("Prijava");
+		loginI18n.getForm().setForgotPassword("Zaboravljena lozinka?");
+		loginI18n.getForm().setTitle("");
 
-        loginForm.setI18n(login);
-        loginForm.addClassName("login-form-box");
+		LoginI18n.ErrorMessage errorMessage = loginI18n.getErrorMessage();
+		errorMessage.setTitle("Pogrešni podaci za prijavu");
+		errorMessage.setMessage("Proverite da li su email i lozinka ispravni i pokušajte ponovo.");
+		loginI18n.setErrorMessage(errorMessage);
+
+		loginForm.setI18n(loginI18n);
+		loginForm.addClassName("login-form-box");
 
 		loginForm.addLoginListener(event -> {
-            String email = event.getUsername();
-            String password = event.getPassword();
+			clearError();
 
-            System.out.println("email: " + email.toLowerCase());
-            System.out.println("password: " + password);
+			String email = event.getUsername();
+			String password = event.getPassword();
 
-            if(this.presenter.login(email, password)){
-                System.out.println("Logged in");
-                getUI().ifPresent(ui -> ui.navigate(ArticlesView.class));
-            }
-        });
+			if(this.presenter.login(email, password)){
+				getUI().ifPresent(ui -> ui.navigate(ArticlesView.class));
+			}
+		});
+
+		loginForm.addForgotPasswordListener(event -> {
+			getUI().ifPresent(ui -> ui.navigate(PasswordResetRequestView.class));
+		});
 
 		HorizontalLayout content = new HorizontalLayout(branding, loginForm);
-        content.setAlignItems(Alignment.CENTER);
-        content.setSpacing(true);
+		content.setAlignItems(Alignment.CENTER);
+		content.setSpacing(true);
 
-        add(content);
-	}
+		add(content);
+    }
 
-	public void showLoginError() {
-		loginForm.setError(true);
-	}
+    public void showLoginError(String title, String message) {
+        LoginI18n.ErrorMessage errorMessage = loginI18n.getErrorMessage();
+        errorMessage.setTitle(title);
+        errorMessage.setMessage(message);
+        loginI18n.setErrorMessage(errorMessage);
+
+        loginForm.setI18n(loginI18n);
+        loginForm.setError(true);
+    }
+
+    public void showLoginError() {
+        showLoginError("Pogrešni podaci za prijavu", "Proverite da li su email i lozinka ispravni i pokušajte ponovo.");
+    }
+
+    public void clearError() {
+        loginForm.setError(false);
+    }
 }
