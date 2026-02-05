@@ -14,7 +14,6 @@ import com.vaadin.flow.router.Route;
 import sitprojekat.interfaces.UserProfileViewInterface;
 import sitprojekat.model.UserAccount;
 import sitprojekat.presenter.UserProfilePresenter;
-import sitprojekat.service.UserAccountService;
 
 @CssImport("./style/style.css")
 @Route(value = "UserProfile",layout = HeaderAndNavBar.class)
@@ -32,6 +31,8 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 	private PasswordField confirmPasswordPasswordField = new PasswordField();
 	private final UserProfilePresenter presenter;
 	private UserAccount user;
+	private VerticalLayout userProfileContainer = new VerticalLayout();
+	private H2 titleH2=new H2();
 	public UserProfileView(UserProfilePresenter presenter) {
 		this.presenter=presenter;
 		presenter.setView(this);
@@ -40,7 +41,7 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 		backButton.addClassName("brownButton");
 		backButton.addClickListener(e->presenter.backClick());
 		
-		H2 titleH2=new H2();
+		
 		titleH2.setText("Profil");
 		titleH2.addClassName("whiteText");
 		
@@ -88,14 +89,23 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 		Button logOutButton =new Button();
 		logOutButton.setText("Odjavi se");
 		logOutButton.addClassName("logOutButton");
-		logOutButton.addClickListener(e->presenter.LogOut());		
-		VerticalLayout userProfileContainer = new VerticalLayout(); 
+		logOutButton.addClickListener(e->{
+			
+		emailField.setValue("");	
+		addressTextField.setValue("");
+		telephoneTextField.setValue("");
+		passwordPasswordField.setValue("");
+		confirmPasswordPasswordField.setValue("");
+		presenter.LogOut();
+	});		
+		 
 			
 		userProfileContainer.add(emailField,addressTextField,telephoneTextField,passwordPasswordField,confirmPasswordPasswordField,saveChangesButton,logOutButton);
 		
 		userProfileContainer.addClassName("userProfileContainer");
 
-		
+		userProfileContainer.setVisible(false);
+		titleH2.setVisible(false);
 		VerticalLayout formContainer=new VerticalLayout();
 		formContainer.add(titleH2,userProfileContainer);
 		formContainer.setAlignItems(Alignment.CENTER);
@@ -148,6 +158,22 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 	public void setConfirmPasswordPasswordField(PasswordField confirmPassword) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public VerticalLayout getUserProfileContainer() {
+		return userProfileContainer;
+	}
+	@Override
+	public void setUserProfileContainer(VerticalLayout userProfileContainer) {
+		this.userProfileContainer = userProfileContainer;
+	}
+	@Override
+	public H2 getTitleH2() {
+		return titleH2;
+	}
+	@Override
+	public void setTitleH2(H2 titleH2) {
+		this.titleH2 = titleH2;
 	}
 	
 	

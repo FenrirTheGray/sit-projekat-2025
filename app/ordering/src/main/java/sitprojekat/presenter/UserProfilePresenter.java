@@ -51,6 +51,12 @@ public class UserProfilePresenter {
 
 	public void  LogOut() {
 		service.logout();
+		userAccountService.setAdress("");
+		userAccountService.setEmail("");
+		userAccountService.setPhone("");
+		userAccountService.setPassword("");
+		view.getUserProfileContainer().setVisible(false);
+		view.getTitleH2().setVisible(false);
 		    
 	}
 
@@ -59,10 +65,12 @@ public class UserProfilePresenter {
 		
 	}
 	public void updateView() {
-		if(userAccountService!=null && view!=null) {
+		if(userAccountService.getUser().getEmail()!="" && view!=null) {
 		view.setEmailField(userAccountService.getUser().getEmail());
 		view.setAddressTextField(userAccountService.getUser().getAdress());
 		view.setTelephoneTextField(userAccountService.getUser().getPhone());
+		view.getUserProfileContainer().setVisible(true);
+		view.getTitleH2().setVisible(true);
 		}
 	}
 }
