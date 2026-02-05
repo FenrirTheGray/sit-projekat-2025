@@ -160,6 +160,16 @@ public class ArticleService extends AbstractService<Article, ArticleResponseDTO,
             }
         }
     }
+    
+    @Override
+    protected Class<ArticleFileDTO> getDtoClass() {
+        return ArticleFileDTO.class;
+    }
+
+    @Override
+    protected Class<ArticleXMLWrapper> getXmlWrapperClass() {
+        return ArticleXMLWrapper.class;
+    }
 
 	@Override
 	public ArticleXMLWrapper wrapper(List<ArticleFileDTO> data) {

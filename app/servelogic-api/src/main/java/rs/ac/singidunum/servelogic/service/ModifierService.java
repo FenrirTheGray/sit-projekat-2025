@@ -142,6 +142,16 @@ public class ModifierService extends AbstractService<Modifier, ModifierResponseD
             throw new RuntimeException("Validation failed: ModifierType ID " + dto.getTypeId() + " does not exist.");
         }
     }
+	
+	@Override
+    protected Class<ModifierFileDTO> getDtoClass() {
+        return ModifierFileDTO.class;
+    }
+
+    @Override
+    protected Class<ModifierXMLWrapper> getXmlWrapperClass() {
+        return ModifierXMLWrapper.class;
+    }
 
 	@Override
 	public ModifierXMLWrapper wrapper(List<ModifierFileDTO> data) {

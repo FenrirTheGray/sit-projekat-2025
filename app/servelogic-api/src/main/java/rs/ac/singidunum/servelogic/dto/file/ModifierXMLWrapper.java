@@ -7,12 +7,18 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @JacksonXmlRootElement(localName = "modifiers")
 public class ModifierXMLWrapper extends FileXMLWrapper<ModifierFileDTO> {
+	
+	public ModifierXMLWrapper() {
+		super();
+	}
+
+	public ModifierXMLWrapper(List<ModifierFileDTO> data) {
+		super(data);
+	}
 
 	@JacksonXmlProperty(localName = "modifier")
 	@JacksonXmlElementWrapper(useWrapping = false)
-	private List<ModifierFileDTO> items;
-	
-	public ModifierXMLWrapper(List<ModifierFileDTO> data) {
-		super(data);
+	public List<ModifierFileDTO> getItems() {
+		return super.getItems();
 	}
 }

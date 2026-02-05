@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
 import rs.ac.singidunum.servelogic.dto.create.CategoryCreateRequestDTO;
 import rs.ac.singidunum.servelogic.dto.file.CategoryXMLWrapper;
 import rs.ac.singidunum.servelogic.dto.response.CategoryResponseDTO;
@@ -111,6 +110,16 @@ public class CategoryService extends AbstractService<Category, CategoryResponseD
         }
         repo.saveAll(itemsToSave);
 	}
+	
+	@Override
+    protected Class<CategoryResponseDTO> getDtoClass() {
+        return CategoryResponseDTO.class;
+    }
+
+    @Override
+    protected Class<CategoryXMLWrapper> getXmlWrapperClass() {
+        return CategoryXMLWrapper.class;
+    }
 
 	@Override
 	public CategoryXMLWrapper wrapper(List<CategoryResponseDTO> data) {

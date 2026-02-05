@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
 import rs.ac.singidunum.servelogic.dto.create.ModifierTypeCreateRequestDTO;
 import rs.ac.singidunum.servelogic.dto.file.ModifierTypeXMLWrapper;
 import rs.ac.singidunum.servelogic.dto.response.ModifierTypeResponseDTO;
@@ -99,6 +98,16 @@ public class ModifierTypeService extends AbstractService<ModifierType, ModifierT
 		}
         repo.saveAll(itemsToSave);
 	}
+	
+	@Override
+    protected Class<ModifierTypeResponseDTO> getDtoClass() {
+        return ModifierTypeResponseDTO.class;
+    }
+
+    @Override
+    protected Class<ModifierTypeXMLWrapper> getXmlWrapperClass() {
+        return ModifierTypeXMLWrapper.class;
+    }
 
 	@Override
 	public ModifierTypeXMLWrapper wrapper(List<ModifierTypeResponseDTO> data) {
