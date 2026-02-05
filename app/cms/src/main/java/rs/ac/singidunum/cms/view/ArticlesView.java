@@ -14,7 +14,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.router.Route;
 import rs.ac.singidunum.cms.dto.response.ArticleResponseDTO;
 import rs.ac.singidunum.cms.presenter.ArticlesPresenter;
