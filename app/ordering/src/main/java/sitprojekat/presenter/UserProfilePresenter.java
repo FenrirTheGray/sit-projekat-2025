@@ -7,15 +7,14 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 
-import sitprojekat.interfaces.UserProfileViewInterface;
-import sitprojekat.model.UserAccount;
 import sitprojekat.service.UserAccountService;
 import sitprojekat.service.UserService;
+import sitprojekat.view.UserProfileView;
 
 @Component
 public class UserProfilePresenter {
 
-	private UserProfileViewInterface view;
+	private UserProfileView view;
 	private UserService service;
 	@Autowired 
     UserAccountService userAccountService;
@@ -60,7 +59,7 @@ public class UserProfilePresenter {
 		    
 	}
 
-	public void setView(UserProfileViewInterface view) {
+	public void setView(UserProfileView view) {
 		this.view=view;
 		
 	}

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.spring.annotation.UIScope;
 
-import sitprojekat.interfaces.ArticleViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.Category;
 import sitprojekat.model.Modifier;
@@ -23,7 +22,7 @@ import sitprojekat.view.ArticleView;
 @UIScope  // svaki tab/korisnik dobija svoj presenter
 public class ArticlePresenter {
 
-	private ArticleViewInterface view;
+	private ArticleView view;
     private final ArticleService service;
     private final ProductInCartService productInCartService;
     private Article article;

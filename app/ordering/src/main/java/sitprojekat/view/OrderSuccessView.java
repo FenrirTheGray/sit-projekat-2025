@@ -2,8 +2,6 @@ package sitprojekat.view;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
@@ -12,12 +10,11 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.OrderSuccessViewInterface;
 import sitprojekat.model.ProductInCart;
 import sitprojekat.presenter.OrderSuccessPresenter;
 
 @Route(value = "OrderSuccess",layout = HeaderAndNavBar.class)
-public class OrderSuccessView extends VerticalLayout implements OrderSuccessViewInterface{
+public class OrderSuccessView extends VerticalLayout{
 
 	/**
 	 * 
@@ -62,12 +59,12 @@ public class OrderSuccessView extends VerticalLayout implements OrderSuccessView
 		
 		presenter.updateView();
 		}
-	@Override
+	
 	public void setOrderIDSpan(String orderID) {
 		this.orderIDSpan.setText("Porudzbina ID:"+orderID);
 		
 	}
-	@Override
+	
 	public void setItemsOrderedSpan(List<ProductInCart> itemsOrdered) {
 		String orderedProducts="";
 		if(itemsOrdered!=null)
@@ -78,11 +75,11 @@ public class OrderSuccessView extends VerticalLayout implements OrderSuccessView
 		this.itemsOrderedSpan.setText("Pregled Proizvoda:"+orderedProducts);
 	}
 		
-	@Override
+	
 	public Span getOrderIDSpan() {
 		return orderIDSpan;
 	}
-	@Override
+	
 	public Span getItemsOrderedSpan() {
 		return itemsOrderedSpan;
 	}

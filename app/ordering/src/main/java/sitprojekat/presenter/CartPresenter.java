@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.spring.annotation.UIScope;
 
-import sitprojekat.interfaces.CartViewInterface;
 import sitprojekat.model.ProductInCart;
 import sitprojekat.service.ProductInCartService;
+import sitprojekat.view.CartView;
 import sitprojekat.view.NotificationChoiceConfirmationDeleteFromCart;
 
 @Component
 @UIScope
 public class CartPresenter {
 
-	private CartViewInterface view;
+	private CartView view;
     private ProductInCartService cartService;
     
     public CartPresenter( ProductInCartService cartService) {
@@ -47,7 +47,7 @@ public class CartPresenter {
     	return cartService.getProducts();
     	
     }
-	public void setView(CartViewInterface view) {
+	public void setView(CartView view) {
 		this.view=view;
 		
 	}

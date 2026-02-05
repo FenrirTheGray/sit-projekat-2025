@@ -4,27 +4,26 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
 
-import sitprojekat.interfaces.ForgotenPasswordViewInterface;
 import sitprojekat.service.PasswordResetService;
 import sitprojekat.service.UserAccountService;
-import sitprojekat.service.UserService;
+import sitprojekat.view.ForgotenPasswordView;
 
 @Component
 public class ForgotenPasswordPresenter {
 
 
 	private PasswordResetService passwordResetService;
-	private ForgotenPasswordViewInterface view;
+	private ForgotenPasswordView view;
 
 
 	public ForgotenPasswordPresenter(UserAccountService service, PasswordResetService passwordResetService){
 		super();
 		this.passwordResetService = passwordResetService;
 	}
-	public ForgotenPasswordViewInterface getView() {
+	public ForgotenPasswordView getView() {
 		return view;
 	}
-	public void setView(ForgotenPasswordViewInterface view) {
+	public void setView(ForgotenPasswordView view) {
 		this.view = view;
 	}
 	public void loginScreen() {

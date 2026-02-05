@@ -6,13 +6,13 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 
-import sitprojekat.interfaces.LoginScreenViewInterface;
 import sitprojekat.service.UserService;
+import sitprojekat.view.LoginScreenView;
 
 @Component
 public class LoginScreenPresenter {
 
-    private  LoginScreenViewInterface view;
+    private  LoginScreenView view;
     private  UserService userService;
 
     public LoginScreenPresenter(UserService userService){
@@ -46,7 +46,7 @@ public class LoginScreenPresenter {
         userService.logout();
     }
 
-	public void setView(LoginScreenViewInterface view) {
+	public void setView(LoginScreenView view) {
 		this.view=view;
 		
 	}

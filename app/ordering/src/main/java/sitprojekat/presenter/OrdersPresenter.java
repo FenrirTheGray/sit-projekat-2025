@@ -12,20 +12,15 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.spring.annotation.UIScope;
 
-import sitprojekat.interfaces.OrdersViewInterface;
-import sitprojekat.model.Article;
-import sitprojekat.model.Combo;
 import sitprojekat.model.Order;
-import sitprojekat.model.OrderStatus;
-import sitprojekat.model.OrderedProduct;
-import sitprojekat.model.UserAccount;
 import sitprojekat.service.OrderService;
+import sitprojekat.view.OrdersView;
 
 @Component
 @UIScope
 public class OrdersPresenter {
 
-	private OrdersViewInterface view;
+	private OrdersView view;
 	private OrderService service;
 	private OrderPresenter orderPresenter;
 	public OrdersPresenter(OrderService service,OrderPresenter orderPresenter) {
@@ -33,7 +28,7 @@ public class OrdersPresenter {
 		this.orderPresenter=orderPresenter;
 	}
 
-	public void setView(OrdersViewInterface view) {
+	public void setView(OrdersView view) {
 		this.view = view;
 
 	}

@@ -1,6 +1,5 @@
 package sitprojekat.view;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
@@ -8,19 +7,16 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.ForgotenPasswordViewInterface;
 import sitprojekat.presenter.ForgotenPasswordPresenter;
 
 @CssImport("./style/style.css")
 @StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")
 @Route("ForgotenPassword")
-public class ForgotenPasswordView extends VerticalLayout implements ForgotenPasswordViewInterface{
+public class ForgotenPasswordView extends VerticalLayout{
 
 	
 	/**
@@ -78,12 +74,10 @@ public class ForgotenPasswordView extends VerticalLayout implements ForgotenPass
 		
 		add(orderContainer);
 	}
-	@Override
 	public EmailField getEmailField() {
 		return emailField;
 	}
 
-	@Override
 	public void showMessage(String message, boolean isError) {
 		messageSpan.setText(message);
 		messageSpan.setVisible(true);
@@ -91,7 +85,6 @@ public class ForgotenPasswordView extends VerticalLayout implements ForgotenPass
 		messageSpan.getStyle().set("text-align", "center");
 	}
 
-	@Override
 	public void clearForm() {
 		emailField.clear();
 	}

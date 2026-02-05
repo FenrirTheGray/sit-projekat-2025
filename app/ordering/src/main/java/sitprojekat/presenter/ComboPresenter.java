@@ -11,7 +11,6 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.spring.annotation.UIScope;
 
-import sitprojekat.interfaces.ComboViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.Combo;
 import sitprojekat.model.Modifier;
@@ -21,6 +20,7 @@ import sitprojekat.model.ProductInCartCombo;
 import sitprojekat.model.Type;
 import sitprojekat.service.ComboService;
 import sitprojekat.service.ProductInCartService;
+import sitprojekat.view.ComboView;
 
 @Component
 @UIScope  // svaki tab/korisnik dobija svoj presenter
@@ -28,7 +28,7 @@ public class ComboPresenter {
 
     private final LoginScreenPresenter loginScreenPresenter;
 
-	private ComboViewInterface view;
+	private ComboView view;
     private final ComboService service;
     private final ProductInCartService productInCartService;
     private Combo combo;
@@ -326,7 +326,7 @@ public class ComboPresenter {
 	}
 	
 
-	public void setView(ComboViewInterface view) {
+	public void setView(ComboView view) {
 		this.view=view;
 		
 	}

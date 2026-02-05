@@ -12,13 +12,12 @@ import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.LoginScreenViewInterface;
 import sitprojekat.presenter.LoginScreenPresenter;
 
 @CssImport("./style/style.css")
 @StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")
 @Route("LoginScreen")
-public class LoginScreenView extends VerticalLayout implements LoginScreenViewInterface{
+public class LoginScreenView extends VerticalLayout{
 
 	/**
 	 * 
@@ -84,15 +83,13 @@ public class LoginScreenView extends VerticalLayout implements LoginScreenViewIn
 		
 		add(orderContainer);
 	}
-	@Override
 	public EmailField getEmailField() {
 		return emailField;
 	}
-	@Override
+
 	public PasswordField getPasswordPasswordField() {
 		return passwordPasswordField;
 	}
-	@Override
 	public Button getLoginButton() {
 		return loginButton;
 	}

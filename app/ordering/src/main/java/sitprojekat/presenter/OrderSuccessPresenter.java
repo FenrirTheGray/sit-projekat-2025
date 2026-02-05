@@ -7,15 +7,15 @@ import org.springframework.stereotype.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.spring.annotation.UIScope;
 
-import sitprojekat.interfaces.OrderSuccessViewInterface;
 import sitprojekat.model.ProductInCart;
+import sitprojekat.view.OrderSuccessView;
 
 @Component
 @UIScope
 public class OrderSuccessPresenter {
 
 	
-	private OrderSuccessViewInterface view;
+	private OrderSuccessView view;
 	private String orderID;
 	private List<ProductInCart> productInCart;
 	
@@ -25,7 +25,7 @@ public class OrderSuccessPresenter {
 	}
 	
 	
-	public void setView(OrderSuccessViewInterface view) {
+	public void setView(OrderSuccessView view) {
 		this.view=view;
 		
 	}

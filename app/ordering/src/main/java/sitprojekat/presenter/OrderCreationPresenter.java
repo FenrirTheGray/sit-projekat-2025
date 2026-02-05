@@ -7,22 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 import sitprojekat.dto.OrderResponseDTO;
-import sitprojekat.interfaces.OrderCreationViewInterface;
 import sitprojekat.model.ProductInCart;
 import sitprojekat.service.OrderService;
 import sitprojekat.service.ProductInCartService;
 import sitprojekat.service.UserAccountService;
+import sitprojekat.view.OrderCreationView;
 
 @Component
 @UIScope
 public class OrderCreationPresenter {
 
-	private OrderCreationViewInterface view;
+	private OrderCreationView view;
     private ProductInCartService cartService;
     private OrderService orderService;
     private OrderDeniedPresenter orderDeniedPresenter;
@@ -46,7 +44,7 @@ public class OrderCreationPresenter {
 		UI.getCurrent().getPage().getHistory().back();
 	}
 
-	public void setView(OrderCreationViewInterface view) {
+	public void setView(OrderCreationView view) {
 		this.view=view;
 		
 	}
