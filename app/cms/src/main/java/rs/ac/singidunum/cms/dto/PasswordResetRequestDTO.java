@@ -1,4 +1,4 @@
-package sitprojekat.dto;
+package rs.ac.singidunum.cms.dto;
 
 public class PasswordResetRequestDTO {
     private String email;

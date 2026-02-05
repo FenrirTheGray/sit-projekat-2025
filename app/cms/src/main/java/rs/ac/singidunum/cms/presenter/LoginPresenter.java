@@ -15,20 +15,20 @@ public class LoginPresenter {
 
     public boolean login(String email, String password){
         if(email == null || email.isEmpty()) {
-            //TODO: Red border email and display error
+            view.showLoginError();
             return false;
         }
         if(password == null || password.isEmpty()){
-            //TODO: Red border password and display error
+            view.showLoginError();
             return false;
         }
 
-        if(userService.login(email, password)) return true;
-        else {
-            //TODO: Error handling
+        if(userService.login(email, password)) {
+            return true;
+        } else {
+            view.showLoginError();
+            return false;
         }
-
-        return false;
     }
     public void logout(){
         userService.logout();

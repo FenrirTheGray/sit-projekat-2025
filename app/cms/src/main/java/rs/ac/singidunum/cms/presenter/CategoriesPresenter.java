@@ -3,8 +3,8 @@ package rs.ac.singidunum.cms.presenter;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import rs.ac.singidunum.cms.dto.response.CategoryResponseDTO;
-import rs.ac.singidunum.cms.interfaces.CategoriesViewInterface;
 import rs.ac.singidunum.cms.service.CategoryService;
+import rs.ac.singidunum.cms.view.CategoriesView;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @UIScope
 public class CategoriesPresenter {
 
-	private CategoriesViewInterface view;
+	private CategoriesView view;
 	private final CategoryService categoryService;
 	private List<CategoryResponseDTO> allCategories;
 
@@ -21,7 +21,7 @@ public class CategoriesPresenter {
 		this.categoryService = categoryService;
 	}
 
-	public void setView(CategoriesViewInterface view) {
+	public void setView(CategoriesView view) {
 		this.view = view;
 	}
 

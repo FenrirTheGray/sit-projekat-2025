@@ -1,4 +1,4 @@
-package sitprojekat.dto;
+package rs.ac.singidunum.servelogic.dto.create;
 
 public class PasswordResetRequestDTO {
     private String email;

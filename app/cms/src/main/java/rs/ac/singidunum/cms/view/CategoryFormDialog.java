@@ -14,10 +14,9 @@ import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import rs.ac.singidunum.cms.dto.response.CategoryResponseDTO;
-import rs.ac.singidunum.cms.interfaces.CategoryFormViewInterface;
 import rs.ac.singidunum.cms.presenter.CategoryFormPresenter;
 
-public class CategoryFormDialog extends Dialog implements CategoryFormViewInterface {
+public class CategoryFormDialog extends Dialog {
 
 	private final CategoryFormPresenter presenter;
 	private final Runnable onSuccessCallback;
@@ -119,14 +118,12 @@ public class CategoryFormDialog extends Dialog implements CategoryFormViewInterf
 		});
 	}
 
-	@Override
 	public void setCategoryData(CategoryResponseDTO category) {
 		nameField.setValue(category.getName());
 		descriptionField.setValue(category.getDescription());
 		activeCheckbox.setValue(category.isActive());
 	}
 
-	@Override
 	public void clearForm() {
 		nameField.clear();
 		descriptionField.clear();
@@ -134,64 +131,53 @@ public class CategoryFormDialog extends Dialog implements CategoryFormViewInterf
 		clearValidationErrors();
 	}
 
-	@Override
 	public String getCategoryName() {
 		return nameField.getValue();
 	}
 
-	@Override
 	public String getCategoryDescription() {
 		return descriptionField.getValue();
 	}
 
-	@Override
 	public Boolean getCategoryActive() {
 		return activeCheckbox.getValue();
 	}
 
-	@Override
 	public void showLoading() {
 		loadingIndicator.setVisible(true);
 		saveButton.setEnabled(false);
 	}
 
-	@Override
 	public void hideLoading() {
 		loadingIndicator.setVisible(false);
 		saveButton.setEnabled(true);
 	}
 
-	@Override
 	public void showError(String message) {
 		Notification notification = Notification.show(message, 5000, Notification.Position.BOTTOM_START);
 		notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
 	}
 
-	@Override
 	public void showSuccess(String message) {
 		Notification notification = Notification.show(message, 3000, Notification.Position.BOTTOM_START);
 		notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 	}
 
-	@Override
 	public void showNameError(String message) {
 		nameField.setInvalid(true);
 		nameField.setErrorMessage(message);
 	}
 
-	@Override
 	public void showDescriptionError(String message) {
 		descriptionField.setInvalid(true);
 		descriptionField.setErrorMessage(message);
 	}
 
-	@Override
 	public void clearValidationErrors() {
 		nameField.setInvalid(false);
 		descriptionField.setInvalid(false);
 	}
 
-	@Override
 	public void navigateBackToCategories() {
 		close();
 		clearForm();

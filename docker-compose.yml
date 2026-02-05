@@ -64,22 +64,14 @@ services:
     container_name: servelogic_api
     ports:
       - "7999:7999"
+    env_file:
+      - ./app/servelogic-api/.env
     environment:
-      - REST_PORT=7999
       - SPRING_PROFILES_ACTIVE=docker,devDataInit
       - ARANGODB_HOST=arangodb
-      - ARANGODB_PORT=8529
-      - ARANGODB_DATABASE=servelogic
-      - ARANGODB_USER=root
-      - ARANGODB_PASSWORD=root
       - FUSEKI_HOST=fuseki
-      - FUSEKI_PORT=3030
-      - FUSEKI_DATASET=servelogic
-      - FUSEKI_USER=admin
-      - FUSEKI_PASSWORD=admin
-      - FUSEKI_NAMESPACEROOT=http://www.singidunum.ac.rs
-      - ROOT_USER_EMAIL=root@sl.com
-      - ROOT_USER_PASSWORD=root
+      - CMS_URL=http://localhost:7998
+      - ORDERING_URL=http://localhost:8080
     depends_on:
       arangodb:
         condition: service_healthy
