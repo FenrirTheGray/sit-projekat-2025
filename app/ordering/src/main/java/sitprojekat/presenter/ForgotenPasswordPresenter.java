@@ -13,21 +13,13 @@ import sitprojekat.service.UserService;
 public class ForgotenPasswordPresenter {
 
 
-	private UserAccountService service;
 	private PasswordResetService passwordResetService;
 	private ForgotenPasswordViewInterface view;
 
 
 	public ForgotenPasswordPresenter(UserAccountService service, PasswordResetService passwordResetService){
 		super();
-		this.service = service;
 		this.passwordResetService = passwordResetService;
-	}
-	public UserService getService() {
-		return service;
-	}
-	public void setService(UserService service) {
-		this.service = service;
 	}
 	public ForgotenPasswordViewInterface getView() {
 		return view;
