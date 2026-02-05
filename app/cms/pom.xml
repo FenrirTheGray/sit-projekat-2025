@@ -12,6 +12,13 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+	<repositories>
+		<repository>
+			<id>vaadin-addons</id>
+			<url>https://maven.vaadin.com/vaadin-addons</url>
+		</repository>
+	</repositories>
+
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
@@ -78,6 +85,17 @@
 			<version>${vaadin.version}</version>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>software.xdev</groupId>
+			<artifactId>vaadin-chartjs-wrapper</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>software.xdev</groupId>
+			<artifactId>chartjs-java-model</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<profiles>
