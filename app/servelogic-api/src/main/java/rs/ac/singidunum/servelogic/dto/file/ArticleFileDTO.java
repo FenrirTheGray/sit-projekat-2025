@@ -4,8 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-public class ArticleFileDTO {
-	private String key;
+public class ArticleFileDTO extends AbstractArangoDTO {
 	private String name;
 	private String description;
 	private String imageUrl;
@@ -17,12 +16,6 @@ public class ArticleFileDTO {
 	@JacksonXmlProperty(localName = "modifier")
 	private List<String> modifiers;
 	
-	public String getKey() {
-		return key;
-	}
-	public void setKey(String key) {
-		this.key = key;
-	}
 	public String getName() {
 		return name;
 	}

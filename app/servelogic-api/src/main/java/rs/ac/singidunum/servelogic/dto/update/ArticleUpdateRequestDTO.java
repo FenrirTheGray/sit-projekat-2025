@@ -2,9 +2,10 @@ package rs.ac.singidunum.servelogic.dto.update;
 
 import java.util.List;
 
-public class ArticleUpdateRequestDTO {
+import rs.ac.singidunum.servelogic.dto.file.AbstractArangoDTO;
+
+public class ArticleUpdateRequestDTO extends AbstractArangoDTO {
 	
-	private String key;
 	private String name;
 	private String description;
 	private String imageUrl;
@@ -13,12 +14,6 @@ public class ArticleUpdateRequestDTO {
 	private String categoryId;
 	private List<String> modifiers;
 	
-	public String getKey() {
-		return key;
-	}
-	public void setKey(String key) {
-		this.key = key;
-	}
 	public String getName() {
 		return name;
 	}

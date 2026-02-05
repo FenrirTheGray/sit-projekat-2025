@@ -7,14 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-
 import rs.ac.singidunum.servelogic.dto.create.ArticleCreateRequestDTO;
 import rs.ac.singidunum.servelogic.dto.file.ArticleFileDTO;
 import rs.ac.singidunum.servelogic.dto.file.ArticleXMLWrapper;
@@ -28,7 +21,7 @@ import rs.ac.singidunum.servelogic.repository.IModifierRepository;
 import rs.ac.singidunum.servelogic.utility.ArangoFusekiReferenceService;
 
 @Service
-public class ArticleService {
+public class ArticleService extends AbstractService<Article, ArticleResponseDTO, ArticleCreateRequestDTO, ArticleUpdateRequestDTO, ArticleFileDTO, ArticleXMLWrapper> {
 	
 	@Autowired
 	private IArticleRepository repo;
@@ -40,12 +33,9 @@ public class ArticleService {
     private CategoryRepository categoryRepo;
     @Autowired
     private IModifierRepository modifierRepo;
-    
-    private final ObjectMapper jsonMapper = new ObjectMapper();
-    private final XmlMapper xmlMapper = new XmlMapper();
 
+    @Override
 	public List<ArticleResponseDTO> findAll() {
-		
 		return populator.populateAllArticles(StreamSupport
 				.stream(repo.findAll().spliterator(), false)	// false = not parallel
 				.collect(Collectors.toList()))
@@ -60,13 +50,14 @@ public class ArticleService {
 				.stream(repo.findAll().spliterator(), false)
 				.collect(Collectors.toList()));
 	}
+	
+	@Override
 	public List<ArticleFileDTO> findAllExport() {
-		
 		return repo.findAllExportRaw();
-		
 	}
 	
-	public Optional<ArticleResponseDTO> findByKey(String key) {
+	@Override
+	public Optional<ArticleResponseDTO> findById(String key) {
 		
 		Optional<Article> item = repo.findById(key);
 		if (item.isPresent()) {
@@ -76,6 +67,7 @@ public class ArticleService {
 		
 	}
 	
+	@Override
 	public Optional<ArticleResponseDTO> create(ArticleCreateRequestDTO item) {
 		
 		Article entity = mapper.createToEntity(item);
@@ -88,9 +80,10 @@ public class ArticleService {
 		
 	}
 	
+	@Override
 	public Optional<ArticleResponseDTO> update(ArticleUpdateRequestDTO item) {
 		
-		Optional<ArticleResponseDTO> updateItem = findByKey(item.getKey());
+		Optional<ArticleResponseDTO> updateItem = findById(item.getKey());
 		if (updateItem.isEmpty()) {
 			return Optional.empty();
 		}
@@ -128,37 +121,32 @@ public class ArticleService {
 		
 	}
 	
-	public void deleteByKey(String key) {
+	@Override
+	public void deleteById(String key) {
 		repo.deleteById(key);
 	}
 	
-	@Transactional
-	public void importData(byte[] fileData, String format) throws Exception {
-		
-	    List<ArticleFileDTO> dtos = convertToDtos(fileData, format);
-	    processEntities(dtos);
-	}
-	 
-	private void processEntities(List<ArticleFileDTO> dtos) {
-        List<Article> articlesToSave = new ArrayList<>();
+	@Override
+	protected void processEntities(List<ArticleFileDTO> dtos) {
+        List<Article> itemsToSave = new ArrayList<>();
 
         for (ArticleFileDTO dto : dtos) {
-            Article article;
+            Article item;
             if (StringUtils.hasText(dto.getKey())) {
-            	article = repo.findById(dto.getKey()).orElseThrow(() -> new RuntimeException("Update failed: Key " + dto.getKey() + " not found."));
+            	item = repo.findById(dto.getKey()).orElseThrow(() -> new RuntimeException("Update failed: Key " + dto.getKey() + " not found."));
             } else {
-            	article = new Article();
+            	item = new Article();
             }
 
             verifyReferencesExist(dto);
-            mapper.updateArticleFromDto(dto, article);
+            mapper.updateArticleFromDto(dto, item);
             
             if (StringUtils.hasText(dto.getKey())) {
-                article.setKey(dto.getKey());
+                item.setKey(dto.getKey());
             }
-            articlesToSave.add(article);
+            itemsToSave.add(item);
         }
-        repo.saveAll(articlesToSave);
+        repo.saveAll(itemsToSave);
     }
 
     private void verifyReferencesExist(ArticleFileDTO dto) {
@@ -173,16 +161,9 @@ public class ArticleService {
         }
     }
 
-    private List<ArticleFileDTO> convertToDtos(byte[] fileData, String format) throws Exception {
-        if (format.equalsIgnoreCase("json")) {
-        	JsonNode node = jsonMapper.readTree(fileData);
-            return jsonMapper.convertValue(node, new TypeReference<List<ArticleFileDTO>>() {});
-        } else {
-        	ArticleXMLWrapper<ArticleFileDTO> wrapper = xmlMapper.readValue(fileData, 
-                    new TypeReference<ArticleXMLWrapper<ArticleFileDTO>>() {});
-                return wrapper.getItems();
-        }
-    } 
+	@Override
+	public ArticleXMLWrapper wrapper(List<ArticleFileDTO> data) {
+		return new ArticleXMLWrapper(data);
+	}
 
-	
 }

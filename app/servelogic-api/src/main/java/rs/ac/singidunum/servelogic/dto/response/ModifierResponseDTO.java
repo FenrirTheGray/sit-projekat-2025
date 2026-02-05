@@ -1,20 +1,15 @@
 package rs.ac.singidunum.servelogic.dto.response;
 
-public class ModifierResponseDTO {
+import rs.ac.singidunum.servelogic.dto.file.AbstractArangoDTO;
+
+public class ModifierResponseDTO extends AbstractArangoDTO {
 	
-	private String key;
 	private String name;
 	private String description;
 	private double price;
 	private boolean active;
 	private ModifierTypeResponseDTO type;
 	
-	public String getKey() {
-		return key;
-	}
-	public void setKey(String key) {
-		this.key = key;
-	}
 	public String getName() {
 		return name;
 	}

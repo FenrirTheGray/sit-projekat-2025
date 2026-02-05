@@ -6,25 +6,18 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @JacksonXmlRootElement(localName = "articles")
-public class ArticleXMLWrapper<T> {
+public class ArticleXMLWrapper extends FileXMLWrapper<ArticleFileDTO> {
 
 	@JacksonXmlProperty(localName = "article")
     @JacksonXmlElementWrapper(useWrapping = false)
-	private List<T> items;
+	private List<ArticleFileDTO> items;
 
-    public ArticleXMLWrapper() {
+	public ArticleXMLWrapper() {
 		super();
 	}
 
-	public ArticleXMLWrapper(List<T> items) {
-        this.items = items;
-    }
-
-    public List<T> getItems() {
-        return items;
-    }
-
-	public void setItems(List<T> items) {
-		this.items = items;
+	public ArticleXMLWrapper(List<ArticleFileDTO> items) {
+		super(items);
 	}
+
 }

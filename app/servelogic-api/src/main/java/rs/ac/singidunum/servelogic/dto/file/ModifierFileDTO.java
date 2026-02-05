@@ -1,12 +1,11 @@
-package rs.ac.singidunum.servelogic.dto.response;
+package rs.ac.singidunum.servelogic.dto.file;
 
-import rs.ac.singidunum.servelogic.dto.file.AbstractFusekiDTO;
-
-public class CategoryResponseDTO extends AbstractFusekiDTO {
-	
+public class ModifierFileDTO extends AbstractArangoDTO {
 	private String name;
 	private String description;
+	private double price;
 	private boolean active;
+	private String typeId;
 	
 	public String getName() {
 		return name;
@@ -20,11 +19,22 @@ public class CategoryResponseDTO extends AbstractFusekiDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
 	public boolean isActive() {
 		return active;
 	}
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	
+	public String getTypeId() {
+		return typeId;
+	}
+	public void setTypeId(String typeId) {
+		this.typeId = typeId;
+	}
 }

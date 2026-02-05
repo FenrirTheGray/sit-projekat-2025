@@ -1,21 +1,14 @@
 package rs.ac.singidunum.servelogic.dto.update;
 
-public class ModifierUpdateRequestDTO {
+import rs.ac.singidunum.servelogic.dto.file.AbstractArangoDTO;
+
+public class ModifierUpdateRequestDTO extends AbstractArangoDTO {
 	
-	private String key;
 	private String name;
 	private String description;
 	private Double price;
 	private Boolean active;
 	private String typeId;
-	
-	public String getKey() {
-		return key;
-	}
-	
-	public void setKey(String key) {
-		this.key = key;
-	}
 	
 	public String getName() {
 		return name;

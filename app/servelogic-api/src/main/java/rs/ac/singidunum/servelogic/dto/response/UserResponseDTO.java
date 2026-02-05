@@ -1,18 +1,11 @@
 package rs.ac.singidunum.servelogic.dto.response;
 
-public class UserResponseDTO {
+import rs.ac.singidunum.servelogic.dto.file.AbstractArangoDTO;
 
-    private String key;
+public class UserResponseDTO extends AbstractArangoDTO {
+
     private String email;
     private String role;
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 
     public String getRole() {
         return role;
