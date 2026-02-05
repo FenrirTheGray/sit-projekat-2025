@@ -11,18 +11,18 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.spring.annotation.UIScope;
 
-import sitprojekat.interfaces.OrderViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.Combo;
 import sitprojekat.model.Order;
 import sitprojekat.model.OrderedProduct;
 import sitprojekat.service.OrderService;
+import sitprojekat.view.OrderView;
 
 @Component
 @UIScope
 public class OrderPresenter {
 
-	private OrderViewInterface view;
+	private OrderView view;
 	private OrderService service;
 	private String orderID;
 
@@ -30,7 +30,7 @@ public class OrderPresenter {
 		this.service = service;
 	}
 
-	public void setView(OrderViewInterface view) {
+	public void setView(OrderView view) {
 		this.view = view;
 		view.SetOrderID(orderID);
 	}

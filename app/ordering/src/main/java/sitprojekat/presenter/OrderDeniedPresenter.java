@@ -8,16 +8,15 @@ import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 import sitprojekat.dto.OrderResponseDTO;
-import sitprojekat.interfaces.OrderDeniedViewInterface;
 import sitprojekat.service.OrderService;
 import sitprojekat.service.ProductInCartService;
-import sitprojekat.view.NotificationAddToCardNotValidView;
+import sitprojekat.view.OrderDeniedView;
 
 @Component
 @UIScope
 public class OrderDeniedPresenter {
 	
-	private OrderDeniedViewInterface view;
+	private OrderDeniedView view;
 	private ProductInCartService cartService;
 	private OrderService orderService;
 	private String address;
@@ -29,7 +28,7 @@ public class OrderDeniedPresenter {
 		this.orderService=orderService;
 	}	
 
-	public void setView(OrderDeniedViewInterface view) {
+	public void setView(OrderDeniedView view) {
 		this.view=view;
 		
 	}

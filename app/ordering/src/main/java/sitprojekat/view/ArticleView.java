@@ -26,14 +26,13 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.ArticleViewInterface;
 import sitprojekat.model.Modifier;
 import sitprojekat.presenter.ArticlePresenter;
 
 
 @CssImport("./style/style.css")
 @Route(value = "Article",layout = HeaderAndNavBar.class)
-public class ArticleView  extends HorizontalLayout implements HasUrlParameter<String> ,ArticleViewInterface{
+public class ArticleView  extends HorizontalLayout implements HasUrlParameter<String>{
 
 	/**
 	 * 
@@ -176,34 +175,29 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 		
 		}
 
-	@Override
 	public void setArticleName(String name) { // stavlja naziv
 		
 		this.articleName.setText(name);
 		
 	}
 
-	@Override
 	public void setArticleDescription(String description) { // stavlja description
 		
 		this.articleDescription.setText(description);
 		
 	}
 
-	@Override
 	public void setPrice(double price) { // stavlja cenu zavisi od izabranog modifiera siza i kolicine
 
 		this.addToCartButton.setText("Dodaj u korpu (" + price + ") RSD");
 		
 	}
 
-	@Override
 	public int getOrderAmount() {
 		return productCounter.getValue();
 	}
 
 
-	@Override
 	public void AddToCartNotif(String string) {    // notif da je dodat proizvod
 		Notification notification = Notification.show(string, 3000, Notification.Position.BOTTOM_START); // sta pise , koliko traje, pozicija
 	    notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);// koje je boje
@@ -211,7 +205,6 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 	}
 
 
-	@Override
 	public void setArticleSizes(List<Modifier> articleSizes) {  // stavlja size od tog articla
 		articleSizeRadioButtonGroup.setItems(articleSizes);
 		if(articleSizes!=null && !articleSizes.isEmpty()) {
@@ -221,7 +214,6 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 	}
 
 
-	@Override
 	public void setArticleModifiers(List<Modifier> articleModifiers) { // stavlja modifiere od tog articla
 		articleModifierCheckBoxGroup.setItems(articleModifiers);
 		
@@ -248,7 +240,6 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 	}
 
 
-	@Override
 	public Modifier getArticleSizesRadioButton() {   // vraca cenu izabranog siza ako je neki izabran
 	    if (this.articleSizeRadioButtonGroup.getValue() == null) {
 	        return null;
@@ -258,7 +249,6 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 	}
 
 
-	@Override
 	public Set<Modifier> getArticleModifiersCheckBox() {
 		return this.articleModifierCheckBoxGroup.getSelectedItems(); // vraca cenu za izabrane modifiere ako su izabrani
 

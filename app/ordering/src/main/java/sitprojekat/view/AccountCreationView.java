@@ -14,13 +14,12 @@ import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.AccountCreationViewInterface;
 import sitprojekat.presenter.AccountCreationPresenter;
 
 @CssImport("./style/style.css")
 @StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")
 @Route("AccountCreation")
-public class AccountCreationView  extends VerticalLayout implements AccountCreationViewInterface{
+public class AccountCreationView  extends VerticalLayout{
 
 	
 	/**
@@ -108,27 +107,25 @@ public class AccountCreationView  extends VerticalLayout implements AccountCreat
 		add(orderContainer);
 	}
 
-	@Override
+
 	public EmailField getEmailField() {
 		return emailField;
 	}
 
 
-	@Override
+
 	public PasswordField getPasswordPasswordField() {
 		return passwordPasswordField;
 	}
 
 
 
-	@Override
 	public PasswordField getConfirmPasswordPasswordField() {
 		return confirmPasswordPasswordField;
 	}
 
 
 
-	@Override
 	public Button getCreateAccountButton() {
 		return createAccountButton;
 	}

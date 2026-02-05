@@ -10,18 +10,18 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 
-import sitprojekat.interfaces.MainViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.Combo;
 import sitprojekat.service.ArticleService;
 import sitprojekat.service.ComboService;
 import sitprojekat.view.ArticleView;
 import sitprojekat.view.ComboView;
+import sitprojekat.view.MainView;
 
 @Component
 public class MainPresenter {
 
-	private MainViewInterface view;
+	private MainView view;
 	private ArticleService articleService;
 	private ComboService comboService;
 	
@@ -69,7 +69,7 @@ public class MainPresenter {
 	    }
 	}
 
-	public void setView(MainViewInterface view) {
+	public void setView(MainView view) {
 		this.view=view;
 	}
 

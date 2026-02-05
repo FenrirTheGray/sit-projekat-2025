@@ -4,18 +4,17 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
 
-import sitprojekat.interfaces.NotFoundViewInterface;
 import sitprojekat.view.NotFoundView;
 
 @Component
 public class NotFoundPresenter {
  
-	private NotFoundViewInterface view;
+	private NotFoundView view;
 	
 	public NotFoundPresenter() {
     }
 	
-	public NotFoundPresenter(NotFoundViewInterface view) {
+	public NotFoundPresenter(NotFoundView view) {
 		this.view = view;
 	}
 
@@ -23,7 +22,7 @@ public class NotFoundPresenter {
 		UI.getCurrent().getPage().getHistory().back();
 	}
 
-	public void setView(NotFoundViewInterface view) {
+	public void setView(NotFoundView view) {
 		this.view=view;
 		
 	}

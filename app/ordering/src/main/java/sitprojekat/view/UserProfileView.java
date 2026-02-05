@@ -11,13 +11,12 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.UserProfileViewInterface;
 import sitprojekat.model.UserAccount;
 import sitprojekat.presenter.UserProfilePresenter;
 
 @CssImport("./style/style.css")
 @Route(value = "UserProfile",layout = HeaderAndNavBar.class)
-public class UserProfileView extends VerticalLayout implements UserProfileViewInterface{
+public class UserProfileView extends VerticalLayout{
 
 	/**
 	 * 
@@ -114,64 +113,64 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 		add(backButton,formContainer);
 		presenter.updateView();
 	}
-	@Override
+	
 	public String getEmailField() {
 		return emailField.getValue();
 	}
-	@Override
+	
 	public void setEmailField(String email) {
 		emailField.setValue(email);
 		
 	}
-	@Override
+	
 	public String getAddressTextField() {
 		return addressTextField.getValue();
 	}
-	@Override
+	
 	public void setAddressTextField(String address) {
 		this.addressTextField.setValue(address);
 		
 	}
-	@Override
+	
 	public String getTelephoneTextField() {
 		return telephoneTextField.getValue();
 	}
-	@Override
+	
 	public void setTelephoneTextField(String telephone) {
 		this.telephoneTextField.setValue(telephone);
 		
 	}
-	@Override
+	
 	public String getPasswordPasswordField() {
 		return passwordPasswordField.getValue();
 	}
-	@Override
+	
 	public void setPasswordPasswordField(String password) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
+	
 	public String getConfirmPasswordPasswordField() {
 		return confirmPasswordPasswordField.getValue();
 	}
-	@Override
+	
 	public void setConfirmPasswordPasswordField(PasswordField confirmPassword) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
+	
 	public VerticalLayout getUserProfileContainer() {
 		return userProfileContainer;
 	}
-	@Override
+	
 	public void setUserProfileContainer(VerticalLayout userProfileContainer) {
 		this.userProfileContainer = userProfileContainer;
 	}
-	@Override
+	
 	public H2 getTitleH2() {
 		return titleH2;
 	}
-	@Override
+	
 	public void setTitleH2(H2 titleH2) {
 		this.titleH2 = titleH2;
 	}

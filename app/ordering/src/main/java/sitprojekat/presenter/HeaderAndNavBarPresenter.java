@@ -4,17 +4,17 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
 
-import sitprojekat.interfaces.HeaderAndNavBarInterface;
+import sitprojekat.view.HeaderAndNavBar;
 
 @Component
 public class HeaderAndNavBarPresenter {
 
-	private HeaderAndNavBarInterface view;
+	private HeaderAndNavBar view;
 	
 	public HeaderAndNavBarPresenter() {
 	}
 
-	public void setView(HeaderAndNavBarInterface view) {
+	public void setView(HeaderAndNavBar view) {
 		this.view=view;
 		
 	}

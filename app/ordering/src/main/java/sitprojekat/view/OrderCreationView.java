@@ -10,11 +10,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.OrderCreationViewInterface;
 import sitprojekat.presenter.OrderCreationPresenter;
 
 @Route(value = "OrderCreation", layout = HeaderAndNavBar.class)
-public class OrderCreationView extends VerticalLayout implements OrderCreationViewInterface {
+public class OrderCreationView extends VerticalLayout{
 
 	/**
 	 * 
@@ -124,24 +123,24 @@ public class OrderCreationView extends VerticalLayout implements OrderCreationVi
 		presenter.setUserInfo();
 	}
 
-	@Override
+	
 	public void setTotalPrice(double totalPrice) {
 		titleH2.setText("Ukupna Cena : " + totalPrice + " RSD");
 
 	}
-	@Override
+	
 	public TextField getAddressTextField() {
 		return addressTextField;
 	}
-	@Override
+	
 	public void setAddressTextField(String address) {
 		this.addressTextField.setValue(address);
 	}
-	@Override
+	
 	public TextField getTelephoneTextField() {
 		return telephoneTextField;
 	}
-	@Override
+	
 	public void setTelephoneTextField(String telephone) {
 		this.telephoneTextField.setValue(telephone);
 	}

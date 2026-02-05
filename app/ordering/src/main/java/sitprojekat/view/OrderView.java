@@ -8,12 +8,11 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.OrderViewInterface;
 import sitprojekat.presenter.OrderPresenter;
 
 @CssImport("./style/style.css")
 @Route(value = "Order", layout = HeaderAndNavBar.class)
-public class OrderView extends VerticalLayout implements OrderViewInterface {
+public class OrderView extends VerticalLayout{
 
 	/**
 	 * 
@@ -70,75 +69,75 @@ public class OrderView extends VerticalLayout implements OrderViewInterface {
 		add(backButton, mainContainer);
 	}
 
-	@Override
+	
 	public void setTitleSpan(String title) {
 		this.titleSpan.setText(title);
 
 	}
 
-	@Override
+	
 	public void setOrderDateSpan(String orderDate) {
 		this.orderDateSpan.setText(orderDate);
 
 	}
 
-	@Override
+	
 	public void setOrderTimeSpan(String orderTime) {
 		this.orderTimeSpan.setText(orderTime);
 
 	}
 
-	@Override
+	
 	public void setOrderTimeSentSpan(String timeSpent) {
 		this.orderTimeSentSpan.setText(timeSpent);
 
 	}
 
-	@Override
+	
 	public void setOrderTimeDeliveredSpan(String orderTimeDelivered) {
 		this.orderTimeDeliveredSpan.setText(orderTimeDelivered);
 
 	}
 
-	@Override
+	
 	public void setOrderStatusSpan(String orderStatus) {
 		this.orderStatusSpan.setText(orderStatus);
 
 	}
 
-	@Override
+	
 	public void setOrderTotalSumSpan(String orderTotalSum) {
 		this.orderTotalSumSpan.setText(orderTotalSum);
 
 	}
 
-	@Override
+	
 	public void setOrderPaymentType(String orderPaymentType) {
 		this.orderPaymentType.setText(orderPaymentType);
 
 	}
 
-	@Override
+	
 	public VerticalLayout getOrderInformationContainer() {
 		return orderInformationContainer;
 	}
 
-	@Override
+	
 	public void setOrderInformationContainer(VerticalLayout orderInformationContainer) {
 		this.orderInformationContainer = orderInformationContainer;
 
 	}
 
-	@Override
+	
 	public VerticalLayout getOrderedProductsContainer() {
 		return orderedProductsContainer;
 	}
 
-	@Override
+	
 	public void setOrderedProductsContainer(VerticalLayout orderedProducts) {
 		this.orderedProductsContainer = orderedProducts;
 	}
-	@Override
+	
 	public void SetOrderID(String id) {
 		this.orderID=id;
 	}
