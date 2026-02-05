@@ -15,7 +15,6 @@ import sitprojekat.interfaces.OrderViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.Combo;
 import sitprojekat.model.Order;
-import sitprojekat.model.OrderStatus;
 import sitprojekat.model.OrderedProduct;
 import sitprojekat.service.OrderService;
 
@@ -25,6 +24,7 @@ public class OrderPresenter {
 
 	private OrderViewInterface view;
 	private OrderService service;
+	private String orderID;
 
 	public OrderPresenter(OrderService service) {
 		this.service = service;
@@ -32,31 +32,40 @@ public class OrderPresenter {
 
 	public void setView(OrderViewInterface view) {
 		this.view = view;
-
+		view.SetOrderID(orderID);
 	}
 
 	public void backClick() {
 		UI.getCurrent().getPage().getHistory().back();
 	}
 
-	public void findByID(String id) {
-		Order order=service.findByID(id);
+	public void findByID(String orderID) {
+		Order order=service.findByID(orderID);
+
+		String[] getCreatedAtDateTime=order.getCreatedAt().split(",");
+		String CreatedAtDate=getCreatedAtDateTime[0].trim();
+		String CreatedAtTime=getCreatedAtDateTime[1].trim();
 		
-		DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd MM yyyy");
-		String formattedDateCreated = order.getCreatedAtDate().format(formatterDate); // lespi format za datum
-
-
-
 		view.setTitleSpan("Porudzbina " + order.getId());
-		view.setOrderDateSpan("Datum Porudzbine: " + formattedDateCreated);
-		view.setOrderTimeSpan("Vreme Porudzbine: " + order.getCreatedAtTime());
-		view.setOrderTimeSentSpan("Porudzbina poslata: " + order.getSentAtTime());
-		view.setOrderTimeDeliveredSpan("Vreme isporuke: " + order.getRecievedtedAtTime());
+		view.setOrderDateSpan("Datum Porudzbine: " + CreatedAtDate);
+		view.setOrderTimeSpan("Vreme Porudzbine: " + CreatedAtTime);
+		if(order.getSentAtTime()!=null) {
+			view.setOrderTimeSentSpan("Porudzbina poslata: " + order.getSentAtTime());
+			}
+			else {
+				view.setOrderTimeSentSpan("Nije jos poslata");
+			}
+			if(order.getSentAtTime()!=null) {
+				view.setOrderTimeDeliveredSpan("Vreme isporuke: " + order.getRecievedtedAtTime());
+			}
+			else {
+					view.setOrderTimeSentSpan("Nije jos uzeta");
+			}
 		
 		double totalSumDouble = 0;
 		for (int i = 0; i < order.getOrderedProducts().size(); i++) {
 			OrderedProduct p = order.getOrderedProducts().get(i);
-			Span OrderedProductSpan = new Span(p.getOrderedProduct().getName() + " " + p.getAmount());
+			Span OrderedProductSpan = new Span(p.getOrderedProduct().getName() + " kolicina " + p.getAmount());
 			OrderedProductSpan.addClassName("whiteText");
 			view.getOrderedProductsContainer().add(OrderedProductSpan);
 			totalSumDouble += p.getOrderedProduct().getBasePrice();
@@ -67,6 +76,7 @@ public class OrderPresenter {
 		view.setOrderPaymentType("Nacin placanja: " + order.getPaymentType());
 
 	}
+
 
 	public void findByID1(String string) {
 
@@ -88,14 +98,29 @@ public class OrderPresenter {
 		LocalTime timeSent = LocalTime.parse("16:35");
 		LocalTime timeRecieved = LocalTime.parse("17:30");
 
-		Order order = new Order("1", null, dateCreated, timeCreated, timeSent, timeRecieved, OrderStatus.CREATED,
-				orderedProduct, 23, "kes");
+		Order order = new Order();
 
+
+		String[] getCreatedAtDateTime=order.getCreatedAt().split(",");
+		String CreatedAtDate=getCreatedAtDateTime[0].trim();
+		String CreatedAtTime=getCreatedAtDateTime[1].trim();
+		
 		view.setTitleSpan("Porudzbina " + order.getId());
 		view.setOrderDateSpan("Datum Porudzbine: " + formattedDdateCreated);
-		view.setOrderTimeSpan("Vreme Porudzbine: " + order.getCreatedAtTime());
+		view.setOrderTimeSpan("Vreme Porudzbine: " + CreatedAtTime);
+		if(order.getSentAtTime()!=null) {
 		view.setOrderTimeSentSpan("Porudzbina poslata: " + order.getSentAtTime());
-		view.setOrderTimeDeliveredSpan("Vreme isporuke: " + order.getRecievedtedAtTime());
+		}
+		else {
+			view.setOrderTimeSentSpan("Nije jos poslata");
+		}
+		if(order.getSentAtTime()!=null) {
+			view.setOrderTimeDeliveredSpan("Vreme isporuke: " + order.getRecievedtedAtTime());
+		}
+		else {
+				view.setOrderTimeSentSpan("Nije jos uzeta");
+		}
+		
 
 		double totalSumDouble = 0;
 		for (int i = 0; i < order.getOrderedProducts().size(); i++) {
@@ -111,5 +136,12 @@ public class OrderPresenter {
 		view.setOrderPaymentType("Nacin placanja: " + order.getPaymentType());
 
 	}
+
+	public void setOrder(String id) {
+		this.orderID=id;
+		
+	}
+
+
 
 }

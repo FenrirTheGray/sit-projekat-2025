@@ -7,6 +7,8 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.router.Route;
@@ -50,7 +52,16 @@ public class ForgotenPasswordView extends VerticalLayout implements ForgotenPass
 		
 		restorePasswordButton.setText("Restore password");
 		restorePasswordButton.addClassName("brownButton");
-		restorePasswordButton.addClickListener(e->presenter.getAccountPassword());
+		restorePasswordButton.addClickListener(e->{
+			
+		if(!emailField.getValue().equals("")) {	
+			presenter.forgotPassword(emailField.getValue());
+		}
+		else {
+			Notification notification = Notification.show("email je prazan",3000, Notification.Position.BOTTOM_CENTER); // sta pise , koliko traje, pozicija
+			notification.addThemeVariants(NotificationVariant.LUMO_ERROR);// koje je boje
+		}
+		});
 		
 		Span loginSpan=new Span();
 		loginSpan.setText("Prijavite se");

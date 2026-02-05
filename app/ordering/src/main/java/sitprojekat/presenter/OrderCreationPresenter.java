@@ -81,7 +81,10 @@ public class OrderCreationPresenter {
 		else {
 			UI.getCurrent().navigate("LoginScreen");
 		}
-		
-		
+	}
+
+	public void setUserInfo() {
+		view.setAddressTextField(userAccountService.getUser().getAdress());
+		view.setTelephoneTextField(userAccountService.getUser().getPhone());
 	}
 }

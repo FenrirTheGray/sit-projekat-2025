@@ -27,9 +27,10 @@ public class OrdersPresenter {
 
 	private OrdersViewInterface view;
 	private OrderService service;
-
-	public OrdersPresenter(OrderService service) {
+	private OrderPresenter orderPresenter;
+	public OrdersPresenter(OrderService service,OrderPresenter orderPresenter) {
 		this.service=service;
+		this.orderPresenter=orderPresenter;
 	}
 
 	public void setView(OrdersViewInterface view) {
@@ -37,18 +38,19 @@ public class OrdersPresenter {
 
 	}
 
-	public void findById(String id) {
+	public void getOrders() {
 	
-		List<Order> listaOrders=service.getOrders(id);		
-
+		List<Order> listaOrders=service.getOrders();		
+		if(listaOrders!=null) {
 		for (Order o : listaOrders) {
-
+			
 			view.getOrderedProductsContainer().add(view.createOrdersContainer(o));
 
 		}
 
 		view.getOrderedProductsContainer().setAlignItems(Alignment.CENTER);
 		view.getOrderedProductsContainer().setJustifyContentMode(JustifyContentMode.CENTER);
+		}
 
 	}
 
@@ -64,20 +66,15 @@ public class OrdersPresenter {
 		LocalTime timeSent = LocalTime.parse("16:30");
 		LocalTime timeRecieved = LocalTime.parse("16:30");
 
-		Order order = new Order("1", null, dateCreated, timeCreated, timeSent, timeRecieved, OrderStatus.CREATED, null,
-				23, "kes");
+		Order order = new Order();
 
 		List<Order> listaOrders;
 
 		listaOrders = List.of(
-				new Order("1", null, dateCreated, timeCreated, timeSent, timeRecieved, OrderStatus.CREATED, null, 23,
-						"kes"),
-				new Order("2", null, dateCreated, timeCreated, timeSent, timeRecieved, OrderStatus.CREATED, null, 23,
-						"kes"),
-				new Order("3", null, dateCreated, timeCreated, timeSent, timeRecieved, OrderStatus.CREATED, null, 23,
-						"kes"),
-				new Order("4", null, dateCreated, timeCreated, timeSent, timeRecieved, OrderStatus.CREATED, null, 23,
-						"kes"));
+				new Order(),
+				new Order(),
+				new Order(),
+				new Order());
 
 		for (Order o : listaOrders) {
 
@@ -91,6 +88,7 @@ public class OrdersPresenter {
 	}
 
 	public void OrderDetailsScreen(String id) {
+		orderPresenter.setOrder(id);
 		UI.getCurrent().navigate("Order");
 	}
 

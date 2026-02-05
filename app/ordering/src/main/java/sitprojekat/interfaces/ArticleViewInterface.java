@@ -3,8 +3,6 @@ package sitprojekat.interfaces;
 import java.util.List;
 import java.util.Set;
 
-import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
-
 import sitprojekat.model.Modifier;
 
 public interface ArticleViewInterface {

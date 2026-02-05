@@ -1,7 +1,5 @@
 package sitprojekat.view;
 
-import java.util.List;
-
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Span;
@@ -11,7 +9,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
 import sitprojekat.interfaces.OrderViewInterface;
-import sitprojekat.model.Article;
 import sitprojekat.presenter.OrderPresenter;
 
 @CssImport("./style/style.css")
@@ -37,11 +34,13 @@ public class OrderView extends VerticalLayout implements OrderViewInterface {
 	private VerticalLayout orderInformationContainer = new VerticalLayout();
 	private VerticalLayout orderedProductsContainer = new VerticalLayout();
 	private final OrderPresenter presenter;
-
+	private String orderID;
 	public OrderView(OrderPresenter presenter) {
 		this.presenter = presenter;
 		presenter.setView(this);
-		presenter.findByID1("1");
+		if(orderID!=null) {
+		presenter.findByID(orderID);
+		}
 
 		backButton.addClassName("brownButton");
 		backButton.addClickListener(e -> presenter.backClick());
@@ -138,6 +137,10 @@ public class OrderView extends VerticalLayout implements OrderViewInterface {
 	@Override
 	public void setOrderedProductsContainer(VerticalLayout orderedProducts) {
 		this.orderedProductsContainer = orderedProducts;
+	}
+	@Override
+	public void SetOrderID(String id) {
+		this.orderID=id;
 	}
 
 }

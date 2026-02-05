@@ -1,5 +1,7 @@
 package sitprojekat.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class OrderedProduct extends AbstractEntity {
 
 	
@@ -25,7 +27,14 @@ public class OrderedProduct extends AbstractEntity {
 	public void setOrderedProduct(Product orderedProduct) {
 		this.orderedProduct = orderedProduct;
 	}
-	
+	@JsonProperty("article")
+    public void setOrderedProductArticle(Article article) { // kako bi jackson znao da li da stavi article ili porduct
+        this.orderedProduct = article;
+    }
+	@JsonProperty("combo")
+    public void setOrderedProductCombo(Combo combo) {
+        this.orderedProduct = combo;
+    }
 	
 	
 }

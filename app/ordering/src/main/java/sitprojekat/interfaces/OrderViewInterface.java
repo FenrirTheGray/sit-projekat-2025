@@ -18,4 +18,5 @@ public interface OrderViewInterface {
 	public void setOrderInformationContainer(VerticalLayout orderInformationContainer);
 	public VerticalLayout getOrderedProductsContainer();
 	public void setOrderedProductsContainer(VerticalLayout orderedProducts);
+	public void SetOrderID(String id);
 }

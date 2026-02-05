@@ -6,44 +6,46 @@ public class Combo  extends Product{
 
 	
 	
-	private List<Article> main;
-	private List<Article> side;
-	private List<Article> drink;
+	private List<Article> mainSelection;
+	private List<Article> sideSelection;
+	private List<Article> drinkSelection;
 	
 	public Combo() {
 	}
 	
 	public Combo(String id,String name, String description, String imageUrl, double basePrice, boolean active, Category category,
-			List<Article> mainDish, List<Article> sideDish, List<Article> drink) {
+			List<Article> mainSelection, List<Article> sideSelection, List<Article> drinkSelection) {
 		super(id,name,description,imageUrl,basePrice,active,category);
-		this.main = mainDish;
-		this.side = sideDish;
-		this.drink = drink;
+		this.mainSelection = mainSelection;
+		this.sideSelection = sideSelection;
+		this.drinkSelection = drinkSelection;
 	}
 
-	public List<Article> getMain() {
-		return main;
+	public List<Article> getMainSelection() {
+		return mainSelection;
 	}
 
-	public void setMain(List<Article> main) {
-		this.main = main;
+	public void setMainSelection(List<Article> mainSelection) {
+		this.mainSelection = mainSelection;
 	}
 
-	public List<Article> getSide() {
-		return side;
+	public List<Article> getSideSelection() {
+		return sideSelection;
 	}
 
-	public void setSide(List<Article> side) {
-		this.side = side;
+	public void setSideSelection(List<Article> sideSelection) {
+		this.sideSelection = sideSelection;
 	}
 
-	public List<Article> getDrink() {
-		return drink;
+	public List<Article> getDrinkSelection() {
+		return drinkSelection;
 	}
 
-	public void setDrink(List<Article> drink) {
-		this.drink = drink;
+	public void setDrinkSelection(List<Article> drinkSelection) {
+		this.drinkSelection = drinkSelection;
 	}
+
+
 
 
 

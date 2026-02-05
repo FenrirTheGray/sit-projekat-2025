@@ -23,6 +23,8 @@ public class OrderCreationView extends VerticalLayout implements OrderCreationVi
 
 	private String choice = "";
 	private H2 titleH2 = new H2();
+	TextField addressTextField = new TextField();
+	TextField telephoneTextField = new TextField();
 	private final OrderCreationPresenter presenter;
 
 	public OrderCreationView(OrderCreationPresenter presenter) {
@@ -40,14 +42,14 @@ public class OrderCreationView extends VerticalLayout implements OrderCreationVi
 
 		Icon homeIcon = VaadinIcon.HOME_O.create();
 		homeIcon.addClassName("icon");
-		TextField addressTextField = new TextField();
+		
 		addressTextField.setPrefixComponent(homeIcon);
 		addressTextField.setPlaceholder("Adresa");
 		addressTextField.addClassName("inputField");
 
 		Icon phoneIcon = VaadinIcon.PHONE.create();
 		phoneIcon.addClassName("icon");
-		TextField telephoneTextField = new TextField();
+		
 		telephoneTextField.setPrefixComponent(phoneIcon);
 		telephoneTextField.setPlaceholder("Broj telefona");
 		telephoneTextField.addClassName("inputField");
@@ -119,11 +121,28 @@ public class OrderCreationView extends VerticalLayout implements OrderCreationVi
 		orderContainer.setJustifyContentMode(JustifyContentMode.CENTER);
 
 		add(backButton, orderContainer);
+		presenter.setUserInfo();
 	}
 
 	@Override
 	public void setTotalPrice(double totalPrice) {
 		titleH2.setText("Ukupna Cena : " + totalPrice + " RSD");
 
+	}
+	@Override
+	public TextField getAddressTextField() {
+		return addressTextField;
+	}
+	@Override
+	public void setAddressTextField(String address) {
+		this.addressTextField.setValue(address);
+	}
+	@Override
+	public TextField getTelephoneTextField() {
+		return telephoneTextField;
+	}
+	@Override
+	public void setTelephoneTextField(String telephone) {
+		this.telephoneTextField.setValue(telephone);
 	}
 }

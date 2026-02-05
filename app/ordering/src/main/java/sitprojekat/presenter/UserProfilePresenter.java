@@ -1,20 +1,24 @@
 package sitprojekat.presenter;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 
 import sitprojekat.interfaces.UserProfileViewInterface;
 import sitprojekat.model.UserAccount;
+import sitprojekat.service.UserAccountService;
 import sitprojekat.service.UserService;
 
-
+@Component
 public class UserProfilePresenter {
 
 	private UserProfileViewInterface view;
-	private UserAccount user;
 	private UserService service;
-	
+	@Autowired 
+    UserAccountService userAccountService;
 	
 	public UserProfilePresenter(UserService service) {
 		this.service=service;
@@ -31,10 +35,10 @@ public class UserProfilePresenter {
 		if (view.getPasswordPasswordField().isEmpty()) {
 			
 	    }
-		user.setPassword(view.getPasswordPasswordField());
-		user.setEmail(view.getEmailField());
-		user.setAdress(view.getAddressTextField());
-		user.setPhone(view.getTelephoneTextField());
+		userAccountService.setPassword(view.getPasswordPasswordField());
+		userAccountService.setEmail(view.getEmailField());
+		userAccountService.setAdress(view.getAddressTextField());
+		userAccountService.setPhone(view.getTelephoneTextField());
 		
 		Notification notification = Notification.show("izmenjen nalog", 3000, Notification.Position.BOTTOM_START); // sta pise , koliko traje, pozicija
 	    notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);// koje je boje
@@ -50,8 +54,15 @@ public class UserProfilePresenter {
 		    
 	}
 
-	public void setView(UserProfileViewInterface userProfileView) {
+	public void setView(UserProfileViewInterface view) {
 		this.view=view;
 		
+	}
+	public void updateView() {
+		if(userAccountService!=null && view!=null) {
+		view.setEmailField(userAccountService.getUser().getEmail());
+		view.setAddressTextField(userAccountService.getUser().getAdress());
+		view.setTelephoneTextField(userAccountService.getUser().getPhone());
+		}
 	}
 }

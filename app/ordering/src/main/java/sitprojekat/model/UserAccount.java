@@ -15,6 +15,9 @@ public class UserAccount extends AbstractEntity{
 		this.password = password;
 	}
 
+	public UserAccount() {
+	}
+	
 	public String getEmail() {
 		return email;
 	}

@@ -17,7 +17,9 @@ import com.vaadin.flow.router.Route;
 import sitprojekat.interfaces.CartViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.Combo;
+import sitprojekat.model.Modifier;
 import sitprojekat.model.ProductInCart;
+import sitprojekat.model.ProductInCartCombo;
 import sitprojekat.presenter.CartPresenter;
 
 @CssImport("./style/style.css")
@@ -93,7 +95,12 @@ public class CartView extends VerticalLayout implements CartViewInterface {
 		topRowContainer.add(titleSpan, addToCountIntegerField, removeOrderButton);
 		topRowContainer.expand(titleSpan);
 
-		Span modifiersSpan = new Span(article.getDescription()); // srednji red
+		String modifiers="";
+		for (Modifier m : productInCart.getModifierToppings()) {
+			modifiers+=" "+m.getName();
+		}
+		
+		Span modifiersSpan = new Span(modifiers); // srednji red
 		modifiersSpan.addClassName("whiteText");
 
 		HorizontalLayout bottomRowContainer = new HorizontalLayout(); // donji red
@@ -148,7 +155,23 @@ public class CartView extends VerticalLayout implements CartViewInterface {
 		topRowContainer.add(titleSpan, addToCountIntegerField, removeOrderButton);
 		topRowContainer.expand(titleSpan);
 
-		Span modifiersSpan = new Span(combo.getDescription()); // srednji red
+		
+		ProductInCartCombo productInCartCombo =  (ProductInCartCombo) productInCart;
+		
+		String modifiers="";
+		for (Modifier m : productInCartCombo.getMain().getModifierToppings()) {
+			modifiers+=" "+m.getName();
+		}
+		
+		for (Modifier m : productInCartCombo.getSide().getModifierToppings()) {
+			modifiers+=" "+m.getName();
+		}
+		
+		for (Modifier m : productInCartCombo.getDrink().getModifierToppings()) {
+			modifiers+=" "+m.getName();
+		}
+		
+		Span modifiersSpan = new Span(modifiers); // srednji red
 		modifiersSpan.addClassName("whiteText");
 
 		HorizontalLayout bottomRowContainer = new HorizontalLayout(); // donji red

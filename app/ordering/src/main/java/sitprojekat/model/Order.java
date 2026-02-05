@@ -1,19 +1,22 @@
 package sitprojekat.model;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Order extends AbstractEntity {
 
 	private UserAccount user;
 
-	private LocalDate createdAtDate;
-	private LocalTime createdAtTime;
+	
+	private String createdAt;
+
 	
 	private LocalTime sentAtTime;
 	private LocalTime recievedtedAtTime;
-	private OrderStatus status = OrderStatus.ACCEPTED;	
+	private OrderStatus status;	
+	@JsonProperty("choices")
 	private List<OrderedProduct> orderedProducts;
 	private double price;
 	private String paymentType;
@@ -21,13 +24,11 @@ public class Order extends AbstractEntity {
 	public Order() {
 	}
 
-	public Order(String id,UserAccount user, LocalDate createdAtDate, LocalTime createdAtTime, LocalTime sentAtTime,
+	public Order(String id,UserAccount user, String createdAt, LocalTime sentAtTime,
 			LocalTime recievedtedAtTime, OrderStatus status, List<OrderedProduct> orderedProducts, double price,
 			String paymentType) {
 		super(id);
 		this.user = user;
-		this.createdAtDate = createdAtDate;
-		this.createdAtTime = createdAtTime;
 		this.sentAtTime = sentAtTime;
 		this.recievedtedAtTime = recievedtedAtTime;
 		this.status = status;
@@ -56,28 +57,16 @@ public class Order extends AbstractEntity {
 
 
 
-	public LocalDate getCreatedAtDate() {
-		return createdAtDate;
+
+
+
+	public String getCreatedAt() {
+		return createdAt;
 	}
 
-
-
-	public void setCreatedAtDate(LocalDate createdAtDate) {
-		this.createdAtDate = createdAtDate;
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
 	}
-
-
-
-	public LocalTime getCreatedAtTime() {
-		return createdAtTime;
-	}
-
-
-
-	public void setCreatedAtTime(LocalTime createdAtTime) {
-		this.createdAtTime = createdAtTime;
-	}
-
 
 
 	public LocalTime getSentAtTime() {

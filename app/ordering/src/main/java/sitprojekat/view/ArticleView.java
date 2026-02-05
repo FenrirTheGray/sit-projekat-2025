@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
@@ -58,6 +59,7 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 		Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
 		Button backButton=new Button("Povratak",backArrowIcon);
 		backButton.addClassName("brownButton");
+		backButton.addClickListener(e->UI.getCurrent().getPage().getHistory().back());
 		
 		articleName.addClassName("whiteText");
 		
@@ -212,6 +214,9 @@ public class ArticleView  extends HorizontalLayout implements HasUrlParameter<St
 	@Override
 	public void setArticleSizes(List<Modifier> articleSizes) {  // stavlja size od tog articla
 		articleSizeRadioButtonGroup.setItems(articleSizes);
+		if(articleSizes!=null && !articleSizes.isEmpty()) {
+			articleSizeRadioButtonGroup.setValue(articleSizes.get(0));
+		}
 	
 	}
 

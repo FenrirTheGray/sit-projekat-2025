@@ -41,7 +41,7 @@ public class ComboPresenter {
     }
     
     public void findByID(String id) { // nalazi article i njegove modifiere
-        this.combo=this.findByID1(id);
+        this.combo=service.findByID(id);
        
        if (combo != null) {
     	   view.setComboName(combo.getName());
@@ -55,25 +55,24 @@ public class ComboPresenter {
 
    		
    		
-   		
-   		CheckboxGroup<Modifier> checkBoxModifierMain = view.createComboCheckBox("Moguci izbor za main",combo.getMain().get(0).getModifiers());
+   		CheckboxGroup<Modifier> checkBoxModifierMain = view.createComboCheckBox("Moguci izbor za main",combo.getMainSelection().get(0).getModifiers());
    		checkBoxModifierMain.addValueChangeListener(e->orderAmountChange(view.getProductCounter()));
    		view.setMainModifierCheckBoxGroup(checkBoxModifierMain);
    		
    		
-   		CheckboxGroup<Modifier> checkBoxModifierSide = view.createComboCheckBox("Moguci izbor za side",combo.getSide().get(0).getModifiers());
+   		CheckboxGroup<Modifier> checkBoxModifierSide = view.createComboCheckBox("Moguci izbor za side",combo.getSideSelection().get(0).getModifiers());
    		checkBoxModifierSide.addValueChangeListener(e->orderAmountChange(view.getProductCounter()));
    		view.setSideModifierCheckBoxGroup(checkBoxModifierSide);
    		
    		
-   		CheckboxGroup<Modifier> checkBoxModifierDrink = view.createComboCheckBox("Moguci izbor za drink",combo.getDrink().get(0).getModifiers());   
+   		CheckboxGroup<Modifier> checkBoxModifierDrink = view.createComboCheckBox("Moguci izbor za drink",combo.getDrinkSelection().get(0).getModifiers());   
    		checkBoxModifierDrink.setHeight("175px");
    		checkBoxModifierDrink.addValueChangeListener(e->orderAmountChange(view.getProductCounter()));
    		view.setDrinkModifierCheckBoxGroup(checkBoxModifierDrink);
    		
    		
    		
-   		RadioButtonGroup<Article> comboMainRadio = view.createComboRadioButtons("Moguci Izbor za main",combo.getMain());
+   		RadioButtonGroup<Article> comboMainRadio = view.createComboRadioButtons("Moguci Izbor za main",combo.getMainSelection());
    		
    		
    		comboMainRadio.addValueChangeListener(e -> { //stavlja modifiere od izabranog articla
@@ -84,9 +83,9 @@ public class ComboPresenter {
    		});
    		
    		view.setMainRadioButtonGroup(comboMainRadio);
-   		view.getMainRadioButtonGroup().setValue(combo.getMain().get(0));
+   		view.getMainRadioButtonGroup().setValue(combo.getMainSelection().get(0));
    		
-   		RadioButtonGroup<Article> radioComboSide = view.createComboRadioButtons("Moguci izbor za side", combo.getSide());
+   		RadioButtonGroup<Article> radioComboSide = view.createComboRadioButtons("Moguci izbor za side", combo.getSideSelection());
    	
    		radioComboSide.addValueChangeListener(e -> { //stavlja modifiere od izabranog articla
 
@@ -97,13 +96,13 @@ public class ComboPresenter {
    		
    		
    		view.setSideRadioButtonGroup(radioComboSide);
-   		view.getSideRadioButtonGroup().setValue(combo.getSide().get(0));
+   		view.getSideRadioButtonGroup().setValue(combo.getSideSelection().get(0));
    		
-   		RadioButtonGroup<Article> radioComboDrink = view.createComboRadioButtons("Moguci izbor za drink", combo.getDrink());
+   		RadioButtonGroup<Article> radioComboDrink = view.createComboRadioButtons("Moguci izbor za drink", combo.getDrinkSelection());
    		radioComboDrink.setHeight("175px");
    		
    		view.setDrinkRadioButtonGroup(radioComboDrink);
-   		view.getDrinkRadioButtonGroup().setValue(combo.getDrink().get(0));
+   		view.getDrinkRadioButtonGroup().setValue(combo.getDrinkSelection().get(0));
    		
    		radioComboDrink.addValueChangeListener(e -> { //stavlja modifiere od izabranog 
    		   

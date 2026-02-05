@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
@@ -72,7 +73,7 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 	
 	@Override
 	public void setParameter(BeforeEvent event, String sentComboID) {
-		presenter.findByID1(sentComboID);
+		presenter.findByID(sentComboID);
 	}
 	public ComboView(ComboPresenter presenter) {
 		this.presenter=presenter;
@@ -81,6 +82,9 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 		Icon backArrowIcon=VaadinIcon.ARROW_BACKWARD.create();
 		Button backButton=new Button("Povratak",backArrowIcon);
 		backButton.addClassName("brownButton");
+		backButton.addClickListener(e -> {
+			UI.getCurrent().getPage().getHistory().back();
+		});
 		comboName.addClassName("whiteText");
 		
 		comboDescription.addClassName("DescriptionSpan");

@@ -55,11 +55,13 @@ public class ProductInCartService {
 				ProductInCartCombo productInCartCombo= (ProductInCartCombo) productInCart;
 				ProductInCartCombo productInCartComboNew= (ProductInCartCombo) product;
 				
-				if ((productInCartCombo.getProduct().getId().equals(productInCartComboNew.getProduct().getId()) &&  // provera da nije isto izabrano
-			        	Objects.equals(productInCartCombo.getMain(),productInCartComboNew.getMain()) &&  //Objects.equals lakse poredjenje
-						Objects.equals(productInCartCombo.getSide(),productInCartComboNew.getSide()) && 
-						Objects.equals(productInCartCombo.getDrink(),productInCartComboNew.getDrink()) && 
-			        	Objects.equals(productInCartCombo.getModifierToppings(),productInCartComboNew.getModifierToppings()))) {// ako vec postoji taj samo dodaje kolicinu
+				if (productInCartCombo.getProduct().getId().equals(productInCartComboNew.getProduct().getId()) &&  // provera da nije isto izabrano  proizvod i id
+			        	Objects.equals(productInCartCombo.getMain().getModifierToppings(),productInCartComboNew.getMain().getModifierToppings()) &&  //Objects.equals lakse poredjenje
+						Objects.equals(productInCartCombo.getSide().getModifierToppings(),productInCartComboNew.getSide().getModifierToppings()) && 
+						Objects.equals(productInCartCombo.getDrink().getModifierToppings(),productInCartComboNew.getDrink().getModifierToppings()) && 
+						Objects.equals(productInCartCombo.getMain().getProduct().getId(),productInCartComboNew.getMain().getProduct().getId()) &&  
+						Objects.equals(productInCartCombo.getSide().getProduct().getId(),productInCartComboNew.getSide().getProduct().getId()) && 
+						Objects.equals(productInCartCombo.getDrink().getProduct().getId(),productInCartComboNew.getDrink().getProduct().getId())) {// ako vec postoji taj samo dodaje kolicinu
 			            	int updatedAmount = productInCartCombo.getNumberOrdered() + productInCartComboNew.getNumberOrdered(); 
 			            	productInCartCombo.updateOrderedAmount(updatedAmount);
 			            	System.out.println(productInCartComboNew.getProduct().getName()+" "+updatedAmount);

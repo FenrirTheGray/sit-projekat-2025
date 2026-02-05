@@ -4,19 +4,12 @@ import java.util.List;
 import java.util.Set;
 
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
-import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
-import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
-import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 
 import sitprojekat.model.Article;
-import sitprojekat.model.Combo;
 import sitprojekat.model.Modifier;
-import sitprojekat.model.Product;
 
 public interface ComboViewInterface {
 

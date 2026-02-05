@@ -37,8 +37,8 @@ public class OrderService {
 
 	private final String controllerPath = "/orders";
 
-	public List<Order> getOrders(String id) {
-		return httpService.get(httpService.API_BASE_URL + controllerPath, new ParameterizedTypeReference<>() {
+	public List<Order> getOrders() {
+		return httpService.get(httpService.API_BASE_URL + controllerPath+"/user-orders", new ParameterizedTypeReference<>() {
 		});
 	}
 

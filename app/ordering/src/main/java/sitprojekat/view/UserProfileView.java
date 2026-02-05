@@ -102,14 +102,15 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 		formContainer.setJustifyContentMode(JustifyContentMode.CENTER);
 		
 		add(backButton,formContainer);
+		presenter.updateView();
 	}
 	@Override
 	public String getEmailField() {
 		return emailField.getValue();
 	}
 	@Override
-	public void setEmailField(EmailField email) {
-		
+	public void setEmailField(String email) {
+		emailField.setValue(email);
 		
 	}
 	@Override
@@ -117,8 +118,8 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 		return addressTextField.getValue();
 	}
 	@Override
-	public void setAddressTextField(TextField address) {
-		// TODO Auto-generated method stub
+	public void setAddressTextField(String address) {
+		this.addressTextField.setValue(address);
 		
 	}
 	@Override
@@ -126,8 +127,8 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 		return telephoneTextField.getValue();
 	}
 	@Override
-	public void setTelephoneTextField(TextField telephone) {
-		
+	public void setTelephoneTextField(String telephone) {
+		this.telephoneTextField.setValue(telephone);
 		
 	}
 	@Override
@@ -135,7 +136,7 @@ public class UserProfileView extends VerticalLayout implements UserProfileViewIn
 		return passwordPasswordField.getValue();
 	}
 	@Override
-	public void setPasswordPasswordField(PasswordField password) {
+	public void setPasswordPasswordField(String password) {
 		// TODO Auto-generated method stub
 		
 	}

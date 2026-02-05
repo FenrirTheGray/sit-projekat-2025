@@ -28,7 +28,7 @@ public class OrdersView extends VerticalLayout  implements OrdersViewInterface{
 	public OrdersView(OrdersPresenter presenter) {
 		this.presenter=presenter;
 		presenter.setView(this);
-		presenter.findById1();
+		presenter.getOrders();
 		
 		
 		
@@ -57,18 +57,33 @@ public class OrdersView extends VerticalLayout  implements OrdersViewInterface{
 		dateTimeContainer.setSpacing(false);
 		dateTimeContainer.setPadding(false);
 
-		DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd MM yyyy");
-		
-		String formattedDdateCreated = o.getCreatedAtDate().format(formatterDate);
-		
-		Span dateOrderedSpan = new Span(formattedDdateCreated);
-		dateOrderedSpan.addClassName("whiteText2");
+		Span dateOrderedSpan = new Span();
 
+		String[] createdAtDateTime=o.getCreatedAt().split(",");
+		String createdAtDate=createdAtDateTime[0].trim();
+		String createdAtTime=createdAtDateTime[1].trim();
+		
+		dateOrderedSpan.setText("Datum Porudzbine: "+createdAtDate+" Vreme Porudzbine: "+createdAtTime);
+		dateOrderedSpan.addClassName("whiteText2");
+	
+		
 		HorizontalLayout bottomRowContainer = new HorizontalLayout(); // donji red
 		bottomRowContainer.setWidthFull();
 		bottomRowContainer.setAlignItems(Alignment.CENTER);
-
-		Span timeOrderedSpan = new Span("poslato: "+o.getSentAtTime()+" uzeto "+o.getRecievedtedAtTime() );
+		String SentAtTime;
+		String RecievedtedAtTime;
+		if(o.getSentAtTime()==null) {
+			 SentAtTime="Nije jos poslato";
+		}else {
+			 SentAtTime="Poslato: "+o.getSentAtTime();
+		}
+		if(o.getSentAtTime()==null) {
+			 RecievedtedAtTime="Nije jos uzeto";
+		}else {
+			 RecievedtedAtTime= "Uzeto: "+o.getRecievedtedAtTime();
+		}
+		
+		Span timeOrderedSpan = new Span(SentAtTime+" "+RecievedtedAtTime);
 		timeOrderedSpan.addClassName("whiteText");
 
 		Button detailsButton = new Button("Detalji");

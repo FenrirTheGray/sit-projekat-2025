@@ -6,24 +6,24 @@ import com.vaadin.flow.component.UI;
 
 import sitprojekat.interfaces.ForgotenPasswordViewInterface;
 import sitprojekat.service.UserAccountService;
+import sitprojekat.service.UserService;
 
 @Component
 public class ForgotenPasswordPresenter {
 
 	
-	private UserAccountService service;
+	private UserService service;
 	private ForgotenPasswordViewInterface view;
 	
 	
 
-	public ForgotenPasswordPresenter(UserAccountService service){
-		super();
+	public ForgotenPasswordPresenter(UserService service){
 		this.service = service;
 	}
-	public UserAccountService getService() {
+	public UserService getService() {
 		return service;
 	}
-	public void setService(UserAccountService service) {
+	public void setService(UserService service) {
 		this.service = service;
 	}
 	public ForgotenPasswordViewInterface getView() {
@@ -35,8 +35,8 @@ public class ForgotenPasswordPresenter {
 	public void loginScreen() {
 		UI.getCurrent().navigate("LoginScreen");
 	}
-	public void getAccountPassword() {
-		// treba da vrati lozinku
+	public void forgotPassword(String email) {
+		service.forgotPassword(email);
 	}
 	
 	
