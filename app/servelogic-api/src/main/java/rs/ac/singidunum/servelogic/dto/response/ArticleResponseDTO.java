@@ -1,7 +1,8 @@
 package rs.ac.singidunum.servelogic.dto.response;
 
 import java.util.List;
-import rs.ac.singidunum.servelogic.dto.file.AbstractArangoDTO;
+
+import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
 
 public class ArticleResponseDTO extends AbstractArangoDTO{
 	

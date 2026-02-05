@@ -1,6 +1,6 @@
 package rs.ac.singidunum.servelogic.dto.response;
 
-import rs.ac.singidunum.servelogic.dto.file.AbstractFusekiDTO;
+import rs.ac.singidunum.servelogic.dto.AbstractFusekiDTO;
 
 public class ModifierTypeResponseDTO extends AbstractFusekiDTO {
 	

@@ -1,4 +1,4 @@
-package rs.ac.singidunum.servelogic.dto.file;
+package rs.ac.singidunum.servelogic.dto;
 
 public abstract class AbstractFusekiDTO implements IAbstractDTO {
 	String id;

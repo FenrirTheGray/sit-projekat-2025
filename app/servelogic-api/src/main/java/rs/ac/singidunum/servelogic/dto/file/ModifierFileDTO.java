@@ -1,5 +1,7 @@
 package rs.ac.singidunum.servelogic.dto.file;
 
+import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
+
 public class ModifierFileDTO extends AbstractArangoDTO {
 	private String name;
 	private String description;

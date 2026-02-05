@@ -2,7 +2,7 @@ package rs.ac.singidunum.servelogic.dto.update;
 
 import java.util.List;
 
-import rs.ac.singidunum.servelogic.dto.file.AbstractArangoDTO;
+import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
 
 public class ArticleUpdateRequestDTO extends AbstractArangoDTO {
 	

@@ -1,7 +1,7 @@
 package rs.ac.singidunum.servelogic.dto.update;
 
+import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
 import rs.ac.singidunum.servelogic.dto.create.ChoiceCreateRequestDTO;
-import rs.ac.singidunum.servelogic.dto.file.AbstractArangoDTO;
 import rs.ac.singidunum.servelogic.model.OrderStatus;
 import java.util.Date;
 import java.util.List;

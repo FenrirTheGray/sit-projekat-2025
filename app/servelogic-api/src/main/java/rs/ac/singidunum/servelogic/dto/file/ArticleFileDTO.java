@@ -4,6 +4,8 @@ import java.util.List;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
+
 public class ArticleFileDTO extends AbstractArangoDTO {
 	private String name;
 	private String description;

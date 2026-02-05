@@ -1,6 +1,6 @@
 package rs.ac.singidunum.servelogic.dto.response;
 
-import rs.ac.singidunum.servelogic.dto.file.AbstractArangoDTO;
+import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
 
 public class UserResponseDTO extends AbstractArangoDTO {
 

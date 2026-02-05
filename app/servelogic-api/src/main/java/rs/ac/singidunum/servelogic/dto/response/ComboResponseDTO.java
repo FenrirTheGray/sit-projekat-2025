@@ -3,7 +3,7 @@ package rs.ac.singidunum.servelogic.dto.response;
 import java.util.ArrayList;
 import java.util.List;
 
-import rs.ac.singidunum.servelogic.dto.file.AbstractArangoDTO;
+import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
 
 public class ComboResponseDTO extends AbstractArangoDTO {
     private String name;

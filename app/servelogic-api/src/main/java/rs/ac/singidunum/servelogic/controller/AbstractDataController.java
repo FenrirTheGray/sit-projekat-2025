@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import rs.ac.singidunum.servelogic.dto.file.IAbstractDTO;
+
+import rs.ac.singidunum.servelogic.dto.IAbstractDTO;
 import rs.ac.singidunum.servelogic.service.AbstractService;
 
 public abstract class AbstractDataController<T, R, C, U extends IAbstractDTO, S extends AbstractService<T, R, C, U, ?, ?>> {

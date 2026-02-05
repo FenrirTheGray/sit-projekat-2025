@@ -5,6 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import rs.ac.singidunum.servelogic.dto.create.ArticleCreateRequestDTO;
 import rs.ac.singidunum.servelogic.dto.file.ArticleFileDTO;
 import rs.ac.singidunum.servelogic.dto.response.ArticleResponseDTO;
