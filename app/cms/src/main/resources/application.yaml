@@ -5,6 +5,7 @@ spring:
 vaadin:
   frontend:
     hotdeploy: true
+  allowed-packages: software/xdev
     
 server:
   port: 7998
