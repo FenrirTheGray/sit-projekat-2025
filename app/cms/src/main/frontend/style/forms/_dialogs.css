@@ -1,0 +1,131 @@
+/* ============================================
+   DIALOG STYLES
+   ============================================ */
+
+vaadin-dialog-overlay::part(overlay) {
+    background-color: var(--cms-surface);
+    border: 1px solid var(--cms-border);
+    border-radius: 12px;
+    box-shadow: var(--cms-shadow-lg);
+}
+
+vaadin-dialog-overlay::part(content) {
+    background-color: var(--cms-surface);
+    padding: 0;
+}
+
+.category-form-dialog {
+    --lumo-base-color: var(--cms-surface);
+}
+
+.category-form-dialog::part(overlay) {
+    background-color: var(--cms-surface);
+    border: 1px solid var(--cms-border);
+    border-radius: 12px;
+    box-shadow: var(--cms-shadow-lg);
+}
+
+.category-form-dialog::part(content) {
+    background-color: var(--cms-surface);
+    color: var(--cms-text);
+    padding: 0;
+}
+
+.cms-dialog-content {
+    background-color: var(--cms-surface);
+    color: var(--cms-text);
+    padding: 1.5rem;
+}
+
+.cms-dialog-title {
+    color: var(--cms-text);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+.cms-form-field {
+    --vaadin-input-field-background: var(--cms-surface-2);
+    --vaadin-input-field-border-color: var(--cms-border);
+    --vaadin-input-field-value-color: var(--cms-text);
+    --vaadin-input-field-label-color: var(--cms-text-secondary);
+    color: var(--cms-text);
+}
+
+.cms-form-field::part(input-field) {
+    background-color: var(--cms-surface-2);
+    border: 1px solid var(--cms-border);
+    border-radius: 6px;
+}
+
+.cms-checkbox {
+    --vaadin-checkbox-label-color: var(--cms-text);
+    color: var(--cms-text);
+}
+
+.cms-checkbox::part(checkbox) {
+    background-color: var(--cms-surface-2);
+    border-color: var(--cms-border);
+}
+
+.cms-checkbox[checked]::part(checkbox) {
+    background-color: var(--cms-success);
+    border-color: var(--cms-accent);
+}
+
+.cms-button-secondary {
+    background-color: var(--cms-surface-2);
+    color: var(--cms-text);
+    border: 1px solid var(--cms-border);
+}
+
+.cms-button-secondary:hover {
+    background-color: var(--cms-surface-3);
+}
+
+/* ============================================
+   CONFIRM DIALOG
+   ============================================ */
+
+vaadin-confirm-dialog-overlay::part(overlay) {
+    background-color: var(--cms-surface);
+    border: 1px solid var(--cms-border);
+    border-radius: 12px;
+    box-shadow: var(--cms-shadow-lg);
+}
+
+vaadin-confirm-dialog-overlay::part(content) {
+    background-color: var(--cms-surface);
+    color: var(--cms-text);
+}
+
+vaadin-confirm-dialog-overlay::part(header) {
+    background-color: var(--cms-surface);
+    color: var(--cms-text);
+    border-bottom: 1px solid var(--cms-border);
+}
+
+vaadin-confirm-dialog-overlay::part(footer) {
+    background-color: var(--cms-surface);
+    border-top: 1px solid var(--cms-border);
+}
+
+vaadin-confirm-dialog-overlay [slot="header"] {
+    color: var(--cms-text);
+    font-weight: 600;
+}
+
+vaadin-confirm-dialog-overlay [slot="cancel-button"] {
+    background-color: var(--cms-surface-2);
+    color: var(--cms-text);
+    border: 1px solid var(--cms-border);
+}
+
+vaadin-confirm-dialog-overlay [slot="cancel-button"]:hover {
+    background-color: var(--cms-surface-3);
+}
+
+vaadin-confirm-dialog-overlay h2,
+vaadin-confirm-dialog-overlay .header {
+    color: var(--cms-text);
+}

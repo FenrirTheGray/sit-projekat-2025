@@ -1,0 +1,55 @@
+/* ============================================
+   SIDE NAV (for statistics views, etc.)
+   ============================================ */
+
+vaadin-side-nav {
+    --vaadin-side-nav-item-background: transparent;
+    --vaadin-side-nav-item-text-color: var(--cms-text-secondary);
+    width: 100%;
+}
+
+vaadin-side-nav vaadin-side-nav-item {
+    color: var(--cms-text-secondary);
+    border-radius: 8px;
+    transition: all var(--cms-transition);
+    width: 100%;
+}
+
+vaadin-side-nav vaadin-side-nav-item,
+vaadin-side-nav vaadin-side-nav-item a,
+vaadin-side-nav vaadin-side-nav-item span {
+    color: var(--cms-text-secondary);
+}
+
+/* Hover state - only for non-active items */
+vaadin-side-nav vaadin-side-nav-item:not([active]):hover {
+    background-color: var(--cms-surface-2);
+}
+
+vaadin-side-nav vaadin-side-nav-item:not([active]):hover,
+vaadin-side-nav vaadin-side-nav-item:not([active]):hover a,
+vaadin-side-nav vaadin-side-nav-item:not([active]):hover span {
+    color: var(--cms-text);
+}
+
+/* Active state */
+vaadin-side-nav vaadin-side-nav-item[active] {
+    background-color: var(--cms-accent-muted);
+}
+
+vaadin-side-nav vaadin-side-nav-item[active],
+vaadin-side-nav vaadin-side-nav-item[active] a,
+vaadin-side-nav vaadin-side-nav-item[active] span {
+    color: var(--cms-accent);
+}
+
+/* Active item hover - maintain active styling */
+vaadin-side-nav vaadin-side-nav-item[active]:hover {
+    background-color: var(--cms-accent-muted);
+}
+
+vaadin-side-nav vaadin-side-nav-item[active]:hover,
+vaadin-side-nav vaadin-side-nav-item[active]:hover a,
+vaadin-side-nav vaadin-side-nav-item[active]:hover span {
+    color: var(--cms-accent);
+}

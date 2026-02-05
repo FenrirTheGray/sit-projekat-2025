@@ -1,0 +1,64 @@
+/* ============================================
+   FORM STYLES
+   ============================================ */
+
+.form-container {
+    background-color: var(--cms-surface);
+    border: 1px solid var(--cms-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.form-field {
+    --vaadin-input-field-background: var(--cms-surface-2);
+    --vaadin-input-field-border-color: var(--cms-border);
+    --vaadin-input-field-value-color: var(--cms-text);
+    --vaadin-input-field-label-color: var(--cms-text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.form-field::part(input-field) {
+    background-color: var(--cms-surface-2);
+    border: 1px solid var(--cms-border);
+    border-radius: 6px;
+}
+
+.form-field::part(input-field):focus-within {
+    border-color: var(--cms-accent);
+    box-shadow: 0 0 0 3px var(--cms-accent-muted);
+}
+
+.form-checkbox {
+    --vaadin-checkbox-label-color: var(--cms-text);
+    margin: 0.5rem 0;
+}
+
+.form-checkbox::part(checkbox) {
+    background-color: var(--cms-surface-2);
+    border-color: var(--cms-border);
+}
+
+.form-checkbox[checked]::part(checkbox) {
+    background-color: var(--cms-success);
+    border-color: var(--cms-accent);
+}
+
+.form-button-save {
+    background-color: var(--cms-accent);
+    color: var(--cms-bg);
+    font-weight: 500;
+}
+
+.form-button-save:hover {
+    background-color: var(--cms-accent-hover);
+}
+
+.form-button-cancel {
+    background-color: var(--cms-surface-2);
+    color: var(--cms-text);
+    border: 1px solid var(--cms-border);
+}
+
+.form-button-cancel:hover {
+    background-color: var(--cms-surface-3);
+}

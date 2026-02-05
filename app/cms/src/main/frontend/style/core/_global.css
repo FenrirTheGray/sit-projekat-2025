@@ -1,0 +1,53 @@
+/* ============================================
+   GLOBAL VAADIN/LUMO OVERRIDES
+   ============================================ */
+
+html {
+    --lumo-font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --lumo-clickable-cursor: pointer;
+
+    /* Lumo colors */
+    --lumo-base-color: var(--cms-bg);
+    --lumo-primary-color: var(--cms-accent);
+    --lumo-primary-text-color: var(--cms-accent);
+    --lumo-body-text-color: var(--cms-text);
+    --lumo-secondary-text-color: var(--cms-text-secondary);
+    --lumo-tertiary-text-color: var(--cms-text-muted);
+    --lumo-contrast-10pct: var(--cms-border-muted);
+    --lumo-contrast-20pct: var(--cms-border);
+    --lumo-contrast-50pct: var(--cms-text-muted);
+
+    /* Success/Error */
+    --lumo-success-color: var(--cms-success);
+    --lumo-success-text-color: var(--cms-success);
+    --lumo-error-color: var(--cms-error);
+    --lumo-error-text-color: var(--cms-error);
+}
+
+/* Body background */
+body {
+    background-color: var(--cms-bg);
+    color: var(--cms-text);
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--cms-text);
+    font-weight: 600;
+    margin: 0;
+}
+
+.page-title {
+    color: var(--cms-text);
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}

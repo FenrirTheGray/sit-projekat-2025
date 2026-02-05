@@ -1,0 +1,93 @@
+/* ============================================
+   COMBO FORM SPECIFIC STYLES
+   ============================================ */
+
+/* Form layout */
+.combo-form-container {
+    gap: 50px;
+}
+
+.combo-button-layout {
+    margin-top: 1rem;
+}
+
+.combo-separator {
+    margin: 1rem 0;
+}
+
+/* Section titles */
+.combo-section-title {
+    color: var(--cms-text);
+}
+
+.combo-section-title--small {
+    color: var(--cms-text);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.combo-section-description {
+    color: var(--cms-text-secondary);
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Selected article items */
+.combo-selected-item {
+    background: var(--lumo-contrast-5pct);
+    border: 1px solid var(--lumo-contrast-20pct);
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}
+
+.combo-selected-item__name {
+    color: var(--cms-text);
+    font-weight: 500;
+}
+
+.combo-selected-item__price {
+    color: var(--cms-text-secondary);
+    font-size: 0.8rem;
+}
+
+.combo-selected-item__remove {
+    color: var(--lumo-error-color);
+}
+
+/* Error states */
+.combo-error-text {
+    color: var(--lumo-error-color);
+}
+
+.combo-section--error {
+    border: 1px solid var(--lumo-error-color);
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+/* Combo add button */
+.combo-add-button {
+    width: fit-content;
+}
+
+.combo-add-button[disabled] {
+    background-color: var(--cms-surface-3);
+    color: var(--cms-text-muted);
+    opacity: 1;
+    cursor: not-allowed;
+}
+
+/* Dialog elements */
+.combo-dialog-title {
+    color: var(--cms-text);
+    margin: 0;
+}
+
+.combo-article-row__name {
+    color: var(--cms-text);
+}
+
+.combo-article-row__price {
+    color: var(--cms-text-secondary);
+    font-size: 0.8rem;
+}
