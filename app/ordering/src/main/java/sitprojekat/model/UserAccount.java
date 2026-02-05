@@ -1,20 +1,23 @@
 package sitprojekat.model;
 
-public class UserAccount {
+public class UserAccount extends AbstractEntity{
 
 	private String email;
 	private String adress="";
 	private String phone;
 	private String password;
 	
-	public UserAccount(String email, String adress, String phone, String password) {
-		super();
+	public UserAccount(String id,String email, String adress, String phone, String password) {
+		super(id);
 		this.email = email;
 		this.adress = adress;
 		this.phone = phone;
 		this.password = password;
 	}
 
+	public UserAccount() {
+	}
+	
 	public String getEmail() {
 		return email;
 	}

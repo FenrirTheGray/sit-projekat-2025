@@ -23,6 +23,8 @@ public class OrderCreationView extends VerticalLayout implements OrderCreationVi
 
 	private String choice = "";
 	private H2 titleH2 = new H2();
+	TextField addressTextField = new TextField();
+	TextField telephoneTextField = new TextField();
 	private final OrderCreationPresenter presenter;
 
 	public OrderCreationView(OrderCreationPresenter presenter) {
@@ -34,20 +36,20 @@ public class OrderCreationView extends VerticalLayout implements OrderCreationVi
 		backButton.addClassName("brownButton");
 		backButton.getStyle().set("cursor", "pointer");
 		backButton.addClickListener(e -> presenter.backClick());
-		
+
 		presenter.setTotalPrice();
 		titleH2.addClassName("whiteText");
 
 		Icon homeIcon = VaadinIcon.HOME_O.create();
 		homeIcon.addClassName("icon");
-		TextField addressTextField = new TextField();
+		
 		addressTextField.setPrefixComponent(homeIcon);
 		addressTextField.setPlaceholder("Adresa");
 		addressTextField.addClassName("inputField");
 
 		Icon phoneIcon = VaadinIcon.PHONE.create();
 		phoneIcon.addClassName("icon");
-		TextField telephoneTextField = new TextField();
+		
 		telephoneTextField.setPrefixComponent(phoneIcon);
 		telephoneTextField.setPlaceholder("Broj telefona");
 		telephoneTextField.addClassName("inputField");
@@ -91,6 +93,15 @@ public class OrderCreationView extends VerticalLayout implements OrderCreationVi
 
 		Button createOrderButton = new Button();
 		createOrderButton.setText("Kreiraj Porudzbinu");
+		createOrderButton.addClickListener(e -> {
+
+			if (choice != "" && !addressTextField.isEmpty() && !telephoneTextField.isEmpty()) {
+				presenter.createOrder(addressTextField.getValue(),telephoneTextField.getValue(),choice);
+			}
+		}
+
+		);
+
 		createOrderButton.addClassName("createOrderButton");
 
 		Span disclamerSpan = new Span();
@@ -109,12 +120,29 @@ public class OrderCreationView extends VerticalLayout implements OrderCreationVi
 		orderContainer.setAlignItems(Alignment.CENTER);
 		orderContainer.setJustifyContentMode(JustifyContentMode.CENTER);
 
-		add(backButton, orderContainer);	
+		add(backButton, orderContainer);
+		presenter.setUserInfo();
 	}
 
 	@Override
 	public void setTotalPrice(double totalPrice) {
 		titleH2.setText("Ukupna Cena : " + totalPrice + " RSD");
 
+	}
+	@Override
+	public TextField getAddressTextField() {
+		return addressTextField;
+	}
+	@Override
+	public void setAddressTextField(String address) {
+		this.addressTextField.setValue(address);
+	}
+	@Override
+	public TextField getTelephoneTextField() {
+		return telephoneTextField;
+	}
+	@Override
+	public void setTelephoneTextField(String telephone) {
+		this.telephoneTextField.setValue(telephone);
 	}
 }

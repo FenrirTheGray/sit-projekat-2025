@@ -41,8 +41,12 @@ public class MainView extends VerticalLayout implements MainViewInterface{
 			
 		filterTextBox.setPlaceholder("pretraga");
 		filterTextBox.setClearButtonVisible(true);
-		filterTextBox.setSuffixComponent(VaadinIcon.SEARCH.create());
+		Icon searchICon=VaadinIcon.SEARCH.create();
+		searchICon.addClassName("cursorPointer");
+		filterTextBox.setSuffixComponent(searchICon);
 		filterTextBox.addClassName("filterTextBox");
+		
+		searchICon.addClickListener(e->{presenter.findProduct(filterTextBox.getValue());});
 		
 		promoImage.addClassName("promoImage");
 		

@@ -7,26 +7,19 @@ import com.vaadin.flow.component.UI;
 import sitprojekat.interfaces.ForgotenPasswordViewInterface;
 import sitprojekat.service.PasswordResetService;
 import sitprojekat.service.UserAccountService;
+import sitprojekat.service.UserService;
 
 @Component
 public class ForgotenPasswordPresenter {
 
 
-	private UserAccountService service;
 	private PasswordResetService passwordResetService;
 	private ForgotenPasswordViewInterface view;
 
 
 	public ForgotenPasswordPresenter(UserAccountService service, PasswordResetService passwordResetService){
 		super();
-		this.service = service;
 		this.passwordResetService = passwordResetService;
-	}
-	public UserAccountService getService() {
-		return service;
-	}
-	public void setService(UserAccountService service) {
-		this.service = service;
 	}
 	public ForgotenPasswordViewInterface getView() {
 		return view;

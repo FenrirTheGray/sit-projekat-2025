@@ -67,12 +67,12 @@ public class HttpService {
     }
 
     public <T, S> S post(String endpoint, T sendObject, ParameterizedTypeReference<S> responseType, boolean authorize) {
-
+    	  System.out.println(sendObject.toString());
         try {
             var requestSpec = apiClient
                     .post()
                     .uri(endpoint);
-
+          
             String token = userStoreService.getToken();
             if (authorize && token != null && !token.isEmpty()) requestSpec.header("Authorization", "Bearer " + userStoreService.getToken());
             ResponseEntity<S> response = requestSpec
