@@ -1,18 +1,11 @@
 package rs.ac.singidunum.servelogic.dto.update;
 
-public class UserUpdateRequestDTO {
-    private String key;
+import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
+
+public class UserUpdateRequestDTO extends AbstractArangoDTO {
     private String email;
     private String password;
     private String role;
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 
     public String getEmail() {
         return email;

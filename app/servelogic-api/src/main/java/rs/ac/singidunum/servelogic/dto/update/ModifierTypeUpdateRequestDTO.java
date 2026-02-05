@@ -1,6 +1,8 @@
 package rs.ac.singidunum.servelogic.dto.update;
 
-public class ModifierTypeUpdateRequestDTO {
+import rs.ac.singidunum.servelogic.dto.AbstractFusekiDTO;
+
+public class ModifierTypeUpdateRequestDTO extends AbstractFusekiDTO {
 	
 	private String id;
 	private String name;

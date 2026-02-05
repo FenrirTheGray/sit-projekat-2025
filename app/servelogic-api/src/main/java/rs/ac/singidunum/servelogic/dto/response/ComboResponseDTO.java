@@ -3,8 +3,9 @@ package rs.ac.singidunum.servelogic.dto.response;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComboResponseDTO {
-    private String key;
+import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
+
+public class ComboResponseDTO extends AbstractArangoDTO {
     private String name;
     private double basePrice;
     private boolean active;
@@ -13,12 +14,6 @@ public class ComboResponseDTO {
     private List<ArticleResponseDTO> sideSelection = new ArrayList<>();
     private List<ArticleResponseDTO> drinkSelection = new ArrayList<>();
 
-    public String getKey() {
-        return key;
-    }
-    public void setKey(String key) {
-        this.key = key;
-    }
     public String getName() {
         return name;
     }

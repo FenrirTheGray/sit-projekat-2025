@@ -10,37 +10,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import rs.ac.singidunum.servelogic.dto.create.CategoryCreateRequestDTO;
-import rs.ac.singidunum.servelogic.dto.response.CategoryResponseDTO;
-import rs.ac.singidunum.servelogic.dto.update.CategoryUpdateRequestDTO;
-import rs.ac.singidunum.servelogic.service.CategoryService;
 
-@RestController
-@RequestMapping(value = { "/api/categories", "/api/categories/" })
-public class CategoryController {
+import rs.ac.singidunum.servelogic.dto.IAbstractDTO;
+import rs.ac.singidunum.servelogic.service.AbstractService;
+
+public abstract class AbstractDataController<T, R, C, U extends IAbstractDTO, S extends AbstractService<T, R, C, U, ?, ?>> {
 	
 	@Autowired
-	private CategoryService service;
-
-//	TODO: Protect routes that get all
+	private S service;
+	
 	@GetMapping
-	public List<CategoryResponseDTO> findAll() {
+	public List<R> findAll() {
 		return service.findAll();
 	}
 	@GetMapping("/{id}")
-	public ResponseEntity<CategoryResponseDTO> findById(@PathVariable("id") String id) {
+	public ResponseEntity<R> findById(@PathVariable("id") String id) {
 		return service.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 	@PostMapping
-	public ResponseEntity<CategoryResponseDTO> create(@RequestBody CategoryCreateRequestDTO item) {
+	public ResponseEntity<R> create(@RequestBody C item) {
 		return service.create(item).map(created -> ResponseEntity.status(HttpStatus.CREATED).body(created))
 				.orElse(ResponseEntity.badRequest().build());
 	}
 	@PutMapping("/{id}")
-	public ResponseEntity<CategoryResponseDTO> update(@PathVariable String id, @RequestBody CategoryUpdateRequestDTO item) {
-		if (item.getId() != null && item.getId().equals(id)) {
+	public ResponseEntity<R> update(@PathVariable String id, @RequestBody U item) {
+		if (item != null && item.getIdOrKey() != null && item.getIdOrKey().equals(id)) {
 			return service.update(item).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
 		}
 		return ResponseEntity.badRequest().build();

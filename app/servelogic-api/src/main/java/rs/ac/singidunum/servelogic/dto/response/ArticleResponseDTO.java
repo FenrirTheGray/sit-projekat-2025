@@ -2,9 +2,10 @@ package rs.ac.singidunum.servelogic.dto.response;
 
 import java.util.List;
 
-public class ArticleResponseDTO {
+import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
+
+public class ArticleResponseDTO extends AbstractArangoDTO{
 	
-	private String key;
 	private String name;
 	private String description;
 	private String imageUrl;
@@ -13,12 +14,6 @@ public class ArticleResponseDTO {
 	private CategoryResponseDTO category;
 	private List<ModifierResponseDTO> modifiers;
 	
-	public String getKey() {
-		return key;
-	}
-	public void setKey(String key) {
-		this.key = key;
-	}
 	public String getName() {
 		return name;
 	}

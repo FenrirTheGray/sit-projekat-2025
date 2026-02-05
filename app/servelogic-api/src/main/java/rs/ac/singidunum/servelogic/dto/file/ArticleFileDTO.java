@@ -1,17 +1,21 @@
-package rs.ac.singidunum.servelogic.dto.update;
+package rs.ac.singidunum.servelogic.dto.file;
 
 import java.util.List;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
 
-public class ArticleUpdateRequestDTO extends AbstractArangoDTO {
-	
+public class ArticleFileDTO extends AbstractArangoDTO {
 	private String name;
 	private String description;
 	private String imageUrl;
-	private Double basePrice;
-	private Boolean active;
+	private double basePrice;
+	private boolean active;
 	private String categoryId;
+	
+	@JacksonXmlElementWrapper(localName = "modifiers")
+	@JacksonXmlProperty(localName = "modifier")
 	private List<String> modifiers;
 	
 	public String getName() {
@@ -32,16 +36,16 @@ public class ArticleUpdateRequestDTO extends AbstractArangoDTO {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	public Double getBasePrice() {
+	public double getBasePrice() {
 		return basePrice;
 	}
-	public void setBasePrice(Double basePrice) {
+	public void setBasePrice(double basePrice) {
 		this.basePrice = basePrice;
 	}
-	public Boolean isActive() {
+	public boolean isActive() {
 		return active;
 	}
-	public void setActive(Boolean active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 	public String getCategoryId() {
@@ -56,5 +60,4 @@ public class ArticleUpdateRequestDTO extends AbstractArangoDTO {
 	public void setModifiers(List<String> modifiers) {
 		this.modifiers = modifiers;
 	}
-	
 }

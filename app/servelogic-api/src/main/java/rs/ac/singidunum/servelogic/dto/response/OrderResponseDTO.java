@@ -1,24 +1,16 @@
 package rs.ac.singidunum.servelogic.dto.response;
 
+import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
 import rs.ac.singidunum.servelogic.model.Choice;
 import rs.ac.singidunum.servelogic.model.OrderStatus;
 
 import java.util.List;
 
-public class OrderResponseDTO {
-    private String key;
+public class OrderResponseDTO extends AbstractArangoDTO {
     private String createdAt;
     private OrderStatus status;
     private UserResponseDTO user;
     private List<Choice> choices;
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 
     public String getCreatedAt() {
         return createdAt;

@@ -1,23 +1,16 @@
 package rs.ac.singidunum.servelogic.dto.update;
 
+import rs.ac.singidunum.servelogic.dto.AbstractArangoDTO;
 import rs.ac.singidunum.servelogic.dto.create.ChoiceCreateRequestDTO;
 import rs.ac.singidunum.servelogic.model.OrderStatus;
-
 import java.util.Date;
 import java.util.List;
 
-public class OrderUpdateRequestDTO {
-    private String key;
+public class OrderUpdateRequestDTO extends AbstractArangoDTO {
     private Date createdAt;
     private OrderStatus status;
     private List<ChoiceCreateRequestDTO> choices;
 
-    public String getKey() {
-        return key;
-    }
-    public void setKey(String key) {
-        this.key = key;
-    }
     public Date getCreatedAt() {
         return createdAt;
     }

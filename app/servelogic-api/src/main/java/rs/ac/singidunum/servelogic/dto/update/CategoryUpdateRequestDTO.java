@@ -1,18 +1,13 @@
 package rs.ac.singidunum.servelogic.dto.update;
 
-public class CategoryUpdateRequestDTO {
+import rs.ac.singidunum.servelogic.dto.AbstractFusekiDTO;
+
+public class CategoryUpdateRequestDTO extends AbstractFusekiDTO {
 	
-	private String id;
 	private String name;
 	private String description;
 	private Boolean active;
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}
