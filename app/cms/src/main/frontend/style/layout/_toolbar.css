@@ -1,0 +1,66 @@
+/* ============================================
+   VIEW TOOLBAR
+   ============================================ */
+
+.view-container-toolbar {
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+}
+
+.view-search-bar {
+    --vaadin-input-field-background: var(--cms-surface);
+    --vaadin-input-field-border-color: var(--cms-border);
+    --vaadin-input-field-value-color: var(--cms-text);
+    --vaadin-input-field-placeholder-color: var(--cms-text-muted);
+    width: 280px;
+}
+
+.view-search-bar::part(input-field) {
+    background-color: var(--cms-surface);
+    border: 1px solid var(--cms-border);
+    border-radius: 8px;
+    padding-left: 0.5rem;
+}
+
+.view-search-bar [slot="prefix"] {
+    color: var(--cms-text-muted);
+    margin-right: 0.5rem;
+}
+
+.view-search-bar::part(input-field):hover {
+    border-color: var(--cms-text-secondary);
+}
+
+.view-search-bar::part(input-field):hover [slot="prefix"] {
+    color: red;
+}
+
+.view-search-bar::part(input-field):focus-within {
+    border-color: var(--cms-accent);
+    box-shadow: 0 0 0 3px var(--cms-accent-muted);
+}
+
+.view-button-add {
+    background-color: var(--cms-surface);
+    color: var(--cms-text);
+    border: 1px solid var(--cms-border);
+    border-radius: 8px;
+    padding: 0 1.25rem;
+    height: 2.5rem;
+    font-weight: 500;
+    transition: all var(--cms-transition);
+    cursor: pointer;
+}
+
+.view-button-add:hover {
+    background-color: var(--cms-surface-2);
+    border-color: var(--cms-accent);
+    color: var(--cms-accent);
+}
+
+.view-container-all-items {
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 1rem;
+    width: 100%;
+}

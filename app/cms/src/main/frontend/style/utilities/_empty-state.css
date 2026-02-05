@@ -1,0 +1,10 @@
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+
+.empty-state-message {
+    color: var(--cms-text-secondary);
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 3rem 1rem;
+}

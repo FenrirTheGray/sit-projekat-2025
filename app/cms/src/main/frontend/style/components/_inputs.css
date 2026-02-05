@@ -1,0 +1,115 @@
+/* ============================================
+   INPUT FIELDS
+   ============================================ */
+
+vaadin-text-field,
+vaadin-password-field,
+vaadin-text-area,
+vaadin-number-field,
+vaadin-combo-box,
+vaadin-select,
+vaadin-date-picker {
+    --vaadin-input-field-background: var(--cms-surface);
+    --vaadin-input-field-border-color: var(--cms-border);
+    --vaadin-input-field-border-radius: 6px;
+    --vaadin-input-field-value-color: var(--cms-text);
+    --vaadin-input-field-label-color: var(--cms-text-secondary);
+    --vaadin-input-field-placeholder-color: var(--cms-text-muted);
+    --vaadin-input-field-hover-highlight-opacity: 0;
+    color: var(--cms-text);
+}
+
+vaadin-text-field::part(input-field),
+vaadin-password-field::part(input-field),
+vaadin-text-area::part(input-field),
+vaadin-number-field::part(input-field),
+vaadin-combo-box::part(input-field),
+vaadin-select::part(input-field) {
+    background-color: var(--cms-surface);
+    border: 1px solid var(--cms-border);
+    border-radius: 6px;
+    transition: border-color var(--cms-transition);
+}
+
+vaadin-text-field::part(input-field):hover,
+vaadin-password-field::part(input-field):hover,
+vaadin-text-area::part(input-field):hover,
+vaadin-number-field::part(input-field):hover,
+vaadin-combo-box::part(input-field):hover,
+vaadin-select::part(input-field):hover {
+    border-color: var(--cms-text-muted);
+}
+
+vaadin-text-field::part(input-field):focus-within,
+vaadin-password-field::part(input-field):focus-within,
+vaadin-text-area::part(input-field):focus-within,
+vaadin-number-field::part(input-field):focus-within,
+vaadin-combo-box::part(input-field):focus-within,
+vaadin-select::part(input-field):focus-within {
+    border-color: var(--cms-accent);
+    box-shadow: 0 0 0 3px var(--cms-accent-muted);
+}
+
+/* Invalid state */
+vaadin-text-field[invalid]::part(input-field),
+vaadin-password-field[invalid]::part(input-field),
+vaadin-text-area[invalid]::part(input-field),
+vaadin-number-field[invalid]::part(input-field) {
+    border-color: var(--cms-error);
+}
+
+/* Error message */
+vaadin-text-field::part(error-message),
+vaadin-password-field::part(error-message),
+vaadin-text-area::part(error-message),
+vaadin-number-field::part(error-message),
+vaadin-combo-box::part(error-message) {
+    color: var(--cms-error);
+}
+
+/* Required indicator */
+vaadin-text-field::part(required-indicator),
+vaadin-text-area::part(required-indicator),
+vaadin-number-field::part(required-indicator),
+vaadin-combo-box::part(required-indicator) {
+    color: var(--cms-error);
+}
+
+/* Clear button */
+.view-search-bar::part(clear-button) {
+    color: var(--cms-text-muted);
+    transition: color var(--cms-transition);
+}
+
+.view-search-bar::part(clear-button):hover {
+    color: var(--cms-error);
+}
+
+/* ============================================
+   COMBO BOX OVERLAY
+   ============================================ */
+
+vaadin-combo-box-overlay::part(overlay) {
+    background-color: var(--cms-surface);
+    border: 1px solid var(--cms-border);
+    border-radius: 6px;
+    box-shadow: var(--cms-shadow-lg);
+}
+
+vaadin-combo-box-overlay::part(content) {
+    background-color: var(--cms-surface);
+}
+
+vaadin-combo-box-item {
+    --vaadin-item-selected-state-layer-color: var(--cms-accent-muted);
+    color: var(--cms-text);
+    background-color: transparent;
+}
+
+vaadin-combo-box-item:hover {
+    background-color: var(--cms-surface-2);
+}
+
+vaadin-combo-box-item[selected] {
+    background-color: var(--cms-accent-muted);
+}
