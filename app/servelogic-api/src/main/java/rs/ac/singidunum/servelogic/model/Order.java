@@ -2,7 +2,6 @@ package rs.ac.singidunum.servelogic.model;
 
 import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
-import org.springframework.data.annotation.Transient;
 
 import java.util.ArrayList;
 import java.util.Date;

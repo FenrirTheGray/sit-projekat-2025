@@ -6,15 +6,11 @@ import org.springframework.stereotype.Service;
 import rs.ac.singidunum.servelogic.dto.create.ComboCreateRequestDTO;
 import rs.ac.singidunum.servelogic.dto.response.ComboResponseDTO;
 import rs.ac.singidunum.servelogic.dto.update.ComboUpdateRequestDTO;
-import rs.ac.singidunum.servelogic.mapper.ArticleMapper;
 import rs.ac.singidunum.servelogic.mapper.ComboMapper;
 import rs.ac.singidunum.servelogic.model.Combo;
-import rs.ac.singidunum.servelogic.model.User;
-import rs.ac.singidunum.servelogic.repository.IArticleRepository;
 import rs.ac.singidunum.servelogic.repository.IComboRepository;
 import rs.ac.singidunum.servelogic.utility.ArangoFusekiReferenceService;
 
-import java.net.http.HttpHeaders;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

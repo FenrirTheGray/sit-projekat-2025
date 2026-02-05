@@ -1,7 +1,5 @@
 package rs.ac.singidunum.servelogic.dto.response;
 
-import java.util.Date;
-
 public class LoginResponseDTO {
     String token;
 

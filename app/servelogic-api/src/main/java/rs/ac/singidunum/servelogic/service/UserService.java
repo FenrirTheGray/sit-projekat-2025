@@ -12,7 +12,6 @@ import rs.ac.singidunum.servelogic.mapper.IUserMapper;
 import rs.ac.singidunum.servelogic.model.User;
 import rs.ac.singidunum.servelogic.repository.IUserRepository;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

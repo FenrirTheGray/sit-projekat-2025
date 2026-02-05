@@ -20,9 +20,18 @@ public class UserService {
 
     public boolean login(String email, String password){
         LoginRequestDTO loginRequest = new LoginRequestDTO(email, password);
-        LoginResponseDTO responseDTO = httpService.post(httpService.AUTH_BASE_URL + "/login", loginRequest, LoginResponseDTO.class, false);
+        LoginResponseDTO responseDTO;
 
-        if(responseDTO.token() == null || responseDTO.token().isEmpty()) return false;
+        try {
+            responseDTO = httpService.post(httpService.AUTH_BASE_URL + "/login", loginRequest, LoginResponseDTO.class, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        if(responseDTO == null || responseDTO.token() == null || responseDTO.token().isBlank()) {
+            return false;
+        }
 
         userStoreService.setToken(responseDTO.token());
 

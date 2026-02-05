@@ -1,7 +1,6 @@
 package rs.ac.singidunum.servelogic.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 import rs.ac.singidunum.servelogic.dto.create.RegisterRequestDTO;
 import rs.ac.singidunum.servelogic.dto.create.UserCreateRequestDTO;
 import rs.ac.singidunum.servelogic.dto.response.UserResponseDTO;
