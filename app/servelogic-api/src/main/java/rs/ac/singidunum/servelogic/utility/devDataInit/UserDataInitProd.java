@@ -1,6 +1,7 @@
 package rs.ac.singidunum.servelogic.utility.devDataInit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -12,20 +13,21 @@ import rs.ac.singidunum.servelogic.service.UserService;
 @Order(4)
 @Profile("!devDataInit")
 public class UserDataInitProd extends AbstractDataInit<IUserRepository, User> {
-	
+
     @Autowired
-	protected UserService service;
+    protected UserService service;
+
+    @Value("${app.root-user.email}")
+    private String rootEmail;
+
+    @Value("${app.root-user.password}")
+    private String rootPassword;
 
     @Override
     public void dataInit() {
-
-//    	Default root user
-    	String email = System.getenv().getOrDefault("ROOT_USER_EMAIL", "root@sl.com");
-    	String password = System.getenv().getOrDefault("ROOT_USER_PASSWORD", "root");
-        service.create(new User(null, null, email, password, "ADMIN"));
-        
+        service.create(new User(null, null, rootEmail, rootPassword, "ADMIN"));
         initMore();
     }
 
-	protected void initMore() {}
+    protected void initMore() {}
 }

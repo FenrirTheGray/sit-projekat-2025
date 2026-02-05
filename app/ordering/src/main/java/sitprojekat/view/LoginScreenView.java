@@ -1,6 +1,7 @@
 package sitprojekat.view;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
@@ -14,7 +15,8 @@ import com.vaadin.flow.router.Route;
 import sitprojekat.interfaces.LoginScreenViewInterface;
 import sitprojekat.presenter.LoginScreenPresenter;
 
-@StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")        
+@CssImport("./style/style.css")
+@StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")
 @Route("LoginScreen")
 public class LoginScreenView extends VerticalLayout implements LoginScreenViewInterface{
 
