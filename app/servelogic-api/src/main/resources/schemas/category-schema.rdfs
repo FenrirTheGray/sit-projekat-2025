@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<rdf:RDF 
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:sl="http://www.singidunum.ac.rs/servelogic#">
+
+    <rdfs:Class rdf:about="http://www.singidunum.ac.rs/servelogic#Category"/>
+
+    <rdf:Property rdf:about="http://www.singidunum.ac.rs/servelogic#name">
+        <rdfs:domain rdf:resource="http://www.singidunum.ac.rs/servelogic#Category"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://www.singidunum.ac.rs/servelogic#description">
+        <rdfs:domain rdf:resource="http://www.singidunum.ac.rs/servelogic#Category"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://www.singidunum.ac.rs/servelogic#active">
+        <rdfs:domain rdf:resource="http://www.singidunum.ac.rs/servelogic#Category"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </rdf:Property>
+
+</rdf:RDF>

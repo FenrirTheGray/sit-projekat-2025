@@ -32,6 +32,18 @@ public abstract class AbstractFileController<T, F, W extends FileXMLWrapper<F>, 
 
 		case "xml" -> ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + getFilename() + ".xml")
 				.contentType(MediaType.APPLICATION_XML).body(service.wrapper(data));
+//		TODO: cleanup after fully implemented
+		case "rdf" -> {
+			byte[] exp = service.exportRdf(data);
+			if (exp.length > 0) {
+				yield ResponseEntity.ok()
+			        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + getFilename() + ".rdf")
+			        .contentType(MediaType.parseMediaType("application/rdf+xml"))
+			        .body(exp);
+			} else {
+				yield ResponseEntity.badRequest().body(new ResponseWithMessageDTO("Not yet implemented. Will be Soon™!"));
+			}
+		}
 
 		default -> ResponseEntity.badRequest().body(new ResponseWithMessageDTO("Unsupported format"));
 		};

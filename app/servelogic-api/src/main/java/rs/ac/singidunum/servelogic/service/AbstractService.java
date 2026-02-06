@@ -25,10 +25,28 @@ public abstract class AbstractService <T, R, C, U, F, X extends FileXMLWrapper<F
     protected abstract Class<F> getDtoClass();
     protected abstract Class<X> getXmlWrapperClass();
     
+//    TODO: abstract it when implemented fully to keep the codebase clean
+//    	To override. Doesn't break existing functionaity 
+    protected byte[] convertDtosToRdf(List<F> dtos) {
+    	return new byte[0];
+    }
+    protected List<F> convertRdfToDtos(byte[] fileData) throws Exception {
+    	return new ArrayList<F>();
+    }
+
+    public byte[] exportRdf(List<F> data) {
+        return convertDtosToRdf(data);
+    }
+    
     @Transactional
 	public void importData(byte[] fileData, String format) throws Exception {
-	    List<F> dtos = convertToDtos(fileData, format);
-	    processEntities(dtos);
+    	List<F> dtos;
+        if (format.equalsIgnoreCase("rdf")) {
+            dtos = convertRdfToDtos(fileData);
+        } else {
+            dtos = convertToDtos(fileData, format);
+        }
+        processEntities(dtos);
 	}
     
     protected abstract void processEntities(List<F> dtos);

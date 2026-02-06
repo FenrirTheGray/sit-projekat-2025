@@ -115,7 +115,6 @@ public class CategoryRepository implements CrudRepository<Category, String>{
 
 	    db.getConnection().update(updateQuery);
 	    
-	    // Update cache with the fresh object
 	    cache.put(item.getId(), new CachedValue<>(item, System.currentTimeMillis() + TTL_MS));
 	    return item;
 	}
@@ -132,11 +131,43 @@ public class CategoryRepository implements CrudRepository<Category, String>{
 
 	@Override
 	public <S extends Category> Iterable<S> saveAll(Iterable<S> entities) {
-		List<S> saved = new ArrayList<>();
-		entities.forEach(entity -> {
-			saved.add(save(entity));
-		});
-		return saved;
+	    StringBuilder sparqlBatch = new StringBuilder();
+	    sparqlBatch.append(String.format("PREFIX : <%s> \n", Category.ns));
+	    
+	    List<S> savedItems = new ArrayList<>();
+	    
+	    for (S item : entities) {
+	        if (item.getId() == null) {
+	            item.setId(db.generateUUID4());
+	        }
+	        
+	        cache.remove(item.getId());
+
+	        // Construct one DELETE/INSERT block per entity
+	        sparqlBatch.append(String.format(
+	            "DELETE { :%s ?p ?o } WHERE { :%s ?p ?o } ;\n" +
+	            "INSERT DATA { " +
+	            "  :%s a :Category ; " +
+	            "      :name \"%s\" ; " +
+	            "      :description \"%s\" ; " +
+	            "      :active %b . " +
+	            "} ;\n", 
+	            item.getId(), item.getId(), 
+	            item.getId(), 
+	            item.getName().replace("\"", "\\\""), 
+	            item.getDescription() != null ? item.getDescription().replace("\"", "\\\"") : "", 
+	            item.isActive()
+	        ));
+	        savedItems.add(item);
+	    }
+
+	    db.getConnection().update(sparqlBatch.toString());
+	    
+	    for (S item : savedItems) {
+	        cache.put(item.getId(), new CachedValue<>(item, System.currentTimeMillis() + TTL_MS));
+	    }
+	    
+	    return savedItems;
 	}
 
 	@Override
