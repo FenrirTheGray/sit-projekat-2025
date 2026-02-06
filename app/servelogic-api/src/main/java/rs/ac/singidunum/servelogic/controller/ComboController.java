@@ -5,9 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.ac.singidunum.servelogic.dto.create.ComboCreateRequestDTO;
-import rs.ac.singidunum.servelogic.dto.response.ArticleResponseDTO;
 import rs.ac.singidunum.servelogic.dto.response.ComboResponseDTO;
-import rs.ac.singidunum.servelogic.dto.update.ArticleUpdateRequestDTO;
 import rs.ac.singidunum.servelogic.dto.update.ComboUpdateRequestDTO;
 import rs.ac.singidunum.servelogic.service.ComboService;
 
