@@ -1,0 +1,113 @@
+/* ============================================
+   ITEM CARDS (Categories, Articles, etc.)
+   ============================================ */
+
+.item-card {
+    background-color: var(--cms-surface);
+    border: 1px solid var(--cms-border);
+    border-radius: 12px;
+    padding: 0;
+    margin-bottom: 0.75rem;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 125px;
+    transition: all var(--cms-transition);
+}
+
+.item-card:hover {
+    border-color: var(--cms-text-muted);
+    box-shadow: var(--cms-shadow-sm);
+}
+
+.item-image {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    min-height: 60px;
+    background-color: var(--cms-surface-2);
+    border-radius: 8px;
+    margin: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-icon {
+    color: var(--cms-text-secondary);
+}
+
+.item-container-info {
+    padding: 12px 0;
+    gap: 4px;
+}
+
+.item-info {
+    color: var(--cms-text);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.item-info:first-child {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.item-info:nth-child(2) {
+    color: var(--cms-text-secondary);
+}
+
+.item-container-buttons {
+    padding: 8px 16px;
+    gap: 4px;
+}
+
+.item-buttons-edit-and-delete {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--cms-text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--cms-transition);
+}
+
+.item-buttons-edit-and-delete:hover {
+    background-color: var(--cms-surface-2);
+    color: var(--cms-text);
+}
+
+.item-buttons-edit-and-delete:last-child:hover {
+    background-color: var(--cms-error-muted);
+    color: var(--cms-error);
+}
+
+/* ============================================
+   STATUS BADGES
+   ============================================ */
+
+.status-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.status-badge--active {
+    background-color: var(--cms-success-muted);
+    color: var(--cms-text);
+}
+
+.status-badge--inactive {
+    background-color: var(--cms-surface-3);
+    color: var(--cms-text-muted);
+}

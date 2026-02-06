@@ -4,24 +4,23 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
 
-import sitprojekat.interfaces.AccountCreationViewInterface;
 import sitprojekat.model.UserAccount;
-import sitprojekat.service.UserAccountService;
 import sitprojekat.service.UserService;
+import sitprojekat.view.AccountCreationView;
 
 @Component
 public class AccountCreationPresenter {
 
-	private AccountCreationViewInterface view;
+	private AccountCreationView view;
 	private UserAccount model;
 	private UserService service;
 	public AccountCreationPresenter(UserService service) {
 		this.service=service;
 	}
-	public AccountCreationViewInterface getView() {
+	public AccountCreationView getView() {
 		return view;
 	}
-	public void setView(AccountCreationViewInterface view) {
+	public void setView(AccountCreationView view) {
 		this.view = view;
 	}
 	public UserAccount getModel() {

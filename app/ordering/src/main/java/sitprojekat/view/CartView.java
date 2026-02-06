@@ -14,7 +14,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.CartViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.Combo;
 import sitprojekat.model.Modifier;
@@ -24,7 +23,7 @@ import sitprojekat.presenter.CartPresenter;
 
 @CssImport("./style/style.css")
 @Route(value = "Cart", layout = HeaderAndNavBar.class)
-public class CartView extends VerticalLayout implements CartViewInterface {
+public class CartView extends VerticalLayout{
 
 	/**
 	 * 
@@ -198,7 +197,6 @@ public class CartView extends VerticalLayout implements CartViewInterface {
 		return productOrderedContainer;
 	}
 
-	@Override
 	public void showCartItems(List<ProductInCart> productsInCart) {
 		orderedProductsContainer.removeAll(); // brise se staro
 
@@ -217,7 +215,6 @@ public class CartView extends VerticalLayout implements CartViewInterface {
 
 	}
 
-	@Override
 	public void updateTotalPrice(double totalPrice) { // ukupna cena od svih proizvoda
 		totalPriceH4.setText("Ukupna Cena: " + totalPrice + " RSD");
 

@@ -13,12 +13,11 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 
-import sitprojekat.interfaces.HeaderAndNavBarInterface;
 import sitprojekat.presenter.HeaderAndNavBarPresenter;
 
 @CssImport("./style/style.css")
 @StyleSheet("https://fonts.googleapis.com/css?family=Kaushan+Script")                       //import od googla za font 
-public class HeaderAndNavBar extends AppLayout implements HeaderAndNavBarInterface {
+public class HeaderAndNavBar extends AppLayout{
 
 	/**
 	 * 
@@ -84,12 +83,10 @@ public class HeaderAndNavBar extends AppLayout implements HeaderAndNavBarInterfa
 	}
 
 
-	@Override
 	public SideNavItem getProductsView() {
 		return productsView;
 	}
 
-	@Override
 	public SideNavItem getOrdersView() {
 		return ordersView;
 	}

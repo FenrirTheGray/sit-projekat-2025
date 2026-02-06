@@ -12,11 +12,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.MainViewInterface;
 import sitprojekat.presenter.MainPresenter;
 
 @Route(value = "Main",layout = HeaderAndNavBar.class)
-public class MainView extends VerticalLayout implements MainViewInterface{
+public class MainView extends VerticalLayout{
 
 	/**
 	 * 
@@ -87,51 +86,51 @@ public class MainView extends VerticalLayout implements MainViewInterface{
 		add(mainContentContainer);
 	}
 
-	@Override
+	
 	public int getCurrentIndexInt() {
 		return currentIndexInt;
 	}
 
-	@Override
+	
 	public void setCurrentIndexInt(int currentIndexInt) {
 		this.currentIndexInt=currentIndexInt;
 		
 	}
 
-	@Override
+	
 	public List<String> getImagesList() {
 		return imagesList;
 	}
 
-	@Override
+	
 	public void setImagesList(List<String> imagesList) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void setPresenter(MainPresenter presenter) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public HorizontalLayout getCarouselDotsContainer() {
 		return carouselDotsContainer;
 	}
 
-	@Override
+	
 	public void setCarouselDotsContainer(HorizontalLayout carouselDotsContainer) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public Image getPromoImage() {
 		return promoImage;
 	}
 
-	@Override
+	
 	public void setPromoImage(Image promoImage) {
 		this.promoImage=promoImage;
 		

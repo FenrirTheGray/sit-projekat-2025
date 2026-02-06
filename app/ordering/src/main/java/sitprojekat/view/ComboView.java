@@ -27,16 +27,13 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.ComboViewInterface;
 import sitprojekat.model.Article;
-import sitprojekat.model.Combo;
 import sitprojekat.model.Modifier;
 import sitprojekat.presenter.ComboPresenter;
-import sitprojekat.service.ComboService;
 
 @CssImport("./style/style.css")
 @Route(value = "Combo",layout = HeaderAndNavBar.class)
-public class ComboView  extends HorizontalLayout implements HasUrlParameter<String>, ComboViewInterface{
+public class ComboView  extends HorizontalLayout implements HasUrlParameter<String>{
 
 	/**
 	 * 
@@ -71,7 +68,7 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
     VerticalLayout comboChoiceContainer=new VerticalLayout();
 	VerticalLayout comboModificationsContainer=new VerticalLayout();
 	
-	@Override
+	
 	public void setParameter(BeforeEvent event, String sentComboID) {
 		presenter.findByID(sentComboID);
 	}
@@ -191,17 +188,14 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 		    return container;                // dodaje u container i vraca pa ako ima jos pravi novi container
 	    });
 	}
-	@Override
 	public void setComboName(String string) {
 		this.comboName.setText(string);
 		
 	}
-	@Override
 	public void setComboDescription(String string) {
 		this.comboDescription.setText(string);
 		
 	}
-	@Override
 	public Integer getProductCounter() {
 		return this.productCounter.getValue();
 	}
@@ -209,86 +203,85 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 	public RadioButtonGroup<Article> getMainRadioButtonGroup() {
 		return mainRadioButtonGroup;
 	}
-	@Override
 	public void setMainRadioButtonGroup(RadioButtonGroup<Article> mainRadioButtonGroup) {
 		this.mainRadioButtonGroup=mainRadioButtonGroup;
 		
 	}
-	@Override
+	
 	public CheckboxGroup<Modifier> getMainModifierCheckBoxGroup() {
 		return mainModifierCheckBoxGroup;
 	}
-	@Override
+	
 	public void setMainModifierCheckBoxGroup(CheckboxGroup<Modifier> mainModifierCheckBoxGroup) {
 		this.mainModifierCheckBoxGroup=mainModifierCheckBoxGroup;
 		
 	}
-	@Override
+	
 	public RadioButtonGroup<Article> getSideRadioButtonGroup() {
 		return sideRadioButtonGroup;
 	}
-	@Override
+	
 	public void setSideRadioButtonGroup(RadioButtonGroup<Article> sideRadioButtonGroup) {
 		this.sideRadioButtonGroup=sideRadioButtonGroup;
 		
 	}
-	@Override
+	
 	public CheckboxGroup<Modifier> getSideModifierCheckBoxGroup() {
 		return sideModifierCheckBoxGroup;
 	}
-	@Override
+	
 	public void setSideModifierCheckBoxGroup(CheckboxGroup<Modifier> sideModifierCheckBoxGroup) {
 		this.sideModifierCheckBoxGroup=sideModifierCheckBoxGroup;
 		
 	}
-	@Override
+	
 	public RadioButtonGroup<Article> getDrinkRadioButtonGroup() {
 		return drinkRadioButtonGroup;
 	}
-	@Override
+	
 	public void setDrinkRadioButtonGroup(RadioButtonGroup<Article> drinkRadioButtonGroup) {
 		this.drinkRadioButtonGroup=drinkRadioButtonGroup;
 		
 	}
-	@Override
+	
 	public CheckboxGroup<Modifier> getDrinkModifierCheckBoxGroup() {
 		return drinkModifierCheckBoxGroup;
 	}
-	@Override
+	
 	public void setDrinkModifierCheckBoxGroup(CheckboxGroup<Modifier> drinkModifierCheckBoxGroup) {
 		this.drinkModifierCheckBoxGroup=drinkModifierCheckBoxGroup;
 		
 	}
-	@Override
+	
 	public VerticalLayout getComboChoiceContainer() {
 		return comboChoiceContainer;
 	}
-	@Override
+	
 	public void setComboChoiceContainer(VerticalLayout comboChoiceContainer) {
 		this.comboChoiceContainer=comboChoiceContainer;
 		
 	}
-	@Override
+	
 	public VerticalLayout getComboModificationsContainer() {
 		return comboModificationsContainer;
 	}
-	@Override
+	
 	public void setComboModificationsContainer(VerticalLayout comboModificationsContainer) {
 		this.comboModificationsContainer=comboModificationsContainer;
 		
 	}
-	@Override
+	
 	public void setPrice(double basePrice) {
 		this.addToCartButton.setText("Dodaj u korpu (" + basePrice + ") RSD");
 		
 	}
-	@Override
+	
 	public void AddToCartNotif(String string) {
 		Notification notification = Notification.show(string, 3000, Notification.Position.BOTTOM_START); // sta pise , koliko traje, pozicija
 	    notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);// koje je boje
 		
 	}
-	@Override
+	
 	public List<Article> getSelectedArticles() {
 		List<Article> articles=new ArrayList<Article>();
 		
@@ -303,7 +296,7 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 		    }
 		return articles;
 	}
-	@Override
+	
 	public Set<Modifier> getSelectedModifiers() {
 		Set<Modifier> modifiers=new HashSet<Modifier>();
 		
@@ -314,7 +307,7 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 
 		return modifiers;
 	}
-	@Override
+	
 	public Article getMainArticle() {
 		Article articleMain=mainRadioButtonGroup.getValue();
 //		 if (mainRadioButtonGroup.getValue() != null) {
@@ -322,11 +315,11 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 //		    }
 		return articleMain;
 	}
-	@Override
+	
 	public Set<Modifier> getMainModifiers(){
 		return mainModifierCheckBoxGroup.getSelectedItems();
 	}
-	@Override
+	
 	public Article getSideArticle() {
 		Article articleSide=sideRadioButtonGroup.getValue();
 //		 if (mainRadioButtonGroup.getValue() != null) {
@@ -334,11 +327,11 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 //		    }
 		return articleSide;
 	}
-	@Override
+	
 	public Set<Modifier> getSideModifiers(){
 		return sideModifierCheckBoxGroup.getSelectedItems();
 	}
-	@Override
+	
 	public Article getDrinkArticle() {
 		Article articleDrink=drinkRadioButtonGroup.getValue();
 //		 if (mainRadioButtonGroup.getValue() != null) {
@@ -346,7 +339,7 @@ public class ComboView  extends HorizontalLayout implements HasUrlParameter<Stri
 //		    }
 		return articleDrink;
 	}
-	@Override
+	
 	public Set<Modifier> getDrinkModifiers(){
 		return drinkModifierCheckBoxGroup.getSelectedItems();
 	}

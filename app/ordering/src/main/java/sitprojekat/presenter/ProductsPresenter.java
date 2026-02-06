@@ -8,17 +8,17 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.spring.annotation.UIScope;
 
-import sitprojekat.interfaces.ProductsViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.Combo;
 import sitprojekat.service.ArticleService;
 import sitprojekat.service.ComboService;
+import sitprojekat.view.ProductsView;
 
 @Component
 @UIScope
 public class ProductsPresenter {
 	
-	private ProductsViewInterface view;
+	private ProductsView view;
 	private ArticleService articleService;
 	private ComboService comboService;
 	
@@ -81,7 +81,7 @@ public class ProductsPresenter {
 	    	view.noContentSpan("Nema proizvoda: " +filterText); // ako nema niceg sa tim nazivom
 		}
 	}
-	public void setView(ProductsViewInterface view) {
+	public void setView(ProductsView view) {
 		this.view=view;
 		
 	}

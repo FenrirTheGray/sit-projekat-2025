@@ -14,14 +14,13 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.ProductsViewInterface;
 import sitprojekat.model.Article;
 import sitprojekat.model.Combo;
 import sitprojekat.model.Product;
 import sitprojekat.presenter.ProductsPresenter;
 
 @Route(value = "Products",layout = HeaderAndNavBar.class)
-public class ProductsView extends VerticalLayout implements ProductsViewInterface{
+public class ProductsView extends VerticalLayout{
 
 	/**
 	 * 
@@ -107,7 +106,7 @@ public class ProductsView extends VerticalLayout implements ProductsViewInterfac
 	    
 	    return productContainer;
 	}
-	@Override
+	
 	public VerticalLayout createCategorySectionArticle(String title, List<Article> articles) {
 	    H1 categoryH1 = new H1(title);
 	    categoryH1.addClassName("categoryH1");  //naslov	    
@@ -124,38 +123,38 @@ public class ProductsView extends VerticalLayout implements ProductsViewInterfac
 	    section.setPadding(false);
 	    return section;
 	}
-	@Override
+	
 	public String getFilterTextBox() {
 		return this.filterTextBox.getValue();
 		
 	}
-	@Override
+	
 	public void setFilterTextBox(String filter) {
 		this.filterTextBox.setValue(filter);
 		
 	}
-	@Override
+	
 	public List<Article>  getAllArticles() {
 		return this.allArticles;
 		
 	}
-	@Override
+	
 	public VerticalLayout getProductsContainer() {
 		return this.productsContainer;
 		
 	}
-	@Override
+	
 	public void noContentSpan(String noContent) {
 
     	noContentSpan.addClassName("whiteText");
         noContentSpan.setText(noContent);
 		
 	}
-	@Override
+	
 	public List<Combo> getAllCombos() {
 		return this.allCombos;
 	}
-	@Override
+	
 	public VerticalLayout createCategorySectionCombo(String title, List<Combo> combos) {
 		H1 categoryH1 = new H1(title);
 	    categoryH1.addClassName("categoryH1");  //naslov	    

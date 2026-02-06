@@ -1,7 +1,5 @@
 package sitprojekat.view;
 
-import java.time.format.DateTimeFormatter;
-
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Span;
@@ -9,13 +7,12 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.OrdersViewInterface;
 import sitprojekat.model.Order;
 import sitprojekat.presenter.OrdersPresenter;
 
 @CssImport("./style/style.css")
 @Route(value = "Orders", layout = HeaderAndNavBar.class)
-public class OrdersView extends VerticalLayout  implements OrdersViewInterface{
+public class OrdersView extends VerticalLayout{
 
 	/**
 	 * 
@@ -100,12 +97,12 @@ public class OrdersView extends VerticalLayout  implements OrdersViewInterface{
 		return orderContainer;
 	}
 
-	@Override
+	
 	public VerticalLayout getOrderedProductsContainer() {
 		return this.orderedProductsContainer;
 	}
 
-	@Override
+	
 	public void setOrderedProductsContainer(VerticalLayout orderedProductsContainer) {
 		this.orderedProductsContainer=orderedProductsContainer;
 		

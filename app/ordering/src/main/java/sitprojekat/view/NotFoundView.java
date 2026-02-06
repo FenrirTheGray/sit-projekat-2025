@@ -8,13 +8,12 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-import sitprojekat.interfaces.NotFoundViewInterface;
 import sitprojekat.presenter.NotFoundPresenter;
 
 
 @CssImport("./style/style.css")
 @Route(value = "404NotFound",layout = HeaderAndNavBar.class)
-public class NotFoundView extends VerticalLayout implements NotFoundViewInterface{
+public class NotFoundView extends VerticalLayout{
 
 	/**
 	 * 
@@ -40,10 +39,6 @@ public class NotFoundView extends VerticalLayout implements NotFoundViewInterfac
 		setJustifyContentMode(JustifyContentMode.CENTER);
 		setSizeFull();
 		add(titleH1,backButton);
-	}
-
-	@Override
-	public void backClick() {
 	}
 
 	
