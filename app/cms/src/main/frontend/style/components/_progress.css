@@ -1,8 +1,0 @@
-/* ============================================
-   PROGRESS BAR
-   ============================================ */
-
-vaadin-progress-bar {
-    --vaadin-progress-bar-background: var(--cms-surface-2);
-    --vaadin-progress-bar-color: var(--cms-accent);
-}
